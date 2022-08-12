@@ -1,0 +1,9 @@
+[0] Config.pm:302> INFO - This is Biber 2.11
+[0] Config.pm:305> INFO - Logfile is 'model.blg'
+[29] biber-darwin:313> INFO - === Wed Aug  3, 2022, 10:03:52
+[47] Biber.pm:371> INFO - Reading 'model.bcf'
+[117] Biber.pm:857> INFO - Found 0 citekeys in bib section 0
+[122] Utils.pm:193> WARN - The file 'model.bcf' does not contain any citations!
+[128] bbl.pm:617> INFO - Writing 'model.bbl' with encoding 'UTF-8'
+[128] bbl.pm:720> INFO - Output to model.bbl
+[129] Biber.pm:110> INFO - WARNINGS: 1

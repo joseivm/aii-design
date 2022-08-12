@@ -1,0 +1,152 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{float}
+\usepackage[
+backend=biber,
+style=bwl-FU,
+sorting=ynt
+]{biblatex}
+\addbibresource{main.bib}
+
+\title{Agricultural Index Insurance Model}
+\author{José I. Velarde Morales}
+
+\begin{document}
+\maketitle
+
+\section{Original Simplified Model}
+We are intersted in deriving a safe convex approximation for our simplified model. The simplified model deals with the single zone case, and the only constraints are that the premium is below a certain threshold and that $I(\theta)$ is piecewise linear. In the model below, $l$ is the farmer's loss, $\pi$ is the premium he pays, $I(\theta)$ is the insurance payout, and $\bar{l}$ is the loss threshold we don't want the farmer to exceed. In other words, we don't want the farmer to have net losses higher than $\bar{l}$ with high probability. The model is:
+
+\begin{align}
+    \min_{a,b,\pi} P(l + \pi_1 &-I(\theta) \geq \bar{l})\\
+    \text{s.t.   } I(\theta) &= (a\theta + b)^+\\
+    \pi &= E[I(\theta)]\\
+    \pi &\leq \bar{\pi}
+\end{align}
+
+Chance constraints, constraints of the form $P(g(x,\gamma) \leq 0)\geq 1-\epsilon$, are generally non-convex. However, from the lecture notes, we know that they can be approximated by the constraint $CVaR_{1-\epsilon}(g(x,\gamma))\leq 0$. This constraint will be convex if $g(x,\gamma)$ is convex. As a result, we try to minimize the premium and make our original objective a constraint. Using the result just discussed, the constraint can be rewritten as:
+
+\begin{align*}
+    P(l+\pi-I(\theta) \geq \bar{l}) \leq \epsilon &= P(l+\pi-I(\theta) - \bar{l} \leq 0) \geq 1-\epsilon \\
+    &\implies CVaR_{1-\epsilon}(l+\pi -I(\theta)-\bar{l}) \leq 0
+\end{align*}
+
+This means that in order for the constraint to be convex, our $g$ function : $g(x,\theta) = l+\pi -I(\theta) -\bar{l} = l+E[I(\theta)] -I(\theta) - \bar{l}$ must also be convex. The only way for it to be convex is if $I(\theta)$ is a linear function. As a result, we will make $I(\theta)$ a linear function with the same range as our original target function. Note that in this context, our $g()$ function is the farmer's net loss. The safe approximation for our chance constraints leaves us with two options: a model that minimizes the premium subject to a $CVaR$ constraint, and a model that minimizes the $CVaR$ of the loss function subject to a constraint on the premium. The two models are shown below. 
+\paragraph*{Thoughts on two models:} Of the two models, I think the minimum $CVaR$ model might be better for our application. From my conversation with Professor Osgood, it seems that constraints on premiums are commonly used in practice. Furthermore, in that model we don't have to specify a loss threshold. 
+
+\section{Minimum CVaR Model}
+This model minimizes the $CVaR$ of the farmer's net loss subject to a constraint on the premium. The premium constraints are expressed as a fraction of the full insured amount. In the model below, $p_k$ is the probability of event $k$. 
+\subsection*{Single Zone Model}
+\begin{align}
+    \min_{a,b,\pi} &\quad t + \frac{1}{\epsilon}\sum_k p_k \gamma_k\\
+    \text{s.t.   } I^k &\geq a\theta^k + b, \forall k\\
+    0 &\leq I^k \leq y, \forall k\\
+    E[I] &\leq \bar{\pi}y\\
+    \gamma_k &\geq l + E[I] -I^k -t, \forall k\\
+    \gamma_k &\geq 0, \forall k
+\end{align}
+
+Here, $y$ is the maximum insured amount, and $k$ indexes the possible realizations of $\theta, l$. 
+
+\paragraph*{Model Parameters}
+\begin{itemize}
+    \item $\epsilon$: This defines the CVaR objective. $\epsilon = 0.1$ means that our objective is on the expected value of the loss given that it is above the $90^{th}$ percentile. 
+    \item $\bar{\pi}$: This is the maximum value of the premium. 
+\end{itemize}
+
+\subsection*{Multiple Zone Model}
+For the multiple zone case, $Z$ corresponds to the number of insured zones, $K^P$ is the amount of required capital, $c_k$ is the cost of capital, and $\beta_z$ is the relative riskiness of zone $z$. $y_z$ is the maximum insured amount for zone $z$. 
+
+\begin{align}
+    \min_{a,b,\pi} \max_z &\quad CVaR_{1-\epsilon}(l_z + \pi_z -I_z)\\
+    \text{s.t.   } I_z^k &= a_z\theta^k_z +b_z, \forall k, \forall z\\
+    0 &\leq I_z^k \leq y_z, \forall k, \forall z \\
+    \pi_z &\leq \bar{\pi}y_z \\
+    K^P &= CVaR_{1-\epsilon_P}\left (\sum_z I_z \right ) - Z\bar{\pi}\\
+    \pi_z &= E[I_z]+c_k K^P \beta_z
+\end{align}
+
+Using the results from the lecture notes, a safe convex approximation of the problem is: 
+
+\begin{align}
+    \min_{a,b,\pi} m\\
+    \text{s.t.   } I_z^k &= a_z\theta^k_z +b_z, \forall k, \forall z\\
+    0 &\leq I_z^k \leq y_z, \forall k, \forall z \\
+    \pi_z &\leq \bar{\pi}y_z\\
+    \pi_z &= E[I_z]+c_K K^P\beta_z\\
+    t_z &+ \frac{1}{\epsilon} \sum_{k=1}^K p_k \gamma_z^k \leq m, \forall z \\
+    \gamma_z^k &\geq l_z^k + \pi_z -I_z^k -t_z, \forall k, \forall z\\
+    \gamma_z^k &\geq 0, \forall k, \forall z\\
+    t_P &+ \frac{1}{\epsilon_P} \sum_{k=1}^K p_k \gamma_P^k \leq K^P + Z \bar{\pi}\\
+    \gamma_P^k &\geq \sum_z I_z^k -t_P\\
+    \gamma_P^k &\geq 0, \forall k
+\end{align}
+
+\begin{itemize}
+    \item $\epsilon$: This defines the CVaR objective. $\epsilon = 0.1$ means that our objective is on the expected value of the loss given that it is above the $90^{th}$ percentile. 
+    \item $\bar{\pi}$: This is the maximum value of the premium. 
+    \item $\beta_z$: This is a measure of the relative riskiness of zone $z$. 
+    \item $\epsilon_P$: This is the epsilon corresponding to the CVaR of the entire portfolio. This is used to determine the required capital for the portfolio. Values I've seen used are $\epsilon_P=0.01$ and $\epsilon_P=0.05$. 
+\end{itemize}
+
+\section{Minimum Premium Model}
+This model minimizes the premium subject to a maximum $CVaR$ constraint. This can be interpreted either as an approximation of the original probability constraint, or as a constraint on the expected value of the loss beyond a given threshold. 
+\subsection*{Single Zone Model}
+\begin{align}
+    \min_{a,b,\pi} & E[I^k]\\
+    \text{s.t.   } I^k &\geq a\theta^k + b, \forall k\\
+    0 &\leq I^k \leq y, \forall k\\
+    t + \frac{1}{\epsilon}&\sum_k p_k \gamma_k \leq 0\\
+    \gamma_k &\geq l^k + E[I] -I^k -\bar{l} -t, \forall k\\
+    \gamma_k &\geq 0, \forall k
+\end{align}
+
+Here, $y$ is the maximum insured amount, $\bar{l}$ is the loss threshold we want to stay below of with high probability, and $k$ indexes the possible realizations of $\theta, l$.
+\paragraph*{Model Parameters}
+\begin{itemize}
+    \item $\epsilon$: This defines the tail for the CVaR constraint. $\epsilon = 0.1$ means that our CVaR constraint is on the expected value of the loss given that it is above the $90^{th}$ percentile. 
+    \item $\bar{l}$: This is the maximum loss we want farmers to face with high probability.
+\end{itemize}
+
+\subsection*{Multiple Zone Model}
+For the multiple zone case, $Z$ corresponds to the number of insured zones, $K^P$ is the amount of required capital, $c_k$ is the cost of capital, and $\beta_z$ is the relative riskiness of zone $z$. $\bar{l}$ is a constraint on the maximum $CVaR$ across all zones. In other words, we want our solution to be such that $\max_z CVaR_{1-\epsilon}(l+E[I]-I) \leq \bar{l}$. 
+
+\begin{align}
+    \min_{a,b,\pi} \max_z \pi_z\\
+    \text{s.t.   } I_z^k &\geq a_z\theta^k_z +b_z, \forall k, \forall z\\
+    0 &\leq I_z^k \leq y_z, \forall k, \forall z \\
+    CVaR_{1-\epsilon}(l &+ \pi_z -I_z) \leq \bar{l} \\
+    K^P &= CVaR_{1-\epsilon_P}\left (\sum_z I_z \right ) - Z\bar{\pi}\\
+    \pi_z &= E[I_z]+c_k K^P \beta_z
+\end{align}
+
+Using the results from the lecture notes, a safe convex approximation of the problem is: 
+
+\begin{align}
+    \min_{a,b,\pi} \max_z \pi_z\\
+    \text{s.t.   } I_z^k &\geq a_z\theta^k_z +b_z, \forall k, \forall z\\
+    0 &\leq I_z^k \leq y_z, \forall k, \forall z \\
+    t_z &+ \frac{1}{\epsilon} \sum_{k=1}^K p_k \gamma_z^k \leq \bar{l}, \forall z \\
+    \gamma_z^k &\geq l_z^k + \pi_z -I_z^k -t_z, \forall k, \forall z\\
+    \gamma_z^k &\geq 0, \forall k, \forall z\\
+    t_P &+ \frac{1}{\epsilon_P} \sum_{k=1}^K p_k \gamma_P^k \leq K^P + Z \bar{\pi}\\
+    \gamma_P^k &\geq \sum_z I_z^k -t_P\\
+    \gamma_P^k &\geq 0, \forall k\\
+    \pi_z &= E[I_z]+c_K K^P\beta_z
+\end{align}
+
+\paragraph*{Model Parameters}
+\begin{itemize}
+    \item $\epsilon$: This defines the tail for the CVaR constraint. $\epsilon = 0.1$ means that our CVaR constraint is on the expected value of the loss given that it is above the $90^{th}$ percentile. 
+    \item $\bar{l}$: This is the maximum loss we want farmers to face with high probability.
+    \item $\bar{\pi}$: This is the maximum value of the premium. 
+    \item $\beta_z$: This is a measure of the relative riskiness of zone $z$. 
+    \item $\epsilon_P$: This is the epsilon corresponding to the CVaR of the entire portfolio. This is used to determine the required capital for the portfolio. Values I've seen used are $\epsilon_P=0.01$ and $\epsilon_P=0.05$. 
+\end{itemize}
+
+
+
+\printbibliography
+
+\end{document}
