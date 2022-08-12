@@ -19,9 +19,10 @@ sorting=ynt
 We are intersted in deriving a safe convex approximation for our simplified model. The simplified model deals with the single zone case, and the only constraints are that the premium is below a certain threshold and that $I(\theta)$ is piecewise linear. In the model below, $l$ is the farmer's loss, $\pi$ is the premium he pays, $I(\theta)$ is the insurance payout, and $\bar{l}$ is the loss threshold we don't want the farmer to exceed. In other words, we don't want the farmer to have net losses higher than $\bar{l}$ with high probability. The model is:
 
 \begin{align}
-    \min_{a,b,\pi} P(l + \pi_1 &-I(\theta) \geq \bar{l})\\
-    \text{s.t.   } I(\theta) &= (a\theta + b)^+\\
+    \min_{a,b,\pi} P(l + \pi &-I(\theta) \geq \bar{l})\\
+    \text{s.t.   } I(\theta) &= (a\theta - b)^+\\
     \pi &= E[I(\theta)]\\
+    b &\geq 0\\
     \pi &\leq \bar{\pi}
 \end{align}
 
@@ -40,10 +41,11 @@ This model minimizes the $CVaR$ of the farmer's net loss subject to a constraint
 \subsection*{Single Zone Model}
 \begin{align}
     \min_{a,b,\pi} &\quad t + \frac{1}{\epsilon}\sum_k p_k \gamma_k\\
-    \text{s.t.   } I^k &\geq a\theta^k + b, \forall k\\
+    \text{s.t.   } I^k &\geq a\theta^k - b, \forall k\\
     0 &\leq I^k \leq y, \forall k\\
     E[I] &\leq \bar{\pi}y\\
-    \gamma_k &\geq l + E[I] -I^k -t, \forall k\\
+    \gamma_k &\geq l^k + E[I] -I^k -t, \forall k\\
+    b &\geq 0\\
     \gamma_k &\geq 0, \forall k
 \end{align}
 
@@ -60,10 +62,11 @@ For the multiple zone case, $Z$ corresponds to the number of insured zones, $K^P
 
 \begin{align}
     \min_{a,b,\pi} \max_z &\quad CVaR_{1-\epsilon}(l_z + \pi_z -I_z)\\
-    \text{s.t.   } I_z^k &= a_z\theta^k_z +b_z, \forall k, \forall z\\
+    \text{s.t.   } I_z^k &= a_z\theta^k_z -b_z, \forall k, \forall z\\
     0 &\leq I_z^k \leq y_z, \forall k, \forall z \\
     \pi_z &\leq \bar{\pi}y_z \\
     K^P &= CVaR_{1-\epsilon_P}\left (\sum_z I_z \right ) - Z\bar{\pi}\\
+    b_z &\geq 0, \forall z\\
     \pi_z &= E[I_z]+c_k K^P \beta_z
 \end{align}
 
