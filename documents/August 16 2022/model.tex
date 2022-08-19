@@ -32,177 +32,183 @@ The first model we proposed aimed to minimize the probability that a farmer's ne
     \pi &\leq \bar{\pi}
 \end{align}
 
-\subsection*{Two Zone}
-In the two zone case, there is an additional cost coming from the capital requirements to insure the entire portfolio. In the model below, $Z$ is the number of insured zones, $\bar{pi}$ is the maximum premium, $c_k$ is the cost of capital, and $\beta_z$ is a measure of the relative riskiness of zone $z$
+\subsection*{Multiple Zone}
+In the multiple zone case, there is an additional cost coming from the capital requirements to insure the entire portfolio. In the model below, $Z$ is the number of insured zones, $\bar{pi}$ is the maximum premium, $c_k$ is the cost of capital, and $\beta_z$ is a measure of the relative riskiness of zone $z$
 
 \begin{align}
-    \min_{t,a,b,e,\pi} \max \{ P(l_1 - \pi_1 +I_1(\theta_1) \geq \bar{l})&,P(l_2 - \pi_2 +I_2(\theta_2) \geq \bar{l})\}\\
-    \text{s.t.   } I_z(\theta_z) &= (a_z\theta_z + b_z)^+\\
+    \min_{t,a,b,e,\pi} \max_z P(l_z &- \pi_z +I_z(\theta_z) \geq \bar{l})\\
+    \text{s.t.   } I_z(\theta_z) &= (a_z\theta_z + b_z)^+, \forall z\\
     K^P &= CVaR_{1-\epsilon}\left (\sum_z I_z(\theta_z) \right ) - Z\bar{\pi}\\
-    \pi_z &= E[I_z(\theta_z)]+c_k K^P \beta_z\\
-    \pi_z &\leq \bar{\pi}
+    \pi_z &= E[I_z(\theta_z)]+c_k K^P \beta_z, \forall z \\
+    \pi_z &\leq \bar{\pi}, \forall z
 \end{align}
 
 \section{Minimum CVaR Model}
-Since probabilitic constraints are generally non-convex, we also considered trying to minimize the conditional value at risk (CVaR) of the farmer's net loss instead. I think this is a good objective for our context because it minimizes the expected value of the loss in the worse case scenarios. It also has the advantage of having been well studied in the literature, and there are tractable reformulations for having $CVaR$ in the objective and constraints for general loss distributions. This model minimizes the $CVaR$ of the farmer's net loss subject to a constraint on the premium. The premium constraints are expressed as a fraction of the full insured amount. 
-
-\paragraph*{Model Parameters}
-\begin{itemize}
-    \item $\epsilon$: This defines the CVaR objective. $\epsilon = 0.1$ means that our objective is on the expected value of the loss given that it is above the $90^{th}$ percentile. 
-    \item $\bar{\pi}$: This is the maximum value of the premium. 
-    \item $y$: maximum insured amount
-\end{itemize}
+Since probabilitic constraints are generally non-convex, we also considered trying to minimize the conditional value at risk (CVaR) of the farmer's net loss instead. I think this is a good objective for our context because it minimizes the expected value of the loss in the worse case scenarios. It also has the advantage of having been well studied in the literature, and there are tractable reformulations for having $CV@R$ in the objective and constraints for general loss distributions. This model minimizes the $CV@R$ of the farmer's net loss subject to a constraint on the premium. The premium constraints are expressed as a fraction of the full insured amount. So, if $\bar{\pi}$ is the maximum premium share and $K$ is the full insured amount, then the constraint on the premium would be: $\pi \leq K \bar{\pi}$.
 
 \subsection*{Single Zone Model}
+\paragraph*{Model Parameters}
+\begin{itemize}
+    \item $\epsilon$: This defines the CV@R objective. $\epsilon = 0.1$ means that our objective is on the expected value of the loss given that it is above the $90^{th}$ percentile. 
+    \item $\bar{\pi}$: This is the maximum value of the premium. 
+    \item $K$: maximum insured amount
+\end{itemize}
 
+\subsubsection*{Model}
 \begin{align}
     \min_{a,b\geq 0} &\ CV@R_{1-\epsilon}\left(\ell  - \min\left\{(a\theta + b), K\right\} \right)\\
-    \text{s.t.   } &\   a \mathbb{E} \left[\theta \right] + b\label{eq-02} \leq \bar{\pi}\\
+    \text{s.t.   } &\   a \mathbb{E} \left[\theta \right] + b\label{eq-02} \leq K\bar{\pi}\\
      & a\theta + b \geq 0 
 \end{align}
 
 We reformulated the problem in the following way. In the model below, $p_k$ is the probability of event $k$, and $k$ indexes the possible realizations of $\theta, l$.
 
 \begin{align}
-    \min_{a,b,\pi,\gamma,t} &\quad t + \frac{1}{\epsilon}\sum_k p_k \gamma_k\\
+    \min_{a,b,\gamma,t} &\quad t + \frac{1}{\epsilon}\sum_k p_k \gamma_k\\
     \text{s.t.   } \gamma_k &\geq l^k - \min\left\{(a\hat{l}(\theta^k) + b), K\right\} - t, \forall k\\
-    \gamma_k &\geq 0 \\
+    \gamma_k &\geq 0, \forall k \\
     0 &\leq a\hat{l}(\theta^k) + b, \forall k\\
     K\bar{\pi} &\geq a\mathbb{E}[\hat{l}(\theta)] + b
 \end{align}
 
 \subsection*{Multiple Zone Model}
-For the multiple zone case, $Z$ corresponds to the number of insured zones, $K^P$ is the amount of required capital, $c_k$ is the cost of capital, and $\beta_z$ is the relative riskiness of zone $z$. $y_z$ is the maximum insured amount for zone $z$. 
-
-\begin{align}
-    \min_{a,b,K^P,\gamma} \max_z &\quad CV@R_{1-\epsilon}(l_z - \min\left\{(a_z\hat{l_z}(\theta_z^k) + b_z), K_z\right\})\\
-    \text{s.t.   } K\bar{\pi} &\geq a_z \mathbb{E}[\hat{l_z}(\theta^k_z)] + b_z + c_k\beta_z K^P,  \forall k, \forall z\\
-    0 &\leq a_z\hat{l_z}(\theta^k_z) + b_z, \forall k, \forall z \\
-    K^P + Z\underline{\pi} &\geq CV@R_{1-\epsilon_P}\left( \sum_z a_z \hat{l_z}(\theta_z) + b_z \right)
-\end{align}
-
-The reformulation we had was: 
-
-\begin{align}
-    \min_{a,b,K^P,\gamma} \quad & m\\
-    \text{s.t.} \quad t_z &+ \frac{1}{\epsilon} \sum_k p_k \gamma_z^k \leq m, \forall z\\
-    \gamma_z^k &\geq l^k - \min\left\{(a_z\hat{l_z}(\theta_z^k) + b_z), K_z\right\} -t_z, \forall k, \forall z \\
-    \gamma_z^k &\geq 0\\
-    t_p &+ \frac{1}{\epsilon_p} \sum_k p_k \gamma_P^k \leq K^P+Z\underline{\pi}\\
-    \gamma_P^k &\geq \sum_z a_z \hat{l_z}(\theta_z) + b_z -t_p, \forall k \\
-    \gamma_P^k &\geq 0, \forall k\\
-    K_z\bar{\pi} &\geq a_z \mathbb{E}[\hat{l_z}(\theta^k_z)] + b_z + c_k \beta_z K^P, \forall z
-\end{align}
-
-\begin{itemize}
-    \item $\epsilon$: This defines the CVaR objective. $\epsilon = 0.1$ means that our objective is on the expected value of the loss given that it is above the $90^{th}$ percentile. 
-    \item $\bar{\pi}$: This is the maximum value of the premium. 
-    \item $\beta_z$: This is a measure of the relative riskiness of zone $z$. 
-    \item $\epsilon_P$: This is the epsilon corresponding to the CVaR of the entire portfolio. This is used to determine the required capital for the portfolio. Values I've seen used are $\epsilon_P=0.01$ and $\epsilon_P=0.05$. 
-\end{itemize}
-
-
-{\color{red}
-Given $\bar{\ell}$ and $\epsilon$, let $I(\theta) = (a\theta - b)^+$.
-\begin{align}
-    \min_{a,b,\geq 0} &\ \mathbb{E} \left[\left(a\theta - b\right)^+\right]\label{eq-01}\\
-    \text{s.t.   } &\ \mathbb{P}\left(\ell  - (a\theta - b)^+ \leq \bar{\ell}\right)\geq 1-\epsilon.
-\end{align}
-
-
-~~~
-
-We next approximate Problem \eqref{eq-01} by using CV@R:
-\begin{align}
-    \min_{a,b\geq 0} &\ CV@R_{1-\epsilon}\left(\ell  - \min\left\{(a\theta + b), K\right\} \right)\\
-    \text{s.t.   } &\   a \mathbb{E} \left[\theta \right] + b\label{eq-02} \leq \bar{\pi}. %+ K \mathbb{P} \left(a\theta + b\geq K\right).
-\end{align}
-
-~~~
-
-Assume scenario $(\theta_k, \ell_k)$ has probability $p_k$. Then Problem \eqref{eq-02} is equivalent to 
-\begin{align}
-    \min_{a,b,\geq 0, t,\gamma_k\in\mathbb{R}} &\ \sum_k p_k \left(a\theta_k - b\right)^+\\
-    \text{s.t.   } &\  t + \frac{1}{\epsilon}\sum_k p_k \gamma_k \leq 0;\\
-    &\ \gamma_k \geq \ell_k  - (a\theta_k - b)^+ - \bar{\ell} -t\ \  \forall k;\\
-    &\ \gamma_k \geq \ell_k  - \min\{a\theta_k +b, K\} - \bar{\ell} -t\ \  \forall k;
-    &\ \gamma_k \geq 0
-\end{align}
-We still have the same problem. The issue is that the function $\ell  - (a\theta - b)^+ - \bar{\ell}$ is not convex in $(\theta, \ell)$ so we cannot directly apply the CV@R approximation result.
-
-
-
-}
-
-
-
-
-
-\section{Minimum Premium Model}
-We also tried a model that minimizes the premium subject to a maximum $CVaR$ constraint. 
-
-\subsection*{Single Zone Model}
-\begin{align}
-    \min_{a,b,\pi} & E[I^k]\\
-    \text{s.t.   } I^k &= (a\theta^k -b)^+, \forall k\\
-    0 &\leq I^k \leq y, \forall k\\
-   CVaR_{1-\epsilon}(l &+ \pi -I) \leq \bar{l}  
-\end{align}
-
-Our reformulation was: 
-
-\begin{align}
-    \min_{a,b,\pi} & E[I^k]\\
-    \text{s.t.   } I^k &\geq a\theta^k -b, \forall k\\
-    0 &\leq I^k \leq y, \forall k\\
-    t + \frac{1}{\epsilon}&\sum_k p_k \gamma_k \leq 0\\
-    \gamma_k &\geq l^k + E[I] -I^k -\bar{l} -t, \forall k\\
-    \gamma_k &\geq 0, \forall k
-\end{align}
-
-Here, $y$ is the maximum insured amount, $\bar{l}$ is the loss threshold we want to stay below of with high probability, and $k$ indexes the possible realizations of $\theta, l$.
 \paragraph*{Model Parameters}
-\begin{itemize}
-    \item $\epsilon$: This defines the tail for the CVaR constraint. $\epsilon = 0.1$ means that our CVaR constraint is on the expected value of the loss given that it is above the $90^{th}$ percentile. 
-    \item $\bar{l}$: This is the maximum loss we want farmers to face with high probability.
-\end{itemize}
+    \begin{itemize}
+        \item $\epsilon$: This defines the CV@R objective. $\epsilon = 0.1$ means that our objective is on the expected value of the loss given that it is above the $90^{th}$ percentile. 
+        \item $\bar{\pi}$: This is the maximum value of the premium. 
+        \item $\underline{\pi}$: This is the minimum value of the premium. 
+        \item $\beta_z$: This is a measure of the relative riskiness of zone $z$. 
+        \item $\epsilon_P$: This is the epsilon corresponding to the $CV@R$ of the entire portfolio. This is used to determine the required capital for the portfolio. Values I've seen used are $\epsilon_P=0.01$ and $\epsilon_P=0.05$. 
+        \item $Z$: number of insured zones.
+        \item $c_k$: cost of capital
+        \item $K_z$: maximum insured amount of zone $z$.  
+    \end{itemize}
 
-\subsection*{Multiple Zone Model}
-For the multiple zone case, $Z$ corresponds to the number of insured zones, $K^P$ is the amount of required capital, $c_k$ is the cost of capital, and $\beta_z$ is the relative riskiness of zone $z$. $\bar{l}$ is a constraint on the maximum $CVaR$ across all zones. In other words, we want our solution to be such that $\max_z CVaR_{1-\epsilon}(l+E[I]-I) \leq \bar{l}$. 
+    \subsubsection*{Model}
+    
+    \begin{align}
+        \min_{a,b,K^P} \max_z &\quad CV@R_{1-\epsilon}(\ell_z - \min\left\{(a_z\hat{\ell_z}(\theta_z) + b_z), K_z\right\})\\
+        \text{s.t.   } K\bar{\pi} &\geq a_z \mathbb{E}[\hat{\ell_z}(\theta^k_z)] + b_z + c_k\beta_z K^P,  \forall k, \forall z\\
+        0 &\leq a_z\hat{\ell_z}(\theta^k_z) + b_z, \forall k, \forall z \\
+        K^P + Z\underline{\pi} &\geq CV@R_{1-\epsilon_P}\left( \sum_z a_z \hat{\ell_z}(\theta_z) + b_z \right)
+    \end{align}
+    
+    The reformulation is: 
+    
+    \begin{align}
+        \min_{a,b,\gamma,t,m,K^P} \quad & m\\
+        \text{s.t.} \quad t_z &+ \frac{1}{\epsilon} \sum_k p_k \gamma_z^k \leq m, \forall z\\
+        \gamma_z^k &\geq \ell^k - \min\left\{(a_z\hat{\ell_z}(\theta_z^k) + b_z), K_z\right\} -t_z, \forall k, \forall z \\
+        \gamma_z^k &\geq 0, \forall k, \forall z\\
+        t_p &+ \frac{1}{\epsilon_p} \sum_k p_k \gamma_P^k \leq K^P+Z\underline{\pi}\\
+        \gamma_P^k &\geq \sum_z a_z \hat{\ell_z}(\theta^k_z) + b_z -t_p, \forall k \\
+        \gamma_P^k &\geq 0, \forall k\\
+        K_z\bar{\pi} &\geq a_z \mathbb{E}[\hat{\ell_z}(\theta_z)] + b_z + c_k \beta_z K^P, \forall z \\
+        0 &\leq a_z \hat{\ell_z}(\theta_z^k) + b_z, \forall k, \forall z
+    \end{align}
 
-\begin{align}
-    \min_{a,b,\pi} \max_z \pi_z\\
-    \text{s.t.   } I_z^k &\geq a_z\theta^k_z +b_z, \forall k, \forall z\\
-    0 &\leq I_z^k \leq y_z, \forall k, \forall z \\
-    CVaR_{1-\epsilon}(l &+ \pi_z -I_z) \leq \bar{l} \\
-    K^P &= CVaR_{1-\epsilon_P}\left (\sum_z I_z \right ) - Z\bar{\pi}\\
-    \pi_z &= E[I_z]+c_k K^P \beta_z
-\end{align}
 
-Our reformulation was:  
+% {\color{red}
+% Given $\bar{\ell}$ and $\epsilon$, let $I(\theta) = (a\theta - b)^+$.
+% \begin{align}
+%     \min_{a,b,\geq 0} &\ \mathbb{E} \left[\left(a\theta - b\right)^+\right]\label{eq-01}\\
+%     \text{s.t.   } &\ \mathbb{P}\left(\ell  - (a\theta - b)^+ \leq \bar{\ell}\right)\geq 1-\epsilon.
+% \end{align}
 
-\begin{align}
-    \min_{a,b,\pi} \max_z \pi_z\\
-    \text{s.t.   } I_z^k &\geq a_z\theta^k_z +b_z, \forall k, \forall z\\
-    0 &\leq I_z^k \leq y_z, \forall k, \forall z \\
-    t_z &+ \frac{1}{\epsilon} \sum_{k=1}^K p_k \gamma_z^k \leq \bar{l}, \forall z \\
-    \gamma_z^k &\geq l_z^k + \pi_z -I_z^k -t_z, \forall k, \forall z\\
-    \gamma_z^k &\geq 0, \forall k, \forall z\\
-    t_P &+ \frac{1}{\epsilon_P} \sum_{k=1}^K p_k \gamma_P^k \leq K^P + Z \bar{\pi}\\
-    \gamma_P^k &\geq \sum_z I_z^k -t_P\\
-    \gamma_P^k &\geq 0, \forall k\\
-    \pi_z &= E[I_z]+c_K K^P\beta_z
-\end{align}
 
-\paragraph*{Model Parameters}
-\begin{itemize}
-    \item $\epsilon$: This defines the tail for the CVaR constraint. $\epsilon = 0.1$ means that our CVaR constraint is on the expected value of the loss given that it is above the $90^{th}$ percentile. 
-    \item $\bar{l}$: This is the maximum loss we want farmers to face with high probability.
-    \item $\bar{\pi}$: This is the maximum value of the premium. 
-    \item $\beta_z$: This is a measure of the relative riskiness of zone $z$. 
-    \item $\epsilon_P$: This is the epsilon corresponding to the CVaR of the entire portfolio. This is used to determine the required capital for the portfolio. Values I've seen used are $\epsilon_P=0.01$ and $\epsilon_P=0.05$. 
-\end{itemize}
+% ~~~
 
-% \printbibliography
+% We next approximate Problem \eqref{eq-01} by using CV@R:
+% \begin{align}
+%     \min_{a,b\geq 0} &\ CV@R_{1-\epsilon}\left(\ell  - \min\left\{(a\theta + b), K\right\} \right)\\
+%     \text{s.t.   } &\   a \mathbb{E} \left[\theta \right] + b\label{eq-02} \leq \bar{\pi}. %+ K \mathbb{P} \left(a\theta + b\geq K\right).
+% \end{align}
+
+% ~~~
+
+% Assume scenario $(\theta_k, \ell_k)$ has probability $p_k$. Then Problem \eqref{eq-02} is equivalent to 
+% \begin{align}
+%     \min_{a,b,\geq 0, t,\gamma_k\in\mathbb{R}} &\ \sum_k p_k \left(a\theta_k - b\right)^+\\
+%     \text{s.t.   } &\  t + \frac{1}{\epsilon}\sum_k p_k \gamma_k \leq 0;\\
+%     &\ \gamma_k \geq \ell_k  - (a\theta_k - b)^+ - \bar{\ell} -t\ \  \forall k;\\
+%     &\ \gamma_k \geq \ell_k  - \min\{a\theta_k +b, K\} - \bar{\ell} -t\ \  \forall k;
+%     &\ \gamma_k \geq 0
+% \end{align}
+% We still have the same problem. The issue is that the function $\ell  - (a\theta - b)^+ - \bar{\ell}$ is not convex in $(\theta, \ell)$ so we cannot directly apply the CV@R approximation result.
+
+
+
+% }
+
+
+
+
+
+% \section{Minimum Premium Model}
+% We also tried a model that minimizes the premium subject to a maximum $CVaR$ constraint. 
+
+% \subsection*{Single Zone Model}
+% \begin{align}
+%     \min_{a,b,\pi} & E[I^k]\\
+%     \text{s.t.   } I^k &= (a\theta^k -b)^+, \forall k\\
+%     0 &\leq I^k \leq y, \forall k\\
+%    CVaR_{1-\epsilon}(l &+ \pi -I) \leq \bar{l}  
+% \end{align}
+
+% Our reformulation was: 
+
+% \begin{align}
+%     \min_{a,b,\pi} & E[I^k]\\
+%     \text{s.t.   } I^k &\geq a\theta^k -b, \forall k\\
+%     0 &\leq I^k \leq y, \forall k\\
+%     t + \frac{1}{\epsilon}&\sum_k p_k \gamma_k \leq 0\\
+%     \gamma_k &\geq l^k + E[I] -I^k -\bar{l} -t, \forall k\\
+%     \gamma_k &\geq 0, \forall k
+% \end{align}
+
+% Here, $y$ is the maximum insured amount, $\bar{l}$ is the loss threshold we want to stay below of with high probability, and $k$ indexes the possible realizations of $\theta, l$.
+% \paragraph*{Model Parameters}
+% \begin{itemize}
+%     \item $\epsilon$: This defines the tail for the CVaR constraint. $\epsilon = 0.1$ means that our CVaR constraint is on the expected value of the loss given that it is above the $90^{th}$ percentile. 
+%     \item $\bar{l}$: This is the maximum loss we want farmers to face with high probability.
+% \end{itemize}
+
+% \subsection*{Multiple Zone Model}
+% For the multiple zone case, $Z$ corresponds to the number of insured zones, $K^P$ is the amount of required capital, $c_k$ is the cost of capital, and $\beta_z$ is the relative riskiness of zone $z$. $\bar{l}$ is a constraint on the maximum $CVaR$ across all zones. In other words, we want our solution to be such that $\max_z CVaR_{1-\epsilon}(l+E[I]-I) \leq \bar{l}$. 
+
+% \begin{align}
+%     \min_{a,b,\pi} \max_z \pi_z\\
+%     \text{s.t.   } I_z^k &\geq a_z\theta^k_z +b_z, \forall k, \forall z\\
+%     0 &\leq I_z^k \leq y_z, \forall k, \forall z \\
+%     CVaR_{1-\epsilon}(l &+ \pi_z -I_z) \leq \bar{l} \\
+%     K^P &= CVaR_{1-\epsilon_P}\left (\sum_z I_z \right ) - Z\bar{\pi}\\
+%     \pi_z &= E[I_z]+c_k K^P \beta_z
+% \end{align}
+
+% Our reformulation was:  
+
+% \begin{align}
+%     \min_{a,b,\pi} \max_z \pi_z\\
+%     \text{s.t.   } I_z^k &\geq a_z\theta^k_z +b_z, \forall k, \forall z\\
+%     0 &\leq I_z^k \leq y_z, \forall k, \forall z \\
+%     t_z &+ \frac{1}{\epsilon} \sum_{k=1}^K p_k \gamma_z^k \leq \bar{l}, \forall z \\
+%     \gamma_z^k &\geq l_z^k + \pi_z -I_z^k -t_z, \forall k, \forall z\\
+%     \gamma_z^k &\geq 0, \forall k, \forall z\\
+%     t_P &+ \frac{1}{\epsilon_P} \sum_{k=1}^K p_k \gamma_P^k \leq K^P + Z \bar{\pi}\\
+%     \gamma_P^k &\geq \sum_z I_z^k -t_P\\
+%     \gamma_P^k &\geq 0, \forall k\\
+%     \pi_z &= E[I_z]+c_K K^P\beta_z
+% \end{align}
+
+% \paragraph*{Model Parameters}
+% \begin{itemize}
+%     \item $\epsilon$: This defines the tail for the CVaR constraint. $\epsilon = 0.1$ means that our CVaR constraint is on the expected value of the loss given that it is above the $90^{th}$ percentile. 
+%     \item $\bar{l}$: This is the maximum loss we want farmers to face with high probability.
+%     \item $\bar{\pi}$: This is the maximum value of the premium. 
+%     \item $\beta_z$: This is a measure of the relative riskiness of zone $z$. 
+%     \item $\epsilon_P$: This is the epsilon corresponding to the CVaR of the entire portfolio. This is used to determine the required capital for the portfolio. Values I've seen used are $\epsilon_P=0.01$ and $\epsilon_P=0.05$. 
+% \end{itemize}
+
+% % \printbibliography
 
 \end{document}

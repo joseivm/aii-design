@@ -36,10 +36,10 @@ sorting=ynt
 \section{Status Quo}
 We will be comparing our proposed approach to the method developed by \cite{chantarat2013designing}, which, to the extent of our knowledge is what is currently being used for Kenya's Index Based Livestock Insurance (IBLI) program. The method is as follows: 
 \begin{itemize}
-    \item Use a clustering algorithm to group locations into clusters
-    \item Fit a separate herd mortality function for each cluster. They use a linear regression model to predict herd mortality. 
-    \item Contracts are of the form: $I(\theta) = \max(\hat{M}(\theta)-M^*,0)\times TLU \times P_{TLU}$ where $TLU$ is the number of insured livestock units, and $P_{TLU}$ is the price per insured livestock unit. In other words, their contract pays farmers for the full predicted loss beyond a threshold, $M^*$. This threshold, $M^*$ is the contract's strike value. 
-    \item They choose the strike value that would explain the highest share of insurable losses in the historical data. In other words, they run the following regression: $y_s = \beta_s \hat{y_s}+\epsilon$ where $y_s$ is the actual insured losses at strike value $s$ and $\hat{y_s}$ is the predicted insured losses at strike value $s$. They choose the strike value $s= \argmax_s \beta_s$. 
+    \item First, they use a clustering algorithm to group locations into clusters
+    \item They then use historical data to fit a linear regression model to predict herd mortality rates in each cluster. They fit a different model for each cluster. 
+    \item Contracts are of the form: $I(\theta) = \max(\hat{M}(\theta)-M^*,0)\times TLU \times P_{TLU}$ where $\hat{M}(\theta)$ is the predicted herd mortality rate, $M^*$ is the strike value, $TLU$ is the number of insured livestock units, and $P_{TLU}$ is the price per insured livestock unit.  In other words, their contract pays farmers for the full predicted loss beyond a threshold, $M^*$. This threshold, $M^*$ is the contract's strike value. 
+    \item They choose the strike value that would explain the highest share of insurable losses in the historical data. Specifically, they run the following regression: $y_s = \beta_s \hat{y_s}+\epsilon$ where $y_s$ is the actual insured losses at strike value $s$ and $\hat{y_s}$ is the predicted insured losses at strike value $s$. For example, suppose that $TLU=100$ (ie there are 100 insured units), and that $P_{TLU}=25$ (ie each unit is worth 25), and that $M^* = 0.25$ (ie contract starts paying out once the predicted mortality rate exceeds $25\%$). If the actual mortality rate is $0.5$, then actual insured losses would be $y_{25} = \max(M-M^*,0)\times TLU \times P_{TLU} = (0.5-0.25)\times(100) \times (25)$. If the predicted mortality rate in that scenario was $0.4$, the predicted insured losses, $\hat{y_{25}} = \max(\hat{M}(\theta)-M^*,0)\times TLU \times P_{TLU} = (0.4-0.25)\times(100) \times (25)$. They use historical data to calculate $y_s, \hat{y_s}$, and then run the following regression: $y_s = \beta_s \hat{y_s}+\epsilon$. They choose the strike value $s= \argmax_s \beta_s$. This takes into account the fact that the prediction model, $\hat{M}(\theta)$ might be better at predicting some losses better than others. 
 \end{itemize}
 
 To mimick this in our toy example, we set the status quo contracts to be $I(\theta) = \max(\hat{l}(\theta)-l^*,0)$, since we are already assuming that $l$ is the total loss suffered. For the toy example, we fit a (correctly specified) linear regression model to predict losses: $l = \beta \theta + \epsilon \implies \hat{l}(\theta) = \hat{\beta}\theta$. 
@@ -69,13 +69,13 @@ In order to separate the effect of contract design from the effect of prediction
     \begin{align}
         \min_{a,b,\pi,\gamma,t} &\quad t + \frac{1}{\epsilon}\sum_k p_k \gamma_k\\
         \text{s.t.   } \gamma_k &\geq l^k - \min\left\{(a\hat{l}(\theta^k) + b), K\right\} - t, \forall k\\
-        \gamma_k &\geq 0 \\
+        \gamma_k &\geq 0, \forall k \\
         0 &\leq a\hat{l}(\theta^k) + b, \forall k\\
         K\bar{\pi} &\geq a\mathbb{E}[\hat{l}(\theta)] + b
     \end{align}
 
 \section{Results}
-The model mostly behaves as expected. Increasing the payment cap, $K$ increases both $a$ and $b$. Similarly, increasing the maximum premium, $\bar{\pi}$ increases the payout rate as well. However, $a$ and $b$ didn't seem sensitive to $\epsilon$ at all. 
+The model mostly behaves as expected. Increasing the payment cap, $K$ increases $a$ and decreases $b$, in other words, it increases the slope of the payout function and shifts it right. Similarly, increasing the maximum premium, $\bar{\pi}$ increases the payout rate and shifts it right as well. However, $a$ and $b$ didn't seem sensitive to $\epsilon$ at all. I think this is because the data generating process is linear, $\ell = \beta \theta + \epsilon$. When I replace that data generating process with a cubic one, $\ell = \beta \theta^3 + \epsilon$, $a,b$ become sensitive to $\epsilon$. In general, as $\epsilon$ decreases, $a$ increases and $b$ decreases, which I think is the behavior we would expect, because it would be more targeted towards losses at the right tail of the distribution. 
     \subsection*{CVaR Model}
         \subsubsection*{Max Premium Exploration}
         \begin{figure}[H]

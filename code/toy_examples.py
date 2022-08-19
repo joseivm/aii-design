@@ -70,8 +70,8 @@ def min_CVaR_program(pred_y,train_y,params):
 
     constraints = []
     constraints.append(a*pred_y+b >= 0)
-    constraints.append(a*pred_y+b >= gamma + train_y -t)
-    constraints.append(K >= gamma + train_y -t)
+    constraints.append(a*pred_y+b >= -gamma + train_y -t)
+    constraints.append(K >= -gamma + train_y -t)
     constraints.append(gamma >= 0)
     constraints.append(a*(1/n_samples)*sum(pred_y) + b <= K*max_pi)
 
@@ -84,6 +84,7 @@ def min_CVaR_program(pred_y,train_y,params):
 def plot_payout_functions(ax,bdf,odf,a,b,args):
     ax.plot(bdf['PredictedLosses'],bdf['Premium'],'bs',label='baseline')
     ax.plot(odf['PredictedLosses'],odf['Premium'],'g^',label='opt')
+    ax.plot(odf['PredictedLosses'],odf['Losses'],'ro',label='actual losses')
     ax.set_title(str(args))
     ax.text(3,15,'a = {}, b = {}'.format(a,b))
     ax.legend()
@@ -137,6 +138,7 @@ def parameter_exploration(data,params,model):
     test_x = data['test_x']
     test_y = data['test_y']
     strike_val = data['strike val']
+    pred_model = data['pred_model']
     loop_param = [k for k,v in params.items() if type(v) is np.ndarray][0]
     loop_param_vals = params[loop_param]
     param_subdict = {k: v for k,v in params.items() if type(v) is not np.ndarray}
@@ -240,60 +242,63 @@ def CVaR_program_exploration(model_name='CVaR'):
     model_predictions = pred_model.predict(train_x)
     strike_p, strike_val = determine_strike_value(train_y,eval_y,eval_x,pred_model)
 
-    data = {'train_y':train_y,'test_x':test_x,'test_y':test_y,
+    inputs = {'train_y':train_y,'test_x':test_x,'test_y':test_y,'pred_model':pred_model,
             'model predictions':model_predictions,'strike val':strike_val}
     
 #     premium exploration
     epsilon = 0.2
     K = 20
     premiums = np.around(np.linspace(0.1,0.7,5),3)
-    parameter_exploration(data,{'epsilon':epsilon,'K':K,'max_premium':premiums},model_name)
+    parameter_exploration(inputs,{'epsilon':epsilon,'K':K,'max_premium':premiums},model_name)
                          
 #     K exploration
     Ks = np.around(np.linspace(20,40,5),3)
     epsilon = 0.2
     premium = 0.2
-    parameter_exploration(data,{'epsilon':epsilon,'K':Ks,'max_premium':premium},model_name)
+    parameter_exploration(inputs,{'epsilon':epsilon,'K':Ks,'max_premium':premium},model_name)
 
 # Epsilon Exploration
     K = 30
     epsilons = np.around(np.linspace(0.1,0.8,5),3)
     premium = 0.3
-    parameter_exploration(data,{'epsilon':epsilons,'K':K,'max_premium':premium},model_name)
+    parameter_exploration(inputs,{'epsilon':epsilons,'K':K,'max_premium':premium},model_name)
 
-np.random.seed(1)
-train_y, train_x = make_single_zone_data(beta=3,mu=5,sigma=2,n=100)
-eval_y, eval_x = make_single_zone_data(beta=3,mu=5,sigma=2,n=20)
-test_y, test_x = make_single_zone_data(beta=3,mu=5,sigma=2,n=1000)
+CVaR_program_exploration('CVaR3')
+# np.random.seed(1)
+# train_y, train_x = make_single_zone_data(beta=3,mu=5,sigma=2,n=100)
+# eval_y, eval_x = make_single_zone_data(beta=3,mu=5,sigma=2,n=20)
+# test_y, test_x = make_single_zone_data(beta=3,mu=5,sigma=2,n=1000)
 
-pred_model = LinearRegression().fit(train_x,train_y)
-pred_y = pred_model.predict(train_x)
-strike_p, strike_val = determine_strike_value(train_y,eval_y,eval_x,pred_model)
+# pred_model = LinearRegression().fit(train_x,train_y)
+# pred_y = pred_model.predict(train_x)
+# strike_p, strike_val = determine_strike_value(train_y,eval_y,eval_x,pred_model)
 
-epsilon = 0.1
-max_pi = 0.9
-K = 15
-plt.close()
-a,b = np.around(min_CVaR_program(pred_y,train_y,max_pi,epsilon,K),2)
+# epsilon = 0.1
+# max_pi = 0.5
+# K = 3000
+# plt.close()
+# a,b = np.around(min_CVaR_program(pred_y,train_y,{'max_premium':max_pi,'K':K,'epsilon':epsilon}),2)
+# print('a = {}, b = {}'.format(a,b))
+# edf = pd.DataFrame()
+# edf['PredictedLoss'] = pred_y
+# edf['OptPayout'] = np.minimum(a*edf['PredictedLoss']+b,K)
+# edf['BasePayout'] = np.maximum(edf['PredictedLoss']-strike_val,0)
+# edf['Actual Loss'] = train_y
 
-edf = pd.DataFrame()
-edf['PredictedLoss'] = pred_y
-edf['OptPayout'] = np.minimum(a*edf['PredictedLoss']-b,K)
-edf['BasePayout'] = np.maximum(edf['PredictedLoss']-strike_val,0)
+# plt.plot(edf['PredictedLoss'],edf['BasePayout'],'bs',label='baseline')
+# plt.plot(edf['PredictedLoss'],edf['OptPayout'],'g^',label='opt')
+# plt.plot(edf['PredictedLoss'],edf['Actual Loss'],'ro',label='loss')
+# plt.legend()
+# plt.title('epsilon: {}, pi: {}'.format(epsilon,max_pi))
+# plt.text(3,10,'a = {}, b = {}'.format(a,b))
+# plt.xlabel(r'$\hat{l}(\theta^k)$')
+# plt.ylabel('Payout, I')
+# plt.show()
+# plt.savefig('tst.png')
+# plt.close()
 
-plt.plot(edf['PredictedLoss'],edf['BasePayout'],'bs',label='baseline')
-plt.plot(edf['PredictedLoss'],edf['OptPayout'],'g^',label='opt')
-plt.legend()
-plt.title('epsilon: {}, pi: {}'.format(epsilon,max_pi))
-plt.text(3,10,'a = {}, b = {}'.format(a,b))
-plt.xlabel(r'$\hat{l}(\theta^k)$')
-plt.ylabel('Payout, I')
-plt.show()
-plt.savefig('tst.png')
-plt.close()
-
-plt.plot(edf['PredictedLosses'],edf['BaselinePayout'],'bs',label='baseline')
-plt.plot(edf['PredictedLosses'],edf['OptPayout'],'g^',label='opt')
-plt.legend()
-plt.show()
-plt.close()
+# plt.plot(edf['PredictedLosses'],edf['BaselinePayout'],'bs',label='baseline')
+# plt.plot(edf['PredictedLosses'],edf['OptPayout'],'g^',label='opt')
+# plt.legend()
+# plt.show()
+# plt.close()
