@@ -1,15 +1,15 @@
 [0] Config.pm:302> INFO - This is Biber 2.11
 [0] Config.pm:305> INFO - Logfile is 'eval_proposal.blg'
-[36] biber-darwin:313> INFO - === Thu Aug 18, 2022, 09:31:29
-[55] Biber.pm:371> INFO - Reading 'eval_proposal.bcf'
-[126] Biber.pm:857> INFO - Found 1 citekeys in bib section 0
-[140] Biber.pm:3976> INFO - Processing section 0
-[150] Biber.pm:4136> INFO - Looking for bibtex format file '../main.bib' for section 0
-[151] bibtex.pm:1500> INFO - LaTeX decoding ...
-[158] bibtex.pm:1316> INFO - Found BibTeX data source '../main.bib'
-[180] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[180] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[180] Biber.pm:3804> INFO - Sorting list 'ynt/global//global/global' of type 'entry' with template 'ynt' and locale 'en-US'
-[180] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
-[182] bbl.pm:617> INFO - Writing 'eval_proposal.bbl' with encoding 'UTF-8'
-[184] bbl.pm:720> INFO - Output to eval_proposal.bbl
+[32] biber-darwin:313> INFO - === Mon Aug 22, 2022, 14:57:35
+[59] Biber.pm:371> INFO - Reading 'eval_proposal.bcf'
+[184] Biber.pm:857> INFO - Found 1 citekeys in bib section 0
+[204] Biber.pm:3976> INFO - Processing section 0
+[215] Biber.pm:4136> INFO - Looking for bibtex format file '../main.bib' for section 0
+[216] bibtex.pm:1500> INFO - LaTeX decoding ...
+[221] bibtex.pm:1316> INFO - Found BibTeX data source '../main.bib'
+[239] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[240] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[240] Biber.pm:3804> INFO - Sorting list 'ynt/global//global/global' of type 'entry' with template 'ynt' and locale 'en-US'
+[240] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
+[241] bbl.pm:617> INFO - Writing 'eval_proposal.bbl' with encoding 'UTF-8'
+[243] bbl.pm:720> INFO - Output to eval_proposal.bbl

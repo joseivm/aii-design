@@ -14,7 +14,8 @@ FIGURES_DIR = PROJECT_DIR + '/output/figures'
 TABLES_DIR = PROJECT_DIR + '/output/tables'
 
 # TODO: 1. figure out how to include positive and negative losses as well
-# 2. figure out how to set w_bar when w is supposed to be loss
+# 2. add function to create a covariance matrix based on the desired correlation
+# 3. change code to train a separate regression model for each zone.
 
 ##### Data Creation #####
 def make_multi_zone_data(beta,mu,sigma,n=100):
@@ -71,7 +72,7 @@ def min_CVaR_program(pred_y,train_y,params):
     return (A.value[0,:], B.value[0,:])
 
 ##### Evaluation functions #####
-def plot_payout_functions(bdf,odf,a,b):
+def show_payout_functions(bdf,odf,a,b):
     n_zones = len(a)
     a = np.around(a,2)
     b = np.around(b,2)
@@ -85,8 +86,26 @@ def plot_payout_functions(bdf,odf,a,b):
         ax.set_title('Zone: {}, a = {}, b = {}'.format(zone,a[zone],b[zone]))
         ax.legend()
 
-    plt.tight_layout()
     plt.show()
+
+def plot_payout_functions(bdf,odf,a,b,axes,scenario=None):
+    n_zones = len(a)
+    a = np.around(a,2)
+    b = np.around(b,2)
+    for zone, ax in zip(range(n_zones), axes.ravel()):
+        zbdf = bdf.loc[bdf.Zone == zone,:]
+        zodf = odf.loc[odf.Zone == zone,:]
+        ax.plot(zbdf['PredictedLosses'],zbdf['Premium'],'bs',label='baseline')
+        ax.plot(zodf['PredictedLosses'],zodf['Premium'],'g^',label='opt')
+        ax.plot(zbdf['PredictedLosses'],zbdf['Losses'],'ro',label='actual losses')
+        ax.legend()
+        if scenario is not None:
+            ax.set_title('{}, a = {}, b = {}'.format(scenario,a[zone],b[zone]))
+        else:
+            ax.set_title('Zone: {}, a = {}, b = {}'.format(zone,a[zone],b[zone]))
+
+def save_payout_function(bdf,odf,a,b,filename):
+    pass
 
 def make_eval_dfs(test_x,test_y,pred_model,strike_vals,a,b,Ks):
     col_names = ['$P(L > {})$'.format(i) for i in [70,80,90,95]]
@@ -213,23 +232,108 @@ def CVaR_program_exploration(model_name='CVaR'):
     premium = 0.3
     parameter_exploration(data,{'epsilon':epsilons,'K':K,'max_premium':premium},model_name)
 
-beta = np.array([[1.5,0],[0,2]])
-mu = np.array([3,5])
-sigma = np.array(np.array([[1,1.2],[1.2,4]]))
+def run_scenario(beta,mu,sigma,params,axes,scenario_name):
+    train_y, train_x = make_multi_zone_data(beta,mu,sigma,n=1000)
+    eval_y, eval_x = make_multi_zone_data(beta,mu,sigma,n=100)
+    test_y, test_x = make_multi_zone_data(beta,mu,sigma,n=400)
 
-train_y, train_x = make_multi_zone_data(beta,mu,sigma,n=100)
-eval_y, eval_x = make_multi_zone_data(beta,mu,sigma,n=20)
-test_y, test_x = make_multi_zone_data(beta,mu,sigma,n=1000)
+    pred_model = LinearRegression().fit(train_x,train_y)
+    pred_y = pred_model.predict(train_x)
+    strike_ps, strike_vals = determine_strike_values(train_y,eval_y,eval_x,pred_model)
 
-pred_model = LinearRegression().fit(train_x,train_y)
-pred_y = pred_model.predict(train_x)
-strike_ps, strike_vals = determine_strike_values(train_y,eval_y,eval_x,pred_model)
+    a,b = np.around(min_CVaR_program(pred_y,train_y,params),2)
+    # print('a: {}, b: {}'.format(a,b))
+    bdf, odf = make_eval_dfs(test_x,test_y,pred_model,strike_vals,a,b,params['K'])
+    plot_payout_functions(bdf,odf,a,b,axes,scenario_name)
+    return(a,b)
 
-params = {'max_premium':0.5,'min_premium':0.1,'epsilon':0.1,'epsilon_p':0.05,
-         'K':np.array([10,20]),'beta':np.array([0.2,0.8]),'c_k':0.05}
+def scenario_exploration():
+    fig, axes = plt.subplots(4,2,figsize=(10,10))
+    default_params = {'max_premium':0.6,'min_premium':0.1,'epsilon':0.2,'epsilon_p':0.05,
+        'K':np.array([8,8]),'beta':np.array([0.5,0.5]),'c_k':0.05}
 
-a,b = np.around(min_CVaR_program(pred_y,train_y,params),2)
-bdf, odf = make_eval_dfs(test_x,test_y,pred_model,strike_vals,a,b,params['K'])
-plot_payout_functions(bdf,odf,a,b)
+    beta = np.array([[1.5,0],[0,1.5]])
+    mu = np.array([5,5])
 
-plt.close()
+    # No correlation case
+    sigma = np.array(np.array([[2,0],[0,2]]))
+
+    params = {'max_premium':0.6,'min_premium':0.05,'epsilon':0.2,'epsilon_p':0.01,
+            'K':np.array([8,8]),'beta':np.array([0.5,0.5]),'c_k':0.05}
+    filepath = FIGURES_DIR + '/Exploration/no_correlation.png'
+    ab, bb = run_scenario(beta,mu,sigma,params,axes[0], 'No corr')
+
+    # Positive Correlation
+    sigma = np.array(np.array([[2,1.4],[1.4,2]]))
+
+    params = {'max_premium':0.6,'min_premium':0.05,'epsilon':0.2,'epsilon_p':0.01,
+            'K':np.array([8,8]),'beta':np.array([0.5,0.5]),'c_k':0.05}
+    filepath = FIGURES_DIR + '/Exploration/pos_correlation.png'
+    apc, bpc = run_scenario(beta,mu,sigma,params,axes[1],'Pos Corr')
+
+    # Negative Correlation
+    sigma = np.array(np.array([[2,-1.4],[-1.4,2]]))
+
+    params = {'max_premium':0.6,'min_premium':0.05,'epsilon':0.2,'epsilon_p':0.01,
+            'K':np.array([8,8]),'beta':np.array([0.5,0.5]),'c_k':0.05}
+    filepath = FIGURES_DIR + '/Exploration/neg_correlation.png'
+    anc, bnc = run_scenario(beta,mu,sigma,params,axes[2],'Neg corr')
+
+    # Disparate variance
+    sigma = np.array(np.array([[2,0],[0,4]]))
+
+    params = {'max_premium':0.6,'min_premium':0.05,'epsilon':0.2,'epsilon_p':0.01,
+            'K':np.array([8,8]),'beta':np.array([0.33,0.67]),'c_k':0.05}
+    filepath = FIGURES_DIR + '/Exploration/disp_variance.png'
+    adv, bdv = run_scenario(beta,mu,sigma,params,axes[3],'Disp var')
+
+    plt.tight_layout()
+    filename = FIGURES_DIR + '/Exploration/scenario_exploration.png'
+    plt.savefig(filename)
+
+    fig, axes = plt.subplots(1,2,figsize=(10,5))
+    x = np.linspace(0,16,50)
+    for zone, ax in zip(range(2),axes.ravel()):
+        ax.plot(x,ab[zone]*x+bb[zone],'g',label='no corr')
+        ax.plot(x,apc[zone]*x+bpc[zone],'b',label='pos corr')
+        ax.plot(x,anc[zone]*x+bnc[zone],'p',label='neg corr')
+        ax.legend()
+        ax.set_title('Zone: {}'.format(zone))
+
+    plt.tight_layout()
+    filename = FIGURES_DIR + '/Exploration/scenario_payouts_by_zone.png'
+    plt.savefig(filename)
+
+
+
+
+scenario_exploration()
+
+
+
+
+
+# default_params = {'max_premium':0.6,'min_premium':0.1,'epsilon':0.2,'epsilon_p':0.05,
+#         'K':np.array([8,8]),'beta':np.array([0.5,0.5]),'c_k':0.05}
+
+# beta = np.array([[1.5,0],[0,1.5]])
+# mu = np.array([5,5])
+# sigma = np.array(np.array([[2,0],[0,2]]))
+
+# train_y, train_x = make_multi_zone_data(beta,mu,sigma,n=100)
+# eval_y, eval_x = make_multi_zone_data(beta,mu,sigma,n=20)
+# test_y, test_x = make_multi_zone_data(beta,mu,sigma,n=1000)
+
+# pred_model = LinearRegression().fit(train_x,train_y)
+# pred_y = pred_model.predict(train_x)
+# strike_ps, strike_vals = determine_strike_values(train_y,eval_y,eval_x,pred_model)
+
+# params = {'max_premium':0.6,'min_premium':0.1,'epsilon':0.01,'epsilon_p':0.05,
+#         'K':np.array([8,8]),'beta':np.array([0.5,0.5]),'c_k':0.05}
+
+# a,b = np.around(min_CVaR_program(pred_y,train_y,params),2)
+# print('a: {}, b: {}'.format(a,b))
+# bdf, odf = make_eval_dfs(test_x,test_y,pred_model,strike_vals,a,b,params['K'])
+# plot_payout_functions(bdf,odf,a,b)
+
+# plt.close()

@@ -22,15 +22,6 @@ sorting=ynt
 \begin{document}
 \maketitle
 
-\section{Setup}
-    \subsection*{Data Generating Process}
-    In the two zone case, we will generate samples from the model: $\ell = \beta \theta + \epsilon$, with $\theta \sim \mathcal{N}((3,5),\Sigma), \beta = diag(1.5,2), \epsilon \sim \mathcal{N}(0,I)$. We will use the two following options:
-    \begin{itemize}
-        \item $\Sigma$ s.t. $Corr(\theta_1,\theta_2)=0.6$
-        \item $\Sigma$ s.t. $Corr(\theta_1,\theta_2)=-0.6$
-    \end{itemize}
-    I draw 100 training samples from the above model to train the prediction model and to use as input for the optimization program. I then evaluate both methods using 1000 samples drawn from the same model. 
-
 \section{Status Quo}
 We will be comparing our proposed approach to the method developed by \cite{chantarat2013designing}, which, to the extent of our knowledge is what is currently being used for Kenya's Index Based Livestock Insurance (IBLI) program. The method is as follows: 
 \begin{itemize}
@@ -52,7 +43,7 @@ In order to separate the effect of contract design from the effect of prediction
         \item $\epsilon$: This defines the CV@R objective. $\epsilon = 0.1$ means that our objective is on the expected value of the loss given that it is above the $90^{th}$ percentile. 
         \item $\bar{\pi}$: This is the maximum value of the premium. 
         \item $\underline{\pi}$: This is the minimum value of the premium. 
-        \item $\beta_z$: This is a measure of the relative riskiness of zone $z$. 
+        \item $\rho_z$: This is a measure of the relative riskiness of zone $z$. 
         \item $\epsilon_P$: This is the epsilon corresponding to the $CV@R$ of the entire portfolio. This is used to determine the required capital for the portfolio. Values I've seen used are $\epsilon_P=0.01$ and $\epsilon_P=0.05$. 
         \item $Z$: number of insured zones.
         \item $c_k$: cost of capital
@@ -63,7 +54,7 @@ In order to separate the effect of contract design from the effect of prediction
     
     \begin{align}
         \min_{a,b,K^P} \max_z &\quad CV@R_{1-\epsilon}(\ell_z - \min\left\{(a_z\hat{\ell_z}(\theta_z) + b_z), K_z\right\})\\
-        \text{s.t.   } K\bar{\pi} &\geq a_z \mathbb{E}[\hat{\ell_z}(\theta^k_z)] + b_z + c_k\beta_z K^P,  \forall k, \forall z\\
+        \text{s.t.   } K\bar{\pi} &\geq a_z \mathbb{E}[\hat{\ell_z}(\theta^k_z)] + b_z + c_k\rho_z K^P,  \forall k, \forall z\\
         0 &\leq a_z\hat{\ell_z}(\theta^k_z) + b_z, \forall k, \forall z \\
         K^P + Z\underline{\pi} &\geq CV@R_{1-\epsilon_P}\left( \sum_z a_z \hat{\ell_z}(\theta_z) + b_z \right)
     \end{align}
@@ -78,9 +69,92 @@ In order to separate the effect of contract design from the effect of prediction
         t_p &+ \frac{1}{\epsilon_p} \sum_k p_k \gamma_P^k \leq K^P+Z\underline{\pi}\\
         \gamma_P^k &\geq \sum_z a_z \hat{\ell_z}(\theta^k_z) + b_z -t_p, \forall k \\
         \gamma_P^k &\geq 0, \forall k\\
-        K_z\bar{\pi} &\geq a_z \mathbb{E}[\hat{\ell_z}(\theta_z)] + b_z + c_k \beta_z K^P, \forall z \\
+        K_z\bar{\pi} &\geq a_z \mathbb{E}[\hat{\ell_z}(\theta_z)] + b_z + c_k \rho_z K^P, \forall z \\
         0 &\leq a_z \hat{\ell_z}(\theta_z^k) + b_z, \forall k, \forall z
     \end{align}
     
-    
+\section{Evaluation}
+\subsection*{Data Generating Process}
+    In the two zone case, we will generate samples from the model: $\ell = \beta \theta + \epsilon$, with $\theta \sim \mathcal{N}((5,5),\Sigma), \beta = diag(1.5,1.5), \epsilon \sim \mathcal{N}(0,I)$. We use the following parameter values: 
+
+    \begin{itemize}
+        \item $\bar{\pi}=0.6$ This was chosen because it led the payout functions to look "reasonable" 
+        \item $\underline{\pi}=0.1$ This was the first value I picked, the model seemed to behave well with it, so I didn't change it. I will explore it later. 
+        \item $\epsilon=0.2$ I picked this because it focuses on minimizing the CVaR of the $80^{th}$ percentile of the loss distribution.  
+        \item $\epsilon_P=0.02$ The values I've seen for this are $0.01$ and $0.05$.
+        \item $K_z = 8, \forall z$ I picked this to be a little over the maximum payout given by the status quo. 
+        \item $c_k=0.05$ This is an estimate from the literature. 
+    \end{itemize}
+
+    These parameter values were used in across all simulations. The values of the other parameters depended on the scenario being simulated. The two main parameters that will vary in the scenarios are $\Sigma$, the variance covariance matrix for $\theta$, and $\rho$, which captures the relative riskiness of the two zones. We have that $\sum_z \rho_z = 1$. 
+
+    \subsection*{No correlation Case}
+    This is the baseline case where the losses of the two zones are uncorrelated. 
+        \paragraph*{Parameters}
+        \begin{itemize}
+            \item $\Sigma = \begin{bmatrix}
+                2 & 0 \\
+                0 & 2 
+                \end{bmatrix} $
+            \item $\rho = (0.5,0.5)$
+        \end{itemize}
+
+    \subsection*{Positive correlation Case}
+    This is the case where the losses of the two zones are positively correlated. 
+    \paragraph*{Parameters}
+    \begin{itemize}
+        \item $\Sigma = \begin{bmatrix}
+            2 & 1.4 \\
+            1.4 & 2 
+            \end{bmatrix} $
+        \item $\rho = (0.5,0.5)$
+    \end{itemize}
+
+    \subsection*{Negative correlation Case}
+    This is the case where the losses of the two zones are negatively correlated. 
+    \paragraph*{Parameters}
+    \begin{itemize}
+        \item $\Sigma = \begin{bmatrix}
+            2 & -1.4 \\
+            -1.4 & 2 
+            \end{bmatrix} $
+        \item $\rho = (0.5,0.5)$
+    \end{itemize}
+
+    \subsection*{Unequal Riskiness Case}
+    This scenario tests the case where one of the zones is much riskier than the other. 
+    \paragraph*{Parameters}
+    \begin{itemize}
+        \item $\Sigma = \begin{bmatrix}
+            2 & 0 \\
+            0 & 4 
+            \end{bmatrix} $
+        \item $\rho = (0.33,0.67)$
+    \end{itemize}
+
+\subsection*{Results}
+In general, the model seems to behave as one would expect. Relative to the case where there is no correlation, payouts are less agressive in the case where there are positive correlations. Similarly, when there is negative correlation, payouts are more aggressive relative to the no correlation case. In the case where one zone is riskier than the other, it seems that the model uses the less risky zone to in a way subsidize the performance of the riskier zone. The less risky zone ends up having flatter payouts than the riskier zone. 
+\begin{figure}[H]
+    \centering
+    \caption{Scenario Exploration}
+    \includegraphics[width=0.75\textwidth]{../../output/figures/Exploration/scenario_exploration.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Scenario Payouts by Zone}
+    \includegraphics[width=0.75\textwidth]{../../output/figures/Exploration/scenario_payouts_by_zone.png}
+\end{figure}
+
+
+\section{Potential Next Steps}
+\begin{itemize}
+    \item Test how the different parameters affect the payout functions in the different scenarios
+    \item Test a scenario where DGP is nonlinear
+    \item Modify program to have an overall budget constraint, to make it easier to compare to the status quo. 
+    \item Consider making deductible a decision variable
+    \item Think about how to incorporate prediction uncertainty into the problem 
+    \item Consider re introducing constraints. 
+\end{itemize}
+
 \end{document}
