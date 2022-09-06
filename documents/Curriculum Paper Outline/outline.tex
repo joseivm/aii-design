@@ -1,0 +1,151 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{float,color}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage[
+backend=biber,
+style=bwl-FU,
+sorting=ynt
+]{biblatex}
+\addbibresource{../main.bib}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\title{Agricultural Index Insurance Design: An Optimization Approach}
+\author{José I. Velarde Morales}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+Lack of access to credit and insurance is often cited as a significant factor hindering agricultural productivity in developing countries. Nearly two thirds of the world's poor are employed in agriculture, and addressing this problem could have significant welfare implications. Agricultural insurance is, even in the best circumstances, a hard problem. Many of the features one would want (independent units, uncorrelated risk, etc) are missing in this context. When considering insurance in developing countries, the problem becomes even harder because of verification costs. Traditionally, whenever an adverse event happens, the insured party contacts the insurer, and the insurer verifies the claim and issues a payout. However, agriculture in developing countries is often characterized by many small farmers spread out over hard to reach regions. This makes verification prohibitively costly. 
+
+Researchers developed index insurance as a less costly way to offer insurance in developing countries. In index insurance, and index (or statistic) is created using easily observable quantities, and it is used to determine whether the insured party suffered an adverse event. In the past, indices have been constructed using rainfall, weather, and satellite images. If the index falls below a pre-determined threshold, the insurance company automatically issues out payments to the insured. This allows the insurance company to circumvent the issue of verification, moral hazard, and adverse selection, since the actions of individual farmers can't affect the index. Even though index insurance provided a less costly way of providing insurance for small farmers, it has been difficult to scale up. There are several problems with index insurance. One of the main problems is low take up: farmers are often unwilling to purchase the insurance at market prices. Another problem, as previously mentioned, is the cost. The purpose of this project is to make this insurance less costly by improving the design of insurance contracts. In the following section we describe the methods that are currently employed in the design of index insurance. In the last section we describe our proposed improvements. 
+
+\section{Literature Review}
+There are many studies that evaluate how index insurance impacts the behavior of farmers (see, for example \cite{karlan2014agricultural}). However, there has been relatively little research concerning the design of index insurance. In \cite{chantarat2013designing}, the authors describe the design of an index insurance for pastoralists in Northern Kenya. The authors use a satellite based index, the Normalized Difference Vegetation Index, to predict herd mortality. They use a statistical clustering method to assign each $8km^2$ block to a larger region. Then, for each region, they specify a piecewise linear contract based on the predicted herd mortality. In \cite{jensen2019does}, the authors compare the welfare implications of using different satellite based indices for insuring pastoralists against drought. In this study, the regions are taken as given, and they also use piecewise linear contracts. As to the setting of strike values, the authors offer the following: "Similar to IBLI (Index Based Livestock Insurance) policies being sold, the strike for each index product was set at each index's within-index-unit 20th percentile". Using these contracts, the authors then compared how the farmers would have fared under each of the different insurance contracts. 
+    
+In \cite{flatnes2018improving}, the authors propose augmenting a traditional index insurance contract with the option for an audit. In this augmented contract, the insured farmer has the option to request an audit if they believe a payout should have been issued but wasn't. In this case, the insurance company would check the farmer's claim and issue a payment if the claim is correct. If the claim is correct, the insurance company would cover the cost of the audit, if it was incorrect, the farmer would have to cover the cost of the audit. In this study, the insurance zones are based on observed clustering of fields. "The main crops grown are paddy and maize, and paddy fields are clustered together... The paddy clusters are also used as the basis for the insurance zones". Here, the insurance contract pays out the losses predicted by the index. There are no trigger values set or piecewise linear contracts. 
+
+In general, there does not seem to be a standard methodology for developing index insurance products. As stated in \cite{world2011weather}, "The reader should be aware that there is no single methodology in this field ... [this paper] describes an approach that has been used in a number of index pilot activities undertaken by the World Bank and its parners." 
+
+  \subsection{Papers on the design of Index Insurance}
+    \begin{itemize}
+        \item \cite{dalhaus2020behavioral}
+    \end{itemize}
+
+\section{Optimization Approach}
+  \subsection{Objective and Constraints}
+    We spoke to practitioners to determine what a good objective would be for the model. Minimizing income variance is not necessarily a good objective, because it is symmetric, and in this setting, we are only worried about losses. Minimizing variance also has the drawback that it leads to extreme solutions. In interviews we conducted, practitioners expressed that the ideal objective would be to minimize the probability that farmers' wealth would drop below a certain threshold. They also expressed that the most relevant constraints in practice are price constraints, and payout frequency constraints. Through interviews, we also learned that piecewise payout functions are always used in index insurance because they are simple to explain and work well. This lead us to the following, idealized, model. 
+
+  \subsection{Original Simplified Model}
+
+    The first model we proposed aimed to minimize the probability that a farmer's net loss would exceed an exogenously given threshold. This was subject to a maximum premium constraint and a constraint specifying a piecewise linear structure for the payout function. In the model below, $l$ is the farmer's loss, $\pi$ is the premium he pays, $I(\theta)$ is the insurance payout, $c_k$ is the cost of capital, and $\bar{l}$ is the loss threshold we don't want the farmer to exceed. In other words, we don't want the farmer to have net losses higher than $\bar{l}$ with high probability. The premium contains two terms, the first is for the expected payout of the contract, and the second is for the costs of holding the capital necessary to insure the contract. $K^P$ is the amount of capital needed by the insurer to be able to uphold their side of the contract with high probability. For exposition, we first show the optimization model for insuring a single zone, and we then show the model for insuring multiple zones. 
+    
+    \paragraph*{Single Zone}
+    
+    \begin{align}
+        \min_{a,b,\pi} P(l + \pi &-I(\theta) \geq \bar{l})\\
+        \text{s.t.   } I(\theta) &= (a\theta - b)^+\\
+        \pi &= E[I(\theta)] + c_k K^P\\
+        K^P &= CVaR_{1-\epsilon}\left ( I_z(\theta_z) \right ) - \pi\\
+        b &\geq 0\\
+        \pi &\leq \bar{\pi}
+    \end{align}
+    
+    \paragraph*{Multiple Zone}
+    In the multiple zone case, there is an additional cost coming from the capital requirements to insure the entire portfolio. In the model below, $\rho_z$ is a measure of the relative riskiness of zone $z$
+    
+    \begin{align}
+        \min_{t,a,b,e,\pi} \max_z P(l_z &- \pi_z +I_z(\theta_z) \geq \bar{l})\\
+        \text{s.t.   } I_z(\theta_z) &= (a_z\theta_z + b_z)^+, \forall z\\
+        K^P &= CVaR_{1-\epsilon}\left (\sum_z I_z(\theta_z) \right ) - \sum_z \bar{\pi_z}\\
+        \pi_z &= E[I_z(\theta_z)]+c_k K^P \rho_z, \forall z \\
+        \pi_z &\leq \bar{\pi}, \forall z
+    \end{align}
+
+  \subsection{Minimum CVaR Model}
+  Since probabilitic constraints are generally non-convex, we decided to minimize the conditional value at risk (CV@R) of the farmer's net loss instead. There are several advantages to using the CV@R as an objective. Conceptually, minimizing the CV@R of the losses makes sure that farmers still do well even when losses are in the right tail of the distribution. In other words, it aims to make sure that farmers are well off even in the case of catastrophic events, which is the purpose of insurance. It also has the advantage of having been well studied in the literature, and there are tractable reformulations for having $CV@R$ in the objective and constraints for general loss distributions. This model minimizes the $CV@R$ of the farmer's net loss subject to a constraint on the premium. The premium constraints are expressed as a fraction of the full insured amount. So, if $\bar{\pi}$ is the maximum premium share and $K$ is the full insured amount, then the constraint on the premium would be: $\pi \leq K \bar{\pi}$.
+  
+  \subsubsection*{Single Zone Model}
+  \paragraph*{Model Parameters}
+  \begin{itemize}
+      \item $\epsilon$: This defines the CV@R objective. $\epsilon = 0.1$ means that our objective is on the expected value of the loss given that it is above the $90^{th}$ percentile. 
+      \item $\bar{\pi}$: This is the maximum value of the premium. 
+      \item $K$: maximum insured amount
+  \end{itemize}
+
+  For made some simplifications to the model to ensure tractability.
+  
+  \paragraph*{Model}
+  \begin{align}
+      \min_{a,b\geq 0} &\ CV@R_{1-\epsilon}\left(\ell  - \min\left\{(a\theta + b), K\right\} \right)\\
+      \text{s.t.   } &\   a \mathbb{E} \left[\theta \right] + b \leq K\bar{\pi}\\
+        & a\theta + b \geq 0 
+  \end{align}
+  
+  We reformulated the problem in the following way using the results from \cite{rockafellar2000optimization}. In the model below, $p_k$ is the probability of event $k$, and $k$ indexes the possible realizations of $\theta, l$.
+  
+  \begin{align}
+      \min_{a,b,\gamma,t} &\quad t + \frac{1}{\epsilon}\sum_k p_k \gamma_k\\
+      \text{s.t.   } \gamma_k &\geq l^k - \min\left\{(a\hat{l}(\theta^k) + b), K\right\} - t, \forall k\\
+      \gamma_k &\geq 0, \forall k \\
+      0 &\leq a\hat{l}(\theta^k) + b, \forall k\\
+      K\bar{\pi} &\geq a\mathbb{E}[\hat{l}(\theta)] + b
+  \end{align}
+    
+    \subsubsection*{Multiple Zone Model}
+    \paragraph*{Model Parameters}
+        \begin{itemize}
+            \item $\epsilon$: This defines the CV@R objective. $\epsilon = 0.1$ means that our objective is on the expected value of the loss given that it is above the $90^{th}$ percentile. 
+            \item $\bar{\pi}$: This is the maximum value of the premium. 
+            \item $\underline{\pi}$: This is the minimum value of the premium. 
+            \item $\beta_z$: This is a measure of the relative riskiness of zone $z$. 
+            \item $\epsilon_P$: This is the epsilon corresponding to the $CV@R$ of the entire portfolio. This is used to determine the required capital for the portfolio. Values I've seen used are $\epsilon_P=0.01$ and $\epsilon_P=0.05$. 
+            \item $Z$: number of insured zones.
+            \item $c_k$: cost of capital
+            \item $K_z$: maximum insured amount of zone $z$.  
+        \end{itemize}
+    
+        \paragraph*{Model}
+        
+        \begin{align}
+            \min_{a,b,K^P} \max_z &\quad CV@R_{1-\epsilon}(\ell_z - \min\left\{(a_z\hat{\ell_z}(\theta_z) + b_z), K_z\right\})\\
+            \text{s.t.   } K\bar{\pi} &\geq a_z \mathbb{E}[\hat{\ell_z}(\theta^k_z)] + b_z + c_k\beta_z K^P,  \forall k, \forall z\\
+            0 &\leq a_z\hat{\ell_z}(\theta^k_z) + b_z, \forall k, \forall z \\
+            K^P + Z\underline{\pi} &\geq CV@R_{1-\epsilon_P}\left( \sum_z a_z \hat{\ell_z}(\theta_z) + b_z \right)
+        \end{align}
+        
+        The reformulation, again derived using the results from \cite{rockafellar2000optimization} and \cite{rockafellar2002conditional} is: 
+        
+        \begin{align}
+            \min_{a,b,\gamma,t,m,K^P} \quad & m\\
+            \text{s.t.} \quad t_z &+ \frac{1}{\epsilon} \sum_k p_k \gamma_z^k \leq m, \forall z\\
+            \gamma_z^k &\geq \ell^k - \min\left\{(a_z\hat{\ell_z}(\theta_z^k) + b_z), K_z\right\} -t_z, \forall k, \forall z \\
+            \gamma_z^k &\geq 0, \forall k, \forall z\\
+            t_p &+ \frac{1}{\epsilon_p} \sum_k p_k \gamma_P^k \leq K^P+Z\underline{\pi}\\
+            \gamma_P^k &\geq \sum_z a_z \hat{\ell_z}(\theta^k_z) + b_z -t_p, \forall k \\
+            \gamma_P^k &\geq 0, \forall k\\
+            K_z\bar{\pi} &\geq a_z \mathbb{E}[\hat{\ell_z}(\theta_z)] + b_z + c_k \beta_z K^P, \forall z \\
+            0 &\leq a_z \hat{\ell_z}(\theta_z^k) + b_z, \forall k, \forall z
+        \end{align}
+
+\section{Evaluation}
+  \subsection{Toy examples}
+    \begin{itemize}
+        \item Describe data generating process and general setup
+        \item Discuss evaluation metrics
+    \end{itemize}
+
+  \subsection{Data-Driven Evaluation}
+    \begin{itemize}
+        \item Data description
+        \item Simulation description
+        \item Evaluation metrics
+    \end{itemize}
+\end{document}

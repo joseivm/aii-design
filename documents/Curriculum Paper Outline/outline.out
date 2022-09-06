@@ -1,0 +1,10 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Literature Review}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Papers on the design of Index Insurance}{section.2}% 3
+\BOOKMARK [1][-]{section.3}{Optimization Approach}{}% 4
+\BOOKMARK [2][-]{subsection.3.1}{Objective and Constraints}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.2}{Original Simplified Model}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.3}{Minimum CVaR Model}{section.3}% 7
+\BOOKMARK [1][-]{section.4}{Evaluation}{}% 8
+\BOOKMARK [2][-]{subsection.4.1}{Toy examples}{section.4}% 9
+\BOOKMARK [2][-]{subsection.4.2}{Data-Driven Evaluation}{section.4}% 10

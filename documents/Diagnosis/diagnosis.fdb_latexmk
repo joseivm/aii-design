@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1660334227 "/Users/joseivelarde/Projects/aii-design/documents/Diagnosis/diagnosis.tex" "/Users/joseivelarde/Projects/aii-design/documents/Diagnosis/diagnosis.pdf" "diagnosis" 1660334228
+["pdflatex"] 1660334227 "/Users/joseivelarde/Projects/aii-design/documents/Diagnosis/diagnosis.tex" "/Users/joseivelarde/Projects/aii-design/documents/Diagnosis/diagnosis.pdf" "diagnosis" 1661271108
   "/Users/joseivelarde/Projects/aii-design/documents/Diagnosis/diagnosis.aux" 1660334228 1258 9b1e8f70525417d09ff51cc5d99b0305 ""
   "/Users/joseivelarde/Projects/aii-design/documents/Diagnosis/diagnosis.tex" 1660334226 2467 b4b5785bc5df01a914c85c0f8a4a9ed6 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
@@ -85,9 +85,9 @@
   "eps_2_pi_2.png" 1660334211 45764 5e2d729114537edfe040337fb95956c9 ""
   "linear_example.png" 1660334215 46124 4af8a4660dd4774ce339230703be93c1 ""
   (generated)
-  "diagnosis.log"
-  "diagnosis.pdf"
   "diagnosis.out"
-  "diagnosis.aux"
+  "diagnosis.log"
   "/Users/joseivelarde/Projects/aii-design/documents/Diagnosis/diagnosis.pdf"
   "/Users/joseivelarde/Projects/aii-design/documents/Diagnosis/diagnosis.log"
+  "diagnosis.aux"
+  "diagnosis.pdf"
