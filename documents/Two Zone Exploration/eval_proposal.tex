@@ -50,28 +50,30 @@ In order to separate the effect of contract design from the effect of prediction
         \item $K_z$: maximum insured amount of zone $z$.  
     \end{itemize}
 
-    \subsection*{Multiple Zone Model}
+    \subsection*{Original Multiple Zone Model}
     
-    \begin{align}
-        \min_{a,b,K^P} \max_z &\quad CV@R_{1-\epsilon}(\ell_z - \min\left\{(a_z\hat{\ell_z}(\theta_z) + b_z), K_z\right\})\\
-        \text{s.t.   } K\bar{\pi} &\geq a_z \mathbb{E}[\hat{\ell_z}(\theta^k_z)] + b_z + c_k\rho_z K^P,  \forall k, \forall z\\
-        0 &\leq a_z\hat{\ell_z}(\theta^k_z) + b_z, \forall k, \forall z \\
-        K^P + Z\underline{\pi} &\geq CV@R_{1-\epsilon_P}\left( \sum_z a_z \hat{\ell_z}(\theta_z) + b_z \right)
-    \end{align}
+        \begin{align}
+            \min_{a,b,K^P} \max_z &\quad CV@R_{1-\epsilon}(\ell_z - \min\left\{(a_z\hat{\ell_z}(\theta_z) + b_z), K_z\right\})\\
+            \text{s.t.   } K\bar{\pi} &\geq a_z \mathbb{E}[\hat{\ell_z}(\theta^k_z)] + b_z + c_k\rho_z K^P,  \forall k, \forall z\\
+            0 &\leq a_z\hat{\ell_z}(\theta^k_z) + b_z, \forall k, \forall z \\
+            K^P + Z\underline{\pi} &\geq CV@R_{1-\epsilon_P}\left( \sum_z a_z \hat{\ell_z}(\theta_z) + b_z \right)
+        \end{align}
+        
+        The reformulation is: 
+        
+        \begin{align}
+            \min_{a,b,\gamma,t,m,K^P} \quad & m\\
+            \text{s.t.} \quad t_z &+ \frac{1}{\epsilon} \sum_k p_k \gamma_z^k \leq m, \forall z\\
+            \gamma_z^k &\geq \ell^k - \min\left\{(a_z\hat{\ell_z}(\theta_z^k) + b_z), K_z\right\} -t_z, \forall k, \forall z \\
+            \gamma_z^k &\geq 0, \forall k, \forall z\\
+            t_p &+ \frac{1}{\epsilon_p} \sum_k p_k \gamma_P^k \leq K^P+Z\underline{\pi}\\
+            \gamma_P^k &\geq \sum_z a_z \hat{\ell_z}(\theta^k_z) + b_z -t_p, \forall k \\
+            \gamma_P^k &\geq 0, \forall k\\
+            K_z\bar{\pi} &\geq a_z \mathbb{E}[\hat{\ell_z}(\theta_z)] + b_z + c_k \rho_z K^P, \forall z \\
+            0 &\leq a_z \hat{\ell_z}(\theta_z^k) + b_z, \forall k, \forall z
+        \end{align}
+
     
-    The reformulation is: 
-    
-    \begin{align}
-        \min_{a,b,\gamma,t,m,K^P} \quad & m\\
-        \text{s.t.} \quad t_z &+ \frac{1}{\epsilon} \sum_k p_k \gamma_z^k \leq m, \forall z\\
-        \gamma_z^k &\geq \ell^k - \min\left\{(a_z\hat{\ell_z}(\theta_z^k) + b_z), K_z\right\} -t_z, \forall k, \forall z \\
-        \gamma_z^k &\geq 0, \forall k, \forall z\\
-        t_p &+ \frac{1}{\epsilon_p} \sum_k p_k \gamma_P^k \leq K^P+Z\underline{\pi}\\
-        \gamma_P^k &\geq \sum_z a_z \hat{\ell_z}(\theta^k_z) + b_z -t_p, \forall k \\
-        \gamma_P^k &\geq 0, \forall k\\
-        K_z\bar{\pi} &\geq a_z \mathbb{E}[\hat{\ell_z}(\theta_z)] + b_z + c_k \rho_z K^P, \forall z \\
-        0 &\leq a_z \hat{\ell_z}(\theta_z^k) + b_z, \forall k, \forall z
-    \end{align}
     
 \section{Evaluation}
 \subsection*{Data Generating Process}

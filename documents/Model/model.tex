@@ -16,7 +16,7 @@
 \maketitle
 
 \section{Overview}
-The goal of insurance is to protect farmers against catastrophic events. We want to make sure that the worse case scenario for farmers doesn't enter them into a poverty trap. The most relevant feature of the problem are the price constraint (ie the premium constraint) and the effects of spatial correlations on prices in the multi-zone case. I think that what is causing the most problems is the constraint that $I(\theta)$ is piecewise linear, this seems to be causing most of our problems with non-convexity, however, having it be linear seems to perform worse than the baseline. 
+The goal of insurance is to protect farmers against catastrophic events. We want to make sure that the worse case scenario for farmers doesn't put them into a poverty trap. The most relevant feature of the problem are the price constraint (ie the premium constraint) and the effects of spatial correlations on prices in the multi-zone case. I think that what is causing the most problems is the constraint that $I(\theta)$ is piecewise linear, this seems to be causing most of our problems with non-convexity, however, having it be linear seems to perform worse than the baseline. 
 
 \section{Original Simplified Model}
 
@@ -71,7 +71,7 @@ We reformulated the problem in the following way. In the model below, $p_k$ is t
     K\bar{\pi} &\geq a\mathbb{E}[\hat{l}(\theta)] + b
 \end{align}
 
-\subsection*{Multiple Zone Model}
+\subsection*{Original Multiple Zone Model}
 \paragraph*{Model Parameters}
     \begin{itemize}
         \item $\epsilon$: This defines the CV@R objective. $\epsilon = 0.1$ means that our objective is on the expected value of the loss given that it is above the $90^{th}$ percentile. 
@@ -107,6 +107,31 @@ We reformulated the problem in the following way. In the model below, $p_k$ is t
         0 &\leq a_z \hat{\ell_z}(\theta_z^k) + b_z, \forall k, \forall z
     \end{align}
 
+\subsection*{Modified Multiple Zone Model}
+The original multiple zone model led to unsatisfactory results. One of the problems was that the model excluded functions of the form: $f(x) = \max \left \{0,a\theta + b\right \}$, which is the function space we ideally want to optimize over. We ideally want to optimize over functions of the form: $f(x) = \min \left \{\max \left \{0,a\theta + b \right \}, K \right \}$. We want to optimize over this function space because these types of functions are what is traditionally used in index insurance contracts. The reason they are popular is that they start paying out once the loss is deeemed big enough. The problem with the original model is that it was constrained to start paying out whenever the predicted loss was non-negative. This meant the model was forced to grant payouts even in cases where the predicted loss was small, this in turn affected the size of the payouts it could give in cases of large losses. To approximate the program over the class of functions we are interested in, we modified the program in the following way. We also changed the premium constraint into an overall budget constraint, to make comparisons with the status quo more straightforward: 
+
+\subsubsection*{Model}
+    
+    \begin{align}
+        \min_{a,b,K^P} \max_z &\quad CV@R_{1-\epsilon}(\ell_z - \min \left \{ (a_z\hat{\ell_z}(\theta_z) + b_z), K_z \right \})\\
+        \text{s.t.   } B &\geq \sum_z \max \left \{ 0, a_z\hat{\ell_z}(\theta_z) + b_z \right \} + c_k K^P\\
+        K^P + Z\pi_{SQ} &\geq CV@R_{1-\epsilon_P} \left( \sum_z \max \left \{ 0,a_z\hat{\ell_z}(\theta_z) + b_z \right \} \right )
+    \end{align}
+    
+    The reformulation is: 
+    
+    \begin{align}
+        \min_{a,b,\alpha,\gamma,t,m,K^P} \quad & m\\
+        \text{s.t.} \quad t_z &+ \frac{1}{\epsilon} \sum_k p_k \gamma_z^k \leq m, \forall z\\
+        \gamma_z^k &\geq \ell^k - \min\left\{(a_z\hat{\ell_z}(\theta_z^k) + b_z), K_z\right\} -t_z, \forall k, \forall z \\
+        \gamma_z^k &\geq 0, \forall k, \forall z\\
+        B &\geq \sum_k \sum_z \alpha^k_z + c_k K^P\\
+        t_p &+ \frac{1}{\epsilon_p} \sum_k p_k \gamma_P^k \leq K^P+Z\pi_{SQ}\\
+        \gamma_P^k &\geq \sum_z \alpha^k_z -t_p, \forall k \\
+        \gamma_P^k &\geq 0, \forall k\\
+        \alpha^k_z &\geq a_z \hat{\ell_z}(\theta^k_z) + b_z, \forall k, \forall z\\
+        \alpha^k_z &\geq 0, \forall k, \forall z
+    \end{align}
 
 % {\color{red}
 % Given $\bar{\ell}$ and $\epsilon$, let $I(\theta) = (a\theta - b)^+$.

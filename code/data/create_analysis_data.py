@@ -140,8 +140,8 @@ def load_kenya_geodata():
     filename = RAW_DATA_DIR + '/Kenya Geodata/gadm41_KEN_3.shp'
     kdf = gpd.read_file(filename)
     locations_of_interest = ['Marsabit Central','Sagante/Jaldesa','Laisamis','Loiyangalani','Maikona']
-    # kdf.loc[kdf.NAME_1 == 'Marsabit',:].apply(lambda x: ax.annotate(text=x['NAME_3'],
-        # xy=x.geometry.centroid.coords[0], ha='center'), axis=1)
+    kdf.loc[kdf.NAME_1 == 'Marsabit',:].apply(lambda x: ax.annotate(text=x['NAME_3'],
+        xy=x.geometry.centroid.coords[0], ha='center'), axis=1)
     return kdf.loc[kdf.NAME_1 == 'Marsabit',:]
    
 hdf_files = [fname for fname in os.listdir(CLEAN_DATA_DIR) if '.hdf5' in fname]
