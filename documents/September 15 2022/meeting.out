@@ -1,0 +1,21 @@
+\BOOKMARK [1][-]{section.1}{Modifications to Model}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Simplified Ideal Model}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Old Convex Approximation}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{New Convex Approximation}{section.1}% 4
+\BOOKMARK [1][-]{section.2}{Evaluation}{}% 5
+\BOOKMARK [2][-]{subsection.2.1}{Status Quo}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.2}{Data Generating Process}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.3}{Scenarios to be tested}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.4}{Performance Metrics}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.5}{Simulation Details}{section.2}% 10
+\BOOKMARK [1][-]{section.3}{Results}{}% 11
+\BOOKMARK [2][-]{subsection.3.1}{Correctly Specified Prediction Model}{section.3}% 12
+\BOOKMARK [3][-]{subsubsection.3.1.1}{No correlation Case}{subsection.3.1}% 13
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Positive Correlation Case}{subsection.3.1}% 14
+\BOOKMARK [3][-]{subsubsection.3.1.3}{Negative Correlation Case}{subsection.3.1}% 15
+\BOOKMARK [3][-]{subsubsection.3.1.4}{Disparate Variance Case}{subsection.3.1}% 16
+\BOOKMARK [2][-]{subsection.3.2}{Misspecified Prediction Model}{section.3}% 17
+\BOOKMARK [3][-]{subsubsection.3.2.1}{No correlation Case}{subsection.3.2}% 18
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Positive Correlation Case}{subsection.3.2}% 19
+\BOOKMARK [3][-]{subsubsection.3.2.3}{Negative Correlation Case}{subsection.3.2}% 20
+\BOOKMARK [3][-]{subsubsection.3.2.4}{Disparate Variance Case}{subsection.3.2}% 21

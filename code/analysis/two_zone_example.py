@@ -18,11 +18,14 @@ TABLES_DIR = PROJECT_DIR + '/output/tables'
 # 3. change code to train a separate regression model for each zone.
 
 ##### Data Creation #####
-def make_multi_zone_data(beta,mu,sigma,n=100):
+def make_multi_zone_data(beta,mu,sigma,n=100,square=False):
     dim = len(mu)
     X = np.random.multivariate_normal(mean=mu,cov=sigma,size=n)
     epsilon = np.random.multivariate_normal(mean=np.zeros(dim),cov=np.eye(dim),size=n)
-    y = np.dot(X**2,beta) + epsilon
+    if square:
+        y = np.dot(X**2,beta) + epsilon
+    else:
+        y = np.dot(X,beta) + epsilon
     return y, X
 
 ##### Optimization Functions #####
@@ -80,7 +83,7 @@ def min_CVaR_program(pred_y,train_y,params):
     objective = cp.Minimize(m)
     problem = cp.Problem(objective,constraints)
     problem.solve(solver=cp.GLPK)
-    print('Req capital: {}'.format(K_p.value))
+    # print('Req capital: {}'.format(K_p.value))
     return (A.value[0,:], B.value[0,:])
 
 ##### Evaluation functions #####
@@ -238,7 +241,7 @@ def determine_budget_params(pred_y,strike_vals,Ks,c_k=0.05):
     average_premium = bdf['Total Payouts'].mean()
     payment_costs = bdf['Total Payouts'].sum()
     required_capital = loss_quantile-average_premium
-    print('Required Capital: {}'.format(required_capital))
+    # print('Required Capital: {}'.format(required_capital))
     capital_costs = c_k*required_capital
     total_costs = payment_costs + capital_costs
     return total_costs, average_premium
@@ -252,16 +255,17 @@ def get_summary_stats(df,cvar_eps=0.2):
     sdf = {}
     sdf['CVaR0'] = CVaR(df,'Losses0','NetLoss0',cvar_eps)
     sdf['CVaR1'] = CVaR(df,'Losses1','NetLoss1',cvar_eps)
-    sdf['CVaR Total'] = CVaR(df,'TotalLoss','TotalNetLoss',cvar_eps)
-    sdf['CVaR Diff'] = np.abs(sdf['CVaR0']-sdf['CVaR1'])
+    # sdf['Total CVaR'] = CVaR(df,'TotalLoss','TotalNetLoss',cvar_eps)
+    sdf['$|CVaR_2 - CVaR_1|$'] = np.abs(sdf['CVaR0']-sdf['CVaR1'])
+    sdf['Max CVaR'] = np.maximum(sdf['CVaR0'],sdf['CVaR1'])
 
-    sdf['NetLoss0'] = df['NetLoss0'].mean()
-    sdf['NetLoss1'] = df['NetLoss1'].mean()
-    sdf['NetTotal'] = df['TotalNetLoss'].mean()
-    sdf['Loss Diff'] = np.abs(sdf['NetLoss0']-sdf['NetLoss1'])
+    # sdf['NetLoss0'] = df['NetLoss0'].mean()
+    # sdf['NetLoss1'] = df['NetLoss1'].mean()
+    # sdf['NetTotal'] = df['TotalNetLoss'].mean()
+    # sdf['$|L_2 - L_1|$'] = np.abs(sdf['NetLoss0']-sdf['NetLoss1'])
 
-    col_names = ['P(L > {})'.format(i) for i in [50,60,70,80]]
-    loss_quantiles = np.quantile(df['Losses0'],[0.5,0.6,0.7,0.8])
+    col_names = ['$P(L > Q({}))$'.format(i) for i in [.60]]
+    loss_quantiles = np.quantile(df['Losses0'],[0.6])
     for col_name, loss_quantile in zip(col_names,loss_quantiles):
         sdf[col_name] = ((df['NetLoss0'] > loss_quantile) | (df['NetLoss1'] > loss_quantile)).mean()
 
@@ -274,95 +278,161 @@ def comparison_df(bdf,odf,cvar_eps=0.2):
     bdict = get_summary_stats(bdf,cvar_eps)
     odict = get_summary_stats(odf,cvar_eps)
     sdf = pd.DataFrame([bdict,odict],index=['Baseline','Opt'])
+    sdf.drop(columns=['CVaR0','CVaR1','Payout CVaR'],inplace=True)
     return sdf
 
 ##### Exploration functions #####
 def run_scenario(beta,mu,sigma,params,axes,scenario_name):
-    train_y, train_x = make_multi_zone_data(beta,mu,sigma,n=1000)
-    eval_y, eval_x = make_multi_zone_data(beta,mu,sigma,n=100)
-    test_y, test_x = make_multi_zone_data(beta,mu,sigma,n=400)
+    square = 'nonlinear' in scenario_name
+    train_y, train_x = make_multi_zone_data(beta,mu,sigma,n=500,square=square)
+    eval_y, eval_x = make_multi_zone_data(beta,mu,sigma,n=100,square=square)
+    test_y, test_x = make_multi_zone_data(beta,mu,sigma,n=200,square=square)
 
     pred_model = LinearRegression().fit(train_x,train_y)
     pred_y = pred_model.predict(train_x)
     strike_ps, strike_vals = determine_strike_values(train_y,eval_y,eval_x,pred_model)
-    print('strike vals: {}, {}'.format(strike_vals[0],strike_vals[1]))
+    # print('strike vals: {}, {}'.format(strike_vals[0],strike_vals[1]))
     params['B'], params['premium income'] = determine_budget_params(pred_y,strike_vals,params['K'],params['c_k'])
 
     a,b = np.around(min_CVaR_program(pred_y,train_y,params),2)
     print('a: {}, b: {}'.format(a,b))
     bdf, odf = make_eval_dfs2(test_x,test_y,pred_model,strike_vals,a,b,params['K'])
-    # plot_payout_functions2(bdf,odf,a,b,axes,scenario_name)
+    plot_payout_functions2(bdf,odf,a,b,axes,scenario_name)
     # return(a,b)
     return(bdf,odf)
 
-def scenario_exploration():
-    fig, axes = plt.subplots(4,2,figsize=(10,10))
-    default_params = {'max_premium':0.6,'min_premium':0.1,'epsilon':0.2,'epsilon_p':0.05,
-        'K':np.array([8,8]),'rho':np.array([0.5,0.5]),'c_k':0.05}
+def epsilon_exploration():
+    beta = np.array([[1.5,0],[0,1.5]])
+    mu = np.array([5,5])
+
+        # No correlation case
+    fig, axes = plt.subplots(1,2,figsize=(10,6))
+
+    eps_vals = [0.2,0.1,0.05,0.01]
+    for eps_val in eps_vals:
+        A = np.array([]).reshape(0,2)
+        B = np.array([]).reshape(0,2)
+        for i in range(10):
+            sigma = np.array(np.array([[2,0],[0,2]]))
+            cvar_eps=eps_val
+            params = {'max_premium':0.6,'min_premium':0.05,'epsilon':cvar_eps,'epsilon_p':0.01,
+                    'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05}
+
+            fig_filename = FIGURES_DIR + '/Exploration/no_correlation_{}.png'.format(regime)
+            table_filename = TABLES_DIR + '/Exploration/no_correlation_{}.tex'.format(regime)
+
+            a, b = run_scenario(beta,mu,sigma,params,axes, 'No corr, {}'.format(regime))
+            A = np.vstack((A,a))
+            B = np.vstack((B,b))
+            # sdf = comparison_df(bdf,odf,cvar_eps)
+        print("eps: {}, a: {} b: {}".format(eps_val,np.mean(A,axis=0),np.mean(B,axis=0)))
+
+def scenario_exploration(regime,K):
     beta = np.array([[1.5,0],[0,1.5]])
     mu = np.array([5,5])
 
     # No correlation case
     fig, axes = plt.subplots(1,2,figsize=(10,6))
+
     sigma = np.array(np.array([[2,0],[0,2]]))
-    cvar_eps=0.2
-    K = 8
+    cvar_eps=0.05
     params = {'max_premium':0.6,'min_premium':0.05,'epsilon':cvar_eps,'epsilon_p':0.01,
             'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05}
-    filepath = FIGURES_DIR + '/Exploration/no_correlation.png'
-    bdf, odf = run_scenario(beta,mu,sigma,params,axes, 'No corr')
-    comparison_df(bdf,odf,cvar_eps)
-    plt.show()
+
+    fig_filename = FIGURES_DIR + '/Exploration/no_correlation_{}.png'.format(regime)
+    table_filename = TABLES_DIR + '/Exploration/no_correlation_{}.tex'.format(regime)
+
+    bdf, odf = run_scenario(beta,mu,sigma,params,axes, 'No corr, {}'.format(regime))
+    sdf = comparison_df(bdf,odf,cvar_eps)
+    sdf.to_latex(table_filename,float_format='%.2f',escape=False)
+    fig.savefig(fig_filename)
+    plt.close()
 
     # Positive Correlation
     fig, axes = plt.subplots(1,2,figsize=(10,6))
-    sigma = np.array(np.array([[2,1.9],[1.9,2]]))
-    cvar_eps=0.2
-    K = 45
+    sigma = np.array(np.array([[2,1.6],[1.6,2]]))
+    cvar_eps=0.05
     params = {'max_premium':0.6,'min_premium':0.05,'epsilon':cvar_eps,'epsilon_p':0.01,
             'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05}
-    filepath = FIGURES_DIR + '/Exploration/pos_correlation.png'
-    bdf, odf = run_scenario(beta,mu,sigma,params,axes,'Pos Corr')
-    comparison_df(bdf,odf,cvar_eps)
-    plt.show()
+
+    fig_filename = FIGURES_DIR + '/Exploration/pos_correlation_{}.png'.format(regime)
+    table_filename = TABLES_DIR + '/Exploration/pos_correlation_{}.tex'.format(regime)
+
+    bdf, odf = run_scenario(beta,mu,sigma,params,axes, 'Pos corr, {}'.format(regime))
+    sdf = comparison_df(bdf,odf,cvar_eps)
+    sdf.to_latex(table_filename,float_format='%.2f',escape=False)
+    fig.savefig(fig_filename)
+    plt.close()
 
     # Negative Correlation
     fig, axes = plt.subplots(1,2,figsize=(10,6))
-    sigma = np.array(np.array([[2,-1.9],[-1.9,2]]))
-    cvar_eps=0.2
+    sigma = np.array(np.array([[2,-1.6],[-1.6,2]]))
+    cvar_eps=0.05
     params = {'max_premium':0.6,'min_premium':0.05,'epsilon':cvar_eps,'epsilon_p':0.01,
         'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05}
-    filepath = FIGURES_DIR + '/Exploration/neg_correlation.png'
-    bdf, odf = run_scenario(beta,mu,sigma,params,axes,'Neg corr')
-    sdf = comparison_df(bdf,odf)
-    plt.show()
+
+    fig_filename = FIGURES_DIR + '/Exploration/neg_correlation_{}.png'.format(regime)
+    table_filename = TABLES_DIR + '/Exploration/neg_correlation_{}.tex'.format(regime)
+
+    bdf, odf = run_scenario(beta,mu,sigma,params,axes, 'Neg corr, {}'.format(regime))
+    sdf = comparison_df(bdf,odf,cvar_eps)
+    sdf.to_latex(table_filename,float_format='%.2f',escape=False)
+    fig.savefig(fig_filename)
+    plt.close()
 
     # Disparate variance
+    fig, axes = plt.subplots(1,2,figsize=(10,6))
     sigma = np.array(np.array([[2,0],[0,4]]))
-    cvar_eps=0.2
-    K = 8
+    cvar_eps=0.1
     params = {'max_premium':0.6,'min_premium':0.05,'epsilon':cvar_eps,'epsilon_p':0.01,
             'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05}
-    filepath = FIGURES_DIR + '/Exploration/disp_variance.png'
-    bdf, odf = run_scenario(beta,mu,sigma,params,axes,'Disp var')
-    comparison_df(bdf,odf,cvar_eps)
 
-    plt.tight_layout()
-    filename = FIGURES_DIR + '/Exploration/scenario_exploration.png'
-    plt.savefig(filename)
+    fig_filename = FIGURES_DIR + '/Exploration/disp_var_{}.png'.format(regime)
+    table_filename = TABLES_DIR + '/Exploration/disp_var_{}.tex'.format(regime)
 
-    fig, axes = plt.subplots(1,2,figsize=(10,5))
-    x = np.linspace(0,16,50)
-    for zone, ax in zip(range(2),axes.ravel()):
-        ax.plot(x,ab[zone]*x+bb[zone],'g',label='no corr')
-        ax.plot(x,apc[zone]*x+bpc[zone],'b',label='pos corr')
-        ax.plot(x,anc[zone]*x+bnc[zone],'p',label='neg corr')
+    bdf, odf = run_scenario(beta,mu,sigma,params,axes, 'Disp Var, {}'.format(regime))
+    sdf = comparison_df(bdf,odf,cvar_eps)
+    sdf.to_latex(table_filename,float_format='%.2f',escape=False)
+    fig.savefig(fig_filename)
+    plt.close()
+
+def epsilon_exploration2(regime,K):
+    beta = np.array([[1.5,0],[0,1.5]])
+    mu = np.array([5,5])
+    sigma = np.array(np.array([[2,0],[0,2]]))
+    eps_vals = np.linspace(0.3,0.01,30)
+    fig, axes = plt.subplots(2,2,figsize=(10,6))
+    sdf_list = []
+    for eps in eps_vals:
+        cvar_eps=eps
+        params = {'max_premium':0.6,'min_premium':0.05,'epsilon':cvar_eps,'epsilon_p':0.01,
+                'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05}
+
+        bdf, odf = run_scenario(beta,mu,sigma,params,axes, 'No corr, {}'.format(regime))
+        sdf = comparison_df(bdf,odf,cvar_eps)
+        sdf_list.append(sdf)
+
+    sdf = pd.concat(sdf_list)
+
+    metrics = ['Total CVaR','CVaR Diff','Max CVaR', '$P(L > Q(0.6))$']
+    fig, axes = plt.subplots(2,2,figsize=(10,6))
+    for metric, ax in zip(metrics,axes.ravel()):
+        ax.plot(sdf.loc[sdf['index'] == 'Opt','Eps'],sdf.loc[sdf['index'] =='Opt',metric],'g^',label='opt')
+        ax.plot(sdf.loc[sdf['index'] == 'Baseline','Eps'],sdf.loc[sdf['index']=='Baseline',metric],'bs',label='baseline')
         ax.legend()
-        ax.set_title('Zone: {}'.format(zone))
-
+        ax.set_title(metric)
+        ax.invert_xaxis()
     plt.tight_layout()
-    filename = FIGURES_DIR + '/Exploration/scenario_payouts_by_zone.png'
-    plt.savefig(filename)
+    plt.show()
+    new_eps = []
+    for eps in eps_vals:
+        new_eps.append(np.around(eps,2))
+        new_eps.append(np.around(eps,2))
+
+    
+
+scenario_exploration('linear',8)
+scenario_exploration('nonlinear',45)
 
 
 

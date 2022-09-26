@@ -1976,14 +1976,42 @@
   </bcf:bibdata>
   <bcf:section number="0">
     <bcf:citekey order="1">karlan2014agricultural</bcf:citekey>
-    <bcf:citekey order="2">chantarat2013designing</bcf:citekey>
-    <bcf:citekey order="3">jensen2019does</bcf:citekey>
-    <bcf:citekey order="4">flatnes2018improving</bcf:citekey>
-    <bcf:citekey order="5">world2011weather</bcf:citekey>
-    <bcf:citekey order="6">dalhaus2020behavioral</bcf:citekey>
-    <bcf:citekey order="7">rockafellar2000optimization</bcf:citekey>
-    <bcf:citekey order="8">rockafellar2000optimization</bcf:citekey>
-    <bcf:citekey order="9">rockafellar2002conditional</bcf:citekey>
+    <bcf:citekey order="2">cole2013barriers</bcf:citekey>
+    <bcf:citekey order="3">mobarak2013informal</bcf:citekey>
+    <bcf:citekey order="4">jensen2017agricultural</bcf:citekey>
+    <bcf:citekey order="5">jensen2017agricultural</bcf:citekey>
+    <bcf:citekey order="6">cole2013barriers</bcf:citekey>
+    <bcf:citekey order="7">cai2020subsidy</bcf:citekey>
+    <bcf:citekey order="8">casaburi2018time</bcf:citekey>
+    <bcf:citekey order="9">chantarat2013designing</bcf:citekey>
+    <bcf:citekey order="10">flatnes2018improving</bcf:citekey>
+    <bcf:citekey order="11">jensen2019does</bcf:citekey>
+    <bcf:citekey order="12">chantarat2013designing</bcf:citekey>
+    <bcf:citekey order="13">osgood2007designing</bcf:citekey>
+    <bcf:citekey order="14">world2011weather</bcf:citekey>
+    <bcf:citekey order="15">greatrex2015scaling</bcf:citekey>
+    <bcf:citekey order="16">world2011weather</bcf:citekey>
+    <bcf:citekey order="17">lagoa2005probabilistically</bcf:citekey>
+    <bcf:citekey order="18">artzner1999coherent</bcf:citekey>
+    <bcf:citekey order="19">rockafellar2000optimization</bcf:citekey>
+    <bcf:citekey order="20">azariadis2005poverty</bcf:citekey>
+    <bcf:citekey order="21">osgood2007designing</bcf:citekey>
+    <bcf:citekey order="22">world2011weather</bcf:citekey>
+    <bcf:citekey order="23">jensen2017agricultural</bcf:citekey>
+    <bcf:citekey order="24">osgood2007designing</bcf:citekey>
+    <bcf:citekey order="25">world2011weather</bcf:citekey>
+    <bcf:citekey order="26">chantarat2013designing</bcf:citekey>
+    <bcf:citekey order="27">cai2020subsidy</bcf:citekey>
+    <bcf:citekey order="28">mapfumo2017risk</bcf:citekey>
+    <bcf:citekey order="29">rockafellar2000optimization</bcf:citekey>
+    <bcf:citekey order="30">rockafellar2002conditional</bcf:citekey>
+    <bcf:citekey order="31">artzner1999coherent</bcf:citekey>
+    <bcf:citekey order="32">rockafellar2000optimization</bcf:citekey>
+    <bcf:citekey order="33">chantarat2013designing</bcf:citekey>
+    <bcf:citekey order="34">flatnes2018improving</bcf:citekey>
+    <bcf:citekey order="35">jensen2019does</bcf:citekey>
+    <bcf:citekey order="36">barrett2007poverty</bcf:citekey>
+    <bcf:citekey order="37">jensen2017agricultural</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="ynt">
@@ -2012,4 +2040,13 @@
     </bcf:sort>
   </bcf:sortingtemplate>
   <!-- DATALISTS -->
+  <bcf:datalist section="0"
+                name="ynt/global//global/global"
+                type="entry"
+                sortingtemplatename="ynt"
+                sortingnamekeytemplatename="global"
+                labelprefix=""
+                uniquenametemplatename="global"
+                labelalphanametemplatename="global">
+  </bcf:datalist>
 </bcf:controlfile>

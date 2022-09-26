@@ -1,0 +1,23 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Literature Review}{}% 2
+\BOOKMARK [1][-]{section.3}{Optimization Approach}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Objective and Constraints}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Index Insurance Definition and Parameters}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.3}{CVaR Model}{section.3}% 6
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Motivation}{subsection.3.3}% 7
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Changes to constraints}{subsection.3.3}% 8
+\BOOKMARK [3][-]{subsubsection.3.3.3}{Single Zone Model}{subsection.3.3}% 9
+\BOOKMARK [3][-]{subsubsection.3.3.4}{Multiple Zone Model}{subsection.3.3}% 10
+\BOOKMARK [1][-]{section.4}{Evaluation}{}% 11
+\BOOKMARK [2][-]{subsection.4.1}{Baseline Approach}{section.4}% 12
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Method description}{subsection.4.1}% 13
+\BOOKMARK [2][-]{subsection.4.2}{Simulation Set Up}{section.4}% 14
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Data Generating Process}{subsection.4.2}% 15
+\BOOKMARK [3][-]{subsubsection.4.2.2}{Optimization Model Parameters}{subsection.4.2}% 16
+\BOOKMARK [3][-]{subsubsection.4.2.3}{Scenarios to be tested}{subsection.4.2}% 17
+\BOOKMARK [3][-]{subsubsection.4.2.4}{Simulation details}{subsection.4.2}% 18
+\BOOKMARK [2][-]{subsection.4.3}{Performance Metrics}{section.4}% 19
+\BOOKMARK [2][-]{subsection.4.4}{Results}{section.4}% 20
+\BOOKMARK [3][-]{subsubsection.4.4.1}{Correctly specified prediction model}{subsection.4.4}% 21
+\BOOKMARK [3][-]{subsubsection.4.4.2}{Incorrectly specified prediction model}{subsection.4.4}% 22
+\BOOKMARK [1][-]{section.5}{Discussion}{}% 23

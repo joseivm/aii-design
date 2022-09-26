@@ -44,10 +44,10 @@
   <internal package="biblatex" priority="9" active="0">
     <generic>latex</generic>
     <provides type="dynamic">
-      <file>outline.bcf</file>
+      <file>paper.bcf</file>
     </provides>
     <requires type="dynamic">
-      <file>outline.bbl</file>
+      <file>paper.bbl</file>
     </requires>
     <requires type="static">
       <file>blx-dm.def</file>
@@ -66,19 +66,19 @@
     <generic>biber</generic>
     <cmdline>
       <binary>biber</binary>
-      <infile>outline</infile>
+      <infile>paper</infile>
     </cmdline>
     <input>
-      <file>outline.bcf</file>
+      <file>paper.bcf</file>
     </input>
     <output>
-      <file>outline.bbl</file>
+      <file>paper.bbl</file>
     </output>
     <provides type="dynamic">
-      <file>outline.bbl</file>
+      <file>paper.bbl</file>
     </provides>
     <requires type="dynamic">
-      <file>outline.bcf</file>
+      <file>paper.bcf</file>
     </requires>
     <requires type="editable">
       <file>../main.bib</file>
