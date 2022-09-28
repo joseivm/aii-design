@@ -3,3 +3,6 @@
 .env.R
 .env
 data/raw/MODIS
+slurm*
+submit.sh
+data/processed/NDVI/HDF
