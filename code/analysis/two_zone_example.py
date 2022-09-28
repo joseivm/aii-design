@@ -4,6 +4,7 @@ from sklearn.linear_model import LinearRegression
 import cvxpy as cp
 import matplotlib.pyplot as plt
 import os
+import time
 
 from dotenv import load_dotenv, find_dotenv
 dotenv_path = find_dotenv()
@@ -16,6 +17,8 @@ TABLES_DIR = PROJECT_DIR + '/output/tables'
 # TODO: 1. figure out how to include positive and negative losses as well
 # 2. add function to create a covariance matrix based on the desired correlation
 # 3. change code to train a separate regression model for each zone.
+# 4. modify min_CVaR_program to include rhos, separate budget constrant into two, one for each zone,
+# make each zone's budget \sum I_z + \rho c_k B, think about how to set budget for each zone?
 
 ##### Data Creation #####
 def make_multi_zone_data(beta,mu,sigma,n=100,square=False):
@@ -31,12 +34,9 @@ def make_multi_zone_data(beta,mu,sigma,n=100,square=False):
 ##### Optimization Functions #####
 def min_CVaR_program(pred_y,train_y,params):
     # params: epsilon, pi_max, pi_min, beta_z, eps_p, c_k, K_z
-    max_pi = params['max_premium']
-    min_pi = params['min_premium']
     eps_p = params['epsilon_p']
     Ks = params['K']
     epsilon = params['epsilon']
-    rhos = params['rho']
     c_k = params['c_k']
     budget = params['B']
     premium_income_sq = params['premium income']
@@ -73,7 +73,7 @@ def min_CVaR_program(pred_y,train_y,params):
     constraints.append(alpha >= 0)
 
     # budget constraint
-    constraints.append(budget >= cp.sum(alpha) + c_k*K_p)
+    constraints.append(budget >= (1/n_samples)*cp.sum(alpha) + c_k*K_p)
 
     for i in range(n_samples-1):
         constraints.append(A[i,:] == A[i+1,:])
@@ -125,7 +125,7 @@ def plot_payout_functions2(bdf,odf,a,b,axes,scenario=None):
     b = np.around(b,2)
     for zone, ax in zip(range(n_zones), axes.ravel()):
         ax.plot(bdf['PredictedLosses{}'.format(zone)],bdf['Payout{}'.format(zone)],'bs',label='baseline')
-        ax.plot(odf['PredictedLosses{}'.format(zone)],odf['Payout{}'.format(zone)],'g^',label='opt')
+        ax.plot(bdf['PredictedLosses{}'.format(zone)],odf['Payout{}'.format(zone)],'g^',label='opt')
         ax.plot(bdf['PredictedLosses{}'.format(zone)],bdf['Losses{}'.format(zone)],'ro',label='actual losses')
         ax.legend()
         if scenario is not None:
@@ -169,9 +169,11 @@ def make_eval_dfs(test_x,test_y,pred_model,strike_vals,a,b,Ks):
     odf = pd.concat(odfs,ignore_index=True)
     return bdf, odf
 
-def make_eval_dfs2(test_x,test_y,pred_model,strike_vals,a,b,Ks):
+def make_eval_dfs2(test_x,test_y,pred_model,strike_vals,a,b,params):
     n_zones = test_y.shape[1]
     
+    # offset = params['offset']
+    Ks = params['K']
     bdf = pd.DataFrame()
     odf = pd.DataFrame()
     pred_y = pred_model.predict(test_x)
@@ -238,13 +240,12 @@ def determine_budget_params(pred_y,strike_vals,Ks,c_k=0.05):
 
     bdf['Total Payouts'] = bdf['Payout0']+bdf['Payout1']
     loss_quantile = np.quantile(bdf['Total Payouts'],0.99)
-    average_premium = bdf['Total Payouts'].mean()
-    payment_costs = bdf['Total Payouts'].sum()
-    required_capital = loss_quantile-average_premium
+    average_payout = bdf['Total Payouts'].mean()
+    required_capital = loss_quantile-average_payout
     # print('Required Capital: {}'.format(required_capital))
     capital_costs = c_k*required_capital
-    total_costs = payment_costs + capital_costs
-    return total_costs, average_premium
+    average_total_costs = average_payout + capital_costs
+    return average_total_costs, average_payout
 
 def CVaR(df,loss_col,outcome_col,epsilon=0.2):
     q = np.quantile(df[loss_col],1-epsilon)
@@ -253,16 +254,16 @@ def CVaR(df,loss_col,outcome_col,epsilon=0.2):
 
 def get_summary_stats(df,cvar_eps=0.2):
     sdf = {}
-    sdf['CVaR0'] = CVaR(df,'Losses0','NetLoss0',cvar_eps)
-    sdf['CVaR1'] = CVaR(df,'Losses1','NetLoss1',cvar_eps)
+    # sdf['CVaR0'] = CVaR(df,'Losses0','NetLoss0',cvar_eps)
+    # sdf['CVaR1'] = CVaR(df,'Losses1','NetLoss1',cvar_eps)
     # sdf['Total CVaR'] = CVaR(df,'TotalLoss','TotalNetLoss',cvar_eps)
-    sdf['$|CVaR_2 - CVaR_1|$'] = np.abs(sdf['CVaR0']-sdf['CVaR1'])
-    sdf['Max CVaR'] = np.maximum(sdf['CVaR0'],sdf['CVaR1'])
+    # sdf['$|CVaR_2 - CVaR_1|$'] = np.abs(sdf['CVaR0']-sdf['CVaR1'])
+    # sdf['Max CVaR'] = np.maximum(sdf['CVaR0'],sdf['CVaR1'])
 
-    # sdf['NetLoss0'] = df['NetLoss0'].mean()
-    # sdf['NetLoss1'] = df['NetLoss1'].mean()
+    sdf['NetLoss0'] = df['NetLoss0'].mean()
+    sdf['NetLoss1'] = df['NetLoss1'].mean()
     # sdf['NetTotal'] = df['TotalNetLoss'].mean()
-    # sdf['$|L_2 - L_1|$'] = np.abs(sdf['NetLoss0']-sdf['NetLoss1'])
+    sdf['$|L_2 - L_1|$'] = np.abs(sdf['NetLoss0']-sdf['NetLoss1'])
 
     col_names = ['$P(L > Q({}))$'.format(i) for i in [.60]]
     loss_quantiles = np.quantile(df['Losses0'],[0.6])
@@ -271,22 +272,76 @@ def get_summary_stats(df,cvar_eps=0.2):
 
     sdf['Required Capital'] = CVaR(df,'TotalPayout','TotalPayout',0.01) - df['TotalPayout'].mean()    
     sdf['Payout CVaR'] = CVaR(df,'TotalPayout','TotalPayout',0.01)
-    sdf['TotalCost'] = df['TotalPayout'].sum() + 0.05*sdf['Required Capital']
+    sdf['Average Cost'] = df['TotalPayout'].mean() + 0.05*sdf['Required Capital']
     return(sdf)
+
+def get_summary_stats_bs(df):
+    medians = {}
+    confidence_interval = {}
+    cols = ['$P(L > Q(0.6))$','$|L_2 - L_1|$','Required Capital','Average Cost']
+    for col in cols:
+        medians[col] = str(np.around(df[col].median(),2))
+        lower_bound = np.around(df[col].quantile(0.05),2)
+        upper_bound = np.around(df[col].quantile(0.95),2)
+        confidence_interval[col] = str([lower_bound,upper_bound])
+        
+    return(medians, confidence_interval)
 
 def comparison_df(bdf,odf,cvar_eps=0.2):
     bdict = get_summary_stats(bdf,cvar_eps)
     odict = get_summary_stats(odf,cvar_eps)
     sdf = pd.DataFrame([bdict,odict],index=['Baseline','Opt'])
-    sdf.drop(columns=['CVaR0','CVaR1','Payout CVaR'],inplace=True)
+    sdf.drop(columns=['NetLoss0','NetLoss1','Payout CVaR'],inplace=True)
     return sdf
+
+def bootstrap_comparison_df(bdf,odf):
+    opt_medians, opt_conf = get_summary_stats_bs(odf)
+    baseline_medians, baseline_conf = get_summary_stats_bs(bdf)
+    sdf = pd.DataFrame([baseline_medians,baseline_conf,opt_medians,opt_conf])
+    sdf['Model'] = ['Baseline','','Opt','']
+    return sdf[['Model','$P(L > Q(0.6))$','$|L_2 - L_1|$','Required Capital','Average Cost']]
+
+def plot_bootstrap_results(beta,mu,sigma,params,bdf,odf,scenario_name):
+    fig_filename = FIGURES_DIR + '/Bootstrap/{}.png'.format(scenario_name)
+    a = np.zeros(2)
+    b = np.zeros(2)
+
+    a[0] = odf['a_1'].median()
+    a[1] = odf['a_2'].median()
+    b[0] = odf['b_1'].median()
+    b[1] = odf['b_2'].median()
+
+    strike_vals = np.zeros(2)
+    strike_vals[0] = bdf['s_1'].median()
+    strike_vals[1] = bdf['s_2'].median()
+
+    square = 'nonlinear' in scenario_name
+    train_y, train_x = make_multi_zone_data(beta,mu,sigma,n=200,square=square)
+    test_y, test_x = make_multi_zone_data(beta,mu,sigma,n=100,square=square)
+    pred_model = LinearRegression().fit(train_x,train_y)
+    ebdf, eodf = make_eval_dfs2(test_x,test_y,pred_model,strike_vals,a,b,params)
+
+    fig, axes = plt.subplots(1,2,figsize=(10,6))
+    plot_payout_functions2(ebdf,eodf,a,b,axes)
+    fig.savefig(fig_filename)
+    plt.close()
+
+def save_bootstrap_results(bdf,odf,scenario_name):
+    table_filename = TABLES_DIR + '/Bootstrap/{}.tex'.format(scenario_name)
+    odf_filename = TABLES_DIR + '/Bootstrap/opt_results_{}.csv'.format(scenario_name)
+    bdf_filename = TABLES_DIR + '/Bootstrap/baseline_results_{}.csv'.format(scenario_name)
+
+    odf.to_csv(odf_filename,float_format='%.2f')
+    bdf.to_csv(bdf_filename,float_format='%.2f')
+    sdf = bootstrap_comparison_df(bdf,odf)
+    sdf.to_latex(table_filename,float_format='%.2f',escape=False,index=False)
 
 ##### Exploration functions #####
 def run_scenario(beta,mu,sigma,params,axes,scenario_name):
     square = 'nonlinear' in scenario_name
-    train_y, train_x = make_multi_zone_data(beta,mu,sigma,n=500,square=square)
-    eval_y, eval_x = make_multi_zone_data(beta,mu,sigma,n=100,square=square)
-    test_y, test_x = make_multi_zone_data(beta,mu,sigma,n=200,square=square)
+    train_y, train_x = make_multi_zone_data(beta,mu,sigma,n=300,square=square)
+    eval_y, eval_x = make_multi_zone_data(beta,mu,sigma,n=50,square=square)
+    test_y, test_x = make_multi_zone_data(beta,mu,sigma,n=100,square=square)
 
     pred_model = LinearRegression().fit(train_x,train_y)
     pred_y = pred_model.predict(train_x)
@@ -296,10 +351,82 @@ def run_scenario(beta,mu,sigma,params,axes,scenario_name):
 
     a,b = np.around(min_CVaR_program(pred_y,train_y,params),2)
     print('a: {}, b: {}'.format(a,b))
-    bdf, odf = make_eval_dfs2(test_x,test_y,pred_model,strike_vals,a,b,params['K'])
+    bdf, odf = make_eval_dfs2(test_x,test_y,pred_model,strike_vals,a,b,params)
     plot_payout_functions2(bdf,odf,a,b,axes,scenario_name)
     # return(a,b)
     return(bdf,odf)
+
+def run_bootstrap_scenario(beta,mu,sigma,params,scenario_name):
+    square = 'nonlinear' in scenario_name
+    train_y, train_x = make_multi_zone_data(beta,mu,sigma,n=300,square=square)
+    eval_y, eval_x = make_multi_zone_data(beta,mu,sigma,n=50,square=square)
+    test_y, test_x = make_multi_zone_data(beta,mu,sigma,n=100,square=square)
+
+    pred_model = LinearRegression().fit(train_x,train_y)
+    pred_y = pred_model.predict(train_x)
+    strike_ps, strike_vals = determine_strike_values(train_y,eval_y,eval_x,pred_model)
+    params['B'], params['premium income'] = determine_budget_params(pred_y,strike_vals,params['K'],params['c_k'])
+
+    a,b = np.around(min_CVaR_program(pred_y,train_y,params),2)
+    bdf, odf = make_eval_dfs2(test_x,test_y,pred_model,strike_vals,a,b,params)
+    bdict = get_summary_stats(bdf,params['epsilon'])
+    odict = get_summary_stats(odf,params['epsilon'])
+    bdict['s_1'], bdict['s_2'] = strike_vals
+    odict['a_1'], odict['a_2'] = a
+    odict['b_1'], odict['b_2'] = b
+    return(bdict,odict)
+
+def bootstrap_scenario_exploration(regime,K,n=1000):
+    beta = np.array([[1.5,0],[0,1.5]])
+    mu = np.array([5,5])
+
+    # No correlation case
+    scenario_name = 'no_corr_{}'.format(regime)
+    sigma = np.array(np.array([[2,0],[0,2]]))
+    cvar_eps=0.2
+    params = {'epsilon':cvar_eps,'epsilon_p':0.01,'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05}
+
+    baseline_results = []
+    opt_results = []
+    for i in range(n):
+        bdict, odict = run_bootstrap_scenario(beta,mu,sigma,params,regime)
+        baseline_results.append(bdict)
+        opt_results.append(odict)
+
+    odf = pd.DataFrame(opt_results)
+    bdf = pd.DataFrame(baseline_results)
+    plot_bootstrap_results(beta,mu,sigma,params,bdf,odf,scenario_name)
+    save_bootstrap_results(bdf,odf,scenario_name)
+
+    # Positive Correlation
+    scenario_name = 'pos_corr_{}'.format(regime)
+    sigma = np.array(np.array([[2,1.6],[1.6,2]]))
+    baseline_results = []
+    opt_results = []
+    for i in range(n):
+        bdict, odict = run_bootstrap_scenario(beta,mu,sigma,params,regime)
+        baseline_results.append(bdict)
+        opt_results.append(odict)
+
+    odf = pd.DataFrame(opt_results)
+    bdf = pd.DataFrame(baseline_results)
+    plot_bootstrap_results(beta,mu,sigma,params,bdf,odf,scenario_name)
+    save_bootstrap_results(bdf,odf,scenario_name)
+
+    # Negative Correlation
+    scenario_name = 'neg_corr_{}'.format(regime)
+    sigma = np.array(np.array([[2,-1.6],[-1.6,2]]))
+    baseline_results = []
+    opt_results = []
+    for i in range(n):
+        bdict, odict = run_bootstrap_scenario(beta,mu,sigma,params,regime)
+        baseline_results.append(bdict)
+        opt_results.append(odict)
+
+    odf = pd.DataFrame(opt_results)
+    bdf = pd.DataFrame(baseline_results)
+    plot_bootstrap_results(beta,mu,sigma,params,bdf,odf,scenario_name)
+    save_bootstrap_results(bdf,odf,scenario_name)
 
 def epsilon_exploration():
     beta = np.array([[1.5,0],[0,1.5]])
@@ -337,7 +464,7 @@ def scenario_exploration(regime,K):
     sigma = np.array(np.array([[2,0],[0,2]]))
     cvar_eps=0.05
     params = {'max_premium':0.6,'min_premium':0.05,'epsilon':cvar_eps,'epsilon_p':0.01,
-            'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05}
+            'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05,'offset':20}
 
     fig_filename = FIGURES_DIR + '/Exploration/no_correlation_{}.png'.format(regime)
     table_filename = TABLES_DIR + '/Exploration/no_correlation_{}.tex'.format(regime)
@@ -353,7 +480,7 @@ def scenario_exploration(regime,K):
     sigma = np.array(np.array([[2,1.6],[1.6,2]]))
     cvar_eps=0.05
     params = {'max_premium':0.6,'min_premium':0.05,'epsilon':cvar_eps,'epsilon_p':0.01,
-            'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05}
+            'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05,'offset':20}
 
     fig_filename = FIGURES_DIR + '/Exploration/pos_correlation_{}.png'.format(regime)
     table_filename = TABLES_DIR + '/Exploration/pos_correlation_{}.tex'.format(regime)
@@ -429,11 +556,11 @@ def epsilon_exploration2(regime,K):
         new_eps.append(np.around(eps,2))
         new_eps.append(np.around(eps,2))
 
-    
-
-scenario_exploration('linear',8)
-scenario_exploration('nonlinear',45)
-
+start = time.time()
+bootstrap_scenario_exploration('linear',8,1000)
+bootstrap_scenario_exploration('nonlinear',45,1000)
+end = time.time()
+print(end-start)
 
 
 

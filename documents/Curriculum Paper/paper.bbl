@@ -19,6 +19,50 @@
 
 \refsection{0}
   \datalist[entry]{ynt/global//global/global}
+    \entry{charnes1958cost}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=b913840a5109dfb94a287477baba2497}{%
+           family={Charnes},
+           familyi={C\bibinitperiod},
+           given={Abraham},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=24f9fb06d4d5294e9aad8fffa2a4ba9c}{%
+           family={Cooper},
+           familyi={C\bibinitperiod},
+           given={William\bibnamedelima W},
+           giveni={W\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=3137a6f6b9b05e3854cd6c3e68b61f8b}{%
+           family={Symonds},
+           familyi={S\bibinitperiod},
+           given={Gifford\bibnamedelima H},
+           giveni={G\bibinitperiod\bibinitdelim H\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {INFORMS}%
+      }
+      \strng{namehash}{49af0a49266d08773a4442b2cda510ed}
+      \strng{fullhash}{49af0a49266d08773a4442b2cda510ed}
+      \strng{bibnamehash}{49af0a49266d08773a4442b2cda510ed}
+      \strng{authorbibnamehash}{49af0a49266d08773a4442b2cda510ed}
+      \strng{authornamehash}{49af0a49266d08773a4442b2cda510ed}
+      \strng{authorfullhash}{49af0a49266d08773a4442b2cda510ed}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Management science}
+      \field{number}{3}
+      \field{title}{Cost horizons and certainty equivalents: an approach to stochastic programming of heating oil}
+      \field{volume}{4}
+      \field{year}{1958}
+      \field{pages}{235\bibrangedash 263}
+      \range{pages}{29}
+    \endentry
     \entry{artzner1999coherent}{article}{}
       \name{author}{4}{}{%
         {{uniquename=0,uniquepart=base,hash=3f2ec6a82c23c0c7062a2c8dad7a86e1}{%
@@ -227,7 +271,7 @@
       \field{pages}{938\bibrangedash 951}
       \range{pages}{14}
     \endentry
-    \entry{barrett2007poverty}{article}{}
+    \entry{barrett2007poverty}{unpublished}{}
       \name{author}{10}{}{%
         {{uniquename=1,uniquepart=given,hash=09f0c6940cb6971e7a5f0b4fa591055a}{%
            family={Barrett},
@@ -308,7 +352,45 @@
       \field{title}{Poverty traps and climate risk: limitations and opportunities of index-based risk financing}
       \field{year}{2007}
     \endentry
-    \entry{osgood2007designing}{article}{}
+    \entry{nemirovski2007convex}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=b7bb695716d8b9e139e5d51d5dfd3567}{%
+           family={Nemirovski},
+           familyi={N\bibinitperiod},
+           given={Arkadi},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=79b4f8b2eec1f0cce98adc8a524fc774}{%
+           family={Shapiro},
+           familyi={S\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {SIAM}%
+      }
+      \strng{namehash}{24c5e0505f2ce154b2166a03ba659819}
+      \strng{fullhash}{24c5e0505f2ce154b2166a03ba659819}
+      \strng{bibnamehash}{24c5e0505f2ce154b2166a03ba659819}
+      \strng{authorbibnamehash}{24c5e0505f2ce154b2166a03ba659819}
+      \strng{authornamehash}{24c5e0505f2ce154b2166a03ba659819}
+      \strng{authorfullhash}{24c5e0505f2ce154b2166a03ba659819}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{SIAM Journal on Optimization}
+      \field{number}{4}
+      \field{title}{Convex approximations of chance constrained programs}
+      \field{volume}{17}
+      \field{year}{2007}
+      \field{pages}{969\bibrangedash 996}
+      \range{pages}{28}
+    \endentry
+    \entry{osgood2007designing}{unpublished}{}
       \name{author}{8}{}{%
         {{uniquename=0,uniquepart=base,hash=7827ce6ec357459cc47c8310d48df1f6}{%
            family={Osgood},
@@ -665,6 +747,31 @@
       \field{journaltitle}{CCAFS Report}
       \field{title}{Scaling up index insurance for smallholder farmers: Recent evidence and insights}
       \field{year}{2015}
+    \endentry
+    \entry{damodaran2016cost}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=063f60692f2f4aa0aa54afd9bd84e4a0}{%
+           family={Damodaran},
+           familyi={D\bibinitperiod},
+           given={Aswath},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{063f60692f2f4aa0aa54afd9bd84e4a0}
+      \strng{fullhash}{063f60692f2f4aa0aa54afd9bd84e4a0}
+      \strng{bibnamehash}{063f60692f2f4aa0aa54afd9bd84e4a0}
+      \strng{authorbibnamehash}{063f60692f2f4aa0aa54afd9bd84e4a0}
+      \strng{authornamehash}{063f60692f2f4aa0aa54afd9bd84e4a0}
+      \strng{authorfullhash}{063f60692f2f4aa0aa54afd9bd84e4a0}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{New York, NYU Stern}
+      \field{title}{The Cost of Capital: The Swiss Army Knife of Finance}
+      \field{year}{2016}
     \endentry
     \entry{jensen2017agricultural}{article}{}
       \name{author}{2}{}{%
