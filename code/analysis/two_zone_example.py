@@ -82,7 +82,7 @@ def min_CVaR_program(pred_y,train_y,params):
 
     objective = cp.Minimize(m)
     problem = cp.Problem(objective,constraints)
-    problem.solve(solver=cp.GLPK)
+    problem.solve(solver=cp.SCIPY, scipy_options={"method":"highs"})
     # print('Req capital: {}'.format(K_p.value))
     return (A.value[0,:], B.value[0,:])
 
