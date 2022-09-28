@@ -4,6 +4,7 @@ from sklearn.linear_model import LinearRegression
 import cvxpy as cp
 import matplotlib.pyplot as plt
 import os
+import time
 
 from dotenv import load_dotenv, find_dotenv
 dotenv_path = find_dotenv()
@@ -16,25 +17,29 @@ TABLES_DIR = PROJECT_DIR + '/output/tables'
 # TODO: 1. figure out how to include positive and negative losses as well
 # 2. add function to create a covariance matrix based on the desired correlation
 # 3. change code to train a separate regression model for each zone.
+# 4. modify min_CVaR_program to include rhos, separate budget constrant into two, one for each zone,
+# make each zone's budget \sum I_z + \rho c_k B, think about how to set budget for each zone?
 
 ##### Data Creation #####
-def make_multi_zone_data(beta,mu,sigma,n=100):
+def make_multi_zone_data(beta,mu,sigma,n=100,square=False):
     dim = len(mu)
     X = np.random.multivariate_normal(mean=mu,cov=sigma,size=n)
     epsilon = np.random.multivariate_normal(mean=np.zeros(dim),cov=np.eye(dim),size=n)
-    y = np.dot(X,beta) + epsilon
+    if square:
+        y = np.dot(X**2,beta) + epsilon
+    else:
+        y = np.dot(X,beta) + epsilon
     return y, X
 
 ##### Optimization Functions #####
 def min_CVaR_program(pred_y,train_y,params):
     # params: epsilon, pi_max, pi_min, beta_z, eps_p, c_k, K_z
-    max_pi = params['max_premium']
-    min_pi = params['min_premium']
     eps_p = params['epsilon_p']
     Ks = params['K']
     epsilon = params['epsilon']
-    betas = params['beta']
     c_k = params['c_k']
+    budget = params['B']
+    premium_income_sq = params['premium income']
 
     n_samples = train_y.shape[0]
     n_zones = train_y.shape[1]
@@ -44,22 +49,31 @@ def min_CVaR_program(pred_y,train_y,params):
     B = cp.Variable((n_samples,n_zones))
     t = cp.Variable((n_samples,n_zones))
     t_p = cp.Variable(n_samples)
+    alpha = cp.Variable((n_samples,n_zones))
     gamma = cp.Variable((n_samples,n_zones))
     gamma_p = cp.Variable(n_samples)
     m = cp.Variable()
     K_p = cp.Variable()
 
     constraints = []
+
+    # objective, m >= CVaR(l_z - I_z(theta_z))
     constraints.append(t[0,:] + (1/epsilon)*(p @ gamma) <= m*np.ones(n_zones))
+
+    # CVaR constraints for each zone's loss, gamma^k_z >= l_z - min(a_z \hat{l_z}+b_z, K_z) - t
     constraints.append(gamma >= train_y - cp.multiply(pred_y,A) -B -t)
     constraints.append(gamma >= train_y - Ks -t)
     constraints.append(gamma >= 0)
-    constraints.append(t_p + (1/eps_p)*(p @ gamma_p) <= K_p + n_zones*min_pi)
-    constraints.append(gamma_p >= cp.sum(cp.multiply(pred_y,A) +B,axis=1) -t_p)
+
+    # Portfolio CVaR constraint: CVaR(\sum_z I_z(\theta_z)) <= K^P + \sum_z E[I_z(\theta_Z)]
+    constraints.append(t_p + (1/eps_p)*(p @ gamma_p) <= K_p + premium_income_sq)
+    constraints.append(gamma_p >= cp.sum(alpha,axis=1)-t_p)
     constraints.append(gamma_p >= 0)
-    constraints.append(Ks[0,:]*max_pi >= cp.multiply(A[0,:]*(1/n_samples),cp.sum(pred_y,axis=0))+B[0,:] + c_k*K_p*betas)
-    constraints.append(cp.multiply(pred_y,A)+B >= 0)
-    constraints.append(A >= 0)
+    constraints.append(alpha >= cp.multiply(pred_y,A)+B)
+    constraints.append(alpha >= 0)
+
+    # budget constraint
+    constraints.append(budget >= (1/n_samples)*cp.sum(alpha) + c_k*K_p)
 
     for i in range(n_samples-1):
         constraints.append(A[i,:] == A[i+1,:])
@@ -69,6 +83,7 @@ def min_CVaR_program(pred_y,train_y,params):
     objective = cp.Minimize(m)
     problem = cp.Problem(objective,constraints)
     problem.solve(solver=cp.GLPK)
+    # print('Req capital: {}'.format(K_p.value))
     return (A.value[0,:], B.value[0,:])
 
 ##### Evaluation functions #####
@@ -104,11 +119,22 @@ def plot_payout_functions(bdf,odf,a,b,axes,scenario=None):
         else:
             ax.set_title('Zone: {}, a = {}, b = {}'.format(zone,a[zone],b[zone]))
 
-def save_payout_function(bdf,odf,a,b,filename):
-    pass
+def plot_payout_functions2(bdf,odf,a,b,axes,scenario=None):
+    n_zones = len(a)
+    a = np.around(a,2)
+    b = np.around(b,2)
+    for zone, ax in zip(range(n_zones), axes.ravel()):
+        ax.plot(bdf['PredictedLosses{}'.format(zone)],bdf['Payout{}'.format(zone)],'bs',label='baseline')
+        ax.plot(bdf['PredictedLosses{}'.format(zone)],odf['Payout{}'.format(zone)],'g^',label='opt')
+        ax.plot(bdf['PredictedLosses{}'.format(zone)],bdf['Losses{}'.format(zone)],'ro',label='actual losses')
+        ax.legend()
+        if scenario is not None:
+            ax.set_title('{}, a = {}, b = {}'.format(scenario,a[zone],b[zone]))
+        else:
+            ax.set_title('Zone: {}, a = {}, b = {}'.format(zone,a[zone],b[zone]))
 
 def make_eval_dfs(test_x,test_y,pred_model,strike_vals,a,b,Ks):
-    col_names = ['$P(L > {})$'.format(i) for i in [70,80,90,95]]
+    col_names = ['P(L > {})'.format(i) for i in [70,80,90,95]]
     n_zones = test_y.shape[1]
     
     bdfs = []
@@ -125,6 +151,7 @@ def make_eval_dfs(test_x,test_y,pred_model,strike_vals,a,b,Ks):
         odf['Losses'] = test_y[:,zone]
         odf['PredictedLosses'] = pred_y[:,zone]
         odf['Payout'] = np.minimum(a[zone]*odf['PredictedLosses']+b[zone],Ks[zone])
+        odf['Payout'] = np.maximum(0,odf['Payout'])
         odf['NetLoss'] = odf['Losses']-odf['Payout']
 
         loss_quantiles = np.quantile(test_y[:,zone],[0.7,0.8,0.9,0.95])
@@ -140,6 +167,42 @@ def make_eval_dfs(test_x,test_y,pred_model,strike_vals,a,b,Ks):
         odfs.append(odf)
     bdf = pd.concat(bdfs,ignore_index=True)
     odf = pd.concat(odfs,ignore_index=True)
+    return bdf, odf
+
+def make_eval_dfs2(test_x,test_y,pred_model,strike_vals,a,b,params):
+    n_zones = test_y.shape[1]
+    
+    # offset = params['offset']
+    Ks = params['K']
+    bdf = pd.DataFrame()
+    odf = pd.DataFrame()
+    pred_y = pred_model.predict(test_x)
+    for zone in np.arange(n_zones):
+        pred_col = 'PredictedLosses{}'.format(zone)
+        payout_col = 'Payout{}'.format(zone)
+        loss_col = 'Losses{}'.format(zone)
+        net_loss_col = 'NetLoss{}'.format(zone)
+
+        bdf[pred_col] = pred_y[:,zone]
+        bdf[payout_col] = np.maximum(bdf[pred_col]-strike_vals[zone],0)
+        bdf[payout_col] = np.minimum(bdf[payout_col],Ks[zone])
+        bdf[loss_col] = test_y[:,zone]
+        bdf[net_loss_col] = bdf[loss_col]-bdf[payout_col]
+
+        odf[pred_col] = pred_y[:,zone]
+        odf[payout_col] = np.minimum(a[zone]*odf[pred_col]+b[zone],Ks[zone])
+        odf[payout_col] = np.maximum(0,odf[payout_col])
+        odf[loss_col] = test_y[:,zone]
+        odf[net_loss_col] = odf[loss_col]-odf[payout_col]
+
+    odf['TotalPayout'] = odf['Payout0'] + odf['Payout1']
+    odf['TotalLoss'] = odf['Losses0'] + odf['Losses1']
+    odf['TotalNetLoss'] = odf['NetLoss0'] + odf['NetLoss1']
+
+    bdf['TotalPayout'] = bdf['Payout0'] + bdf['Payout1']
+    bdf['TotalLoss'] = bdf['Losses0'] + bdf['Losses1']
+    bdf['TotalNetLoss'] = bdf['NetLoss0'] + bdf['NetLoss1']
+
     return bdf, odf
 
 def determine_strike_values(train_y,eval_y,eval_x,pred_model):
@@ -165,175 +228,339 @@ def determine_strike_values(train_y,eval_y,eval_x,pred_model):
         best_strike_percentiles.append(best_strike_percentile)
     return best_strike_percentiles, best_strike_vals
 
-##### Exploration functions #####
-def parameter_exploration(data,params,model):
-    model_predictions = data['model predictions']
-    train_y = data['train_y']
-    test_x = data['test_x']
-    test_y = data['test_y']
-    strike_val = data['strike val']
-    loop_param = [k for k,v in params.items() if type(v) is np.ndarray][0]
-    loop_param_vals = params[loop_param]
-    param_subdict = {k: v for k,v in params.items() if type(v) is not np.ndarray}
-    fig, axes = plt.subplots(5,1,figsize=(10,10))
-    ldf = pd.DataFrame()
-    for loop_param_val, ax in zip(loop_param_vals, axes.ravel()):
-        loop_params = dict(list(param_subdict.items()) + [(loop_param,loop_param_val)])
-        a,b = min_CVaR_program(model_predictions,train_y,loop_params)
-        a,b = np.around((a,b),2)
-        bdf, odf = make_eval_dfs(test_x,test_y,pred_model,strike_val,a,b,loop_params['K'])
-        plot_payout_functions(ax,bdf,odf,a,b,loop_params)
+def determine_budget_params(pred_y,strike_vals,Ks,c_k=0.05):
+    bdf = pd.DataFrame()
+    n_zones = pred_y.shape[1]
+    for zone in np.arange(n_zones):
+        pred_col = 'PredictedLosses{}'.format(zone)
+        payout_col = 'Payout{}'.format(zone)
+        bdf[pred_col] = pred_y[:,zone]
+        bdf[payout_col] = np.maximum(bdf[pred_col]-strike_vals[zone],0)
+        bdf[payout_col] = np.minimum(bdf[payout_col],Ks[zone])
+
+    bdf['Total Payouts'] = bdf['Payout0']+bdf['Payout1']
+    loss_quantile = np.quantile(bdf['Total Payouts'],0.99)
+    average_payout = bdf['Total Payouts'].mean()
+    required_capital = loss_quantile-average_payout
+    # print('Required Capital: {}'.format(required_capital))
+    capital_costs = c_k*required_capital
+    average_total_costs = average_payout + capital_costs
+    return average_total_costs, average_payout
+
+def CVaR(df,loss_col,outcome_col,epsilon=0.2):
+    q = np.quantile(df[loss_col],1-epsilon)
+    cvar = df.loc[df[loss_col] >= q,outcome_col].mean()
+    return cvar
+
+def get_summary_stats(df,cvar_eps=0.2):
+    sdf = {}
+    # sdf['CVaR0'] = CVaR(df,'Losses0','NetLoss0',cvar_eps)
+    # sdf['CVaR1'] = CVaR(df,'Losses1','NetLoss1',cvar_eps)
+    # sdf['Total CVaR'] = CVaR(df,'TotalLoss','TotalNetLoss',cvar_eps)
+    # sdf['$|CVaR_2 - CVaR_1|$'] = np.abs(sdf['CVaR0']-sdf['CVaR1'])
+    # sdf['Max CVaR'] = np.maximum(sdf['CVaR0'],sdf['CVaR1'])
+
+    sdf['NetLoss0'] = df['NetLoss0'].mean()
+    sdf['NetLoss1'] = df['NetLoss1'].mean()
+    # sdf['NetTotal'] = df['TotalNetLoss'].mean()
+    sdf['$|L_2 - L_1|$'] = np.abs(sdf['NetLoss0']-sdf['NetLoss1'])
+
+    col_names = ['$P(L > Q({}))$'.format(i) for i in [.60]]
+    loss_quantiles = np.quantile(df['Losses0'],[0.6])
+    for col_name, loss_quantile in zip(col_names,loss_quantiles):
+        sdf[col_name] = ((df['NetLoss0'] > loss_quantile) | (df['NetLoss1'] > loss_quantile)).mean()
+
+    sdf['Required Capital'] = CVaR(df,'TotalPayout','TotalPayout',0.01) - df['TotalPayout'].mean()    
+    sdf['Payout CVaR'] = CVaR(df,'TotalPayout','TotalPayout',0.01)
+    sdf['Average Cost'] = df['TotalPayout'].mean() + 0.05*sdf['Required Capital']
+    return(sdf)
+
+def get_summary_stats_bs(df):
+    medians = {}
+    confidence_interval = {}
+    cols = ['$P(L > Q(0.6))$','$|L_2 - L_1|$','Required Capital','Average Cost']
+    for col in cols:
+        medians[col] = str(np.around(df[col].median(),2))
+        lower_bound = np.around(df[col].quantile(0.05),2)
+        upper_bound = np.around(df[col].quantile(0.95),2)
+        confidence_interval[col] = str([lower_bound,upper_bound])
         
-        opt_stats = odf.drop(columns=['Losses','PredictedLosses','NetLoss']).mean().to_dict()
-        opt_stats[loop_param] = str(loop_param_val)
-        ldf = ldf.append(opt_stats,ignore_index=True)
-        
-        base_stats = bdf.drop(columns=['Losses','PredictedLosses','NetLoss']).mean().to_dict()
-        base_stats[loop_param] = 'Baseline'
-        ldf = ldf.append(base_stats,ignore_index=True)
-                         
-    fig_dir = FIGURES_DIR + '/' + model
-    table_dir = TABLES_DIR + '/' + model
+    return(medians, confidence_interval)
 
-    plt.tight_layout()
-    filename = fig_dir+'/{}_exploration.png'.format(loop_param)
-    plt.savefig(filename)
-    
-    table_filename = table_dir +'/{}_exploration.tex'.format(loop_param)
-    ldf.drop_duplicates().sort_values(loop_param).to_latex(table_filename,float_format='%.2f')
+def comparison_df(bdf,odf,cvar_eps=0.2):
+    bdict = get_summary_stats(bdf,cvar_eps)
+    odict = get_summary_stats(odf,cvar_eps)
+    sdf = pd.DataFrame([bdict,odict],index=['Baseline','Opt'])
+    sdf.drop(columns=['NetLoss0','NetLoss1','Payout CVaR'],inplace=True)
+    return sdf
 
-def CVaR_program_exploration(model_name='CVaR'):
-    train_y, train_x = make_single_zone_data(beta=3,mu=5,sigma=2,n=100)
-    eval_y, eval_x = make_single_zone_data(beta=3,mu=5,sigma=2,n=20)
-    test_y, test_x = make_single_zone_data(beta=3,mu=5,sigma=2,n=1000)
+def bootstrap_comparison_df(bdf,odf):
+    opt_medians, opt_conf = get_summary_stats_bs(odf)
+    baseline_medians, baseline_conf = get_summary_stats_bs(bdf)
+    sdf = pd.DataFrame([baseline_medians,baseline_conf,opt_medians,opt_conf])
+    sdf['Model'] = ['Baseline','','Opt','']
+    return sdf[['Model','$P(L > Q(0.6))$','$|L_2 - L_1|$','Required Capital','Average Cost']]
 
+def plot_bootstrap_results(beta,mu,sigma,params,bdf,odf,scenario_name):
+    fig_filename = FIGURES_DIR + '/Bootstrap/{}.png'.format(scenario_name)
+    a = np.zeros(2)
+    b = np.zeros(2)
+
+    a[0] = odf['a_1'].median()
+    a[1] = odf['a_2'].median()
+    b[0] = odf['b_1'].median()
+    b[1] = odf['b_2'].median()
+
+    strike_vals = np.zeros(2)
+    strike_vals[0] = bdf['s_1'].median()
+    strike_vals[1] = bdf['s_2'].median()
+
+    square = 'nonlinear' in scenario_name
+    train_y, train_x = make_multi_zone_data(beta,mu,sigma,n=200,square=square)
+    test_y, test_x = make_multi_zone_data(beta,mu,sigma,n=100,square=square)
     pred_model = LinearRegression().fit(train_x,train_y)
-    model_predictions = pred_model.predict(train_x)
-    strike_p, strike_val = determine_strike_value(train_y,eval_y,eval_x,pred_model)
+    ebdf, eodf = make_eval_dfs2(test_x,test_y,pred_model,strike_vals,a,b,params)
 
-    data = {'train_y':train_y,'test_x':test_x,'test_y':test_y,
-            'model predictions':model_predictions,'strike val':strike_val}
-    
-#     premium exploration
-    epsilon = 0.2
-    K = 20
-    premiums = np.around(np.linspace(0.1,0.7,5),3)
-    parameter_exploration(data,{'epsilon':epsilon,'K':K,'max_premium':premiums},model_name)
-                         
-#     K exploration
-    Ks = np.around(np.linspace(20,40,5),3)
-    epsilon = 0.2
-    premium = 0.2
-    parameter_exploration(data,{'epsilon':epsilon,'K':Ks,'max_premium':premium},model_name)
+    fig, axes = plt.subplots(1,2,figsize=(10,6))
+    plot_payout_functions2(ebdf,eodf,a,b,axes)
+    fig.savefig(fig_filename)
+    plt.close()
 
-# Epsilon Exploration
-    K = 30
-    epsilons = np.around(np.linspace(0.1,0.8,5),3)
-    premium = 0.3
-    parameter_exploration(data,{'epsilon':epsilons,'K':K,'max_premium':premium},model_name)
+def save_bootstrap_results(bdf,odf,scenario_name):
+    table_filename = TABLES_DIR + '/Bootstrap/{}.tex'.format(scenario_name)
+    odf_filename = TABLES_DIR + '/Bootstrap/opt_results_{}.csv'.format(scenario_name)
+    bdf_filename = TABLES_DIR + '/Bootstrap/baseline_results_{}.csv'.format(scenario_name)
 
+    odf.to_csv(odf_filename,float_format='%.2f')
+    bdf.to_csv(bdf_filename,float_format='%.2f')
+    sdf = bootstrap_comparison_df(bdf,odf)
+    sdf.to_latex(table_filename,float_format='%.2f',escape=False,index=False)
+
+##### Exploration functions #####
 def run_scenario(beta,mu,sigma,params,axes,scenario_name):
-    train_y, train_x = make_multi_zone_data(beta,mu,sigma,n=1000)
-    eval_y, eval_x = make_multi_zone_data(beta,mu,sigma,n=100)
-    test_y, test_x = make_multi_zone_data(beta,mu,sigma,n=400)
+    square = 'nonlinear' in scenario_name
+    train_y, train_x = make_multi_zone_data(beta,mu,sigma,n=300,square=square)
+    eval_y, eval_x = make_multi_zone_data(beta,mu,sigma,n=50,square=square)
+    test_y, test_x = make_multi_zone_data(beta,mu,sigma,n=100,square=square)
 
     pred_model = LinearRegression().fit(train_x,train_y)
     pred_y = pred_model.predict(train_x)
     strike_ps, strike_vals = determine_strike_values(train_y,eval_y,eval_x,pred_model)
+    # print('strike vals: {}, {}'.format(strike_vals[0],strike_vals[1]))
+    params['B'], params['premium income'] = determine_budget_params(pred_y,strike_vals,params['K'],params['c_k'])
 
     a,b = np.around(min_CVaR_program(pred_y,train_y,params),2)
-    # print('a: {}, b: {}'.format(a,b))
-    bdf, odf = make_eval_dfs(test_x,test_y,pred_model,strike_vals,a,b,params['K'])
-    plot_payout_functions(bdf,odf,a,b,axes,scenario_name)
-    return(a,b)
+    print('a: {}, b: {}'.format(a,b))
+    bdf, odf = make_eval_dfs2(test_x,test_y,pred_model,strike_vals,a,b,params)
+    plot_payout_functions2(bdf,odf,a,b,axes,scenario_name)
+    # return(a,b)
+    return(bdf,odf)
 
-def scenario_exploration():
-    fig, axes = plt.subplots(4,2,figsize=(10,10))
-    default_params = {'max_premium':0.6,'min_premium':0.1,'epsilon':0.2,'epsilon_p':0.05,
-        'K':np.array([8,8]),'beta':np.array([0.5,0.5]),'c_k':0.05}
+def run_bootstrap_scenario(beta,mu,sigma,params,scenario_name):
+    square = 'nonlinear' in scenario_name
+    train_y, train_x = make_multi_zone_data(beta,mu,sigma,n=300,square=square)
+    eval_y, eval_x = make_multi_zone_data(beta,mu,sigma,n=50,square=square)
+    test_y, test_x = make_multi_zone_data(beta,mu,sigma,n=100,square=square)
 
+    pred_model = LinearRegression().fit(train_x,train_y)
+    pred_y = pred_model.predict(train_x)
+    strike_ps, strike_vals = determine_strike_values(train_y,eval_y,eval_x,pred_model)
+    params['B'], params['premium income'] = determine_budget_params(pred_y,strike_vals,params['K'],params['c_k'])
+
+    a,b = np.around(min_CVaR_program(pred_y,train_y,params),2)
+    bdf, odf = make_eval_dfs2(test_x,test_y,pred_model,strike_vals,a,b,params)
+    bdict = get_summary_stats(bdf,params['epsilon'])
+    odict = get_summary_stats(odf,params['epsilon'])
+    bdict['s_1'], bdict['s_2'] = strike_vals
+    odict['a_1'], odict['a_2'] = a
+    odict['b_1'], odict['b_2'] = b
+    return(bdict,odict)
+
+def bootstrap_scenario_exploration(regime,K,n=1000):
     beta = np.array([[1.5,0],[0,1.5]])
     mu = np.array([5,5])
 
     # No correlation case
+    scenario_name = 'no_corr_{}'.format(regime)
     sigma = np.array(np.array([[2,0],[0,2]]))
+    cvar_eps=0.2
+    params = {'epsilon':cvar_eps,'epsilon_p':0.01,'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05}
 
-    params = {'max_premium':0.6,'min_premium':0.05,'epsilon':0.2,'epsilon_p':0.01,
-            'K':np.array([8,8]),'beta':np.array([0.5,0.5]),'c_k':0.05}
-    filepath = FIGURES_DIR + '/Exploration/no_correlation.png'
-    ab, bb = run_scenario(beta,mu,sigma,params,axes[0], 'No corr')
+    baseline_results = []
+    opt_results = []
+    for i in range(n):
+        bdict, odict = run_bootstrap_scenario(beta,mu,sigma,params,regime)
+        baseline_results.append(bdict)
+        opt_results.append(odict)
+
+    odf = pd.DataFrame(opt_results)
+    bdf = pd.DataFrame(baseline_results)
+    plot_bootstrap_results(beta,mu,sigma,params,bdf,odf,scenario_name)
+    save_bootstrap_results(bdf,odf,scenario_name)
 
     # Positive Correlation
-    sigma = np.array(np.array([[2,1.4],[1.4,2]]))
+    scenario_name = 'pos_corr_{}'.format(regime)
+    sigma = np.array(np.array([[2,1.6],[1.6,2]]))
+    baseline_results = []
+    opt_results = []
+    for i in range(n):
+        bdict, odict = run_bootstrap_scenario(beta,mu,sigma,params,regime)
+        baseline_results.append(bdict)
+        opt_results.append(odict)
 
-    params = {'max_premium':0.6,'min_premium':0.05,'epsilon':0.2,'epsilon_p':0.01,
-            'K':np.array([8,8]),'beta':np.array([0.5,0.5]),'c_k':0.05}
-    filepath = FIGURES_DIR + '/Exploration/pos_correlation.png'
-    apc, bpc = run_scenario(beta,mu,sigma,params,axes[1],'Pos Corr')
+    odf = pd.DataFrame(opt_results)
+    bdf = pd.DataFrame(baseline_results)
+    plot_bootstrap_results(beta,mu,sigma,params,bdf,odf,scenario_name)
+    save_bootstrap_results(bdf,odf,scenario_name)
 
     # Negative Correlation
-    sigma = np.array(np.array([[2,-1.4],[-1.4,2]]))
+    scenario_name = 'neg_corr_{}'.format(regime)
+    sigma = np.array(np.array([[2,-1.6],[-1.6,2]]))
+    baseline_results = []
+    opt_results = []
+    for i in range(n):
+        bdict, odict = run_bootstrap_scenario(beta,mu,sigma,params,regime)
+        baseline_results.append(bdict)
+        opt_results.append(odict)
 
-    params = {'max_premium':0.6,'min_premium':0.05,'epsilon':0.2,'epsilon_p':0.01,
-            'K':np.array([8,8]),'beta':np.array([0.5,0.5]),'c_k':0.05}
-    filepath = FIGURES_DIR + '/Exploration/neg_correlation.png'
-    anc, bnc = run_scenario(beta,mu,sigma,params,axes[2],'Neg corr')
+    odf = pd.DataFrame(opt_results)
+    bdf = pd.DataFrame(baseline_results)
+    plot_bootstrap_results(beta,mu,sigma,params,bdf,odf,scenario_name)
+    save_bootstrap_results(bdf,odf,scenario_name)
+
+def epsilon_exploration():
+    beta = np.array([[1.5,0],[0,1.5]])
+    mu = np.array([5,5])
+
+        # No correlation case
+    fig, axes = plt.subplots(1,2,figsize=(10,6))
+
+    eps_vals = [0.2,0.1,0.05,0.01]
+    for eps_val in eps_vals:
+        A = np.array([]).reshape(0,2)
+        B = np.array([]).reshape(0,2)
+        for i in range(10):
+            sigma = np.array(np.array([[2,0],[0,2]]))
+            cvar_eps=eps_val
+            params = {'max_premium':0.6,'min_premium':0.05,'epsilon':cvar_eps,'epsilon_p':0.01,
+                    'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05}
+
+            fig_filename = FIGURES_DIR + '/Exploration/no_correlation_{}.png'.format(regime)
+            table_filename = TABLES_DIR + '/Exploration/no_correlation_{}.tex'.format(regime)
+
+            a, b = run_scenario(beta,mu,sigma,params,axes, 'No corr, {}'.format(regime))
+            A = np.vstack((A,a))
+            B = np.vstack((B,b))
+            # sdf = comparison_df(bdf,odf,cvar_eps)
+        print("eps: {}, a: {} b: {}".format(eps_val,np.mean(A,axis=0),np.mean(B,axis=0)))
+
+def scenario_exploration(regime,K):
+    beta = np.array([[1.5,0],[0,1.5]])
+    mu = np.array([5,5])
+
+    # No correlation case
+    fig, axes = plt.subplots(1,2,figsize=(10,6))
+
+    sigma = np.array(np.array([[2,0],[0,2]]))
+    cvar_eps=0.05
+    params = {'max_premium':0.6,'min_premium':0.05,'epsilon':cvar_eps,'epsilon_p':0.01,
+            'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05,'offset':20}
+
+    fig_filename = FIGURES_DIR + '/Exploration/no_correlation_{}.png'.format(regime)
+    table_filename = TABLES_DIR + '/Exploration/no_correlation_{}.tex'.format(regime)
+
+    bdf, odf = run_scenario(beta,mu,sigma,params,axes, 'No corr, {}'.format(regime))
+    sdf = comparison_df(bdf,odf,cvar_eps)
+    sdf.to_latex(table_filename,float_format='%.2f',escape=False)
+    fig.savefig(fig_filename)
+    plt.close()
+
+    # Positive Correlation
+    fig, axes = plt.subplots(1,2,figsize=(10,6))
+    sigma = np.array(np.array([[2,1.6],[1.6,2]]))
+    cvar_eps=0.05
+    params = {'max_premium':0.6,'min_premium':0.05,'epsilon':cvar_eps,'epsilon_p':0.01,
+            'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05,'offset':20}
+
+    fig_filename = FIGURES_DIR + '/Exploration/pos_correlation_{}.png'.format(regime)
+    table_filename = TABLES_DIR + '/Exploration/pos_correlation_{}.tex'.format(regime)
+
+    bdf, odf = run_scenario(beta,mu,sigma,params,axes, 'Pos corr, {}'.format(regime))
+    sdf = comparison_df(bdf,odf,cvar_eps)
+    sdf.to_latex(table_filename,float_format='%.2f',escape=False)
+    fig.savefig(fig_filename)
+    plt.close()
+
+    # Negative Correlation
+    fig, axes = plt.subplots(1,2,figsize=(10,6))
+    sigma = np.array(np.array([[2,-1.6],[-1.6,2]]))
+    cvar_eps=0.05
+    params = {'max_premium':0.6,'min_premium':0.05,'epsilon':cvar_eps,'epsilon_p':0.01,
+        'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05}
+
+    fig_filename = FIGURES_DIR + '/Exploration/neg_correlation_{}.png'.format(regime)
+    table_filename = TABLES_DIR + '/Exploration/neg_correlation_{}.tex'.format(regime)
+
+    bdf, odf = run_scenario(beta,mu,sigma,params,axes, 'Neg corr, {}'.format(regime))
+    sdf = comparison_df(bdf,odf,cvar_eps)
+    sdf.to_latex(table_filename,float_format='%.2f',escape=False)
+    fig.savefig(fig_filename)
+    plt.close()
 
     # Disparate variance
+    fig, axes = plt.subplots(1,2,figsize=(10,6))
     sigma = np.array(np.array([[2,0],[0,4]]))
+    cvar_eps=0.1
+    params = {'max_premium':0.6,'min_premium':0.05,'epsilon':cvar_eps,'epsilon_p':0.01,
+            'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05}
 
-    params = {'max_premium':0.6,'min_premium':0.05,'epsilon':0.2,'epsilon_p':0.01,
-            'K':np.array([8,8]),'beta':np.array([0.33,0.67]),'c_k':0.05}
-    filepath = FIGURES_DIR + '/Exploration/disp_variance.png'
-    adv, bdv = run_scenario(beta,mu,sigma,params,axes[3],'Disp var')
+    fig_filename = FIGURES_DIR + '/Exploration/disp_var_{}.png'.format(regime)
+    table_filename = TABLES_DIR + '/Exploration/disp_var_{}.tex'.format(regime)
 
-    plt.tight_layout()
-    filename = FIGURES_DIR + '/Exploration/scenario_exploration.png'
-    plt.savefig(filename)
+    bdf, odf = run_scenario(beta,mu,sigma,params,axes, 'Disp Var, {}'.format(regime))
+    sdf = comparison_df(bdf,odf,cvar_eps)
+    sdf.to_latex(table_filename,float_format='%.2f',escape=False)
+    fig.savefig(fig_filename)
+    plt.close()
 
-    fig, axes = plt.subplots(1,2,figsize=(10,5))
-    x = np.linspace(0,16,50)
-    for zone, ax in zip(range(2),axes.ravel()):
-        ax.plot(x,ab[zone]*x+bb[zone],'g',label='no corr')
-        ax.plot(x,apc[zone]*x+bpc[zone],'b',label='pos corr')
-        ax.plot(x,anc[zone]*x+bnc[zone],'p',label='neg corr')
+def epsilon_exploration2(regime,K):
+    beta = np.array([[1.5,0],[0,1.5]])
+    mu = np.array([5,5])
+    sigma = np.array(np.array([[2,0],[0,2]]))
+    eps_vals = np.linspace(0.3,0.01,30)
+    fig, axes = plt.subplots(2,2,figsize=(10,6))
+    sdf_list = []
+    for eps in eps_vals:
+        cvar_eps=eps
+        params = {'max_premium':0.6,'min_premium':0.05,'epsilon':cvar_eps,'epsilon_p':0.01,
+                'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05}
+
+        bdf, odf = run_scenario(beta,mu,sigma,params,axes, 'No corr, {}'.format(regime))
+        sdf = comparison_df(bdf,odf,cvar_eps)
+        sdf_list.append(sdf)
+
+    sdf = pd.concat(sdf_list)
+
+    metrics = ['Total CVaR','CVaR Diff','Max CVaR', '$P(L > Q(0.6))$']
+    fig, axes = plt.subplots(2,2,figsize=(10,6))
+    for metric, ax in zip(metrics,axes.ravel()):
+        ax.plot(sdf.loc[sdf['index'] == 'Opt','Eps'],sdf.loc[sdf['index'] =='Opt',metric],'g^',label='opt')
+        ax.plot(sdf.loc[sdf['index'] == 'Baseline','Eps'],sdf.loc[sdf['index']=='Baseline',metric],'bs',label='baseline')
         ax.legend()
-        ax.set_title('Zone: {}'.format(zone))
-
+        ax.set_title(metric)
+        ax.invert_xaxis()
     plt.tight_layout()
-    filename = FIGURES_DIR + '/Exploration/scenario_payouts_by_zone.png'
-    plt.savefig(filename)
+    plt.show()
+    new_eps = []
+    for eps in eps_vals:
+        new_eps.append(np.around(eps,2))
+        new_eps.append(np.around(eps,2))
+
+start = time.time()
+bootstrap_scenario_exploration('linear',8,1000)
+bootstrap_scenario_exploration('nonlinear',45,1000)
+end = time.time()
+print(end-start)
 
 
 
-
-scenario_exploration()
-
-
-
-
-
-# default_params = {'max_premium':0.6,'min_premium':0.1,'epsilon':0.2,'epsilon_p':0.05,
-#         'K':np.array([8,8]),'beta':np.array([0.5,0.5]),'c_k':0.05}
-
-# beta = np.array([[1.5,0],[0,1.5]])
-# mu = np.array([5,5])
-# sigma = np.array(np.array([[2,0],[0,2]]))
-
-# train_y, train_x = make_multi_zone_data(beta,mu,sigma,n=100)
-# eval_y, eval_x = make_multi_zone_data(beta,mu,sigma,n=20)
-# test_y, test_x = make_multi_zone_data(beta,mu,sigma,n=1000)
-
-# pred_model = LinearRegression().fit(train_x,train_y)
-# pred_y = pred_model.predict(train_x)
-# strike_ps, strike_vals = determine_strike_values(train_y,eval_y,eval_x,pred_model)
-
-# params = {'max_premium':0.6,'min_premium':0.1,'epsilon':0.01,'epsilon_p':0.05,
-#         'K':np.array([8,8]),'beta':np.array([0.5,0.5]),'c_k':0.05}
-
-# a,b = np.around(min_CVaR_program(pred_y,train_y,params),2)
-# print('a: {}, b: {}'.format(a,b))
-# bdf, odf = make_eval_dfs(test_x,test_y,pred_model,strike_vals,a,b,params['K'])
-# plot_payout_functions(bdf,odf,a,b)
-
-# plt.close()
