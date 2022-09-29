@@ -384,7 +384,7 @@ def bootstrap_scenario_exploration(regime,K,n=1000):
     scenario_name = 'no_corr_{}'.format(regime)
     sigma = np.array(np.array([[2,0],[0,2]]))
     cvar_eps=0.2
-    params = {'epsilon':cvar_eps,'epsilon_p':0.01,'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05}
+    params = {'epsilon':cvar_eps,'epsilon_p':0.01,'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.15}
 
     baseline_results = []
     opt_results = []
