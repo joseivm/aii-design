@@ -158,7 +158,7 @@ Researchers developed index insurance as a less costly way to offer insurance in
     \begin{itemize}
         \item $\epsilon$: This is the $\epsilon$ used for the $CVaR$ objective.  $\epsilon = 0.1$ means that our objective is $E[\ell - I(\theta)|\ell -I(\theta) \geq VaR_{1-0.1}\left ( \ell - I(\theta) \right )]$.  
         \item $\epsilon_K$: This is the epsilon used in the formula for required capital. Recall that the required capital $K(I(\theta)) = CVaR_{1-\epsilon_K}(I(\theta)) - E[I(\theta)]$. 
-        \item $N$: number of insured zones.
+        \item $Z$: number of insured zones.
         \item $c_{\kappa}$: cost of capital. 
         \item $P_z$: maximum payout for zone $z$.
         \item $\pi_{SQ}$: This is the average payout made by the status quo contract, $E[I_{SQ}(\theta)]$. This is also called the premium of the status quo contract.   
@@ -169,7 +169,7 @@ Researchers developed index insurance as a less costly way to offer insurance in
     \begin{align}
       \min_{a,b,K} \max_z &\quad CVaR_{1-\epsilon}\left (\ell_z - \min \left \{ (a_z\hat{\ell_z}(\theta_z) + b_z), P_z \right \} \right )\\
       \text{s.t.   } & \mathbb{E}\left [ \sum_z \max \left \{ 0, a_z\hat{\ell_z}(\theta_z) + b_z \right \} \right ] + c_{\kappa} K \leq B\\
-      K + N\pi_{SQ} &\geq CVaR_{1-\epsilon_K} \left( \sum_z \max \left \{ 0,a_z\hat{\ell_z}(\theta_z) + b_z \right \} \right )
+      K + Z\pi_{SQ} &\geq CVaR_{1-\epsilon_K} \left( \sum_z \max \left \{ 0,a_z\hat{\ell_z}(\theta_z) + b_z \right \} \right )
     \end{align}
 
     We reformulated the problem as a linear program  using the results from \cite{rockafellar2000optimization}. In the model below, $p^j$ is the probability of event $j$, and $j$ indexes the possible realizations of $\theta, \ell$. $N$ is the total number of samples. 
@@ -180,7 +180,7 @@ Researchers developed index insurance as a less costly way to offer insurance in
       \gamma_z^j &\geq \ell^j - \min\left\{(a_z\hat{\ell_z}(\theta_z^j) + b_z), P_z\right\} -t_z, \forall j, \forall z \\
       \gamma_z^j &\geq 0, \forall j, \forall z\\
       B &\geq \frac{1}{N} \sum_j \sum_z \alpha^j_z + c_{\kappa} K\\
-      t_K &+ \frac{1}{\epsilon_K} \sum_j p^j \gamma_K^j \leq K+N\pi_{SQ}\\
+      t_K &+ \frac{1}{\epsilon_K} \sum_j p^j \gamma_K^j \leq K+Z\pi_{SQ}\\
       \gamma_K^j &\geq \sum_z \alpha^j_z -t_K, \forall j \\
       \gamma_K^j &\geq 0, \forall j\\
       \alpha^j_z &\geq a_z \hat{\ell_z}(\theta^j_z) + b_z, \forall j, \forall z\\
@@ -217,7 +217,7 @@ Researchers developed index insurance as a less costly way to offer insurance in
         \item $\epsilon=0.2$ We picked this because it focuses on minimizing the CVaR of the $80^{th}$ percentile of the loss distribution, which roughly corresponds to once in every 5 year events, which is the desired frequency of insurance payouts.  
         \item $\epsilon_P=0.01$ This is a commonly set value by regulators.
         \item $K_z = 8, \forall z$ This is the maximum payout given by the status quo method.  
-        \item $c_k=0.05$ This is an estimate from the literature (\cite{damodaran2016cost}). 
+        \item $c_k=0.15$ This is an estimate from the literature (\cite{kielholz2000cost}). 
     \end{itemize}
 
     \subsubsection{Scenarios to be tested}
@@ -251,7 +251,7 @@ Researchers developed index insurance as a less costly way to offer insurance in
         \end{itemize}
 
     \subsubsection{Simulation details}
-      For each scenario we draw 1000 samples for training, 100 samples for parameter selection (which are used to select the strike value in the baseline model), and 400 samples for evaluation.
+      For each scenario we draw 300 samples for training, 50 samples for parameter selection (which are used to select the strike value in the baseline model), and 100 samples for evaluation. We run 1000 of these scenarios and compute the metrics for each one. We then report the median, $5^{th}$, and $95^{th}$ percentile values of each performance metric across the 1000 simulations. 
       \begin{enumerate}
         \item Draw samples from model, samples will be of the form $(\ell,\theta)$ where $\ell$ is loss and $\theta$ is the predictor. 
         \item Train linear prediction model. We run $\ell = \beta_0 + \beta_1\theta +\epsilon$. Use model to generate predictions $\hat{\ell}(\theta)$ for training and test data. 
@@ -267,7 +267,7 @@ Researchers developed index insurance as a less costly way to offer insurance in
 
     \paragraph*{Probability of loss exceeding threshold} We report this metric because it is of particular interest to practitioners. This metric is motivated by the literature on poverty traps, which shows that negative shocks can have very long lasting effects for individuals, especially if these shocks bring the individual's wealth below a certain threshold. We calculate this in the following way. For each sample $\left \{\ell^i_1,\theta^i_1, \ell^i_2, \theta^i_2 \right \}_{i=1}^N$ in the test set, we calculate the net loss, $\Delta \ell_j^i \triangleq  \ell^i_j - I_j(\theta^i_j)$. We then create an indicator variable $p^i_j =  \mathbbm{1}\{ \Delta \ell^i_j > \bar{\ell} \}$. The probability of loss exceeding a certain threshold is then: $P(\Delta \ell > \bar{\ell}) = \frac{1}{N}\sum_{i=1}^N (p^i_1 \lor p^i_2)$. We set $\bar{\ell}$ to be the $60^{th}$ percentile of the loss variable, $\ell$.
     
-    \paragraph*{Difference in average net loss} This is the difference in average net loss in the two insured zones. For each sample $\left \{\ell^i_1,\theta^i_1, \ell^i_2, \theta^i_2 \right \}_{i=1}^N$ in the test set, we calculate the net loss, $\Delta \ell^i_j \triangleq  \ell^i_j - I_j(\theta^i_j)$. We then take the average of this quantity by zone, and take the absolute value of the difference: $|\frac{1}{N}\sum_{i=1}^N \Delta \ell^i_1 - \frac{1}{N}\sum \Delta \ell^i_2|$.
+    \paragraph*{Difference in average net loss} This is the difference in average net loss in the two insured zones. For each sample $\left \{\ell^i_1,\theta^i_1, \ell^i_2, \theta^i_2 \right \}_{i=1}^N$ in the test set, we calculate the net loss, $\Delta \ell^i_j \triangleq  \ell^i_j - I_j(\theta^i_j)$. We then take the average of this quantity by zone, and take the absolute value of the difference: $\left |\frac{1}{N}\sum_{i=1}^N \Delta \ell^i_1 - \Delta \ell^i_2 \right |$.
 
     \paragraph*{Required Capital} We report this measure because we think it is one of the comparitive advantages of our method, and it has implications for the insurer. Higher capital requirements for the insurance translate to higher costs for the insurer, and it is cost that is not necessarily benefitting the farmers. The formula for required capital is: $K(I(\theta)) = CVaR_{1-\epsilon_P}(\sum_z I_z(\theta)) - \mathbb{E}[\sum_z I_z(\theta)]$. For the $CVaR_{1-\epsilon_P}$, we first calculate the sum of all payouts in every scenario. We use these sums to calculate the empirical $VaR_{1-\epsilon_P}(\sum_z I_z(\theta))$. We then calculate the average of all sums greater than or equal to this quantity. We calculate $\mathbb{E}[\sum_z I_z(\theta)]$ using the empirical mean. We set $\epsilon_P = 0.01$ because it is a commonly used value by regulators. 
 
@@ -275,105 +275,108 @@ Researchers developed index insurance as a less costly way to offer insurance in
 
   \subsection{Results}
   The performance of our contracts was sensitive to whether or not the underlying prediction model was correctly specified. When the prediction model was correctly specified, the contracts designed by our model consistently outperform the baseline contracts in two areas: equity and required capital. The contracts designed by our model tend to lead to more equitable outcomes in terms of average net loss in each zone. Furthermore, the contracts designed by our model consisently require less capital to fund than the baseline contracts. Our model provided similar protection as the baseline contracts against catastrophic loss. \\
-  A fair comparison of the two methods is harder when the prediction model is misspecified, because it becomes harder to enforce the budget constraint. Misspecification is when the model doesn't match the data generating process. Here, our prediction model is linear, so when the true data generating process is nonlinear, the prediction model is misspecified. As a result, the overall cost of the two methods differs considerably more than when the prediction model is correctly specified. Overall, the contracts designed by our model provide better protection against catastrophic loss at a lower cost than the baseline contracts. 
+  A fair comparison of the two methods is harder when the prediction model is misspecified, because it becomes harder to enforce the budget constraint. Misspecification is when the model doesn't match the data generating process. Here, our prediction model is linear, so when the true data generating process is nonlinear, the prediction model is misspecified. As a result, the overall cost of the two methods differs considerably more than when the prediction model is correctly specified. In general, in the misspecified case, the contracts designed by our model offer a similar level of protection at a lower cost, and with lower capital requirements.  
   % Overall the contracts designed by our model consistently outperform the baseline contracts in two areas: equity and required capital. The contracts designed by our model tend to lead to more equitable outcomes in terms of average net loss in each zone. Furthermore, the contracts designed by our model consisently require less capital to fund than the baseline contracts. All of this while having similar probabilistic guarantees of net loss being above a threshold. In the case where the prediction model is misspecified, our model generally provides similar probabilistic guarantees, while having a lower overall cost and capital requirements. However, in this case it does slightly worse in the equity metrics. A head to head comparison is harder here, because the two methods end up having significantly different costs
     \subsubsection{Correctly specified prediction model}
-      \paragraph{No correlation Case} The insurance contracts designed by our model have the same probability of staying below the specified threshold as the baseline model. Moreover, the difference in average loss between the two zones is slightly smaller in our model, and the insurance contracts designed by our model require nearly $10\%$ less capital than the baseline model. We believe this happens because our model takes into account the cost of capital, whereas the baseline method ignores it. The costs of the two contracts are within $1\%$ of each other. 
+      \paragraph{No correlation Case} The insurance contracts designed by our model have a slightly lower probability of staying below the specified threshold as the baseline model. Moreover, the difference in average loss between the two zones is considerably smaller in our model, and the insurance contracts designed by our model require about $12\%$ less capital than the baseline model. We believe this happens because our model takes into account the cost of capital, whereas the baseline method ignores it. The contracts developed by our model also have a slightly lower average cost.  
       \begin{figure}[H]
           \centering
-          % \caption{No Correlation, model correctly specified. These are graphs of the payment schedules of the insurance contracts for the two zones. The green payment schedule is for the contract designed by our method, labeled ``opt''. The blue payment schedule is for the baseline contracts, labeled ``baseline''. The red dots are the farmer losses. $a$ is the slope of the payout of our contract, and $b$ is the deductible of our contract.}
-          \includegraphics[width=0.75\textwidth]{../../output/figures/Exploration/no_correlation_linear.png}
+          \includegraphics[width=0.75\textwidth]{../../output/figures/Bootstrap/no_corr_linear.png}
           \caption{No Correlation, model correctly specified. These are graphs of the payment schedules of the insurance contracts for the two zones. The green payment schedule is for the contract designed by our method, labeled ``opt''. The blue payment schedule is for the baseline contracts, labeled ``baseline''. The red dots are the farmer losses. $a$ is the slope of the payout of our contract, and $b$ is the deductible of our contract.}
       \end{figure}
 
       \begin{table}[H]
           \centering
-          \small
-          \caption{Performance Metrics}
-          \input{../../output/tables/Exploration/no_correlation_linear.tex}
+          % \small
+          \input{../../output/tables/Bootstrap/no_corr_linear.tex}
+          \caption{Performance Metrics. The values shown correspond to the median value of the metric across 1000 simulation. The intervals shown are the $5^{th}$ and $95^{th}$ percentile values of the metrics.}
       \end{table}
       \FloatBarrier
 
 
-      \paragraph{Positive Correlation Case} Under the insurance contracts designed by our model, farmers have a lower probability of having a net loss that exceeds the specified threshold. Furthermore, the difference between the average losses between the two zones is significantly smaller relative to the baseline. The contracts designed by our model require $7\%$ less capital than the baseline contracts. The costs of the two contracts are within $1\%$ percent of each other. 
+      \paragraph{Positive Correlation Case} Under the insurance contracts designed by our model, farmers have a slightly lower probability of having a net loss that exceeds the specified threshold. Furthermore, the difference between the average losses between the two zones is significantly smaller relative to the baseline. The contracts designed by our model require $14\%$ less capital than the baseline contracts. The costs of the two contracts are basically equivalent. 
       \begin{figure}[H]
           \centering
           % \caption{Positive Correlation, model correctly specified}
-          \includegraphics[width=0.75\textwidth]{../../output/figures/Exploration/pos_correlation_linear.png}
+          \includegraphics[width=0.75\textwidth]{../../output/figures/Bootstrap/pos_corr_linear.png}
           \caption{Positive Correlation, model correctly specified. These are graphs of the payment schedules of the insurance contracts for the two zones. The green payment schedule is for the contract designed by our method, labeled ``opt''. The blue payment schedule is for the baseline contracts, labeled ``baseline''. The red dots are the farmer losses. $a$ is the slope of the payout of our contract, and $b$ is the deductible of our contract.}
       \end{figure}
 
       \begin{table}[H]
           \centering
-          \small
-          \caption{Performance Metrics}
-          \input{../../output/tables/Exploration/pos_correlation_linear.tex}
+          % \small
+          
+          \input{../../output/tables/Bootstrap/pos_corr_linear.tex}
+          \caption{Performance Metrics. The values shown correspond to the median value of the metric across 1000 simulation. The intervals shown are the $5^{th}$ and $95^{th}$ percentile values of the metrics.}
       \end{table}
       \FloatBarrier
 
-      \paragraph{Negative Correlation Case} Under the insurance contracts designed by our model, farmers have the same probability of having a net loss that exceeds the specified threshold. Furthermore, the difference between the average losses between the two zones is significantly smaller relative to the baseline. The contracts designed by our model require $4\%$ less capital than the baseline contracts. The costs of the two contracts are within $1\%$ percent of each other. 
+      \paragraph{Negative Correlation Case} Under the insurance contracts designed by our model, farmers have a slightly lower probability of having a net loss that exceeds the specified threshold. Furthermore, the difference between the average losses between the two zones is significantly smaller relative to the baseline. The contracts designed by our model require $11\%$ less capital than the baseline contracts. The costs of the two contracts are practically equivalent. 
       \begin{figure}[H]
           \centering
           % \caption{Negative Correlation, model correctly specified}
-          \includegraphics[width=0.75\textwidth]{../../output/figures/Exploration/neg_correlation_linear.png}
+          \includegraphics[width=0.75\textwidth]{../../output/figures/Bootstrap/neg_corr_linear.png}
           \caption{Negative Correlation, model correctly specified. These are graphs of the payment schedules of the insurance contracts for the two zones. The green payment schedule is for the contract designed by our method, labeled ``opt''. The blue payment schedule is for the baseline contracts, labeled ``baseline''. The red dots are the farmer losses. $a$ is the slope of the payout of our contract, and $b$ is the deductible of our contract.}
       \end{figure}
 
       \begin{table}[H]
           \centering
           \small
-          \caption{Performance Metrics}
-          \input{../../output/tables/Exploration/neg_correlation_linear.tex}
+          \caption{Performance Metrics. The values shown correspond to the median value of the metric across 1000 simulation. The intervals shown are the $5^{th}$ and $95^{th}$ percentile values of the metrics.}
+          \input{../../output/tables/Bootstrap/neg_corr_linear.tex}
       \end{table}
       \FloatBarrier
 
     \subsubsection{Incorrectly specified prediction model}
-      \paragraph{No correlation Case} The insurance contracts designed by our model provide a similar level of protection as the baseline contracts, at a cost that is $2.5\%$ lower. However, the average losses are slightly less equitable. The capital requirements for our contracts are $5.5\%$ lower than the baseline. 
+      \paragraph{No correlation Case} The insurance contracts designed by our model provide a similar level of protection as the baseline contracts, at a cost that is $6\%$ lower. However, the average losses are slightly less equitable. The capital requirements for our contracts are $4.9\%$ lower than the baseline. 
       \begin{figure}[H]
           \centering
           % \caption{No Correlation, model misspecified}
-          \includegraphics[width=0.75\textwidth]{../../output/figures/Exploration/no_correlation_nonlinear.png}
+          \includegraphics[width=0.75\textwidth]{../../output/figures/Bootstrap/no_corr_nonlinear.png}
           \caption{No Correlation, model misspecified. These are graphs of the payment schedules of the insurance contracts for the two zones. The green payment schedule is for the contract designed by our method, labeled ``opt''. The blue payment schedule is for the baseline contracts, labeled ``baseline''. The red dots are the farmer losses. $a$ is the slope of the payout of our contract, and $b$ is the deductible of our contract.}
       \end{figure}
 
       \begin{table}[H]
           \centering
-          \small
-          \caption{Performance Metrics}
-          \input{../../output/tables/Exploration/no_correlation_nonlinear.tex}
+          % \small
+          
+          \input{../../output/tables/Bootstrap/no_corr_nonlinear.tex}
+          \caption{Performance Metrics. The values shown correspond to the median value of the metric across 1000 simulation. The intervals shown are the $5^{th}$ and $95^{th}$ percentile values of the metrics.}
       \end{table}
       \FloatBarrier
 
 
-      \paragraph{Positive Correlation Case} The insurance contracts designed by our model provide a similar level of protection as the baseline contracts, at a cost that is $2.7\%$ lower. However, the capital requirements for our contracts are $1.4\%$ higher than the baseline. 
+      \paragraph{Positive Correlation Case} The insurance contracts designed by our model provide a slightly worse level of protection as the baseline contracts, at a cost that is $11\%$ lower. However, the capital requirements for our contracts are $5.7\%$ higher than the baseline. 
       \begin{figure}[H]
           \centering
           % \caption{Positive Correlation, model misspecified}
-          \includegraphics[width=0.75\textwidth]{../../output/figures/Exploration/pos_correlation_nonlinear.png}
+          \includegraphics[width=0.75\textwidth]{../../output/figures/Bootstrap/pos_corr_nonlinear.png}
           \caption{Positive Correlation, model misspecified. These are graphs of the payment schedules of the insurance contracts for the two zones. The green payment schedule is for the contract designed by our method, labeled ``opt''. The blue payment schedule is for the baseline contracts, labeled ``baseline''. The red dots are the farmer losses. $a$ is the slope of the payout of our contract, and $b$ is the deductible of our contract.}
       \end{figure}
 
       \begin{table}[H]
           \centering
-          \small
-          \caption{Performance Metrics}
-          \input{../../output/tables/Exploration/pos_correlation_nonlinear.tex}
+          % \small
+          
+          \input{../../output/tables/Bootstrap/pos_corr_nonlinear.tex}
+          \caption{Performance Metrics. The values shown correspond to the median value of the metric across 1000 simulation. The intervals shown are the $5^{th}$ and $95^{th}$ percentile values of the metrics.}
       \end{table}
       \FloatBarrier
 
-      \paragraph{Negative Correlation Case} The insurance contracts designed by our model provide a similar level of protection as the baseline contracts, at a cost that is $3.2\%$ lower. However, the average losses are slightly less equitable. The capital requirements for our contracts are $7.7\%$ lower than the baseline. 
+      \paragraph{Negative Correlation Case} The insurance contracts designed by our model provide a similar level of protection as the baseline contracts, at a cost that is $7\%$ lower. The equity of the losses is similar with both contracts. The capital requirements for our contracts are $10\%$ lower than the baseline. 
       \begin{figure}[H]
           \centering
           % \caption{Negative Correlation, model misspecified}
-          \includegraphics[width=0.75\textwidth]{../../output/figures/Exploration/neg_correlation_nonlinear.png}
+          \includegraphics[width=0.75\textwidth]{../../output/figures/Bootstrap/neg_corr_nonlinear.png}
           \caption{Negative Correlation, model misspecified. These are graphs of the payment schedules of the insurance contracts for the two zones. The green payment schedule is for the contract designed by our method, labeled ``opt''. The blue payment schedule is for the baseline contracts, labeled ``baseline''. The red dots are the farmer losses. $a$ is the slope of the payout of our contract, and $b$ is the deductible of our contract.}
       \end{figure}
 
       \begin{table}[H]
           \centering
-          \small
-          \caption{Performance Metrics}
-          \input{../../output/tables/Exploration/neg_correlation_nonlinear.tex}
+          % \small
+          
+          \input{../../output/tables/Bootstrap/neg_corr_nonlinear.tex}
+          \caption{Performance Metrics. The values shown correspond to the median value of the metric across 1000 simulation. The intervals shown are the $5^{th}$ and $95^{th}$ percentile values of the metrics.}
       \end{table}
       \FloatBarrier
     
