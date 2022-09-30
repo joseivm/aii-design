@@ -113,6 +113,38 @@
       \field{pages}{203\bibrangedash 228}
       \range{pages}{26}
     \endentry
+    \entry{kielholz2000cost}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=41f05fe04d5a44d8952f07682c83f9a1}{%
+           family={Kielholz},
+           familyi={K\bibinitperiod},
+           given={Walter},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {JSTOR}%
+      }
+      \strng{namehash}{41f05fe04d5a44d8952f07682c83f9a1}
+      \strng{fullhash}{41f05fe04d5a44d8952f07682c83f9a1}
+      \strng{bibnamehash}{41f05fe04d5a44d8952f07682c83f9a1}
+      \strng{authorbibnamehash}{41f05fe04d5a44d8952f07682c83f9a1}
+      \strng{authornamehash}{41f05fe04d5a44d8952f07682c83f9a1}
+      \strng{authorfullhash}{41f05fe04d5a44d8952f07682c83f9a1}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Geneva Papers on Risk and Insurance. Issues and Practice}
+      \field{number}{1}
+      \field{title}{The cost of capital for insurance companies}
+      \field{volume}{25}
+      \field{year}{2000}
+      \field{pages}{4\bibrangedash 24}
+      \range{pages}{21}
+    \endentry
     \entry{rockafellar2000optimization}{article}{}
       \true{moreauthor}
       \true{morelabelname}
@@ -747,31 +779,6 @@
       \field{journaltitle}{CCAFS Report}
       \field{title}{Scaling up index insurance for smallholder farmers: Recent evidence and insights}
       \field{year}{2015}
-    \endentry
-    \entry{damodaran2016cost}{article}{}
-      \name{author}{1}{}{%
-        {{uniquename=0,uniquepart=base,hash=063f60692f2f4aa0aa54afd9bd84e4a0}{%
-           family={Damodaran},
-           familyi={D\bibinitperiod},
-           given={Aswath},
-           giveni={A\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{063f60692f2f4aa0aa54afd9bd84e4a0}
-      \strng{fullhash}{063f60692f2f4aa0aa54afd9bd84e4a0}
-      \strng{bibnamehash}{063f60692f2f4aa0aa54afd9bd84e4a0}
-      \strng{authorbibnamehash}{063f60692f2f4aa0aa54afd9bd84e4a0}
-      \strng{authornamehash}{063f60692f2f4aa0aa54afd9bd84e4a0}
-      \strng{authorfullhash}{063f60692f2f4aa0aa54afd9bd84e4a0}
-      \field{sortinit}{2}
-      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{New York, NYU Stern}
-      \field{title}{The Cost of Capital: The Swiss Army Knife of Finance}
-      \field{year}{2016}
     \endentry
     \entry{jensen2017agricultural}{article}{}
       \name{author}{2}{}{%

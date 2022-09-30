@@ -8,127 +8,63 @@ import geopandas as gpd
 import pyproj
 from shapely.geometry import Point, Polygon
 import matplotlib.pyplot as plt
-import datetime
+import time
 
 from dotenv import load_dotenv, find_dotenv
 dotenv_path = find_dotenv()
 load_dotenv(dotenv_path)
 PROJECT_DIR = os.environ.get("PROJECT_DIR")
 
+# Input files/dirs
 RAW_DATA_DIR = PROJECT_DIR + '/data/raw'
 CLEAN_DATA_DIR = PROJECT_DIR + '/data/processed/NDVI'
 coord_filename = CLEAN_DATA_DIR + '/coords.npy'
-sinusoidal_projection = "+proj=sinu +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
+village_cw_filename = CLEAN_DATA_DIR + '/village_pixel_cw.csv'
 
-filename = CLEAN_DATA_DIR + '/2010-01-17.hdf5'
+# Output files/dirs
+covariate_matrix_filename = CLEAN_DATA_DIR + '/covariate_matrix.csv'
 
 # 1. Read in data, get NDVI part 2. subset that based on coordinates
 # 3. save it with relevant attributes, without transforming yet
 # 4. save resulting thing
 
-def load_ndvi_data(filename):
+##### Data loading #####
+def load_ndvi_data():
+    NDVI_DATA_DIR = CLEAN_DATA_DIR + '/HDF'
+    hdf_files = [fname for fname in os.listdir(NDVI_DATA_DIR) if '.hdf5' in fname]
+    hdf_files = [os.path.join(NDVI_DATA_DIR ,fname) for fname in hdf_files]
+    ndvi_dfs = [process_ndvi_file(fname) for fname in hdf_files]
+    ndf = pd.concat(ndvi_dfs)
+    return ndf
+
+def load_kenya_geodata():
+    filename = RAW_DATA_DIR + '/Kenya Geodata/gadm41_KEN_3.shp'
+    kdf = gpd.read_file(filename)
+    locations_of_interest = ['Marsabit Central','Sagante/Jaldesa','Laisamis','Loiyangalani','Maikona']
+    # kdf.loc[kdf.NAME_1 == 'Marsabit',:].apply(lambda x: ax.annotate(text=x['NAME_3'],
+    #     xy=x.geometry.centroid.coords[0], ha='center'), axis=1)
+    kdf.rename(columns={'NAME_3':'Location'},inplace=True)
+    return kdf.loc[kdf.NAME_1 == 'Marsabit',['Location','geometry']]
+
+def process_ndvi_file(filename):
+    print(filename)
     f = h5py.File(filename,'r')
     ndvi = f['NDVI']
     data = get_ndvi_data(ndvi)
-    coords = np.load(coord_filename)
 
-    ndvi_points = gpd.GeoSeries(map(Point,coords.reshape(-1,2)))
-    ndf = gpd.GeoDataFrame({'geometry':ndvi_points,'NDVI':data.flatten()})
-    ndf.crs = pyproj.CRS.from_epsg(4326).to_wkt()
-    kdf = load_kenya_geodata()
+    ndf = pd.DataFrame({'NDVI':data.flatten()})
+    ndf = ndf.reset_index().rename(columns={'index':'PID'})
+    
+    vdf = pd.read_csv(village_cw_filename)
 
-    df = kdf.sjoin(ndf,how='inner')
-    df.rename(columns={'index_right':'PID'},inplace=True)
+    df = vdf.merge(ndf,left_on='PID',right_on='PID')
 
     file_date = filename[-15:-5]
-    df['Date'] = datetime.date.fromisoformat(file_date)
+    df['Date'] = pd.to_datetime(file_date,format='%Y-%m-%d')
+    df['Year'] = df['Date'].dt.year
     df['Dekad'] = df['Date'].dt.dayofyear//10+1
-
-
-def add_seasons(df):
-    season_dict = {'LRLD':['03-01','09-30'],'SRSD':['10-01','02-28'],'LRLD Pre':['10-01','02-28'],
-      'LRLD Full':['10-01','09-30'],'SRSD Pre':['03-01','09-30'],'SRSD Full':['03-01','02-28']}
-    
-    season_col = {'LRLD':'Season','SRSD':'Season','LRLD Pre':'Preseason','SRSD Pre':'Preseason',
-        'LRLD Full':'Full Season','SRSD Full':'Full Season'}
-
-    years = df['Year'].unique()
-    for year in years:
-        for season, dates in season_dict.keys():
-            season_start_year = year-1 if ('Pre' in season) or ('Full' in season) else year
-            start_date, end_date = dates
-            start_date = str(season_start_year)+'-'+start_date 
-            start_date = datetime.date.fromisoformat(start_date)
-
-            end_date = str(year)+'-'+end_date 
-            end_date = datetime.date.fromisoformat(end_date)
-
-            season_name = season + ' ' + year
-            col = season_col[season]
-            df.loc[(df.Date >= start_date) & (df.Date <= end_date),col] = season_name 
-    return df
-
-def load_ndvi_data(filename):
-    f = h5py.File(filename,'r')
-    ndvi = f['NDVI']
-    data, coords = get_ndvi_data(ndvi)
-
-    kdf = load_kenya_geodata()
-    bounding_square = kdf.unary_union.envelope
-    min_x, min_y, max_x, max_y = bounding_square.bounds
-
-    x_mask = (coords[:,:,0] >= min_x) & (coords[:,:,0] <= max_x)
-    y_mask = (coords[:,:,1] >= min_y) & (coords[:,:,1] <= max_y)
-    ndvi_mask = x_mask & y_mask
-    relevant_indices = np.transpose(np.nonzero(ndvi_mask))
-    min_x_idx = min(relevant_indices[:,0])
-    max_x_idx = max(relevant_indices[:,0])+1
-    min_y_idx = min(relevant_indices[:,1])
-    max_y_idx = max(relevant_indices[:,1])+1
-
-    relevant_coords = coords[min_x_idx:max_x_idx,min_y_idx:max_y_idx]
-    relevant_data = data[min_x_idx:max_x_idx,min_y_idx:max_y_idx]
-
-
-
-    top_left = coords[0,0,:]
-    top_right = coords[0,-1,:]
-    bottom_left = coords[-1,0,:]
-    bottom_right = coords[-1,-1,:]
-    square = Polygon([top_left,top_right,bottom_right,bottom_left])
-
-    ndvi_square = gpd.GeoDataFrame()
-    ndvi_square['geometry'] = None
-    ndvi_square.at[0,'geometry'] = square
-
-    kdf = load_kenya_geodata()
-    bounding_square = kdf.unary_union.envelope
-    bounding_square = gpd.GeoDataFrame({'geometry':bounding_square,'name':['bounding square']})
-    min_x, min_y, max_x, max_y = bounding_square.bounds
-
-    x_mask = (coords[:,:,0] >= min_x) & (coords[:,:,0] <= max_x)
-    y_mask = (coords[:,:,1] >= min_y) & (coords[:,:,1] <= max_y)
-    ndvi_mask = x_mask & y_mask
-    relevant_indices = np.transpose(np.nonzero(ndvi_mask))
-    min_x_idx = min(relevant_indices[:,0])
-    max_x_idx = max(relevant_indices[:,0])+1
-    min_y_idx = min(relevant_indices[:,1])
-    max_y_idx = max(relevant_indices[:,1])+1
-
-    relevant_coords = coords[min_x_idx:max_x_idx,min_y_idx:max_y_idx]
-    relevant_data = data[min_x_idx:max_x_idx,min_y_idx:max_y_idx]
-
-    ndvi_points = gpd.GeoSeries(map(Point,relevant_coords.reshape(-1,2)))
-    ndf = gpd.GeoDataFrame({'geometry':ndvi_points,'NDVI':relevant_data.flatten()})
-
-    fig, ax = plt.subplots()
-    ndvi_square.plot(ax=ax,facecolor='blue')
-    kdf.loc[kdf.NAME_1 == 'Marsabit',:].plot(ax=ax,facecolor='red')
-    plt.show()
-
-    archive_metadata = f['NDVI'].attrs['ArchiveMetadata']
-    core_metadata = f['NDVI'].attrs['CoreMetadata']
-    struct_metadata = f['NDVI'].attrs['StructMetadata']
+    df = add_seasons(df)
+    return df    
 
 def get_ndvi_data(dataset):
     data = dataset[:,:].astype(float)
@@ -145,14 +81,69 @@ def get_ndvi_data(dataset):
     data = np.ma.masked_array(data, np.isnan(data))
     return data
 
-def load_kenya_geodata():
-    filename = RAW_DATA_DIR + '/Kenya Geodata/gadm41_KEN_3.shp'
-    kdf = gpd.read_file(filename)
-    locations_of_interest = ['Marsabit Central','Sagante/Jaldesa','Laisamis','Loiyangalani','Maikona']
-    # kdf.loc[kdf.NAME_1 == 'Marsabit',:].apply(lambda x: ax.annotate(text=x['NAME_3'],
-    #     xy=x.geometry.centroid.coords[0], ha='center'), axis=1)
-    return kdf.loc[kdf.NAME_1 == 'Marsabit',:]
+def add_seasons(df):
+    season_dict = {'LRLD':['03-01','09-30'],'SRSD':['10-01','02-28'],'LRLD Pre':['10-01','02-28'],
+      'LRLD Full':['10-01','09-30'],'SRSD Pre':['03-01','09-30'],'SRSD Full':['03-01','02-28']}
+    
+    season_col = {'LRLD':'Season','SRSD':'Season','LRLD Pre':'Preseason','SRSD Pre':'Preseason',
+        'LRLD Full':'Full Season','SRSD Full':'Full Season'}
+
+    years = range(2008,2017)
+    for year in years:
+        for season, dates in season_dict.items():
+            season_start_year = year-1 if season in ['LRLD Pre','LRLD Full'] else year
+            start_date, end_date = dates
+            start_date = str(season_start_year)+'-'+start_date 
+            start_date = pd.to_datetime(start_date,format='%Y-%m-%d')
+
+            season_end_year = year+1 if season in ['SRSD','SRSD Full'] else year
+            end_date = str(season_end_year)+'-'+end_date 
+            end_date = pd.to_datetime(end_date,format='%Y-%m-%d')
+
+            season_name = season + ' ' + str(year)
+            col = season_col[season]
+            df.loc[(df.Date >= start_date) & (df.Date <= end_date),col] = season_name 
+    return df
    
-hdf_files = [fname for fname in os.listdir(CLEAN_DATA_DIR) if '.hdf5' in fname]
-hdf_files = [os.path.join(CLEAN_DATA_DIR ,fname) for fname in hdf_files]
+def create_village_pixel_mapping():
+    NDVI_DATA_DIR = CLEAN_DATA_DIR + '/HDF'
+    hdf_files = [fname for fname in os.listdir(NDVI_DATA_DIR) if '.hdf5' in fname]
+    hdf_files = [os.path.join(NDVI_DATA_DIR ,fname) for fname in hdf_files]
+
+    fname = hdf_files[0]
+    f = h5py.File(fname,'r')
+    ndvi = f['NDVI']
+    data = get_ndvi_data(ndvi)
+    coords = np.load(coord_filename)
+
+    ndvi_points = gpd.GeoSeries(map(Point,coords.reshape(-1,2)))
+    ndf = gpd.GeoDataFrame({'geometry':ndvi_points,'NDVI':data.flatten()})
+    ndf.crs = pyproj.CRS.from_epsg(4326).to_wkt()
+    kdf = load_kenya_geodata()
+
+    df = kdf.sjoin(ndf,how='inner')
+    df.rename(columns={'index_right':'PID'},inplace=True)
+    df[['Location','PID']].to_csv(village_cw_filename,index=False)
+
+##### Covariate Matrix #####
+def create_covariate_matrix():
+    ndf = load_ndvi_data()
+    pdf = ndf.groupby(['PID','Dekad'])['NDVI'].agg(PixelMean='mean',PixelStd='std').reset_index()
+    ndf = ndf.merge(pdf,left_on=['PID','Dekad'],right_on=['PID','Dekad'])
+    ndf['ZNDVI'] = (ndf['NDVI']-ndf['PixelMean'])/ndf['PixelStd']
+    ndf['NegZNDVI'] = np.abs(np.minimum(ndf['ZNDVI'],0))
+    ndf['PosZNDVI'] = np.maximum(ndf['ZNDVI'],0)
+    pos_ndvi = ndf[ndf.ZNDVI.notna()].groupby(['Full Season','Location'])['PosZNDVI'].sum().reset_index(name='PosZNDVI')
+    neg_ndvi = ndf[ndf.ZNDVI.notna()].groupby(['Full Season','Location'])['NegZNDVI'].sum().reset_index(name='NegZNDVI')
+    pre_ndvi = ndf[ndf.ZNDVI.notna()].groupby(['Preseason','Location'])['ZNDVI'].sum().reset_index(name='PreNDVI')
+
+    cov = ndf.groupby(['Location','Season','Full Season','Preseason']).size().reset_index(name='N')
+    cov = cov.merge(pos_ndvi,left_on=['Location','Full Season'],right_on=['Location','Full Season'])
+    cov = cov.merge(neg_ndvi,left_on=['Location','Full Season'],right_on=['Location','Full Season'])
+    cov = cov.merge(pre_ndvi,left_on=['Location','Preseason'],right_on=['Location','Preseason'])
+    cov.drop(columns=['N'],inplace=True)
+    return cov
+
+cov = create_covariate_matrix()
+cov.to_csv(covariate_matrix_filename,index=False)
 

@@ -1,18 +1,18 @@
 [0] Config.pm:302> INFO - This is Biber 2.11
-[0] Config.pm:305> INFO - Logfile is 'paper.blg'
-[38] biber-darwin:313> INFO - === Wed Sep 28, 2022, 09:13:27
-[64] Biber.pm:371> INFO - Reading 'paper.bcf'
-[157] Biber.pm:857> INFO - Found 22 citekeys in bib section 0
-[176] Biber.pm:3976> INFO - Processing section 0
-[191] Biber.pm:4136> INFO - Looking for bibtex format file '../main.bib' for section 0
-[193] bibtex.pm:1500> INFO - LaTeX decoding ...
-[237] bibtex.pm:1316> INFO - Found BibTeX data source '../main.bib'
-[445] Utils.pm:193> WARN - BibTeX subsystem: warning: comma(s) at end of name (removing)
-[445] Utils.pm:193> WARN - BibTeX subsystem: author, warning: comma(s) at end of name (removing)
-[497] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[497] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[497] Biber.pm:3804> INFO - Sorting list 'ynt/global//global/global' of type 'entry' with template 'ynt' and locale 'en-US'
-[498] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
-[535] bbl.pm:617> INFO - Writing 'paper.bbl' with encoding 'UTF-8'
-[570] bbl.pm:720> INFO - Output to paper.bbl
-[571] Biber.pm:110> INFO - WARNINGS: 2
+[1] Config.pm:305> INFO - Logfile is 'paper.blg'
+[178] biber-darwin:313> INFO - === Wed Sep 28, 2022, 23:57:20
+[225] Biber.pm:371> INFO - Reading 'paper.bcf'
+[317] Biber.pm:857> INFO - Found 22 citekeys in bib section 0
+[330] Biber.pm:3976> INFO - Processing section 0
+[341] Biber.pm:4136> INFO - Looking for bibtex format file '../main.bib' for section 0
+[344] bibtex.pm:1500> INFO - LaTeX decoding ...
+[395] bibtex.pm:1316> INFO - Found BibTeX data source '../main.bib'
+[591] Utils.pm:193> WARN - BibTeX subsystem: warning: comma(s) at end of name (removing)
+[591] Utils.pm:193> WARN - BibTeX subsystem: author, warning: comma(s) at end of name (removing)
+[631] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[631] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[631] Biber.pm:3804> INFO - Sorting list 'ynt/global//global/global' of type 'entry' with template 'ynt' and locale 'en-US'
+[631] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
+[655] bbl.pm:617> INFO - Writing 'paper.bbl' with encoding 'UTF-8'
+[677] bbl.pm:720> INFO - Output to paper.bbl
+[677] Biber.pm:110> INFO - WARNINGS: 2

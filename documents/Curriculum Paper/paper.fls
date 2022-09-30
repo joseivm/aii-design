@@ -178,11 +178,21 @@ INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/bbm/bbm10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/bbm/bbm8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/bbm/bbm6.tfm
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/figures/Exploration/no_correlation_linear.png
-INPUT ../../output/figures/Exploration/no_correlation_linear.png
-INPUT ../../output/figures/Exploration/no_correlation_linear.png
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Exploration/no_correlation_linear.tex
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Exploration/no_correlation_linear.tex
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/figures/Bootstrap/no_corr_linear.png
+INPUT ../../output/figures/Bootstrap/no_corr_linear.png
+INPUT ../../output/figures/Bootstrap/no_corr_linear.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Bootstrap/no_corr_linear.tex
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Bootstrap/no_corr_linear.tex
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/figures/Bootstrap/pos_corr_linear.png
+INPUT ../../output/figures/Bootstrap/pos_corr_linear.png
+INPUT ../../output/figures/Bootstrap/pos_corr_linear.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Bootstrap/pos_corr_linear.tex
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Bootstrap/pos_corr_linear.tex
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/figures/Bootstrap/neg_corr_linear.png
+INPUT ../../output/figures/Bootstrap/neg_corr_linear.png
+INPUT ../../output/figures/Bootstrap/neg_corr_linear.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Bootstrap/neg_corr_linear.tex
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Bootstrap/neg_corr_linear.tex
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
@@ -194,31 +204,21 @@ INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/bbm/bbm10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/bbm/bbm7.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/bbm/bbm5.tfm
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/figures/Exploration/pos_correlation_linear.png
-INPUT ../../output/figures/Exploration/pos_correlation_linear.png
-INPUT ../../output/figures/Exploration/pos_correlation_linear.png
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Exploration/pos_correlation_linear.tex
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Exploration/pos_correlation_linear.tex
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/figures/Exploration/neg_correlation_linear.png
-INPUT ../../output/figures/Exploration/neg_correlation_linear.png
-INPUT ../../output/figures/Exploration/neg_correlation_linear.png
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Exploration/neg_correlation_linear.tex
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Exploration/neg_correlation_linear.tex
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/figures/Exploration/no_correlation_nonlinear.png
-INPUT ../../output/figures/Exploration/no_correlation_nonlinear.png
-INPUT ../../output/figures/Exploration/no_correlation_nonlinear.png
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Exploration/no_correlation_nonlinear.tex
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Exploration/no_correlation_nonlinear.tex
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/figures/Exploration/pos_correlation_nonlinear.png
-INPUT ../../output/figures/Exploration/pos_correlation_nonlinear.png
-INPUT ../../output/figures/Exploration/pos_correlation_nonlinear.png
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Exploration/pos_correlation_nonlinear.tex
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Exploration/pos_correlation_nonlinear.tex
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/figures/Exploration/neg_correlation_nonlinear.png
-INPUT ../../output/figures/Exploration/neg_correlation_nonlinear.png
-INPUT ../../output/figures/Exploration/neg_correlation_nonlinear.png
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Exploration/neg_correlation_nonlinear.tex
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Exploration/neg_correlation_nonlinear.tex
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/figures/Bootstrap/no_corr_nonlinear.png
+INPUT ../../output/figures/Bootstrap/no_corr_nonlinear.png
+INPUT ../../output/figures/Bootstrap/no_corr_nonlinear.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Bootstrap/no_corr_nonlinear.tex
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Bootstrap/no_corr_nonlinear.tex
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/figures/Bootstrap/pos_corr_nonlinear.png
+INPUT ../../output/figures/Bootstrap/pos_corr_nonlinear.png
+INPUT ../../output/figures/Bootstrap/pos_corr_nonlinear.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Bootstrap/pos_corr_nonlinear.tex
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Bootstrap/pos_corr_nonlinear.tex
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/figures/Bootstrap/neg_corr_nonlinear.png
+INPUT ../../output/figures/Bootstrap/neg_corr_nonlinear.png
+INPUT ../../output/figures/Bootstrap/neg_corr_nonlinear.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Bootstrap/neg_corr_nonlinear.tex
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Bootstrap/neg_corr_nonlinear.tex
 INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/paper.aux
 INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/paper.out
 INPUT /Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/paper.out
