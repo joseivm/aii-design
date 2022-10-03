@@ -142,7 +142,7 @@ def create_covariate_matrix():
     cov = cov.merge(pos_ndvi,left_on=['Location','Season'],right_on=['Location','Season'])
     cov = cov.merge(neg_ndvi,left_on=['Location','Season'],right_on=['Location','Season'])
     cov = cov.merge(pre_ndvi,left_on=['Location','Preseason'],right_on=['Location','Preseason'])
-    cov = cov.merge(post_ndvi,left_on=['Location','Season'],right_on=['Location','Season'])
+    cov = cov.merge(post_ndvi,left_on=['Location','Full Season'],right_on=['Location','Full Season'])
     cov.drop(columns=['N'],inplace=True)
     return cov
 
