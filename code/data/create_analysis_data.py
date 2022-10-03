@@ -133,14 +133,16 @@ def create_covariate_matrix():
     ndf['ZNDVI'] = (ndf['NDVI']-ndf['PixelMean'])/ndf['PixelStd']
     ndf['NegZNDVI'] = np.abs(np.minimum(ndf['ZNDVI'],0))
     ndf['PosZNDVI'] = np.maximum(ndf['ZNDVI'],0)
-    pos_ndvi = ndf[ndf.ZNDVI.notna()].groupby(['Full Season','Location'])['PosZNDVI'].sum().reset_index(name='PosZNDVI')
-    neg_ndvi = ndf[ndf.ZNDVI.notna()].groupby(['Full Season','Location'])['NegZNDVI'].sum().reset_index(name='NegZNDVI')
+    pos_ndvi = ndf[ndf.ZNDVI.notna()].groupby(['Season','Location'])['PosZNDVI'].sum().reset_index(name='PosZNDVI')
+    neg_ndvi = ndf[ndf.ZNDVI.notna()].groupby(['Season','Location'])['NegZNDVI'].sum().reset_index(name='NegZNDVI')
     pre_ndvi = ndf[ndf.ZNDVI.notna()].groupby(['Preseason','Location'])['ZNDVI'].sum().reset_index(name='PreNDVI')
+    post_ndvi = ndf[ndf.ZNDVI.notna()].groupby(['Full Season','Location'])['ZNDVI'].sum().reset_index(name='PostNDVI')
 
     cov = ndf.groupby(['Location','Season','Full Season','Preseason']).size().reset_index(name='N')
-    cov = cov.merge(pos_ndvi,left_on=['Location','Full Season'],right_on=['Location','Full Season'])
-    cov = cov.merge(neg_ndvi,left_on=['Location','Full Season'],right_on=['Location','Full Season'])
+    cov = cov.merge(pos_ndvi,left_on=['Location','Season'],right_on=['Location','Season'])
+    cov = cov.merge(neg_ndvi,left_on=['Location','Season'],right_on=['Location','Season'])
     cov = cov.merge(pre_ndvi,left_on=['Location','Preseason'],right_on=['Location','Preseason'])
+    cov = cov.merge(post_ndvi,left_on=['Location','Season'],right_on=['Location','Season'])
     cov.drop(columns=['N'],inplace=True)
     return cov
 
