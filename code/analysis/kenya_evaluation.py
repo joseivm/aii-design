@@ -193,10 +193,13 @@ def run_eval(train_data,test_data,hhdf,params):
     test_hhdf['PredictedLoss'] = test_hhdf['HerdSize']*test_hhdf['PredictedRate']*livestock_value
     test_hhdf['ActualLoss'] = test_hhdf['Losses']*livestock_value
 
+    test_uhdf, test_lhdf = construct_hhdfs_for_optimization(test_hhdf)
+    test_hhdf = pd.concat([test_uhdf,test_lhdf])
+
     # Compute performance metrics
     bdf, odf = make_payout_dfs(test_hhdf,strike_vals,a,b,params)
     cdf = comparison_df(bdf,odf,params['epsilon'])
-    return cdf
+    return cdf, bdf, odf
 
 def comparison_df(bdf,odf,cvar_eps=0.2):
     bdict = compute_performance_metrics(bdf,cvar_eps)
@@ -204,20 +207,22 @@ def comparison_df(bdf,odf,cvar_eps=0.2):
     sdf = pd.DataFrame([bdict,odict])
     sdf['Model'] = ['Baseline','Opt']
     # sdf.drop(columns=['NetLoss Upper','NetLoss Lower','Payout CVaR'],inplace=True)
+    sdf.drop(columns=['VaR Upper','VaR Lower'],inplace=True)
     return sdf
-
-def CVaR(df,loss_col,outcome_col,epsilon=0.2):
-    q = np.quantile(df[loss_col],1-epsilon)
-    cvar = df.loc[df[loss_col] >= q,outcome_col].mean()
-    return cvar
 
 def compute_performance_metrics(df,cvar_eps=0.2):
     sdf = {}
-    # sdf['CVaR0'] = CVaR(df,'Losses0','NetLoss0',cvar_eps)
-    # sdf['CVaR1'] = CVaR(df,'Losses1','NetLoss1',cvar_eps)
+    # sdf['CVaR Upper'] = CVaR(df[df.Cluster == 'Upper'],'Losses','NetLoss',cvar_eps)
+    # sdf['CVaR Lower'] = CVaR(df[df.Cluster == 'Lower'],'Losses','NetLoss',cvar_eps)
     # sdf['Total CVaR'] = CVaR(df,'TotalLoss','TotalNetLoss',cvar_eps)
-    # sdf['$|CVaR_2 - CVaR_1|$'] = np.abs(sdf['CVaR0']-sdf['CVaR1'])
-    # sdf['Max CVaR'] = np.maximum(sdf['CVaR0'],sdf['CVaR1'])
+    # sdf['$|CVaR_2 - CVaR_1|$'] = np.abs(sdf['CVaR Upper']-sdf['CVaR Lower'])
+    # sdf['Max CVaR'] = np.maximum(sdf['CVaR Upper'],sdf['CVaR Lower'])
+
+    sdf['VaR Upper'] = df.loc[df.Cluster == 'Upper','NetLoss'].quantile(0.95)
+    sdf['VaR Lower'] = df.loc[df.Cluster == 'Lower','NetLoss'].quantile(0.95)
+    # sdf['Total CVaR'] = CVaR(df,'TotalLoss','TotalNetLoss',cvar_eps)
+    sdf['$|VaR_2 - VaR_1|$'] = np.abs(sdf['VaR Upper']-sdf['VaR Lower'])
+    sdf['Max VaR'] = np.maximum(sdf['VaR Upper'],sdf['VaR Lower'])
 
     sdf['NetLoss Upper'] = df.loc[df.Cluster == 'Upper','NetLoss'].mean()
     sdf['NetLoss Lower'] = df.loc[df.Cluster == 'Lower','NetLoss'].mean()
@@ -234,6 +239,11 @@ def compute_performance_metrics(df,cvar_eps=0.2):
     # sdf['Average Cost'] = df['TotalPayout'].mean() + 0.05*sdf['Required Capital']
     sdf['Average_cost'] = df['Payout'].mean()
     return(sdf)
+
+def CVaR(df,loss_col,outcome_col,epsilon=0.2):
+    q = np.quantile(df[loss_col],1-epsilon)
+    cvar = df.loc[df[loss_col] >= q,outcome_col].mean()
+    return cvar
 
 def make_payout_dfs(hhdf,strike_vals,a,b,params):
     clusters = ['Upper','Lower']
@@ -319,16 +329,17 @@ def determine_budget_params(pred_y,strike_vals,Ks,c_k=0.15):
 def cross_val():
     reg_data = pd.read_csv(kenya_reg_data_filename)
     hh_data = pd.read_csv(kenya_hh_data_filename)
-    cvar_eps = 0.2
-    K = 10000
+    cvar_eps = 0.1
+    K = 40000
     params = {'epsilon':cvar_eps,'epsilon_p':0.01,'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.15}
     years = [str(i) for i in range(2010,2014)]
     results = []
     for year in years:
         train_data = reg_data.loc[~reg_data.Season.str.contains(year),:]
         test_data = reg_data.loc[reg_data.Season.str.contains(year),:]
-        cv_results = run_eval(train_data,test_data,hh_data,params)
+        cv_results,a,b = run_eval(train_data,test_data,hh_data,params)
         results.append(cv_results)
 
     rdf = pd.concat(results)
+    rdf.groupby('Model').mean()
 

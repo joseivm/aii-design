@@ -254,11 +254,17 @@ def CVaR(df,loss_col,outcome_col,epsilon=0.2):
 
 def get_summary_stats(df,cvar_eps=0.2):
     sdf = {}
-    # sdf['CVaR0'] = CVaR(df,'Losses0','NetLoss0',cvar_eps)
-    # sdf['CVaR1'] = CVaR(df,'Losses1','NetLoss1',cvar_eps)
+    sdf['CVaR0'] = CVaR(df,'Losses0','NetLoss0',cvar_eps)
+    sdf['CVaR1'] = CVaR(df,'Losses1','NetLoss1',cvar_eps)
     # sdf['Total CVaR'] = CVaR(df,'TotalLoss','TotalNetLoss',cvar_eps)
-    # sdf['$|CVaR_2 - CVaR_1|$'] = np.abs(sdf['CVaR0']-sdf['CVaR1'])
-    # sdf['Max CVaR'] = np.maximum(sdf['CVaR0'],sdf['CVaR1'])
+    sdf['$|CVaR_2 - CVaR_1|$'] = np.abs(sdf['CVaR0']-sdf['CVaR1'])
+    sdf['Max CVaR'] = np.maximum(sdf['CVaR0'],sdf['CVaR1'])
+
+    sdf['VaR0'] = df['NetLoss0'].quantile(1-cvar_eps)
+    sdf['VaR1'] = df['NetLoss1'].quantile(1-cvar_eps)
+    # sdf['Total CVaR'] = CVaR(df,'TotalLoss','TotalNetLoss',cvar_eps)
+    sdf['$|VaR_2 - VaR_1|$'] = np.abs(sdf['VaR0']-sdf['VaR1'])
+    sdf['Max VaR'] = np.maximum(sdf['VaR0'],sdf['VaR1'])
 
     sdf['NetLoss0'] = df['NetLoss0'].mean()
     sdf['NetLoss1'] = df['NetLoss1'].mean()
@@ -278,7 +284,7 @@ def get_summary_stats(df,cvar_eps=0.2):
 def get_summary_stats_bs(df):
     medians = {}
     confidence_interval = {}
-    cols = ['$P(L > Q(0.6))$','$|L_2 - L_1|$','Required Capital','Average Cost']
+    cols = ['$|CVaR_2 - CVaR_1|$','Max CVaR','$|VaR_2 - VaR_1|$','Max VaR','Required Capital','Average Cost']
     for col in cols:
         medians[col] = str(np.around(df[col].median(),2))
         lower_bound = np.around(df[col].quantile(0.05),2)
@@ -299,10 +305,10 @@ def bootstrap_comparison_df(bdf,odf):
     baseline_medians, baseline_conf = get_summary_stats_bs(bdf)
     sdf = pd.DataFrame([baseline_medians,baseline_conf,opt_medians,opt_conf])
     sdf['Model'] = ['Baseline','','Opt','']
-    return sdf[['Model','$P(L > Q(0.6))$','$|L_2 - L_1|$','Required Capital','Average Cost']]
+    return sdf[['Model','$|CVaR_2 - CVaR_1|$','Max CVaR','$|VaR_2 - VaR_1|$','Max VaR','Required Capital','Average Cost']]
 
 def plot_bootstrap_results(beta,mu,sigma,params,bdf,odf,scenario_name):
-    fig_filename = FIGURES_DIR + '/Bootstrap/{}.png'.format(scenario_name)
+    fig_filename = FIGURES_DIR + '/Bootstrap/{}_var.png'.format(scenario_name)
     a = np.zeros(2)
     b = np.zeros(2)
 
@@ -327,9 +333,9 @@ def plot_bootstrap_results(beta,mu,sigma,params,bdf,odf,scenario_name):
     plt.close()
 
 def save_bootstrap_results(bdf,odf,scenario_name):
-    table_filename = TABLES_DIR + '/Bootstrap/{}.tex'.format(scenario_name)
-    odf_filename = TABLES_DIR + '/Bootstrap/opt_results_{}.csv'.format(scenario_name)
-    bdf_filename = TABLES_DIR + '/Bootstrap/baseline_results_{}.csv'.format(scenario_name)
+    table_filename = TABLES_DIR + '/Bootstrap/{}_var.tex'.format(scenario_name)
+    odf_filename = TABLES_DIR + '/Bootstrap/opt_results_{}_var.csv'.format(scenario_name)
+    bdf_filename = TABLES_DIR + '/Bootstrap/baseline_results_{}_var.csv'.format(scenario_name)
 
     odf.to_csv(odf_filename,float_format='%.2f')
     bdf.to_csv(bdf_filename,float_format='%.2f')
