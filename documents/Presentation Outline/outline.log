@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  11 OCT 2022 11:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  11 OCT 2022 11:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/paper.tex"
-(/Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/paper.tex
+**"/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.tex"
+(/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.tex
 LaTeX2e <2018-04-01> patch level 2
 Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/article.cls
@@ -489,8 +489,8 @@ File: english.lbx 2018/03/04 v3.11 biblatex localization (PK/MW)
 )
 \@quotelevel=\count310
 \@quotereset=\count311
- (/Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/paper.aux)
-\openout1 = `paper.aux'.
+ (/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.aux)
+\openout1 = `outline.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
 LaTeX Font Info:    ... okay on input line 54.
@@ -578,18 +578,18 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 54.
 LaTeX Info: Redefining \pageref on input line 54.
 LaTeX Info: Redefining \nameref on input line 54.
- (/Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/paper.out) (/Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/paper.out)
+ (/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.out) (/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.out)
 \@outlinefile=\write5
-\openout5 = `paper.out'.
+\openout5 = `outline.out'.
 
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
-\openout4 = `paper.bcf'.
+\openout4 = `outline.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'paper.bbl' found.
- (/Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/paper.bbl)
+Package biblatex Info: ... file 'outline.bbl' found.
+ (/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.bbl)
 Package biblatex Info: Reference section=0 on input line 54.
 Package biblatex Info: Reference segment=0 on input line 54.
 LaTeX Font Info:    Try loading font information for U+msa on input line 56.
@@ -599,82 +599,88 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 LaTeX Font Info:    Try loading font information for U+msb on input line 56.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
-
-{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 124.
+)
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 59.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 124.
- [4] [5] [6] [7] [8] [9]
-LaTeX Font Info:    Try loading font information for U+bbm on input line 267.
- (/usr/local/texlive/2018/texmf-dist/tex/latex/bbm-macros/ubbm.fd
-File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
-) [10]
-<../../output/figures/Bootstrap/no_corr_linear.png, id=273, 722.7pt x 433.62pt>
-File: ../../output/figures/Bootstrap/no_corr_linear.png Graphic file (type png)
-<use ../../output/figures/Bootstrap/no_corr_linear.png>
-Package pdftex.def Info: ../../output/figures/Bootstrap/no_corr_linear.png  used on input line 283.
-(pdftex.def)             Requested size: 352.31625pt x 211.39055pt.
- (/Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Bootstrap/no_corr_linear.tex)
-<../../output/figures/Bootstrap/pos_corr_linear.png, id=275, 722.7pt x 433.62pt>
-File: ../../output/figures/Bootstrap/pos_corr_linear.png Graphic file (type png)
-<use ../../output/figures/Bootstrap/pos_corr_linear.png>
-Package pdftex.def Info: ../../output/figures/Bootstrap/pos_corr_linear.png  used on input line 300.
-(pdftex.def)             Requested size: 352.31625pt x 211.39055pt.
- [11 <../../output/figures/Bootstrap/no_corr_linear.png>] (/Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Bootstrap/pos_corr_linear.tex)
-<../../output/figures/Bootstrap/neg_corr_linear.png, id=285, 722.7pt x 433.62pt>
-File: ../../output/figures/Bootstrap/neg_corr_linear.png Graphic file (type png)
-<use ../../output/figures/Bootstrap/neg_corr_linear.png>
-Package pdftex.def Info: ../../output/figures/Bootstrap/neg_corr_linear.png  used on input line 317.
-(pdftex.def)             Requested size: 352.31625pt x 211.39055pt.
- [12 <../../output/figures/Bootstrap/pos_corr_linear.png>] (/Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Bootstrap/neg_corr_linear.tex)
-<../../output/figures/Bootstrap/no_corr_nonlinear.png, id=295, 722.7pt x 433.62pt>
-File: ../../output/figures/Bootstrap/no_corr_nonlinear.png Graphic file (type png)
-<use ../../output/figures/Bootstrap/no_corr_nonlinear.png>
-Package pdftex.def Info: ../../output/figures/Bootstrap/no_corr_nonlinear.png  used on input line 334.
-(pdftex.def)             Requested size: 352.31625pt x 211.39055pt.
- [13 <../../output/figures/Bootstrap/neg_corr_linear.png>] (/Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Bootstrap/no_corr_nonlinear.tex)
-<../../output/figures/Bootstrap/pos_corr_nonlinear.png, id=306, 722.7pt x 433.62pt>
-File: ../../output/figures/Bootstrap/pos_corr_nonlinear.png Graphic file (type png)
-<use ../../output/figures/Bootstrap/pos_corr_nonlinear.png>
-Package pdftex.def Info: ../../output/figures/Bootstrap/pos_corr_nonlinear.png  used on input line 352.
-(pdftex.def)             Requested size: 352.31625pt x 211.39055pt.
- [14 <../../output/figures/Bootstrap/no_corr_nonlinear.png>] (/Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Bootstrap/pos_corr_nonlinear.tex)
-<../../output/figures/Bootstrap/neg_corr_nonlinear.png, id=315, 722.7pt x 433.62pt>
-File: ../../output/figures/Bootstrap/neg_corr_nonlinear.png Graphic file (type png)
-<use ../../output/figures/Bootstrap/neg_corr_nonlinear.png>
-Package pdftex.def Info: ../../output/figures/Bootstrap/neg_corr_nonlinear.png  used on input line 369.
-(pdftex.def)             Requested size: 352.31625pt x 211.39055pt.
- [15 <../../output/figures/Bootstrap/pos_corr_nonlinear.png>] (/Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/../../output/tables/Bootstrap/neg_corr_nonlinear.tex) [16 <../../output/figures/Bootstrap/neg_corr_nonlinear.png>] [17]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 386.
- [18]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 386.
- (/Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 386.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 386.
-Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: E2C6B952D56C12D458080318E69881FF;1639.
-Package logreq Info: Writing requests to 'paper.run.xml'.
-\openout1 = `paper.run.xml'.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 59.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 386.
+Overfull \hbox (56.3628pt too wide) in paragraph at lines 79--80
+\OT1/cmr/m/n/10.95 price sen-si-tive ([]Jensen and Bar-rett[] (2017)[], []Cole et al.[] (2013)[],[]Cai, De Jan-vry, and Sadoulet[] (2020)[],[]Casaburi
+ []
+
+[1
+
+{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+Overfull \hbox (19.28485pt too wide) in paragraph at lines 173--174
+[]\OT1/cmr/m/n/10.95 This method is the most com-monly used in aca-demic pub-li-ca-tions ([]Chan-tarat et al.[] (2013)[],[]Flatnes,
+ []
+
+[4]
+
+LaTeX Warning: Reference `baseline' on page 5 undefined on input line 197.
+
+[5]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 250.
+ [6]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 250.
+ (/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 250.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 250.
+Package rerunfilecheck Info: File `outline.out' has not changed.
+(rerunfilecheck)             Checksum: 95F62EA744760E6B5DCB64BC441B4425;1973.
+
+
+LaTeX Warning: There were undefined references.
+
+Package logreq Info: Writing requests to 'outline.run.xml'.
+\openout1 = `outline.run.xml'.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 250.
  ) 
 Here is how much of TeX's memory you used:
- 13643 strings out of 492649
- 229278 string characters out of 6129622
- 678505 words of memory out of 5000000
- 17216 multiletter control sequences out of 15000+600000
- 14188 words of font info for 58 fonts, out of 8000000 for 9000
+ 13431 strings out of 492649
+ 222926 string characters out of 6129622
+ 676065 words of memory out of 5000000
+ 17090 multiletter control sequences out of 15000+600000
+ 11698 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,11n,45p,1746b,1290s stack positions out of 5000i,500n,10000p,200000b,80000s
- </Users/joseivelarde/Library/texlive/2018/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "/Users/joseivelarde/Projects/aii-design/documents/Curriculum Paper/paper.pdf" (18 pages, 435137 bytes).
+ 36i,11n,45p,1013b,997s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{cite.0@nemirovski2007convex} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@rockafellar2000optimization} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@artzner1999coherent} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@charnes1958cost} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@lagoa2005probabilistically} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@flatnes2018improving} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@jensen2019does} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@chantarat2013designing} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@casaburi2018time} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@cai2020subsidy} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@karlan2014agricultural} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@mobarak2013informal} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@cole2013barriers} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.0@jensen2017agricultural} has been referenced but does not exist, replaced by a fixed one
+
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on "/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.pdf" (6 pages, 181299 bytes).
 PDF statistics:
- 427 PDF objects out of 1000 (max. 8388607)
- 374 compressed objects within 4 object streams
- 136 named destinations out of 1000 (max. 500000)
- 215 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 289 PDF objects out of 1000 (max. 8388607)
+ 264 compressed objects within 3 object streams
+ 82 named destinations out of 1000 (max. 500000)
+ 225 words of extra memory for PDF output out of 10000 (max. 10000000)
 

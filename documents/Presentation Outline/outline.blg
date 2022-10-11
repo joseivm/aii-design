@@ -1,0 +1,15 @@
+[0] Config.pm:302> INFO - This is Biber 2.11
+[0] Config.pm:305> INFO - Logfile is 'outline.blg'
+[31] biber-darwin:313> INFO - === Tue Oct 11, 2022, 11:36:17
+[51] Biber.pm:371> INFO - Reading 'outline.bcf'
+[122] Biber.pm:857> INFO - Found 14 citekeys in bib section 0
+[136] Biber.pm:3976> INFO - Processing section 0
+[147] Biber.pm:4136> INFO - Looking for bibtex format file '../main.bib' for section 0
+[148] bibtex.pm:1500> INFO - LaTeX decoding ...
+[183] bibtex.pm:1316> INFO - Found BibTeX data source '../main.bib'
+[294] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[294] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[294] Biber.pm:3804> INFO - Sorting list 'ynt/global//global/global' of type 'entry' with template 'ynt' and locale 'en-US'
+[294] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
+[312] bbl.pm:617> INFO - Writing 'outline.bbl' with encoding 'UTF-8'
+[324] bbl.pm:720> INFO - Output to outline.bbl

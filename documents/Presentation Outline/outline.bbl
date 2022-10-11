@@ -1,0 +1,658 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{ynt/global//global/global}
+    \entry{charnes1958cost}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=b913840a5109dfb94a287477baba2497}{%
+           family={Charnes},
+           familyi={C\bibinitperiod},
+           given={Abraham},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=24f9fb06d4d5294e9aad8fffa2a4ba9c}{%
+           family={Cooper},
+           familyi={C\bibinitperiod},
+           given={William\bibnamedelima W},
+           giveni={W\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=3137a6f6b9b05e3854cd6c3e68b61f8b}{%
+           family={Symonds},
+           familyi={S\bibinitperiod},
+           given={Gifford\bibnamedelima H},
+           giveni={G\bibinitperiod\bibinitdelim H\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {INFORMS}%
+      }
+      \strng{namehash}{49af0a49266d08773a4442b2cda510ed}
+      \strng{fullhash}{49af0a49266d08773a4442b2cda510ed}
+      \strng{bibnamehash}{49af0a49266d08773a4442b2cda510ed}
+      \strng{authorbibnamehash}{49af0a49266d08773a4442b2cda510ed}
+      \strng{authornamehash}{49af0a49266d08773a4442b2cda510ed}
+      \strng{authorfullhash}{49af0a49266d08773a4442b2cda510ed}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Management science}
+      \field{number}{3}
+      \field{title}{Cost horizons and certainty equivalents: an approach to stochastic programming of heating oil}
+      \field{volume}{4}
+      \field{year}{1958}
+      \field{pages}{235\bibrangedash 263}
+      \range{pages}{29}
+    \endentry
+    \entry{artzner1999coherent}{article}{}
+      \name{author}{4}{}{%
+        {{uniquename=0,uniquepart=base,hash=3f2ec6a82c23c0c7062a2c8dad7a86e1}{%
+           family={Artzner},
+           familyi={A\bibinitperiod},
+           given={Philippe},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=1af76fc6ac243ee12ea3e2cb593750ee}{%
+           family={Delbaen},
+           familyi={D\bibinitperiod},
+           given={Freddy},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=1d79028403b8f170c257ba3e5531a3e8}{%
+           family={Eber},
+           familyi={E\bibinitperiod},
+           given={Jean-Marc},
+           giveni={J\bibinithyphendelim M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=efe5624ffa1b674383a27edcc7c48d62}{%
+           family={Heath},
+           familyi={H\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley Online Library}%
+      }
+      \strng{namehash}{401eceac13445f29090201341d46d9fa}
+      \strng{fullhash}{70f38e73ef1cfca300fa942b4a702234}
+      \strng{bibnamehash}{401eceac13445f29090201341d46d9fa}
+      \strng{authorbibnamehash}{401eceac13445f29090201341d46d9fa}
+      \strng{authornamehash}{401eceac13445f29090201341d46d9fa}
+      \strng{authorfullhash}{70f38e73ef1cfca300fa942b4a702234}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Mathematical finance}
+      \field{number}{3}
+      \field{title}{Coherent measures of risk}
+      \field{volume}{9}
+      \field{year}{1999}
+      \field{pages}{203\bibrangedash 228}
+      \range{pages}{26}
+    \endentry
+    \entry{rockafellar2000optimization}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=9cfd3443aed7c033e870e2e9970510a6}{%
+           family={Rockafellar},
+           familyi={R\bibinitperiod},
+           given={R\bibnamedelima Tyrrell},
+           giveni={R\bibinitperiod\bibinitdelim T\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=75a8a2346ba45ae5110aa302b89a30c7}{%
+           family={Uryasev},
+           familyi={U\bibinitperiod},
+           given={Stanislav},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Citeseer}%
+      }
+      \strng{namehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{fullhash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{bibnamehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{authorbibnamehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{authornamehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{authorfullhash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of risk}
+      \field{title}{Optimization of conditional value-at-risk}
+      \field{volume}{2}
+      \field{year}{2000}
+      \field{pages}{21\bibrangedash 42}
+      \range{pages}{22}
+    \endentry
+    \entry{lagoa2005probabilistically}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=8da57dc6bd1b5515b23fd61c6d55cd95}{%
+           family={Lagoa},
+           familyi={L\bibinitperiod},
+           given={Constantino\bibnamedelima M},
+           giveni={C\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=09e1a64c667557dd7866bc4e66d193ce}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Xiang},
+           giveni={X\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=3195fe4c9ec2340240d18af9289bb605}{%
+           family={Sznaier},
+           familyi={S\bibinitperiod},
+           given={Mario},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {SIAM}%
+      }
+      \strng{namehash}{0ced0d45e69a99cd348f644c4bc2821e}
+      \strng{fullhash}{0ced0d45e69a99cd348f644c4bc2821e}
+      \strng{bibnamehash}{0ced0d45e69a99cd348f644c4bc2821e}
+      \strng{authorbibnamehash}{0ced0d45e69a99cd348f644c4bc2821e}
+      \strng{authornamehash}{0ced0d45e69a99cd348f644c4bc2821e}
+      \strng{authorfullhash}{0ced0d45e69a99cd348f644c4bc2821e}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{SIAM Journal on Optimization}
+      \field{number}{3}
+      \field{title}{Probabilistically constrained linear programs and risk-adjusted controller design}
+      \field{volume}{15}
+      \field{year}{2005}
+      \field{pages}{938\bibrangedash 951}
+      \range{pages}{14}
+    \endentry
+    \entry{nemirovski2007convex}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=b7bb695716d8b9e139e5d51d5dfd3567}{%
+           family={Nemirovski},
+           familyi={N\bibinitperiod},
+           given={Arkadi},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=79b4f8b2eec1f0cce98adc8a524fc774}{%
+           family={Shapiro},
+           familyi={S\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {SIAM}%
+      }
+      \strng{namehash}{24c5e0505f2ce154b2166a03ba659819}
+      \strng{fullhash}{24c5e0505f2ce154b2166a03ba659819}
+      \strng{bibnamehash}{24c5e0505f2ce154b2166a03ba659819}
+      \strng{authorbibnamehash}{24c5e0505f2ce154b2166a03ba659819}
+      \strng{authornamehash}{24c5e0505f2ce154b2166a03ba659819}
+      \strng{authorfullhash}{24c5e0505f2ce154b2166a03ba659819}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{SIAM Journal on Optimization}
+      \field{number}{4}
+      \field{title}{Convex approximations of chance constrained programs}
+      \field{volume}{17}
+      \field{year}{2007}
+      \field{pages}{969\bibrangedash 996}
+      \range{pages}{28}
+    \endentry
+    \entry{chantarat2013designing}{article}{}
+      \name{author}{4}{}{%
+        {{uniquename=0,uniquepart=base,hash=292239e6b081da51f6e4a1fc8f5b27fb}{%
+           family={Chantarat},
+           familyi={C\bibinitperiod},
+           given={Sommarat},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=a23eea872819f39c759087d09440458f}{%
+           family={Mude},
+           familyi={M\bibinitperiod},
+           given={Andrew\bibnamedelima G},
+           giveni={A\bibinitperiod\bibinitdelim G\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=09f0c6940cb6971e7a5f0b4fa591055a}{%
+           family={Barrett},
+           familyi={B\bibinitperiod},
+           given={Christopher\bibnamedelima B},
+           giveni={C\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=ff0ece1c5271addab59e185670250716}{%
+           family={Carter},
+           familyi={C\bibinitperiod},
+           given={Michael\bibnamedelima R},
+           giveni={M\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley Online Library}%
+      }
+      \strng{namehash}{603501074d77412b9565c935a4ff4a4c}
+      \strng{fullhash}{eaca3c28d1ea9aa8595ecda58acf9ed0}
+      \strng{bibnamehash}{603501074d77412b9565c935a4ff4a4c}
+      \strng{authorbibnamehash}{603501074d77412b9565c935a4ff4a4c}
+      \strng{authornamehash}{603501074d77412b9565c935a4ff4a4c}
+      \strng{authorfullhash}{eaca3c28d1ea9aa8595ecda58acf9ed0}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Risk and Insurance}
+      \field{number}{1}
+      \field{title}{Designing index-based livestock insurance for managing asset risk in northern Kenya}
+      \field{volume}{80}
+      \field{year}{2013}
+      \field{pages}{205\bibrangedash 237}
+      \range{pages}{33}
+    \endentry
+    \entry{cole2013barriers}{article}{}
+      \name{author}{6}{}{%
+        {{uniquename=0,uniquepart=base,hash=3386d0ea59e1f86b7c74eef7e184d1dc}{%
+           family={Cole},
+           familyi={C\bibinitperiod},
+           given={Shawn},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=bd8ec2288c94e50bff053ff3c31842b9}{%
+           family={Gin{é}},
+           familyi={G\bibinitperiod},
+           given={Xavier},
+           giveni={X\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=06297786e5bd51b60363a78434a15229}{%
+           family={Tobacman},
+           familyi={T\bibinitperiod},
+           given={Jeremy},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=ffe78407724fe2566516c3974c6edd36}{%
+           family={Topalova},
+           familyi={T\bibinitperiod},
+           given={Petia},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=cec48a5ddcdb15905c5ab4befb19608a}{%
+           family={Townsend},
+           familyi={T\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=a9bf0280e49154a3cd238ab66d9a37e4}{%
+           family={Vickery},
+           familyi={V\bibinitperiod},
+           given={James},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{a4a4981349e82ee43f01f85db72808cc}
+      \strng{fullhash}{db6e551a4e8ce0903da7654e0c0f8692}
+      \strng{bibnamehash}{a4a4981349e82ee43f01f85db72808cc}
+      \strng{authorbibnamehash}{a4a4981349e82ee43f01f85db72808cc}
+      \strng{authornamehash}{a4a4981349e82ee43f01f85db72808cc}
+      \strng{authorfullhash}{db6e551a4e8ce0903da7654e0c0f8692}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Economic Journal: Applied Economics}
+      \field{number}{1}
+      \field{title}{Barriers to household risk management: Evidence from India}
+      \field{volume}{5}
+      \field{year}{2013}
+      \field{pages}{104\bibrangedash 35}
+      \range{pages}{32}
+    \endentry
+    \entry{mobarak2013informal}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=988ab6279d69f8f4e81ca6152d6e6e51}{%
+           family={Mobarak},
+           familyi={M\bibinitperiod},
+           given={Ahmed\bibnamedelima Mushfiq},
+           giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=efd47a9ab08e7bc6edc2d1915a506c7f}{%
+           family={Rosenzweig},
+           familyi={R\bibinitperiod},
+           given={Mark\bibnamedelima R},
+           giveni={M\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{2d7c40e4b600d235517256c57bb3dfeb}
+      \strng{fullhash}{2d7c40e4b600d235517256c57bb3dfeb}
+      \strng{bibnamehash}{2d7c40e4b600d235517256c57bb3dfeb}
+      \strng{authorbibnamehash}{2d7c40e4b600d235517256c57bb3dfeb}
+      \strng{authornamehash}{2d7c40e4b600d235517256c57bb3dfeb}
+      \strng{authorfullhash}{2d7c40e4b600d235517256c57bb3dfeb}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Economic Review}
+      \field{number}{3}
+      \field{title}{Informal risk sharing, index insurance, and risk taking in developing countries}
+      \field{volume}{103}
+      \field{year}{2013}
+      \field{pages}{375\bibrangedash 80}
+      \range{pages}{11}
+    \endentry
+    \entry{karlan2014agricultural}{article}{}
+      \name{author}{4}{}{%
+        {{uniquename=0,uniquepart=base,hash=940678209828a76685d3c727e9e1463f}{%
+           family={Karlan},
+           familyi={K\bibinitperiod},
+           given={Dean},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=3e985c6aaae2b1f43eed6be51c797919}{%
+           family={Osei},
+           familyi={O\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=91efcbef0fc945937d72c75be0932b69}{%
+           family={Osei-Akoto},
+           familyi={O\bibinithyphendelim A\bibinitperiod},
+           given={Isaac},
+           giveni={I\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=afa67f70458fab65065bb4a800577162}{%
+           family={Udry},
+           familyi={U\bibinitperiod},
+           given={Christopher},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {MIT Press}%
+      }
+      \strng{namehash}{90ebe035afc11945f119c865ee5a5815}
+      \strng{fullhash}{537dd55e041eca3ebc2b3e782284a26b}
+      \strng{bibnamehash}{90ebe035afc11945f119c865ee5a5815}
+      \strng{authorbibnamehash}{90ebe035afc11945f119c865ee5a5815}
+      \strng{authornamehash}{90ebe035afc11945f119c865ee5a5815}
+      \strng{authorfullhash}{537dd55e041eca3ebc2b3e782284a26b}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Quarterly Journal of Economics}
+      \field{number}{2}
+      \field{title}{Agricultural decisions after relaxing credit and risk constraints}
+      \field{volume}{129}
+      \field{year}{2014}
+      \field{pages}{597\bibrangedash 652}
+      \range{pages}{56}
+    \endentry
+    \entry{jensen2017agricultural}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=5a046b2ca5e1898cc27a680ce8931914}{%
+           family={Jensen},
+           familyi={J\bibinitperiod},
+           given={Nathaniel},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=ecd8951059f0b065e717dd1338a8c157}{%
+           family={Barrett},
+           familyi={B\bibinitperiod},
+           given={Christopher},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley Online Library}%
+      }
+      \strng{namehash}{e41bdc4c5cd8048ac598285f1d28ad67}
+      \strng{fullhash}{e41bdc4c5cd8048ac598285f1d28ad67}
+      \strng{bibnamehash}{e41bdc4c5cd8048ac598285f1d28ad67}
+      \strng{authorbibnamehash}{e41bdc4c5cd8048ac598285f1d28ad67}
+      \strng{authornamehash}{e41bdc4c5cd8048ac598285f1d28ad67}
+      \strng{authorfullhash}{e41bdc4c5cd8048ac598285f1d28ad67}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Applied Economic Perspectives and Policy}
+      \field{number}{2}
+      \field{title}{Agricultural index insurance for development}
+      \field{volume}{39}
+      \field{year}{2017}
+      \field{pages}{199\bibrangedash 219}
+      \range{pages}{21}
+    \endentry
+    \entry{casaburi2018time}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=a26b4a1f5adacfd29ca4a46cc827a3c9}{%
+           family={Casaburi},
+           familyi={C\bibinitperiod},
+           given={Lorenzo},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=c4c6be01a1ce9b8743c27bd17c9dc41e}{%
+           family={Willis},
+           familyi={W\bibinitperiod},
+           given={Jack},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{138ce0916c352142a6fbc2e3b3c58bee}
+      \strng{fullhash}{138ce0916c352142a6fbc2e3b3c58bee}
+      \strng{bibnamehash}{138ce0916c352142a6fbc2e3b3c58bee}
+      \strng{authorbibnamehash}{138ce0916c352142a6fbc2e3b3c58bee}
+      \strng{authornamehash}{138ce0916c352142a6fbc2e3b3c58bee}
+      \strng{authorfullhash}{138ce0916c352142a6fbc2e3b3c58bee}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Economic Review}
+      \field{number}{12}
+      \field{title}{Time versus state in insurance: Experimental evidence from contract farming in Kenya}
+      \field{volume}{108}
+      \field{year}{2018}
+      \field{pages}{3778\bibrangedash 3813}
+      \range{pages}{36}
+    \endentry
+    \entry{flatnes2018improving}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=ce62b8be38f9625c3e2da9ad9377b63d}{%
+           family={Flatnes},
+           familyi={F\bibinitperiod},
+           given={Jon\bibnamedelima Einar},
+           giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=ff0ece1c5271addab59e185670250716}{%
+           family={Carter},
+           familyi={C\bibinitperiod},
+           given={Michael\bibnamedelima R},
+           giveni={M\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=e34db92ff916a65b7a116bd1fc813c4c}{%
+           family={Mercovich},
+           familyi={M\bibinitperiod},
+           given={Ryan},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{20c647fee69e776f16e38eea5bd0b9aa}
+      \strng{fullhash}{20c647fee69e776f16e38eea5bd0b9aa}
+      \strng{bibnamehash}{20c647fee69e776f16e38eea5bd0b9aa}
+      \strng{authorbibnamehash}{20c647fee69e776f16e38eea5bd0b9aa}
+      \strng{authornamehash}{20c647fee69e776f16e38eea5bd0b9aa}
+      \strng{authorfullhash}{20c647fee69e776f16e38eea5bd0b9aa}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Unpublished Working Paper}
+      \field{title}{Improving the quality of index insurance with a satellite-based conditional audit contract}
+      \field{year}{2018}
+    \endentry
+    \entry{jensen2019does}{article}{}
+      \name{author}{8}{uniquelist=2}{%
+        {{uniquename=0,uniquepart=base,hash=5a046b2ca5e1898cc27a680ce8931914}{%
+           family={Jensen},
+           familyi={J\bibinitperiod},
+           given={Nathaniel},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=53d1df52cc8f157103dc6ea4fb7e9b9a}{%
+           family={Stoeffler},
+           familyi={S\bibinitperiod},
+           given={Quentin},
+           giveni={Q\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=987775b21bd33fe0f913b2dd793f9450}{%
+           family={Fava},
+           familyi={F\bibinitperiod},
+           given={Francesco},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=15e582e0f17a84d28624ae8ddc394533}{%
+           family={Vrieling},
+           familyi={V\bibinitperiod},
+           given={Anton},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=eccf2e345140c9a8cf201c271eae3453}{%
+           family={Atzberger},
+           familyi={A\bibinitperiod},
+           given={Clement},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=abc5019f33d3441d600ac05d229b1fd7}{%
+           family={Meroni},
+           familyi={M\bibinitperiod},
+           given={Michele},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=b5e1a32e335496e576198dcd9c59a741}{%
+           family={Mude},
+           familyi={M\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=8c731328aeaa5ec4ac855f9dbb658e41}{%
+           family={Carter},
+           familyi={C\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{ed13b5db1ad6d52c449b920794ca0c88}
+      \strng{fullhash}{c0ba1159ed9c2176bca16731f63074a0}
+      \strng{bibnamehash}{ed13b5db1ad6d52c449b920794ca0c88}
+      \strng{authorbibnamehash}{ed13b5db1ad6d52c449b920794ca0c88}
+      \strng{authornamehash}{ed13b5db1ad6d52c449b920794ca0c88}
+      \strng{authorfullhash}{c0ba1159ed9c2176bca16731f63074a0}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Ecological economics}
+      \field{title}{Does the design matter? Comparing satellite-based indices for insuring pastoralists against drought}
+      \field{volume}{162}
+      \field{year}{2019}
+      \field{pages}{59\bibrangedash 73}
+      \range{pages}{15}
+    \endentry
+    \entry{cai2020subsidy}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=45295000fa65abd3d041c054376e60d9}{%
+           family={Cai},
+           familyi={C\bibinitperiod},
+           given={Jing},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=021e9c374b22b717ce78e8de7c286839}{%
+           family={De\bibnamedelima Janvry},
+           familyi={D\bibinitperiod\bibinitdelim J\bibinitperiod},
+           given={Alain},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=e9cc1a63b74495fb5f2c6c68748bf28d}{%
+           family={Sadoulet},
+           familyi={S\bibinitperiod},
+           given={Elisabeth},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{d857ed7c50630b81f5c24f85d043d498}
+      \strng{fullhash}{d857ed7c50630b81f5c24f85d043d498}
+      \strng{bibnamehash}{d857ed7c50630b81f5c24f85d043d498}
+      \strng{authorbibnamehash}{d857ed7c50630b81f5c24f85d043d498}
+      \strng{authornamehash}{d857ed7c50630b81f5c24f85d043d498}
+      \strng{authorfullhash}{d857ed7c50630b81f5c24f85d043d498}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Economic Review}
+      \field{number}{8}
+      \field{title}{Subsidy policies and insurance demand}
+      \field{volume}{110}
+      \field{year}{2020}
+      \field{pages}{2422\bibrangedash 53}
+      \range{pages}{32}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

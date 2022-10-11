@@ -254,11 +254,11 @@ def CVaR(df,loss_col,outcome_col,epsilon=0.2):
 
 def get_summary_stats(df,cvar_eps=0.2):
     sdf = {}
-    sdf['CVaR0'] = CVaR(df,'Losses0','NetLoss0',cvar_eps)
-    sdf['CVaR1'] = CVaR(df,'Losses1','NetLoss1',cvar_eps)
+    # sdf['CVaR0'] = CVaR(df,'Losses0','NetLoss0',cvar_eps)
+    # sdf['CVaR1'] = CVaR(df,'Losses1','NetLoss1',cvar_eps)
     # sdf['Total CVaR'] = CVaR(df,'TotalLoss','TotalNetLoss',cvar_eps)
-    sdf['$|CVaR_2 - CVaR_1|$'] = np.abs(sdf['CVaR0']-sdf['CVaR1'])
-    sdf['Max CVaR'] = np.maximum(sdf['CVaR0'],sdf['CVaR1'])
+    # sdf['$|CVaR_2 - CVaR_1|$'] = np.abs(sdf['CVaR0']-sdf['CVaR1'])
+    # sdf['Max CVaR'] = np.maximum(sdf['CVaR0'],sdf['CVaR1'])
 
     sdf['VaR0'] = df['NetLoss0'].quantile(1-cvar_eps)
     sdf['VaR1'] = df['NetLoss1'].quantile(1-cvar_eps)
@@ -278,13 +278,14 @@ def get_summary_stats(df,cvar_eps=0.2):
 
     sdf['Required Capital'] = CVaR(df,'TotalPayout','TotalPayout',0.01) - df['TotalPayout'].mean()    
     sdf['Payout CVaR'] = CVaR(df,'TotalPayout','TotalPayout',0.01)
-    sdf['Average Cost'] = df['TotalPayout'].mean() + 0.05*sdf['Required Capital']
+    sdf['Average Cost'] = df['TotalPayout'].mean() + 0.15*sdf['Required Capital']
+    sdf['Payout Cost'] = df['TotalPayout'].sum()
     return(sdf)
 
 def get_summary_stats_bs(df):
     medians = {}
     confidence_interval = {}
-    cols = ['$|CVaR_2 - CVaR_1|$','Max CVaR','$|VaR_2 - VaR_1|$','Max VaR','Required Capital','Average Cost']
+    cols = ['Max VaR','$|VaR_2 - VaR_1|$','Required Capital','Average Cost']
     for col in cols:
         medians[col] = str(np.around(df[col].median(),2))
         lower_bound = np.around(df[col].quantile(0.05),2)
@@ -305,7 +306,7 @@ def bootstrap_comparison_df(bdf,odf):
     baseline_medians, baseline_conf = get_summary_stats_bs(bdf)
     sdf = pd.DataFrame([baseline_medians,baseline_conf,opt_medians,opt_conf])
     sdf['Model'] = ['Baseline','','Opt','']
-    return sdf[['Model','$|CVaR_2 - CVaR_1|$','Max CVaR','$|VaR_2 - VaR_1|$','Max VaR','Required Capital','Average Cost']]
+    return sdf[['Model','Max VaR','$|VaR_2 - VaR_1|$','Required Capital','Average Cost']]
 
 def plot_bootstrap_results(beta,mu,sigma,params,bdf,odf,scenario_name):
     fig_filename = FIGURES_DIR + '/Bootstrap/{}_var.png'.format(scenario_name)
@@ -377,6 +378,26 @@ def run_bootstrap_scenario(beta,mu,sigma,params,scenario_name):
     bdf, odf = make_eval_dfs2(test_x,test_y,pred_model,strike_vals,a,b,params)
     bdict = get_summary_stats(bdf,params['epsilon'])
     odict = get_summary_stats(odf,params['epsilon'])
+
+    if square: 
+        cost_diff = (bdict['Payout Cost'] - odict['Payout Cost'])
+
+        loss_0_lb = odf['PredictedLosses0'].quantile(0.65)
+        loss_0_ub = odf['PredictedLosses0'].quantile(0.85)
+        loss_1_lb = odf['PredictedLosses1'].quantile(0.65)
+        loss_1_ub = odf['PredictedLosses1'].quantile(0.85)
+
+        zone_0_extra_payouts = (odf.PredictedLosses0 >= loss_0_lb) & (odf.PredictedLosses0 <= loss_0_ub)
+        zone_1_extra_payouts = (odf.PredictedLosses1 >= loss_1_lb) & (odf.PredictedLosses1 <= loss_1_ub)
+
+        per_farmer_extra_payout = cost_diff/(zone_0_extra_payouts.sum()+zone_1_extra_payouts.sum())
+        odf.loc[zone_0_extra_payouts, 'Payout0'] += per_farmer_extra_payout
+        odf.loc[zone_1_extra_payouts, 'Payout1'] += per_farmer_extra_payout
+        odf['TotalPayout'] = odf['Payout0'] + odf['Payout1']
+        odf['NetLoss0'] = odf['Losses0'] - odf['Payout0']
+        odf['NetLoss1'] = odf['Losses1'] - odf['Payout1']
+        bdict = get_summary_stats(bdf,params['epsilon'])
+        odict = get_summary_stats(odf,params['epsilon'])
     bdict['s_1'], bdict['s_2'] = strike_vals
     odict['a_1'], odict['a_2'] = a
     odict['b_1'], odict['b_2'] = b
