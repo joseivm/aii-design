@@ -1,13 +1,13 @@
 # Fdb version 3
-["biber outline"] 1665506175 "outline.bcf" "outline.bbl" "outline" 1665506179
+["biber outline"] 1665506175 "outline.bcf" "outline.bbl" "outline" 1665521300
   "../main.bib" 1664427405 8319 c795fa6b03cd46f30d276957211377cf ""
-  "outline.bcf" 1665506179 91247 c2a84e50e6c7a418c3906161697eee3f ""
+  "outline.bcf" 1665521300 91247 c2a84e50e6c7a418c3906161697eee3f ""
   (generated)
-  "outline.blg"
   "outline.bbl"
-["pdflatex"] 1665506178 "/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.tex" "/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.pdf" "outline" 1665506179
-  "/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.aux" 1665506179 7192 3b6e020a061540cb4d30b378b1247932 ""
-  "/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.tex" 1665506173 15797 3720952103f07a666d483cb29756580b ""
+  "outline.blg"
+["pdflatex"] 1665521299 "/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.tex" "/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.pdf" "outline" 1665521300
+  "/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.aux" 1665521300 7257 a43bf3984c75423bd070f41dc80b6831 ""
+  "/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.tex" 1665521297 15813 6e9f34c8f3c6e208c9359a26586ecf76 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1480098698 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -110,17 +110,17 @@
   "/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1523934492 2717033 f61a5287d9c22a39a74f1979fe3f905c ""
   "/usr/local/texlive/2018/texmf-var/web2c/pdftex/pdflatex.fmt" 1523934516 4220280 10cab8fbd7c5a7c52aba9917e190d018 ""
   "/usr/local/texlive/2018/texmf.cnf" 1523934483 577 0b39adfd7c93507ff20c9c14c2f1a33f ""
-  "outline.aux" 1665506179 7192 3b6e020a061540cb4d30b378b1247932 ""
+  "outline.aux" 1665521300 7257 a43bf3984c75423bd070f41dc80b6831 ""
   "outline.bbl" 1665506177 26619 a569186362962d3704049412990b29c3 "biber outline"
-  "outline.out" 1665506179 1973 95f62ea744760e6b5dcb64bc441b4425 ""
-  "outline.run.xml" 1665506179 2389 0620d09019826df399a0aab72ae16a21 ""
-  "outline.tex" 1665506173 15797 3720952103f07a666d483cb29756580b ""
+  "outline.out" 1665521300 1973 95f62ea744760e6b5dcb64bc441b4425 ""
+  "outline.run.xml" 1665521300 2389 0620d09019826df399a0aab72ae16a21 ""
+  "outline.tex" 1665521297 15813 6e9f34c8f3c6e208c9359a26586ecf76 ""
   (generated)
-  "outline.bcf"
   "outline.log"
-  "outline.run.xml"
-  "outline.pdf"
+  "outline.bcf"
   "outline.out"
-  "/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.log"
   "outline.aux"
+  "outline.pdf"
+  "/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.log"
   "/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.pdf"
+  "outline.run.xml"

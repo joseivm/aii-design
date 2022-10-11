@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  11 OCT 2022 11:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  11 OCT 2022 15:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -618,11 +618,7 @@ Overfull \hbox (19.28485pt too wide) in paragraph at lines 173--174
 []\OT1/cmr/m/n/10.95 This method is the most com-monly used in aca-demic pub-li-ca-tions ([]Chan-tarat et al.[] (2013)[],[]Flatnes,
  []
 
-[4]
-
-LaTeX Warning: Reference `baseline' on page 5 undefined on input line 197.
-
-[5]
+[4] [5]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 250.
  [6]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 250.
@@ -631,10 +627,6 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 250.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 250.
 Package rerunfilecheck Info: File `outline.out' has not changed.
 (rerunfilecheck)             Checksum: 95F62EA744760E6B5DCB64BC441B4425;1973.
-
-
-LaTeX Warning: There were undefined references.
-
 Package logreq Info: Writing requests to 'outline.run.xml'.
 \openout1 = `outline.run.xml'.
 
@@ -643,7 +635,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 250.
 Here is how much of TeX's memory you used:
  13431 strings out of 492649
  222926 string characters out of 6129622
- 676065 words of memory out of 5000000
+ 676110 words of memory out of 5000000
  17090 multiletter control sequences out of 15000+600000
  11698 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -677,10 +669,10 @@ pdfTeX warning (dest): name{cite.0@cole2013barriers} has been referenced but doe
 pdfTeX warning (dest): name{cite.0@jensen2017agricultural} has been referenced but does not exist, replaced by a fixed one
 
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.pdf" (6 pages, 181299 bytes).
+Output written on "/Users/joseivelarde/Projects/aii-design/documents/Presentation Outline/outline.pdf" (6 pages, 181171 bytes).
 PDF statistics:
- 289 PDF objects out of 1000 (max. 8388607)
- 264 compressed objects within 3 object streams
+ 290 PDF objects out of 1000 (max. 8388607)
+ 265 compressed objects within 3 object streams
  82 named destinations out of 1000 (max. 500000)
  225 words of extra memory for PDF output out of 10000 (max. 10000000)
 
