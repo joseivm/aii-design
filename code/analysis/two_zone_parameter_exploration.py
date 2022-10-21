@@ -87,52 +87,6 @@ def min_CVaR_program(pred_y,train_y,params):
     # print('Req capital: {}'.format(K_p.value))
     return (A.value[0,:], B.value[0,:])
 
-##### Evaluation functions #####
-
-    table_filename = TABLES_DIR + '/Bootstrap/{}.tex'.format(scenario_name)
-    odf_filename = TABLES_DIR + '/Bootstrap/opt_results_{}.csv'.format(scenario_name)
-    bdf_filename = TABLES_DIR + '/Bootstrap/baseline_results_{}.csv'.format(scenario_name)
-
-    odf.to_csv(odf_filename,float_format='%.2f')
-    bdf.to_csv(bdf_filename,float_format='%.2f')
-    sdf = bootstrap_comparison_df(bdf,odf)
-    sdf.to_latex(table_filename,float_format='%.2f',escape=False,index=False)
-
-##### Exploration functions #####
-
-    beta = np.array([[1.5,0],[0,1.5]])
-    mu = np.array([5,5])
-    sigma = np.array(np.array([[2,0],[0,2]]))
-    eps_vals = np.linspace(0.3,0.01,30)
-    fig, axes = plt.subplots(2,2,figsize=(10,6))
-    sdf_list = []
-    for eps in eps_vals:
-        cvar_eps=eps
-        params = {'max_premium':0.6,'min_premium':0.05,'epsilon':cvar_eps,'epsilon_p':0.01,
-                'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.05}
-
-        bdf, odf = run_scenario(beta,mu,sigma,params,axes, 'No corr, {}'.format(regime))
-        sdf = comparison_df(bdf,odf,cvar_eps)
-        sdf_list.append(sdf)
-
-    sdf = pd.concat(sdf_list)
-
-    metrics = ['Total CVaR','CVaR Diff','Max CVaR', '$P(L > Q(0.6))$']
-    fig, axes = plt.subplots(2,2,figsize=(10,6))
-    for metric, ax in zip(metrics,axes.ravel()):
-        ax.plot(sdf.loc[sdf['index'] == 'Opt','Eps'],sdf.loc[sdf['index'] =='Opt',metric],'g^',label='opt')
-        ax.plot(sdf.loc[sdf['index'] == 'Baseline','Eps'],sdf.loc[sdf['index']=='Baseline',metric],'bs',label='baseline')
-        ax.legend()
-        ax.set_title(metric)
-        ax.invert_xaxis()
-    plt.tight_layout()
-    plt.show()
-    new_eps = []
-    for eps in eps_vals:
-        new_eps.append(np.around(eps,2))
-        new_eps.append(np.around(eps,2))
-
-
 ##### Evaluation Functions #####
 def make_eval_dfs(test_x,test_y,pred_model,strike_vals,a,b,params):
     n_zones = test_y.shape[1]

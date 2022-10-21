@@ -201,6 +201,23 @@ def run_eval(train_data,test_data,hhdf,params):
     bdf, odf = make_payout_dfs(test_hhdf,strike_vals,a,b,params)
     n_farmers = test_hhdf.shape[0]
     cdf = comparison_df(bdf,odf,params['epsilon'])
+    cost_diff = (cdf.loc[cdf.Model == 'Baseline','Total Cost'].to_numpy()[0] - cdf.loc[cdf.Model == 'Opt','Total Cost'].to_numpy()[0])*0.6
+    loss_0_lb = odf.loc[odf.Cluster == 'Upper','PredictedLosses'].quantile(0.65)
+    loss_0_ub = odf.loc[odf.Cluster == 'Upper','PredictedLosses'].quantile(0.85)
+    loss_1_lb = odf.loc[odf.Cluster == 'Lower','PredictedLosses'].quantile(0.65)
+    loss_1_ub = odf.loc[odf.Cluster == 'Lower','PredictedLosses'].quantile(0.85)
+
+    zone_0_extra_payouts = (odf.PredictedLosses >= loss_0_lb) & (odf.PredictedLosses <= loss_0_ub)
+    zone_0_extra_payouts = (zone_0_extra_payouts) & (odf.Cluster == 'Upper')
+    zone_1_extra_payouts = (odf.PredictedLosses >= loss_1_lb) & (odf.PredictedLosses <= loss_1_ub)
+    zone_1_extra_payouts = (zone_1_extra_payouts) & (odf.Cluster == 'Lower')
+
+    per_farmer_extra_payout = cost_diff/(zone_0_extra_payouts.sum()+zone_1_extra_payouts.sum())
+    odf.loc[zone_0_extra_payouts, 'Payout'] += per_farmer_extra_payout
+    odf.loc[zone_1_extra_payouts, 'Payout'] += per_farmer_extra_payout
+    odf['NetLoss'] = odf['Losses'] - odf['Payout']
+    cdf = comparison_df(bdf,odf,params['epsilon'])
+
     cdf.loc[cdf.Model == 'Baseline','Required Capital'] = baseline_req_capital
     cdf.loc[cdf.Model == 'Opt','Required Capital'] = opt_req_capital
     cdf.loc[cdf.Model == 'Baseline','Average Cost'] = (cdf.loc[cdf.Model == 'Baseline','Total Cost'] + cdf.loc[cdf.Model == 'Baseline','Required Capital'])/n_farmers
@@ -372,5 +389,6 @@ def cross_val():
         results.append(cv_results)
 
     rdf = pd.concat(results)
-    rdf.groupby('Model').mean()
-
+    res = rdf.groupby('Model').mean().reset_index()
+    res_filename = TABLES_DIR + '/Kenya/kenya_eval2.tex'
+    res.to_latex(res_filename,float_format='%.0f',escape=False,index=False)
