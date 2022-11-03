@@ -25,7 +25,8 @@ TABLES_DIR = PROJECT_DIR + '/output/tables'
 
 ##### Contract Design Functions #####
 # Opt
-def min_CVaR_program(pred_y,train_y,params):
+
+def min_CVaR_program(pred_y,train_y,params,include_premium=False):
     # params: epsilon, pi_max, pi_min, beta_z, eps_p, c_k, K_z
     eps_p = params['epsilon_p']
     P = params['P']
@@ -43,6 +44,7 @@ def min_CVaR_program(pred_y,train_y,params):
     t = cp.Variable((n_samples,n_zones))
     t_p = cp.Variable(n_samples)
     alpha = cp.Variable((n_samples,n_zones))
+    alpha_bar = cp.Variable((n_samples,n_zones))
     omega = cp.Variable((n_samples,n_zones))
     gamma = cp.Variable((n_samples,n_zones))
     gamma_p = cp.Variable(n_samples)
@@ -55,8 +57,13 @@ def min_CVaR_program(pred_y,train_y,params):
     constraints.append(t[0,:] + (1/epsilon)*(p @ gamma) <= m*np.ones(n_zones))
 
     # CVaR constraints for each zone's loss, gamma^k_z >= l_z - min(a_z \hat{l_z}+b_z, K_z) - t
-    constraints.append(gamma >= train_y - cp.multiply(pred_y,A) -B -t)
-    constraints.append(gamma >= train_y - P -t)
+    if include_premium:
+        constraints.append(gamma >= train_y + alpha_bar - cp.multiply(pred_y,A) -B -t)
+        constraints.append(gamma >= train_y + alpha_bar - P -t)
+    else:
+        constraints.append(gamma >= train_y - cp.multiply(pred_y,A) -B -t)
+        constraints.append(gamma >= train_y - P -t)
+    
     constraints.append(gamma >= 0)
 
     # Portfolio CVaR constraint: CVaR(\sum_z I_z(\theta_z)) <= K^P + \sum_z E[I_z(\theta_Z)]
@@ -72,12 +79,18 @@ def min_CVaR_program(pred_y,train_y,params):
     # budget constraint
     constraints.append(budget >= (1/n_samples)*cp.sum(alpha) + c_k*K_p)
 
+    # alpha_bar definition constraint
+    if include_premium:
+        constraints.append(alpha_bar[0,:] == (1/n_samples)*cp.sum(alpha,axis=0))
+
     constraints.append(B <= 0)
 
     for i in range(n_samples-1):
         constraints.append(A[i,:] == A[i+1,:])
         constraints.append(B[i,:] == B[i+1,:])
         constraints.append(t[i,:] == t[i+1,:])
+        if include_premium:
+            constraints.append(alpha_bar[i,:] == alpha_bar[i+1,:])
 
     objective = cp.Minimize(m)
     problem = cp.Problem(objective,constraints)
@@ -139,20 +152,19 @@ def add_model_predictions(df,upper_model, lower_model):
     return df
 
 ##### Helper Functions ##### 
-def construct_hhdfs_for_optimization(hhdf):
-    upper_dfs = []
-    lower_dfs = []
+def construct_data_for_optimization(hhdf):
+    dfs = []
     for season in hhdf.Season.unique():
         uhdf = hhdf.loc[(hhdf.Cluster == 'Upper') & (hhdf.Season == season),:]
         lhdf = hhdf.loc[(hhdf.Cluster == 'Lower') & (hhdf.Season == season),:]
 
-        max_size = np.maximum(uhdf.shape[0],lhdf.shape[0])
-        upper_dfs.append(uhdf.sample(n=max_size,replace=True))
-        lower_dfs.append(lhdf.sample(n=max_size,replace=True))
+        combined_df = pd.merge(uhdf,lhdf,how='cross',suffixes=('_upper','_lower'))
+        dfs.append(combined_df)
     
-    uhdf = pd.concat(upper_dfs)
-    lhdf = pd.concat(lower_dfs)
-    return uhdf, lhdf
+    df = pd.concat(dfs)
+    pred_y = df[['PredictedLoss_upper','PredictedLoss_lower']].to_numpy()
+    train_y = df[['ActualLoss_upper','ActualLoss_lower']].to_numpy()
+    return pred_y,train_y
 
 ##### Performance Metric Functions #####
 def comparison_df(bdf,odf,cvar_eps=0.2):
@@ -161,16 +173,16 @@ def comparison_df(bdf,odf,cvar_eps=0.2):
     sdf = pd.DataFrame([bdict,odict])
     sdf['Model'] = ['Baseline','Opt']
     # sdf.drop(columns=['NetLoss Upper','NetLoss Lower','Payout CVaR'],inplace=True)
-    sdf.drop(columns=['VaR Upper','VaR Lower'],inplace=True)
+    sdf.drop(columns=['VaR Upper','VaR Lower','CVaR Upper','CVaR Lower','SemiVar Upper','SemiVar Lower'],inplace=True)
     return sdf
 
 def compute_performance_metrics(df,eps=0.2):
     sdf = {}
-    # sdf['CVaR Upper'] = CVaR(df[df.Cluster == 'Upper'],'Losses','NetLoss',cvar_eps)
-    # sdf['CVaR Lower'] = CVaR(df[df.Cluster == 'Lower'],'Losses','NetLoss',cvar_eps)
+    sdf['CVaR Upper'] = CVaR(df[df.Cluster == 'Upper'],'Losses','NetLoss',eps)
+    sdf['CVaR Lower'] = CVaR(df[df.Cluster == 'Lower'],'Losses','NetLoss',eps)
     # sdf['Total CVaR'] = CVaR(df,'TotalLoss','TotalNetLoss',cvar_eps)
     # sdf['$|CVaR_2 - CVaR_1|$'] = np.abs(sdf['CVaR Upper']-sdf['CVaR Lower'])
-    # sdf['Max CVaR'] = np.maximum(sdf['CVaR Upper'],sdf['CVaR Lower'])
+    sdf['Max CVaR'] = np.maximum(sdf['CVaR Upper'],sdf['CVaR Lower'])
 
     sdf['VaR Upper'] = df.loc[df.Cluster == 'Upper','NetLoss'].quantile(1-eps)
     sdf['VaR Lower'] = df.loc[df.Cluster == 'Lower','NetLoss'].quantile(1-eps)
@@ -178,10 +190,14 @@ def compute_performance_metrics(df,eps=0.2):
     sdf['$|VaR_2 - VaR_1|$'] = np.abs(sdf['VaR Upper']-sdf['VaR Lower'])
     sdf['Max VaR'] = np.maximum(sdf['VaR Upper'],sdf['VaR Lower'])
 
-    sdf['NetLoss Upper'] = df.loc[df.Cluster == 'Upper','NetLoss'].mean()
-    sdf['NetLoss Lower'] = df.loc[df.Cluster == 'Lower','NetLoss'].mean()
+    sdf['SemiVar Upper'] = semi_variance(df[df.Cluster == 'Upper'],'Losses','NetLoss',eps)
+    sdf['SemiVar Lower'] = semi_variance(df[df.Cluster == 'Lower'],'Losses','NetLoss',eps)
+    sdf['Max SemiVar'] = np.maximum(sdf['SemiVar Upper'],sdf['SemiVar Lower'])
+
+    # sdf['NetLoss Upper'] = df.loc[df.Cluster == 'Upper','NetLoss'].mean()
+    # sdf['NetLoss Lower'] = df.loc[df.Cluster == 'Lower','NetLoss'].mean()
     # sdf['NetTotal'] = df['TotalNetLoss'].mean()
-    sdf['$|L_2 - L_1|$'] = np.abs(sdf['NetLoss Upper']-sdf['NetLoss Lower'])
+    # sdf['$|L_2 - L_1|$'] = np.abs(sdf['NetLoss Upper']-sdf['NetLoss Lower'])
 
     col_names = ['$P(L > Q({}))$'.format(i) for i in [.60]]
     loss_quantiles = np.quantile(df.loc[df.Cluster == 'Lower','ActualLoss'],[0.6])
@@ -193,6 +209,38 @@ def compute_performance_metrics(df,eps=0.2):
     # sdf['Average Cost'] = df['TotalPayout'].mean() + 0.05*sdf['Required Capital']
     sdf['Total Cost'] = df['Payout'].sum()
     return(sdf)
+
+def calculate_premiums(train_hhdf,strike_vals,a,b,params):
+    c_k = params['c_k']
+    bdf, odf = make_copula_payout_dfs(train_hhdf,strike_vals,a,b,params)
+    bdf = bdf.groupby(['Season','Cluster'])['Payout'].sum().reset_index()
+    bdf = bdf.pivot(index='Season',columns='Cluster',values='Payout').reset_index()
+    baseline_copula = GaussianCopula()
+    baseline_copula.fit(bdf[['Upper','Lower']])
+    bdf = baseline_copula.sample(num_rows=10000)
+    bdf['Total Payout'] = bdf['Upper'] + bdf['Lower']
+
+    odf = odf.groupby(['Season','Cluster'])['Payout'].sum().reset_index()
+    odf = odf.pivot(index='Season',columns='Cluster',values='Payout').reset_index()
+    opt_copula = GaussianCopula()
+    opt_copula.fit(odf[['Upper','Lower']])
+    odf = opt_copula.sample(num_rows=10000)
+    odf['Total Payout'] = odf['Upper']+ odf['Lower']
+    bdf_cvar = CVaR(bdf,'Total Payout','Total Payout',0.01)
+    odf_cvar = CVaR(odf,'Total Payout','Total Payout',0.01)
+
+    baseline_average_total_payout = bdf['Total Payout'].mean()
+    opt_average_total_payout = odf['Total Payout'].mean()
+
+    baseline_req_capital = bdf_cvar-baseline_average_total_payout
+    opt_req_capital = odf_cvar - opt_average_total_payout
+
+    opt_average_payouts = odf[['Upper','Lower']].mean()
+    baseline_average_payouts = bdf[['Upper','Lower']].mean()
+    
+    opt_premiums = opt_average_payouts + 0.5*c_k*opt_req_capital/10000
+    baseline_premiums = baseline_average_payouts + 0.5*c_k*baseline_req_capital/10000
+    return opt_premiums, baseline_premiums
 
 def calculate_required_capital(train_hhdf,strike_vals,a,b,params):
     bdf, odf = make_copula_payout_dfs(train_hhdf,strike_vals,a,b,params)
@@ -220,7 +268,7 @@ def calculate_required_capital(train_hhdf,strike_vals,a,b,params):
 
 def make_payout_dfs(hhdf,strike_vals,a,b,params):
     clusters = ['Upper','Lower']
-    Ks = params['K']
+    Ps = params['P']
     bdfs = []
     odfs = []
     for i, cluster in enumerate(clusters):
@@ -229,14 +277,14 @@ def make_payout_dfs(hhdf,strike_vals,a,b,params):
         bdf['ActualLoss'] = thdf['ActualLoss']
         bdf['PredictedLoss'] = thdf['PredictedLoss']
         bdf['Payout'] = np.maximum(bdf['PredictedLoss']-strike_vals[i],0)
-        bdf['Payout'] = np.minimum(bdf['Payout'],Ks[i])
+        bdf['Payout'] = np.minimum(bdf['Payout'],Ps[i])
         bdf['NetLoss'] = bdf['ActualLoss'] - bdf['Payout']
         
         odf = pd.DataFrame()
         odf['ActualLoss'] = thdf['ActualLoss']
         odf['PredictedLoss'] = thdf['PredictedLoss']
         odf['Payout'] = np.maximum(a[i]*odf['PredictedLoss']+b[i],0)
-        odf['Payout'] = np.minimum(odf['Payout'],Ks[i])
+        odf['Payout'] = np.minimum(odf['Payout'],Ps[i])
         odf['NetLoss'] = odf['ActualLoss']-odf['Payout']
 
         bdf['Cluster'] = cluster
@@ -249,7 +297,7 @@ def make_payout_dfs(hhdf,strike_vals,a,b,params):
 
 def make_copula_payout_dfs(hhdf,strike_vals,a,b,params):
     clusters = ['Upper','Lower']
-    Ks = params['K']
+    Ps = params['P']
     bdfs = []
     odfs = []
     for i, cluster in enumerate(clusters):
@@ -258,7 +306,7 @@ def make_copula_payout_dfs(hhdf,strike_vals,a,b,params):
         bdf['Losses'] = thdf['ActualLoss']
         bdf['PredictedLosses'] = thdf['PredictedLoss']
         bdf['Payout'] = np.maximum(bdf['PredictedLosses']-strike_vals[i],0)
-        bdf['Payout'] = np.minimum(bdf['Payout'],Ks[i])
+        bdf['Payout'] = np.minimum(bdf['Payout'],Ps[i])
         bdf['NetLoss'] = bdf['Losses'] - bdf['Payout']
         bdf['Season'] = thdf['Season']
         # bdf['Location'] = thdf['NDVILocation']
@@ -267,7 +315,7 @@ def make_copula_payout_dfs(hhdf,strike_vals,a,b,params):
         odf['Losses'] = thdf['ActualLoss']
         odf['PredictedLosses'] = thdf['PredictedLoss']
         odf['Payout'] = np.maximum(a[i]*odf['PredictedLosses']+b[i],0)
-        odf['Payout'] = np.minimum(odf['Payout'],Ks[i])
+        odf['Payout'] = np.minimum(odf['Payout'],Ps[i])
         odf['NetLoss'] = odf['Losses']-odf['Payout']
         odf['Season'] = thdf['Season']
         # odf['Location'] = thdf['NDVILocation']
@@ -285,8 +333,13 @@ def CVaR(df,loss_col,outcome_col,epsilon=0.2):
     cvar = df.loc[df[loss_col] >= q,outcome_col].mean()
     return cvar
 
+def semi_variance(df,loss_col,outcome_col,epsilon=0.2):
+    q = np.quantile(df[loss_col],1-epsilon)
+    semi_variance = (df.loc[df[loss_col] >= q,outcome_col]-q)**2
+    return semi_variance.sum()/(len(semi_variance)-1)
+
 ##### Evaluation Functions ##### 
-def run_eval(train_data,test_data,hhdf,params,surplus_share=0.65):
+def run_eval(train_data,test_data,hhdf,params,include_premium=False,surplus_share=0.65):
     livestock_value = 150
 
     # Train prediction model for each cluster
@@ -302,20 +355,14 @@ def run_eval(train_data,test_data,hhdf,params,surplus_share=0.65):
     train_hhdf['ActualLoss'] = train_hhdf['LivestockLosses']*livestock_value
 
     # Create dataset that has samples of the form (pred_loss_u, pred_loss_l) (actual_loss_u,actual_loss_l)
-    uhdf, lhdf = construct_hhdfs_for_optimization(train_hhdf)
-    upper_preds = uhdf['PredictedLoss']
-    upper_actual = uhdf['ActualLoss']
-    lower_preds = lhdf['PredictedLoss']
-    lower_actual = lhdf['ActualLoss']
-    pred_y = np.vstack([upper_preds,lower_preds]).T
-    train_y = np.vstack([upper_actual,lower_actual]).T
+    pred_y, train_y = construct_data_for_optimization(train_hhdf)
 
     # Use dataset to determine baseline contract parameters and budget
     strike_vals = determine_strike_values(train_y,pred_y)
-    params['B'], params['premium income'] = determine_budget_params(pred_y,strike_vals,params['K'],params['c_k'])
+    params['B'], params['premium income'] = determine_budget_params(pred_y,strike_vals,params['P'],params['c_k'])
 
     # Plug in dataset into opt model to find contract parameters
-    a,b = np.around(min_CVaR_program(pred_y,train_y,params),2)
+    a,b = np.around(min_CVaR_program(pred_y,train_y,params,include_premium),2)
 
     # Use prediction model to predict on test data
     test_data = add_model_predictions(test_data,upper_model,lower_model)
@@ -328,8 +375,9 @@ def run_eval(train_data,test_data,hhdf,params,surplus_share=0.65):
     test_hhdf['PredictedLoss'] = test_hhdf['HerdSize']*test_hhdf['PredMortalityRate']*livestock_value
     test_hhdf['ActualLoss'] = test_hhdf['LivestockLosses']*livestock_value
 
-    test_uhdf, test_lhdf = construct_hhdfs_for_optimization(test_hhdf)
-    test_hhdf = pd.concat([test_uhdf,test_lhdf])
+    # test_uhdf, test_lhdf = construct_data_for_optimization(test_hhdf)
+    # test_hhdf = pd.concat([test_uhdf,test_lhdf])
+    # baseline_premium, opt_premium = calculate_premiums_copula()
 
     # Reallocate surplus and compute performance metrics 
     bdf, odf = make_payout_dfs(test_hhdf,strike_vals,a,b,params)
@@ -342,7 +390,7 @@ def run_eval(train_data,test_data,hhdf,params,surplus_share=0.65):
     cdf.loc[cdf.Model == 'Opt','Required Capital'] = opt_req_capital
     cdf.loc[cdf.Model == 'Baseline','Average Cost'] = (cdf.loc[cdf.Model == 'Baseline','Total Cost'] + cdf.loc[cdf.Model == 'Baseline','Required Capital'])/n_farmers
     cdf.loc[cdf.Model == 'Opt','Average Cost'] = (cdf.loc[cdf.Model == 'Opt','Total Cost'] + cdf.loc[cdf.Model == 'Opt','Required Capital'])/n_farmers
-    return cdf[['Model','Max VaR','$|VaR_2 - VaR_1|$','Required Capital','Average Cost']], bdf, odf
+    return cdf[['Model','Max CVaR','Max VaR','Max SemiVar','$|VaR_2 - VaR_1|$','Required Capital','Average Cost']], bdf, odf
 
 def reallocate_opt_surplus(bdf,odf,eps,surplus_share=0.65):
     cdf = comparison_df(bdf,odf,eps)
@@ -363,7 +411,7 @@ def reallocate_opt_surplus(bdf,odf,eps,surplus_share=0.65):
     odf['NetLoss'] = odf['ActualLoss'] - odf['Payout']
     return odf
 
-def determine_budget_params(pred_y,strike_vals,Ks,c_k=0.15):
+def determine_budget_params(pred_y,strike_vals,Ps,c_k=0.15):
     bdf = pd.DataFrame()
     n_zones = pred_y.shape[1]
     for zone in np.arange(n_zones):
@@ -371,7 +419,7 @@ def determine_budget_params(pred_y,strike_vals,Ks,c_k=0.15):
         payout_col = 'Payout{}'.format(zone)
         bdf[pred_col] = pred_y[:,zone]
         bdf[payout_col] = np.maximum(bdf[pred_col]-strike_vals[zone],0)
-        bdf[payout_col] = np.minimum(bdf[payout_col],Ks[zone])
+        bdf[payout_col] = np.minimum(bdf[payout_col],Ps[zone])
 
     bdf['Total Payouts'] = bdf['Payout0']+bdf['Payout1']
     loss_quantile = np.quantile(bdf['Total Payouts'],0.99)
@@ -386,8 +434,8 @@ def cross_val():
     reg_data = pd.read_csv(kenya_reg_data_filename)
     hhdf = pd.read_csv(kenya_hh_data_filename)
     cvar_eps = 0.2
-    K = 40000
-    params = {'epsilon':cvar_eps,'epsilon_p':0.01,'K':np.array([K,K]),'rho':np.array([0.5,0.5]),'c_k':0.15}
+    P = 40000
+    params = {'epsilon':cvar_eps,'epsilon_p':0.01,'P':np.array([P,P]),'rho':np.array([0.5,0.5]),'c_k':0.15}
     years = [str(i) for i in range(2010,2014)]
     results = []
     for year in years:

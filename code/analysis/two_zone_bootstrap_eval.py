@@ -32,7 +32,7 @@ def make_multi_zone_data(beta,mu,sigma,n=100,square=False):
     return y, X
 
 ##### Optimization Functions #####
-def min_CVaR_program(pred_y,train_y,params):
+def min_CVaR_program(pred_y,train_y,params,include_premium=False):
     # params: epsilon, pi_max, pi_min, beta_z, eps_p, c_k, K_z
     eps_p = params['epsilon_p']
     Ps = params['P']
@@ -63,10 +63,13 @@ def min_CVaR_program(pred_y,train_y,params):
     constraints.append(t[0,:] + (1/epsilon)*(p @ gamma) <= m*np.ones(n_zones))
 
     # CVaR constraints for each zone's loss, gamma^k_z >= l_z - min(a_z \hat{l_z}+b_z, K_z) - t
-    # constraints.append(gamma >= train_y - cp.multiply(pred_y,A) -B -t)
-    # constraints.append(gamma >= train_y - P -t)
-    constraints.append(gamma >= train_y + alpha_bar - cp.multiply(pred_y,A) -B -t)
-    constraints.append(gamma >= train_y + alpha_bar - P -t)
+    if include_premium:
+        constraints.append(gamma >= train_y + alpha_bar - cp.multiply(pred_y,A) -B -t)
+        constraints.append(gamma >= train_y + alpha_bar - P -t)
+    else:
+        constraints.append(gamma >= train_y - cp.multiply(pred_y,A) -B -t)
+        constraints.append(gamma >= train_y - P -t)
+
     constraints.append(gamma >= 0)
 
     # Portfolio CVaR constraint: CVaR(\sum_z I_z(\theta_z)) <= K^P + \sum_z E[I_z(\theta_Z)]
@@ -83,18 +86,20 @@ def min_CVaR_program(pred_y,train_y,params):
     constraints.append(budget >= (1/n_samples)*cp.sum(alpha) + c_k*K_p)
 
     # alpha_bar constraint
-    constraints.append(alpha_bar[0,:] == (1/n_samples)*cp.sum(alpha,axis=0))
+    if include_premium:
+        constraints.append(alpha_bar[0,:] == (1/n_samples)*cp.sum(alpha,axis=0))
 
     for i in range(n_samples-1):
         constraints.append(A[i,:] == A[i+1,:])
         constraints.append(B[i,:] == B[i+1,:])
         constraints.append(t[i,:] == t[i+1,:])
-        constraints.append(alpha_bar[i,:] == alpha_bar[i+1,:])
+        if include_premium:
+            constraints.append(alpha_bar[i,:] == alpha_bar[i+1,:])
 
     objective = cp.Minimize(m)
     problem = cp.Problem(objective,constraints)
-    # problem.solve(solver=cp.SCIPY, scipy_options={"method":"highs"})
-    problem.solve(solver=cp.GUROBI)
+    problem.solve(solver=cp.SCIPY, scipy_options={"method":"highs"})
+    # problem.solve(solver=cp.GUROBI)
     # print('Req capital: {}'.format(K_p.value))
     return (A.value[0,:], B.value[0,:])
 
@@ -133,7 +138,7 @@ def make_payout_dfs(test_x,test_y,pred_model,strike_vals,a,b,params,baseline_pre
     n_zones = test_y.shape[1]
     
     # offset = params['offset']
-    Ks = params['P']
+    Ps = params['P']
     bdf = pd.DataFrame()
     odf = pd.DataFrame()
     pred_y = pred_model.predict(test_x)
@@ -145,7 +150,7 @@ def make_payout_dfs(test_x,test_y,pred_model,strike_vals,a,b,params,baseline_pre
 
         bdf[pred_col] = pred_y[:,zone]
         bdf[payout_col] = np.maximum(bdf[pred_col]-strike_vals[zone],0)
-        bdf[payout_col] = np.minimum(bdf[payout_col],Ks[zone])
+        bdf[payout_col] = np.minimum(bdf[payout_col],Ps[zone])
         bdf[loss_col] = test_y[:,zone]
         bdf[net_loss_col] = bdf[loss_col]-bdf[payout_col]
         if baseline_premiums is not None:
@@ -153,7 +158,7 @@ def make_payout_dfs(test_x,test_y,pred_model,strike_vals,a,b,params,baseline_pre
             bdf[net_loss_col] += premium
 
         odf[pred_col] = pred_y[:,zone]
-        odf[payout_col] = np.minimum(a[zone]*odf[pred_col]+b[zone],Ks[zone])
+        odf[payout_col] = np.minimum(a[zone]*odf[pred_col]+b[zone],Ps[zone])
         odf[payout_col] = np.maximum(0,odf[payout_col])
         odf[loss_col] = test_y[:,zone]
         odf[net_loss_col] = odf[loss_col]-odf[payout_col]
@@ -175,7 +180,7 @@ def calculate_premiums_naive(train_x,train_y,pred_model,strike_vals,a,b,params):
     n_zones = train_y.shape[1]
     
     c_k = params['c_k']
-    Ks = params['P']
+    Ps = params['P']
     bdf = pd.DataFrame()
     odf = pd.DataFrame()
     pred_y = pred_model.predict(train_x)
@@ -185,10 +190,10 @@ def calculate_premiums_naive(train_x,train_y,pred_model,strike_vals,a,b,params):
 
         bdf[pred_col] = pred_y[:,zone]
         bdf[payout_col] = np.maximum(bdf[pred_col]-strike_vals[zone],0)
-        bdf[payout_col] = np.minimum(bdf[payout_col],Ks[zone])
+        bdf[payout_col] = np.minimum(bdf[payout_col],Ps[zone])
 
         odf[pred_col] = pred_y[:,zone]
-        odf[payout_col] = np.minimum(a[zone]*odf[pred_col]+b[zone],Ks[zone])
+        odf[payout_col] = np.minimum(a[zone]*odf[pred_col]+b[zone],Ps[zone])
         odf[payout_col] = np.maximum(0,odf[payout_col])
 
     odf['TotalPayout'] = odf['Payout0'] + odf['Payout1']
@@ -254,7 +259,7 @@ def determine_strike_values(train_y,eval_y,eval_x,pred_model):
         best_strike_percentiles.append(best_strike_percentile)
     return best_strike_percentiles, best_strike_vals
 
-def determine_budget_params(pred_y,strike_vals,Ks,c_k=0.05):
+def determine_budget_params(pred_y,strike_vals,Ps,c_k=0.05):
     bdf = pd.DataFrame()
     n_zones = pred_y.shape[1]
     for zone in np.arange(n_zones):
@@ -262,7 +267,7 @@ def determine_budget_params(pred_y,strike_vals,Ks,c_k=0.05):
         payout_col = 'Payout{}'.format(zone)
         bdf[pred_col] = pred_y[:,zone]
         bdf[payout_col] = np.maximum(bdf[pred_col]-strike_vals[zone],0)
-        bdf[payout_col] = np.minimum(bdf[payout_col],Ks[zone])
+        bdf[payout_col] = np.minimum(bdf[payout_col],Ps[zone])
 
     bdf['TotalPayout'] = bdf['Payout0']+bdf['Payout1']
     payout_cvar = CVaR(bdf,'TotalPayout','TotalPayout',0.01)
@@ -346,7 +351,7 @@ def bootstrap_comparison_df(bdf,odf):
     return sdf[['Model','Max CVaR','Max VaR','Max SemiVar','$|VaR_2 - VaR_1|$','Required Capital','Average Cost']]
 
 def plot_bootstrap_results(beta,mu,sigma,params,bdf,odf,scenario_name):
-    fig_filename = FIGURES_DIR + '/Bootstrap/{}_var.png'.format(scenario_name)
+    fig_filename = FIGURES_DIR + '/Bootstrap/{}.png'.format(scenario_name)
     a = np.zeros(2)
     b = np.zeros(2)
 
@@ -375,18 +380,19 @@ def save_bootstrap_results(bdf,odf,scenario_name):
     odf_filename = TABLES_DIR + '/Bootstrap/opt_results_{}.csv'.format(scenario_name)
     bdf_filename = TABLES_DIR + '/Bootstrap/baseline_results_{}.csv'.format(scenario_name)
 
-    odf.to_csv(odf_filename,float_format='%.2f')
-    bdf.to_csv(bdf_filename,float_format='%.2f')
+    # odf.to_csv(odf_filename,float_format='%.2f')
+    # bdf.to_csv(bdf_filename,float_format='%.2f')
     sdf = bootstrap_comparison_df(bdf,odf)
     sdf.to_latex(table_filename,float_format='%.2f',escape=False,index=False)
 
 ##### Exploration functions #####
-def bootstrap_scenario_exploration(regime,P,n=1000):
+def bootstrap_scenario_exploration(regime,P,include_premium=False,n=1000):
+    premium_status = 'premium' if include_premium else 'no_premium'
     beta = np.array([[1.5,0],[0,1.5]])
     mu = np.array([5,5])
 
     # No correlation case
-    scenario_name = 'no_corr_{}'.format(regime)
+    scenario_name = 'no_corr_{}_{}'.format(regime,premium_status)
     sigma = np.array(np.array([[2,0],[0,2]]))
     cvar_eps=0.2
     params = {'epsilon':cvar_eps,'epsilon_p':0.01,'P':np.array([P,P]),'rho':np.array([0.5,0.5]),'c_k':0.15}
@@ -405,7 +411,7 @@ def bootstrap_scenario_exploration(regime,P,n=1000):
     save_bootstrap_results(bdf,odf,scenario_name)
 
     # Positive Correlation
-    scenario_name = 'pos_corr_{}'.format(regime)
+    scenario_name = 'pos_corr_{}_{}'.format(regime,premium_status)
     sigma = np.array(np.array([[2,1.6],[1.6,2]]))
     baseline_results = []
     opt_results = []
@@ -421,7 +427,7 @@ def bootstrap_scenario_exploration(regime,P,n=1000):
     save_bootstrap_results(bdf,odf,scenario_name)
 
     # Negative Correlation
-    scenario_name = 'neg_corr_{}'.format(regime)
+    scenario_name = 'neg_corr_{}_{}'.format(regime,premium_status)
     sigma = np.array(np.array([[2,-1.6],[-1.6,2]]))
     baseline_results = []
     opt_results = []
@@ -436,7 +442,7 @@ def bootstrap_scenario_exploration(regime,P,n=1000):
     plot_bootstrap_results(beta,mu,sigma,params,bdf,odf,scenario_name)
     save_bootstrap_results(bdf,odf,scenario_name)
 
-def run_bootstrap_scenario(beta,mu,sigma,params,scenario_name):
+def run_bootstrap_scenario(beta,mu,sigma,params,scenario_name,include_premium=False):
     square = 'nonlinear' in scenario_name
     train_y, train_x = make_multi_zone_data(beta,mu,sigma,n=300,square=square)
     eval_y, eval_x = make_multi_zone_data(beta,mu,sigma,n=50,square=square)
@@ -449,33 +455,35 @@ def run_bootstrap_scenario(beta,mu,sigma,params,scenario_name):
 
     a,b = np.around(min_CVaR_program(pred_y,train_y,params),2)
     baseline_premiums, opt_premiums = calculate_premiums_naive(train_x,train_y,pred_model,strike_vals,a,b,params)
-    bdf, odf = make_payout_dfs(test_x,test_y,pred_model,strike_vals,a,b,params,baseline_premiums,opt_premiums)
-    # bdf, odf = make_payout_dfs(test_x,test_y,pred_model,strike_vals,a,b,params)
+    if include_premium:
+        bdf, odf = make_payout_dfs(test_x,test_y,pred_model,strike_vals,a,b,params,baseline_premiums,opt_premiums)
+    else:
+        bdf, odf = make_payout_dfs(test_x,test_y,pred_model,strike_vals,a,b,params)
     bdict = get_summary_stats(bdf,params['epsilon'])
     odict = get_summary_stats(odf,params['epsilon'])
     
 
-    if square: 
-        cost_diff = (bdict['Payout Cost'] - odict['Payout Cost'])
+    # if square: 
+    #     cost_diff = (bdict['Payout Cost'] - odict['Payout Cost'])
 
-        loss_0_lb = odf['PredictedLosses0'].quantile(0.65)
-        loss_0_ub = odf['PredictedLosses0'].quantile(0.85)
-        loss_1_lb = odf['PredictedLosses1'].quantile(0.65)
-        loss_1_ub = odf['PredictedLosses1'].quantile(0.85)
+    #     loss_0_lb = odf['PredictedLosses0'].quantile(0.65)
+    #     loss_0_ub = odf['PredictedLosses0'].quantile(0.85)
+    #     loss_1_lb = odf['PredictedLosses1'].quantile(0.65)
+    #     loss_1_ub = odf['PredictedLosses1'].quantile(0.85)
 
-        zone_0_extra_payouts = (odf.PredictedLosses0 >= loss_0_lb) & (odf.PredictedLosses0 <= loss_0_ub)
-        zone_1_extra_payouts = (odf.PredictedLosses1 >= loss_1_lb) & (odf.PredictedLosses1 <= loss_1_ub)
+    #     zone_0_extra_payouts = (odf.PredictedLosses0 >= loss_0_lb) & (odf.PredictedLosses0 <= loss_0_ub)
+    #     zone_1_extra_payouts = (odf.PredictedLosses1 >= loss_1_lb) & (odf.PredictedLosses1 <= loss_1_ub)
 
-        per_farmer_extra_payout = cost_diff/(zone_0_extra_payouts.sum()+zone_1_extra_payouts.sum())
-        odf.loc[zone_0_extra_payouts, 'Payout0'] += per_farmer_extra_payout
-        odf.loc[zone_1_extra_payouts, 'Payout1'] += per_farmer_extra_payout
-        odf['TotalPayout'] = odf['Payout0'] + odf['Payout1']
-        odf.loc[zone_0_extra_payouts,'NetLoss0'] -= per_farmer_extra_payout
-        odf.loc[zone_1_extra_payouts,'NetLoss1'] -= per_farmer_extra_payout
-        # odf['NetLoss0'] = odf['Losses0'] - odf['Payout0']
-        # odf['NetLoss1'] = odf['Losses1'] - odf['Payout1']
-        bdict = get_summary_stats(bdf,params['epsilon'])
-        odict = get_summary_stats(odf,params['epsilon'])
+    #     per_farmer_extra_payout = cost_diff/(zone_0_extra_payouts.sum()+zone_1_extra_payouts.sum())
+    #     odf.loc[zone_0_extra_payouts, 'Payout0'] += per_farmer_extra_payout
+    #     odf.loc[zone_1_extra_payouts, 'Payout1'] += per_farmer_extra_payout
+    #     odf['TotalPayout'] = odf['Payout0'] + odf['Payout1']
+    #     odf.loc[zone_0_extra_payouts,'NetLoss0'] -= per_farmer_extra_payout
+    #     odf.loc[zone_1_extra_payouts,'NetLoss1'] -= per_farmer_extra_payout
+    #     # odf['NetLoss0'] = odf['Losses0'] - odf['Payout0']
+    #     # odf['NetLoss1'] = odf['Losses1'] - odf['Payout1']
+    #     bdict = get_summary_stats(bdf,params['epsilon'])
+    #     odict = get_summary_stats(odf,params['epsilon'])
     bdict['s_1'], bdict['s_2'] = strike_vals
     odict['a_1'], odict['a_2'] = a
     odict['b_1'], odict['b_2'] = b
@@ -483,12 +491,11 @@ def run_bootstrap_scenario(beta,mu,sigma,params,scenario_name):
     bdict['p1'], bdict['p2'] = baseline_premiums
     return(bdict,odict)
 
-
-
-
 start = time.time()
-bootstrap_scenario_exploration('linear',8,1000)
-bootstrap_scenario_exploration('nonlinear',45,1000)
+bootstrap_scenario_exploration('linear',8,True,1000)
+bootstrap_scenario_exploration('nonlinear',45,True,1000)
+bootstrap_scenario_exploration('linear',8,False,1000)
+bootstrap_scenario_exploration('nonlinear',45,False,1000)
 end = time.time()
 print(end-start)
 
