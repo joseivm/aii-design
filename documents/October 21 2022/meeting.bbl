@@ -1,0 +1,64 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{ynt/global//global/global}
+    \entry{rockafellar2000optimization}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=9cfd3443aed7c033e870e2e9970510a6}{%
+           family={Rockafellar},
+           familyi={R\bibinitperiod},
+           given={R\bibnamedelima Tyrrell},
+           giveni={R\bibinitperiod\bibinitdelim T\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=75a8a2346ba45ae5110aa302b89a30c7}{%
+           family={Uryasev},
+           familyi={U\bibinitperiod},
+           given={Stanislav},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Citeseer}%
+      }
+      \strng{namehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{fullhash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{bibnamehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{authorbibnamehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{authornamehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{authorfullhash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of risk}
+      \field{title}{Optimization of conditional value-at-risk}
+      \field{volume}{2}
+      \field{year}{2000}
+      \field{pages}{21\bibrangedash 42}
+      \range{pages}{22}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

@@ -173,6 +173,7 @@ def make_household_data():
     herd_sizes = ldf.groupby(groupby_cols)['HerdSize'].max().reset_index()
     losses = ldf.groupby(groupby_cols)['Losses'].sum().reset_index()
     hhdf = herd_sizes.merge(losses,left_on=groupby_cols,right_on=groupby_cols)
+    hhdf.rename(columns={'Losses':'LivestockLosses'},inplace=True)
     return hhdf
 
 def get_mortality_rates():

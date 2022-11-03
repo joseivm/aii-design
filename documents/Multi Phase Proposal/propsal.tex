@@ -1,0 +1,148 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,bbm}
+\usepackage{float,color}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage[
+backend=biber,
+style=bwl-FU,
+sorting=ynt
+]{biblatex}
+\addbibresource{../main.bib}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newtheorem{fact}{Fact}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}[lemma]{Theorem}
+\newtheorem{defn}[lemma]{Definition}
+\newtheorem{assumption}[lemma]{Assumption}
+\newtheorem{corollary}[lemma]{Corollary}
+\newtheorem{prop}[lemma]{Proposition}
+\newtheorem{exercise}[lemma]{Exercise}
+\newtheorem{claim}[lemma]{Claim}
+\newtheorem{remark}[lemma]{Remark}
+\newtheorem{prob}{Problem}
+\newtheorem{conjecture}{Conjecture}
+
+\newenvironment{note}[1]{\medskip\noindent \textbf{#1:}}%
+        {\medskip}
+
+\newenvironment{proof}{\vspace{-0.05in}\noindent{\bf Proof:}}%
+        {\hspace*{\fill}$\Box$\par}
+\newenvironment{proofsketch}{\noindent{\bf Proof Sketch.}}%
+        {\hspace*{\fill}$\Box$\par\vspace{4mm}}
+\newenvironment{proofof}[1]{\smallskip\noindent{\bf Proof of #1.}}%
+        {\hspace*{\fill}$\Box$\par}
+
+\newcommand{\etal}{{\em et al.}\ }
+\newcommand{\assign}{\leftarrow}
+\newcommand{\eps}{\epsilon}
+
+\newcommand{\opt}{\textrm{\sc OPT}}
+\newcommand{\script}[1]{\mathcal{#1}}
+\newcommand{\ceil}[1]{\lceil #1 \rceil}
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+
+\title{Agricultural Index Insurance Design: An Optimization Approach}
+\author{José I. Velarde Morales}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+Lack of access to credit and insurance is often cited as a significant factor hindering agricultural productivity in developing countries. Nearly two thirds of the world's poor are employed in agriculture, and addressing this problem could have significant welfare implications. Agricultural insurance is, even in the best circumstances, a hard problem. Many of the features one would want (independent units, uncorrelated risk, etc) are missing in this context. When considering insurance in developing countries, the problem becomes even harder because of verification costs. Traditionally, whenever an adverse event happens, the insured party contacts the insurer, and the insurer verifies the claim and issues a payout. However, agriculture in developing countries is often characterized by many small farmers spread out over hard to reach regions. This makes verification prohibitively costly. Additionally, the presence of correlated risks makes insurance more expensive because it makes large payouts more likely. Intuitively, if one farmer is affected by a drought, it is likely that other farmers were also affected. If large payouts are more likely, the insurer must have larger reserves in order to maintain solvency. 
+
+Researchers developed index insurance as a less costly way to offer insurance in developing countries. In index insurance, an index (or statistic) is created using easily observable quantities, and it is used to determine whether the insured party suffered an adverse event. In the past, indices have been constructed using rainfall, weather, and satellite images. If the index falls below a pre-determined threshold, the insurance company automatically issues out payments to the insured. This allows the insurance company to circumvent the issue of verification, moral hazard, and adverse selection, since the actions of individual farmers cannot affect the index. Even though index insurance has proved to be a less costly way of providing insurance for small farmers, it has been difficult to scale up. There are several problems with index insurance. One of the main problems is low take up: farmers are often unwilling to purchase the insurance at market prices. Another problem, as previously mentioned, is the cost. The purpose of this project is to make this insurance less costly by improving the design of insurance contracts. The rest of this paper is organized as follows: Section 2 reviews the existing literature on index insurance, Section 3 describes our proposed approach, Section 4 describes our evaluation methods and results. We conclude with a brief discussion. 
+
+\section{Literature Review}
+\paragraph{Impact of Index Insurance} There are many studies that evaluate how access to index insurance impacts the behavior of farmers. Through a randomized evaluation in Northern Ghana, \cite{karlan2014agricultural} found that farmers shifted their production to riskier but potentially more profitable crops when they had access to index insurance. Similarly, \cite{cole2013barriers} found that farmers in India that had access to insurance were more likely to produce cash crops. \cite{mobarak2013informal} conducted experiments in several states in India and found that insured farmers were more likely to grow high-yield varietes of rice. Overall, there is evidence that index insurance reduces reliance on detrimental risk-coping strategies, increases investment, and leads to riskier, but more profitable production decisions (\cite{jensen2017agricultural}). 
+
+\paragraph{Demand for Index Insurance} One of the largest barriers to the scale up and adoption of index insurance is low demand (\cite{jensen2017agricultural}). \cite{cole2013barriers} found that demand for index insurance is highly sensitive to price and liquidity constraints. When offered discounts, over $60\%$ of farmers opted to purchase the insurance product. They also found that cash grants made farmers more likely to purchase insurance. \cite{cai2020subsidy} found that subsidies and financial education increased take up of index insurance. \cite{casaburi2018time} tested the effect of liquidity constraints on demand. They reduced liquidity constraints by collecting premiums at harvest time (when farmers have more cash), instead of the standard pay-up-front scheme. They found that this payment scheme increased take up to $72\%$ from a baseline of $5\%$. 
+
+\paragraph{Design of Index Insurance} There has been relatively little research done on the design of index insurance. In \cite{chantarat2013designing}, the authors describe the design of an index insurance for pastoralists in Northern Kenya. This insurance is based on a satellite based index, and is what is used in Kenya's Index Based Livestock Insurance (IBLI) program. In \cite{flatnes2018improving} the authors propose augmenting a traditional index insurance contract with the option for an audit. In this augmented contract, the insured farmer has the option to request an audit if they believe a payout should have been issued but wasn't. In \cite{jensen2019does}, the authors compare the welfare implications of using different satellite based indices for insuring pastoralists against drought. The method developed by \cite{chantarat2013designing} is used in all of these studies. There are also numerous non-academic publications describing the implementation of index insurance programs in different parts of the world (\cite{osgood2007designing},\cite{world2011weather},\cite{greatrex2015scaling}). From these papers describing the implementation of these programs, it appears that there is no a standard methodology for developing index insurance products. As stated in \cite{world2011weather}, "The reader should be aware that there is no single methodology in this field ... [this paper] describes an approach that has been used in a number of index pilot activities undertaken by the World Bank and its parners." 
+
+\paragraph{Optimization Literature} In this work, we will be drawing from the literature on chance constrained programs (\cite{lagoa2005probabilistically}; \cite{charnes1958cost}). We also draw on the work on coherent risk measures (\cite{artzner1999coherent}), and work on the optimization of conditional value at risk by (\cite{rockafellar2000optimization}). Additionally, we use the results on convex approximations of chance constrained programs by (\cite{nemirovski2007convex}). 
+
+\section{Optimization Approach}
+  \subsection{Index Insurance Definition and Parameters}
+    Index insurance generally involves an easily observable signal, $\theta$, that is used to predict the loss, $\hat{\ell}(\theta)$, of some agricultural product. For example, $\theta$ could be rainfall, and $\hat{\ell}(\theta)$ could be livestock mortality. Index insurance contracts normally have the form: $I(\hat{l}(\theta)) = \min \left \{\max \left \{0,a\hat{\ell}(\theta) + b \right \}, P \right \}$, where $P$ is the maximum payout, and $a,b$ are the contract parameters. For ease of notation, we will use $I(\theta)$ instead of $I(\hat{\ell}(\theta))$. The expected cost, $C(I(\theta))$ of an insurance contract, $I(\theta)$ for an insurer in a single period is: $C(I(\theta)) = \mathbb{E}[I(\theta)] + c_{\kappa} K(I(\theta))$, where $c_{\kappa}$ is the cost of holding capital, and $K$ is the amount of capital required to insure the contract. $K$ is set by regulators, and is meant to ensure that insurers have enough capital to fulfill their contractual obligations with high probability. One commonly used formula for $K$ is $K(I(\theta)) = CVaR_{1-\epsilon_P}\left ( I(\hat{l}(\theta)) \right ) - \mathbb{E}[I(\theta)]$ (\cite{mapfumo2017risk}). $\epsilon_P$ is set by regulators, and commonly used values are $\epsilon_P = 0.01$ or $\epsilon_P = 0.05$. 
+
+  \subsection{Risk Measures}
+    We want a model that minimizes the probability that wealth drops below a certain threshold, subject to a budget constraint. However, probabilistic objectives are generally non-convex. The probability that wealth drops below a certain threshold is a measure of the risk farmers face; we want a convex measure that will capture this risk. We use the Conditional Value at Risk $CVaR$ of the loss net of insurance as our measure of risk. 
+
+    % \paragraph{Conditional Value at Risk} 
+    \begin{defn}
+        For a random variable $z$, representing loss, the $(1-\epsilon)$ Value at Risk $(VaR)$ is given by 
+        \begin{align*}
+        VaR_{1-\epsilon}(z) := \inf \left \{ t : P(z \leq t) \geq 1-\epsilon \right \}
+        \end{align*}
+    \end{defn}
+
+    \begin{defn}
+        For a random variable $z$, representing loss, the $(1-\epsilon)$ Conditional Value at Risk $(CVaR)$ is given by 
+        \begin{align*}
+        CVaR_{1-\epsilon}(z) := \mathbb{E}\left [z | z \geq VaR_{1-\epsilon}(z) \right ]
+        \end{align*}
+    \end{defn}
+
+    Intuitively, the Conditional Value at Risk is the expected value of a loss given that it is above a certain threshold. It can also be thought of as measuring the worst outcomes. By minimizing the $CVaR$ of the net loss, we are focusing on improving farmers' wealth in the worst case scenarios, which is a key purpose of insurance. $CVaR$ has been extensively studied in the academic literature, and is also popular in practice (\cite{rockafellar2000optimization}, \cite{rockafellar2002conditional}, \cite{artzner1999coherent}). It also has the advantage of being convex, and thus amenable to optimization.
+
+  \subsection{Multi-phase Model}
+    % \subsection{Motivation}
+    In practice, weather index insurance contracts specify a coverage period which is split up into different phases. Each of these phases corresponds to a different stage of growth in the crop cycle. The stages are generally establishment/vegetative, flowering/reproductive, and the ripening stage, but it can differ by crops. There are some crops that have 5 different stages. Each stage has different climate requirements, and thus a different payout function is calculated for each phase. This makes the insurance additionally flexible, because it allows farmers to only insure certain parts of the season, depending on what they're more worried about. For example, a farmer might choose to only insure for the early part of the season, if he feels that that's where most of the risk is coming from. 
+    
+    \subsubsection{Full Data Model}
+    \label{full-data-model}
+    This model assumes that we have household level data on losses. The model minimizes the conditional value at risk of farmers' net loss (i.e. loss net of insurance), subject to an overall budget constraint. The total cost of the insurance consists of payouts and of costs associated with holding capital. We first describe the model parameters, and then describe the model. The model will output values for $a$, $b$, and $\rho_t$, and the final insurance contracts will be $I_t(\theta_t) = \min \left \{\max \left \{0,a_t\hat{\ell_t}(\theta_t) + b \right \}, P\eta_t \right \}$. Here, $\eta_t$ is the share of the overall coverage that is allocated to phase $t$ and $P$ is the maximum payout amount. In the future, we hope to extend this model to allow $\sum_t \eta_t > 1$, but keeping the maximum payout cap, $P$.  
+    \paragraph*{Model Parameters}
+    \begin{itemize}
+      \item $\epsilon$: This is the $\epsilon$ used for the $CVaR$ objective.  $\epsilon = 0.1$ means that our objective is $E[\ell - I(\theta)|\ell -I(\theta) \geq VaR_{1-0.1}\left ( \ell - I(\theta) \right )]$. 
+      \item $\epsilon_K$: This is the epsilon used in the formula for required capital. Recall that the required capital $K = CVaR_{1-\epsilon_K}(I(\theta)) - E[I(\theta)]$.
+      \item $B$: This is the budget constraint for the total cost of the insurance.
+      \item $P$: This is the total insured amount across all periods. 
+      \item $\eta_t$: This is the share of the overall coverage that will be used to insure phase $t$. 
+      \item $c_{\kappa}$: This is the cost of capital. 
+    \end{itemize}
+    
+    \paragraph*{Model}
+    In the model below the insurance contract is for $T$ growth phases. Our objective is the conditional value at risk of the farmer's loss net of insurance. The first constraint is the budget constraint and the second constraint is the definition of the required capital. $\theta_t$ is the signal for phase $t$, and $\hat{\ell_t}(\theta_t)$ is the predicted loss due to phase $t$. Alternatively, we could simply have $\hat{\ell_t}(\theta_t) = \theta_t$. We use conservative approximations for $I(\theta)$ in both the objectives and the constraints in order to maintain the convexity of the program. However, since these are conservative approximations we are guaranteed a feasible solution that will give us a lower bound on the performance of our insurance contracts. 
+    \begin{align}
+      \min_{a,b,K,\eta} &\ CVaR_{1-\epsilon}\left(\ell  - \sum_{t=1}^T \min \left \{(a_t \hat{\ell_t}(\theta_t) + b_t), P\eta_t \right \} \right)\\
+      \text{s.t.   } & \mathbb{E}\left [\sum_{t=1}^T \max \left \{0,a_t \hat{\ell_t}(\theta_t) +b_t \right \} \right ] +c_{\kappa} K \leq B\\
+       K = CVaR_{1-\epsilon_P} &\left( \sum_{t=1}^T \max \{0,a_t \hat{\ell_t}(\theta_t) +b_t \} \right) - \mathbb{E}\left [\sum_{t=1}^T \min \left \{(a_t \hat{\ell_t}(\theta_t) + b_t), P\eta_t \right \} \right ]\\
+       & \sum_t \eta_t = 1\\
+       & 0 \leq \eta_t \leq 1, \forall t
+    \end{align}
+    
+    We reformulated the problem as a linear program  using the results from \cite{rockafellar2000optimization}. In the model below, $p^j$ is the probability of event $j$, and $j$ indexes the possible realizations of $\theta, \ell$. $N$ is the total number of samples. This reformulation only assumes that we have samples from the distribution of our uncertain variables.  
+      
+      \begin{align}
+          \min_{a,b,\gamma,\gamma_K,\alpha,s,s_K} &\quad s + \frac{1}{\epsilon}\sum_{j=1}^N p^j \gamma^j\\
+          \text{s.t.   } \gamma^j &\geq \ell^j - \sum_{t=1}^T \min \left \{(a_t \hat{\ell_t}(\theta_t^j) + b_t), P\eta_t \right \} - s, \forall j\\
+          \gamma^j &\geq 0, \forall j \\
+            B &\geq \frac{1}{N}\sum_{j=1}^N \sum_{t=1}^T \alpha^j_t + c_{\kappa} K\\
+            s_K &+ \frac{1}{\epsilon_K} \sum_{j=1}^N p^j \gamma_K^j \leq K+ \frac{1}{N}\sum_{j=1}^N \sum_{t=1}^T \min \left \{(a_t \hat{\ell_t}(\theta_t^j) + b_t), P\eta_t \right \} \\
+            \gamma_K^j &\geq \sum_{t=1}^T \alpha^j_t -s_K, \forall j \\
+            \gamma_K^j &\geq 0, \forall j\\
+            \alpha^j_t &\geq a_t \hat{\ell_t}(\theta^j_t) + b_t, \forall j\\
+            \alpha^j_t &\geq 0, \forall j\\
+            \sum_{t=1}^T & \eta_t = 1\\
+        0 \leq &\eta_t \leq 1, \forall t
+      \end{align}
+    
+    \subsubsection{Limited Data Setting}
+    % In what follows, we will assume that there are multiple villages in a state, and that the villages we observe are a proper subset of the villages in the state. In practice, village level observations of average losses in different years aren't always available. Instead, researchers often have to work with an ordinal ranking of the years in terms of losses. More concretely, researchers ask farmers to list the worst years for losses in the last 20 years, and to rank these bad years in terms of severity of losses. We assume that we have village-level observations of all of our weather signals for each year. We additionally assume that we have state level observations of the loss each year. Note that this is a noisy observation of the aggregate village level losses, since the villages in question don't account for all of the villages in the state. 
+    
+    This setting more accurately reflects the data available in these contexts. Suppose we have a set of villages $A$ that we are interested in insuring. These villages belong to a state, $S$, and we have that $A \subset S$. We also have a set of years $Y$. Let $\ell_v(y)$ be a mapping of the average loss of in village $v$ in year $y$. $\ell_v(y)$ is unobserved by us. For every village, $v \in A$, we also have an ordering $P_v$ which ranks each year $y \in Y$ in terms of severity. In other words, for $y, y' \in Y$ and $v \in A$, we know if $\ell_v(y) > \ell_v(y')$ or vice versa, but we don't know $\ell_v(y) - \ell_v(y')$. Let $f_v(\theta^v_1,...,\theta^v_T)$ denote the average output of village $v$. Here, $\theta_t$ is our weather signal for phase $t$ of the crop's growing schedule. Let $f_S(\theta_1,...,\theta_T)$ be the total output of state $S$. We observe $f_S(\theta_1,...,\theta_T)$, and we know that $f_S(\theta_1,...,\theta_T) = \sum_{v\in A} f_v(\theta^v_1,...,\theta^v_T) + \sum_{v \in S \setminus A} f_v(\theta^v_1,...,\theta^v_T)$. We observe $f_S(y)$, have the ordering $P_v$, and we observe $\theta^v_1,...,\theta^v_T$ for every $v \in A$ and every $y \in Y$. We want to design the insurance contracts based on this information. 
+
+    \paragraph*{Approach} We are currently working on how best to incorporate the data available into the model described above. More specifically, we want to use that data to create an uncertainty set for the possible distributions of $(\ell,\theta)$, and use a robust optimization approach instead of trying to estimate the distribution emprically. The robust optimization approach would then aim to have a solution that is feasible for all of the distributions in our uncertainty set. 
+    % \textbf{Note:} I was thinking of two approaches here. One option would be to try to impute the average losses of farmers in each village for the years in question, in that case we could just feed the imputed data into the model specified in section \ref{full-data-model}. Another option would be to use this information to try to construct an uncertainty set for the realizations of $(\ell,\theta)$ and use robust optimization. The third option would be to use this information to create an uncertainty set for the joint distribution of $(\ell,\theta)$ and use DRO. 
+    
+
+\printbibliography
+\end{document}
