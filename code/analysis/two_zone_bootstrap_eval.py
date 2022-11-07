@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import os
 import time
 from sdv.tabular import GaussianCopula
+import math
 
 from dotenv import load_dotenv, find_dotenv
 dotenv_path = find_dotenv()
@@ -98,8 +99,8 @@ def min_CVaR_program(pred_y,train_y,params,include_premium=False):
 
     objective = cp.Minimize(m)
     problem = cp.Problem(objective,constraints)
-    problem.solve(solver=cp.SCIPY, scipy_options={"method":"highs"})
-    # problem.solve(solver=cp.GUROBI)
+    # problem.solve(solver=cp.SCIPY, scipy_options={"method":"highs"})
+    problem.solve(solver=cp.GUROBI)
     # print('Req capital: {}'.format(K_p.value))
     return (A.value[0,:], B.value[0,:])
 
@@ -321,16 +322,19 @@ def get_summary_stats(df,cvar_eps=0.2):
     return(sdf)
 
 def get_summary_stats_bs(df):
-    medians = {}
+    means = {}
     confidence_interval = {}
     cols = ['Max CVaR','Max VaR','Max SemiVar','$|VaR_2 - VaR_1|$','Required Capital','Average Cost']
     for col in cols:
-        medians[col] = str(np.around(df[col].median(),2))
-        lower_bound = np.around(df[col].quantile(0.05),2)
-        upper_bound = np.around(df[col].quantile(0.95),2)
+        mean = df[col].mean()
+        std_dev = df[col].std()/(math.sqrt(df.shape[0]))
+        means[col] = str(np.around(mean,2))
+        
+        lower_bound = np.around(mean - 1.96*std_dev,2)
+        upper_bound = np.around(mean + 1.96*std_dev,2)
         confidence_interval[col] = str([lower_bound,upper_bound])
         
-    return(medians, confidence_interval)
+    return(means, confidence_interval)
 
 def make_difference_df(bdf,odf):
     cols = ['Max CVaR','Max VaR','Max SemiVar','$|VaR_2 - VaR_1|$','Required Capital','Average Cost']
@@ -338,7 +342,7 @@ def make_difference_df(bdf,odf):
     for col in cols:
         baseline_col = col + '_baseline'
         opt_col = col + '_opt'
-        ddf[col] = 100*(ddf[baseline_col]-ddf[opt_col])/ddf[baseline_col]
+        ddf[col] = (ddf[baseline_col]-ddf[opt_col])
     return ddf
 
 def bootstrap_comparison_df(bdf,odf):
@@ -347,7 +351,7 @@ def bootstrap_comparison_df(bdf,odf):
     baseline_medians, baseline_conf = get_summary_stats_bs(bdf)
     diff_medians, diff_conf = get_summary_stats_bs(diff_df)
     sdf = pd.DataFrame([baseline_medians,baseline_conf,opt_medians,opt_conf,diff_medians,diff_conf])
-    sdf['Model'] = ['Baseline','','Opt','','Pct Diff','']
+    sdf['Model'] = ['Baseline','','Opt','','Diff','']
     return sdf[['Model','Max CVaR','Max VaR','Max SemiVar','$|VaR_2 - VaR_1|$','Required Capital','Average Cost']]
 
 def plot_bootstrap_results(beta,mu,sigma,params,bdf,odf,scenario_name):
@@ -492,10 +496,10 @@ def run_bootstrap_scenario(beta,mu,sigma,params,scenario_name,include_premium=Fa
     return(bdict,odict)
 
 start = time.time()
-bootstrap_scenario_exploration('linear',8,True,1000)
-bootstrap_scenario_exploration('nonlinear',45,True,1000)
-bootstrap_scenario_exploration('linear',8,False,1000)
-bootstrap_scenario_exploration('nonlinear',45,False,1000)
+bootstrap_scenario_exploration('linear',8,True,500)
+bootstrap_scenario_exploration('nonlinear',45,True,500)
+# bootstrap_scenario_exploration('linear',8,False,100)
+# bootstrap_scenario_exploration('nonlinear',45,False,100)
 end = time.time()
 print(end-start)
 
