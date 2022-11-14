@@ -1,0 +1,147 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{ynt/global//global/global}
+    \entry{rockafellar2000optimization}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=9cfd3443aed7c033e870e2e9970510a6}{%
+           family={Rockafellar},
+           familyi={R\bibinitperiod},
+           given={R\bibnamedelima Tyrrell},
+           giveni={R\bibinitperiod\bibinitdelim T\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=75a8a2346ba45ae5110aa302b89a30c7}{%
+           family={Uryasev},
+           familyi={U\bibinitperiod},
+           given={Stanislav},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Citeseer}%
+      }
+      \strng{namehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{fullhash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{bibnamehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{authorbibnamehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{authornamehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{authorfullhash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of risk}
+      \field{title}{Optimization of conditional value-at-risk}
+      \field{volume}{2}
+      \field{year}{2000}
+      \field{pages}{21\bibrangedash 42}
+      \range{pages}{22}
+    \endentry
+    \entry{jensen2016index}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=337a061ab66b845e4f22f2effba6a7b9}{%
+           family={Jensen},
+           familyi={J\bibinitperiod},
+           given={Nathaniel\bibnamedelima D},
+           giveni={N\bibinitperiod\bibinitdelim D\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=09f0c6940cb6971e7a5f0b4fa591055a}{%
+           family={Barrett},
+           familyi={B\bibinitperiod},
+           given={Christopher\bibnamedelima B},
+           giveni={C\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=a23eea872819f39c759087d09440458f}{%
+           family={Mude},
+           familyi={M\bibinitperiod},
+           given={Andrew\bibnamedelima G},
+           giveni={A\bibinitperiod\bibinitdelim G\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley Online Library}%
+      }
+      \strng{namehash}{22515338879bd25b33579457cf822307}
+      \strng{fullhash}{22515338879bd25b33579457cf822307}
+      \strng{bibnamehash}{22515338879bd25b33579457cf822307}
+      \strng{authorbibnamehash}{22515338879bd25b33579457cf822307}
+      \strng{authornamehash}{22515338879bd25b33579457cf822307}
+      \strng{authorfullhash}{22515338879bd25b33579457cf822307}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Journal of Agricultural Economics}
+      \field{number}{5}
+      \field{title}{Index insurance quality and basis risk: Evidence from northern Kenya}
+      \field{volume}{98}
+      \field{year}{2016}
+      \field{pages}{1450\bibrangedash 1469}
+      \range{pages}{20}
+    \endentry
+    \entry{mapfumo2017risk}{book}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=c3c75e3e9b93f181d86a11c84beb09d3}{%
+           family={Mapfumo},
+           familyi={M\bibinitperiod},
+           given={Shadreck},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=97d584bee487daf46a4776a0edec4ddc}{%
+           family={Groenendaal},
+           familyi={G\bibinitperiod},
+           given={Huybert},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=84c211c7f85e5b5d7b0ea8de1f7321dc}{%
+           family={Dugger},
+           familyi={D\bibinitperiod},
+           given={Chloe},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {World Bank Publications}%
+      }
+      \strng{namehash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{fullhash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{bibnamehash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{authorbibnamehash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{authornamehash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{authorfullhash}{ead503babda8eb93ba07b590a1032e5a}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Risk modeling for appraising named peril index insurance products: A Guide for practitioners}
+      \field{year}{2017}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

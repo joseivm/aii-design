@@ -1,0 +1,15 @@
+[0] Config.pm:302> INFO - This is Biber 2.11
+[0] Config.pm:305> INFO - Logfile is 'meeting.blg'
+[43] biber-darwin:313> INFO - === Mon Nov 14, 2022, 10:36:15
+[70] Biber.pm:371> INFO - Reading 'meeting.bcf'
+[159] Biber.pm:857> INFO - Found 3 citekeys in bib section 0
+[173] Biber.pm:3976> INFO - Processing section 0
+[183] Biber.pm:4136> INFO - Looking for bibtex format file '../main.bib' for section 0
+[185] bibtex.pm:1500> INFO - LaTeX decoding ...
+[243] bibtex.pm:1316> INFO - Found BibTeX data source '../main.bib'
+[276] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[277] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[277] Biber.pm:3804> INFO - Sorting list 'ynt/global//global/global' of type 'entry' with template 'ynt' and locale 'en-US'
+[277] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
+[281] bbl.pm:617> INFO - Writing 'meeting.bbl' with encoding 'UTF-8'
+[284] bbl.pm:720> INFO - Output to meeting.bbl

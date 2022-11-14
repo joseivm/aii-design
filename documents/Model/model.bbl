@@ -1,0 +1,191 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{ynt/global//global/global}
+    \entry{artzner1999coherent}{article}{}
+      \name{author}{4}{}{%
+        {{uniquename=0,uniquepart=base,hash=3f2ec6a82c23c0c7062a2c8dad7a86e1}{%
+           family={Artzner},
+           familyi={A\bibinitperiod},
+           given={Philippe},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=1af76fc6ac243ee12ea3e2cb593750ee}{%
+           family={Delbaen},
+           familyi={D\bibinitperiod},
+           given={Freddy},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=1d79028403b8f170c257ba3e5531a3e8}{%
+           family={Eber},
+           familyi={E\bibinitperiod},
+           given={Jean-Marc},
+           giveni={J\bibinithyphendelim M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=efe5624ffa1b674383a27edcc7c48d62}{%
+           family={Heath},
+           familyi={H\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley Online Library}%
+      }
+      \strng{namehash}{401eceac13445f29090201341d46d9fa}
+      \strng{fullhash}{70f38e73ef1cfca300fa942b4a702234}
+      \strng{bibnamehash}{401eceac13445f29090201341d46d9fa}
+      \strng{authorbibnamehash}{401eceac13445f29090201341d46d9fa}
+      \strng{authornamehash}{401eceac13445f29090201341d46d9fa}
+      \strng{authorfullhash}{70f38e73ef1cfca300fa942b4a702234}
+      \field{sortinit}{1}
+      \field{sortinithash}{2174f786c6195e7fe2ee1c229b416e29}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Mathematical finance}
+      \field{number}{3}
+      \field{title}{Coherent measures of risk}
+      \field{volume}{9}
+      \field{year}{1999}
+      \field{pages}{203\bibrangedash 228}
+      \range{pages}{26}
+    \endentry
+    \entry{rockafellar2000optimization}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=9cfd3443aed7c033e870e2e9970510a6}{%
+           family={Rockafellar},
+           familyi={R\bibinitperiod},
+           given={R\bibnamedelima Tyrrell},
+           giveni={R\bibinitperiod\bibinitdelim T\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=75a8a2346ba45ae5110aa302b89a30c7}{%
+           family={Uryasev},
+           familyi={U\bibinitperiod},
+           given={Stanislav},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Citeseer}%
+      }
+      \strng{namehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{fullhash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{bibnamehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{authorbibnamehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{authornamehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{authorfullhash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of risk}
+      \field{title}{Optimization of conditional value-at-risk}
+      \field{volume}{2}
+      \field{year}{2000}
+      \field{pages}{21\bibrangedash 42}
+      \range{pages}{22}
+    \endentry
+    \entry{rockafellar2002conditional}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=9cfd3443aed7c033e870e2e9970510a6}{%
+           family={Rockafellar},
+           familyi={R\bibinitperiod},
+           given={R\bibnamedelima Tyrrell},
+           giveni={R\bibinitperiod\bibinitdelim T\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=75a8a2346ba45ae5110aa302b89a30c7}{%
+           family={Uryasev},
+           familyi={U\bibinitperiod},
+           given={Stanislav},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{18495e9e9c8b18ffa88a8bab5b4e0b2e}
+      \strng{fullhash}{18495e9e9c8b18ffa88a8bab5b4e0b2e}
+      \strng{bibnamehash}{18495e9e9c8b18ffa88a8bab5b4e0b2e}
+      \strng{authorbibnamehash}{18495e9e9c8b18ffa88a8bab5b4e0b2e}
+      \strng{authornamehash}{18495e9e9c8b18ffa88a8bab5b4e0b2e}
+      \strng{authorfullhash}{18495e9e9c8b18ffa88a8bab5b4e0b2e}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of banking \& finance}
+      \field{number}{7}
+      \field{title}{Conditional value-at-risk for general loss distributions}
+      \field{volume}{26}
+      \field{year}{2002}
+      \field{pages}{1443\bibrangedash 1471}
+      \range{pages}{29}
+    \endentry
+    \entry{mapfumo2017risk}{book}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=c3c75e3e9b93f181d86a11c84beb09d3}{%
+           family={Mapfumo},
+           familyi={M\bibinitperiod},
+           given={Shadreck},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=97d584bee487daf46a4776a0edec4ddc}{%
+           family={Groenendaal},
+           familyi={G\bibinitperiod},
+           given={Huybert},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=84c211c7f85e5b5d7b0ea8de1f7321dc}{%
+           family={Dugger},
+           familyi={D\bibinitperiod},
+           given={Chloe},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {World Bank Publications}%
+      }
+      \strng{namehash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{fullhash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{bibnamehash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{authorbibnamehash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{authornamehash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{authorfullhash}{ead503babda8eb93ba07b590a1032e5a}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Risk modeling for appraising named peril index insurance products: A Guide for practitioners}
+      \field{year}{2017}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

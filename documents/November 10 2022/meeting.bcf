@@ -1975,12 +1975,10 @@
     <bcf:datasource type="file" datatype="bibtex">../main.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">mapfumo2017risk</bcf:citekey>
-    <bcf:citekey order="2">rockafellar2000optimization</bcf:citekey>
-    <bcf:citekey order="3">rockafellar2002conditional</bcf:citekey>
-    <bcf:citekey order="4">artzner1999coherent</bcf:citekey>
-    <bcf:citekey order="5">rockafellar2000optimization</bcf:citekey>
-    <bcf:citekey order="6">rockafellar2000optimization</bcf:citekey>
+    <bcf:citekey order="1">rockafellar2000optimization</bcf:citekey>
+    <bcf:citekey order="2">jensen2016index</bcf:citekey>
+    <bcf:citekey order="3">mapfumo2017risk</bcf:citekey>
+    <bcf:citekey order="4">mapfumo2017risk</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="ynt">

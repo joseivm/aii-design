@@ -1,0 +1,85 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb,bbm}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage[
+backend=biber,
+style=bwl-FU,
+sorting=ynt
+]{biblatex}
+\addbibresource{../main.bib}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\title{Research Updates}
+\author{José I. Velarde Morales}
+
+\begin{document}
+\maketitle
+
+\section{Model Updates}
+\begin{itemize}
+    \item I changed $\ell,\pi, I(\theta)$ to be rates instead of absolute levels of loss. At least for the premium, it more closely matches what is done in practice. This also gives us more flexibility with regards to handling losses of different sizes across zones. 
+    \item I incorporated the price of the premium into the objective. This allows us to capture the fact that the insurance isn't free for the farmers. I also updated the evaluation to include this. 
+\end{itemize}
+
+\subsection{Multiple Zone Model}
+The multiple zone model is very similar to the single zone model. In the objective, we minimize the maximum conditional value at risk of  farmers' net loss across all zones, $z$. We minimize the maximum $CVaR$ across all zones to avoid situations where one zone has a contract that is significantly worse than other zones. The other change is that the budget constraint includes the payouts of all zones, and the required capital is determined using the sum of payouts across all zones.
+  \paragraph*{Model Parameters}
+  \begin{itemize}
+      \item $\epsilon$: This is the $\epsilon$ used for the $CVaR$ objective.  $\epsilon = 0.1$ means that our objective is $E[\ell - I(\theta)|\ell -I(\theta) \geq VaR_{1-0.1}\left ( \ell - I(\theta) \right )]$.  
+      \item $\epsilon_K$: This is the epsilon used in the formula for required capital. Recall that the required capital $K(I(\theta)) = CVaR_{1-\epsilon_K}(I(\theta)) - E[I(\theta)]$. 
+      \item $c_{\kappa}$: cost of capital. 
+      \item $s_z$: total insured amount for zone $z$.
+  \end{itemize}
+
+  \paragraph*{Model}
+  In the model below, our objective is the maximum conditional value at risk of the net loss across all zones. The second constraint is the formula for the premium. The formula for required capital was also changed to include the sum of payouts across all zones. $\ell, \pi, I(\theta)$ are in terms of rates. So, for example, $\ell$ represents the share of the product that was lost. $\pi$ is also expressed as a share of the total insured amount. And similarly, $I(\theta)$ is the share of the insured amount that is paid out.
+  \begin{align}
+    \min_{a,b,K,\pi} \max_z &\quad CVaR_{1-\epsilon}\left (s_z \left (\ell_z  + \pi_z - \underline{I_z(\theta_z)}\right ) \right )\\
+    \text{s.t.   } & \pi_z  = \mathbb{E}\left [ \overline{I_z(\theta_z)} \right ] + \frac{1}{\sum_z s_z} c_{\kappa} K \\
+    K &= CVaR_{1-\epsilon_K} \left( \sum_z s_z\overline{I_z(\theta_z)} \right ) - \mathbb{E}\left [ \sum_z s_z\underline{I_z(\theta_z)} \right ]\\
+    &\overline{I_z(\theta_z)} = \max \left \{0,a_z\hat{\ell_z}(\theta_z) + b_z \right \}\\
+    &\underline{I_z(\theta_z)} = \min \left \{a_z\hat{\ell_z}(\theta_z)+b_z,1 \right \}\\
+    &\pi_z \leq \overline{\pi_z}
+  \end{align}
+
+  We reformulated the problem as a linear program  using the results from \cite{rockafellar2000optimization}. In the model below, $p^j$ is the probability of event $j$, and $j$ indexes the possible realizations of $\theta, \ell$. $N$ is the total number of samples. 
+
+  \begin{align}
+    \min_{a,b,\alpha,\omega,\gamma,t,m,K,\pi} \quad & m\\
+    \text{s.t.} \quad t_z &+ \frac{1}{\epsilon} \sum_j p^j \gamma_z^j \leq m, \forall z\\
+    \gamma_z^j &\geq s_z \left (\ell^j + \pi_z - \omega^j_z \right ) -t_z, \forall j, \forall z \\
+    \gamma_z^j &\geq 0, \forall j, \forall z\\
+    \pi_z &= \frac{1}{N} \sum_j \alpha^j_z + \frac{1}{\sum_z s_z} c_k K\\
+    t_K &+ \frac{1}{\epsilon_K} \sum_j p^j \gamma_K^j \leq K+ \frac{1}{N}\sum_j \sum_z s_z \omega^j_z\\
+    \gamma_K^j &\geq \sum_z s_z \alpha^j_z -t_K, \forall j \\
+    \gamma_K^j &\geq 0, \forall j\\
+    \alpha^j_z &\geq a_z \hat{\ell_z}(\theta^j_z) + b_z, \forall j, \forall z\\
+    \alpha^j_z &\geq 0, \forall j, \forall z\\
+    \omega^j_z &\leq a_z \hat{\ell_z}(\theta^j_z) + b_z, \forall j, \forall z\\
+    \omega^j_z &\leq 1, \forall j, \forall z\\
+    \pi_z &\leq \overline{\pi_z}, \forall z
+  \end{align}
+
+\section{Evaluation}
+\paragraph*{Updates}
+\begin{itemize}
+    \item I presented in the development economics student group. I didn't get much pushback on the evaluation. 
+    \item For the nonlinear case in the toy examples, someone suggested that we make a long polynomial and choose the coefficients randomly in each draw. 
+    \item I incorporated some more performance metrics from \cite{jensen2016index}: semi-variance and skewness.
+\end{itemize}
+\paragraph*{Next Steps}
+\begin{itemize}
+    \item I'm going to change the simulation procedure to draw loss rates instead of absolute losses. I was going to use a Beta distribution, following the suggestion in \cite{mapfumo2017risk}, but I might look into other distributions as well. 
+    \item I will try to have a similar setup, where in one case the linear model predicts well, and in the other it is a random nonlinear function. 
+    \item I will also incorporate several actuarial evaluations from \cite{mapfumo2017risk}, to evaluate the contracts from the insurer's perspective (e.g. risk and expected profits). The hope is that it will be more attractive from the insurer's viewpoint as well. 
+    \item I'm considering reaching out to researchers and practitioners again to get feedback on evaluation part. 
+\end{itemize}
+
+\end{document}

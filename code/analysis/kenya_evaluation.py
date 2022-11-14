@@ -33,7 +33,6 @@ def min_CVaR_program(pred_y,train_y,params,include_premium=False):
     epsilon = params['epsilon']
     c_k = params['c_k']
     budget = params['B']
-    premium_income_sq = params['premium income']
 
     n_samples = train_y.shape[0]
     n_zones = train_y.shape[1]
@@ -67,7 +66,6 @@ def min_CVaR_program(pred_y,train_y,params,include_premium=False):
     constraints.append(gamma >= 0)
 
     # Portfolio CVaR constraint: CVaR(\sum_z I_z(\theta_z)) <= K^P + \sum_z E[I_z(\theta_Z)]
-    # constraints.append(t_p + (1/eps_p)*(p @ gamma_p) <= K_p + premium_income_sq)
     constraints.append(t_p + (1/eps_p)*(p @ gamma_p) <= K_p + (1/n_samples)*cp.sum(omega))
     constraints.append(omega <= cp.multiply(pred_y,A)+B)
     constraints.append(omega <= P)
@@ -96,7 +94,6 @@ def min_CVaR_program(pred_y,train_y,params,include_premium=False):
     problem = cp.Problem(objective,constraints)
     # problem.solve(solver=cp.SCIPY, scipy_options={"method":"highs"})
     problem.solve(solver=cp.GUROBI)
-    # print('Req capital: {}'.format(K_p.value))
     return (A.value[0,:], B.value[0,:])
 
 # Baseline
@@ -212,7 +209,7 @@ def compute_performance_metrics(df,eps=0.2):
 
 def calculate_premiums(train_hhdf,strike_vals,a,b,params):
     c_k = params['c_k']
-    bdf, odf = make_copula_payout_dfs(train_hhdf,strike_vals,a,b,params)
+    bdf, odf = make_payout_dfs(train_hhdf,strike_vals,a,b,params)
     bdf = bdf.groupby(['Season','Cluster'])['Payout'].sum().reset_index()
     bdf = bdf.pivot(index='Season',columns='Cluster',values='Payout').reset_index()
     baseline_copula = GaussianCopula()
@@ -243,7 +240,7 @@ def calculate_premiums(train_hhdf,strike_vals,a,b,params):
     return opt_premiums, baseline_premiums
 
 def calculate_required_capital(train_hhdf,strike_vals,a,b,params):
-    bdf, odf = make_copula_payout_dfs(train_hhdf,strike_vals,a,b,params)
+    bdf, odf = make_payout_dfs(train_hhdf,strike_vals,a,b,params)
     baseline_average_payout = bdf.groupby('Season')['Payout'].sum().reset_index()['Payout'].mean()
     opt_average_payout = odf.groupby('Season')['Payout'].sum().reset_index()['Payout'].mean()
     bdf = bdf.groupby(['Season','Cluster'])['Payout'].sum().reset_index()
@@ -279,6 +276,7 @@ def make_payout_dfs(hhdf,strike_vals,a,b,params):
         bdf['Payout'] = np.maximum(bdf['PredictedLoss']-strike_vals[i],0)
         bdf['Payout'] = np.minimum(bdf['Payout'],Ps[i])
         bdf['NetLoss'] = bdf['ActualLoss'] - bdf['Payout']
+        bdf['Season'] = thdf['Season']
         
         odf = pd.DataFrame()
         odf['ActualLoss'] = thdf['ActualLoss']
@@ -286,39 +284,7 @@ def make_payout_dfs(hhdf,strike_vals,a,b,params):
         odf['Payout'] = np.maximum(a[i]*odf['PredictedLoss']+b[i],0)
         odf['Payout'] = np.minimum(odf['Payout'],Ps[i])
         odf['NetLoss'] = odf['ActualLoss']-odf['Payout']
-
-        bdf['Cluster'] = cluster
-        odf['Cluster'] = cluster
-        bdfs.append(bdf)
-        odfs.append(odf)
-    bdf = pd.concat(bdfs,ignore_index=True)
-    odf = pd.concat(odfs,ignore_index=True)
-    return bdf, odf
-
-def make_copula_payout_dfs(hhdf,strike_vals,a,b,params):
-    clusters = ['Upper','Lower']
-    Ps = params['P']
-    bdfs = []
-    odfs = []
-    for i, cluster in enumerate(clusters):
-        thdf = hhdf.loc[hhdf.Cluster == cluster,:]
-        bdf = pd.DataFrame()
-        bdf['Losses'] = thdf['ActualLoss']
-        bdf['PredictedLosses'] = thdf['PredictedLoss']
-        bdf['Payout'] = np.maximum(bdf['PredictedLosses']-strike_vals[i],0)
-        bdf['Payout'] = np.minimum(bdf['Payout'],Ps[i])
-        bdf['NetLoss'] = bdf['Losses'] - bdf['Payout']
-        bdf['Season'] = thdf['Season']
-        # bdf['Location'] = thdf['NDVILocation']
-        
-        odf = pd.DataFrame()
-        odf['Losses'] = thdf['ActualLoss']
-        odf['PredictedLosses'] = thdf['PredictedLoss']
-        odf['Payout'] = np.maximum(a[i]*odf['PredictedLosses']+b[i],0)
-        odf['Payout'] = np.minimum(odf['Payout'],Ps[i])
-        odf['NetLoss'] = odf['Losses']-odf['Payout']
         odf['Season'] = thdf['Season']
-        # odf['Location'] = thdf['NDVILocation']
 
         bdf['Cluster'] = cluster
         odf['Cluster'] = cluster
