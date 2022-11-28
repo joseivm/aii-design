@@ -1,0 +1,147 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb,bbm}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage[
+backend=biber,
+style=bwl-FU,
+sorting=ynt
+]{biblatex}
+\addbibresource{../main.bib}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\title{Evaluation Proposal}
+\author{José I. Velarde Morales}
+
+\begin{document}
+\maketitle
+
+\section{Model}
+We are interested in evaluating the following model for desigining agricultural index insurance:
+
+  \paragraph*{Model Parameters}
+  \begin{itemize}
+      \item $\epsilon$: This is the $\epsilon$ used for the $CVaR$ objective. 
+      \item $\epsilon_K$: This is the epsilon used in the formula for required capital. Recall that the required capital $K(I(\theta)) = CVaR_{1-\epsilon_K}(I(\theta)) - E[I(\theta)]$. 
+      \item $c_{\kappa}$: cost of capital. 
+      \item $s_z$: total insured amount for zone $z$.
+  \end{itemize}
+
+  \paragraph*{Model}
+  In the model below, our objective is the maximum conditional value at risk of the net loss across all zones. The second constraint is the formula for the premium. The formula for required capital was also changed to include the sum of payouts across all zones. $\ell, \pi, I(\theta)$ are in terms of rates. So, for example, $\ell$ represents the share of the agricultural product that was lost. $\pi$ is also expressed as a share of the total insured amount. And similarly, $I(\theta)$ is the share of the insured amount that is paid out.
+  \begin{align}
+    \min_{a,b,K,\pi} \max_z &\quad CVaR_{1-\epsilon}\left (s_z \left (\ell_z  + \pi_z - \underline{I_z(\theta_z)}\right ) \right )\\
+    \text{s.t.   } & \pi_z  = \mathbb{E}\left [ \overline{I_z(\theta_z)} \right ] + \frac{1}{\sum_z s_z} c_{\kappa} K \\
+    K &= CVaR_{1-\epsilon_K} \left( \sum_z s_z\overline{I_z(\theta_z)} \right ) - \mathbb{E}\left [ \sum_z s_z\underline{I_z(\theta_z)} \right ]\\
+    &\overline{I_z(\theta_z)} = \max \left \{0,a_z\hat{\ell_z}(\theta_z) + b_z \right \}\\
+    &\underline{I_z(\theta_z)} = \min \left \{a_z\hat{\ell_z}(\theta_z)+b_z,1 \right \}\\
+    &\pi_z \leq \overline{\pi_z}
+  \end{align}
+
+
+\section{Evaluation}
+  \subsection{Main Changes}
+   changed the data generating process in the simulations so that $\ell$ can be a rate in our simulation, instead of an absolute value. One consequence of this change is that our simulation will no longer test the case where the underlying prediction model is corectly specified. However, I expect the linear model to be a good approximation in some of the scenarios we test. We will not be testing the case where the prediction model is correctly specified because we will be using the same prediction model as the baseline method, and their prediction model is a linear model. If we wanted to test the case where the prediction model is correctly specified, we woudl have to draw data from a linear model. However, if we draw our simulated data from a linear model, the outcome variable is not guaranteed to be between 0 and 1, which wouldn't make sense for the simulation. 
+  \subsection{Simulation Set Up}
+  In this section, we describe how we set up the simulation used to evaluate our method. We describe the data generating process, the scenarios we test, and the simulation itself. We test our model on a toy example consisting of two zones. The goal of this exercise is to provide a fair comparison of the two methods. As a result, we will make sure that the two methods have the same budget constraint.
+
+\subsection{Old Data Generating Process}
+For the two zone example, we generate samples from two models: a linear model and a non-linear model. We choose a quadratic model for the non-linear model because it is the simplest non-linear model. In this DGP, $\ell$ is the value of the loss. So, if what we are simulating is livestock loss, $\ell=5$ would correspond to 5 livestock lost. Since our prediction model is a linear model, this will allow us to evaluate how the two models perform in cases where the prediction model is misspecified. The data generating processes are as follows: 
+      \begin{itemize}
+        \item Linear DGP: $\ell = \beta \theta + \epsilon$
+        \item Nonlinear DGP: $\ell = \beta \theta^2 + \epsilon$
+      \end{itemize}
+
+    In both cases we have: $\theta \sim \mathcal{N}((5,5),\Sigma), \beta = diag(1.5,1.5), \epsilon \sim \mathcal{N}(0,I)$.
+
+\subsubsection{New Data Generating Process}
+ We will assume we have two equal sized zones, and for simplicity we will set $s_z = 1, \forall z$. In this model, $\ell_z$ is the covariate loss for zone $z$, expressed as a rate. It represents the loss rate for zone $z$. So, if what we are simulating is livestock loss, $\ell=0.5$ would correspond to half of all livestock being lost. We want $\ell_z \in [0,1]$, and we want $\theta_z$ to be predictive of $\ell_z$, so we simulate $\ell_z$ using a logisitc regression model. As before, we want to evaluate how the performance of our model depends on the quality of the underlying prediction model. We use the following data generating processes (DGPs).
+
+\begin{itemize}
+    \item Main DGP: $\ell_z = \frac{1}{1+e^{f(\theta_z)}}$
+    \item Linear case: $f(\theta_z) = \beta \theta + \epsilon$
+    \item Nonlinear case: $f(\theta) = \beta_0 + \beta_1 \theta + \beta_2 \theta^2 + ... + \beta_n \theta^n+ \epsilon$
+  \end{itemize}
+
+In both cases we have: $\theta \sim \mathcal{N}((0,0),\Sigma), \epsilon \sim \mathcal{N}(0,\rho I)$, with $\rho$ chosen to keep the signal to noise ratio constant. In both cases, $\beta$ is drawn randomly. In the linear case, the linear prediction model will be a good approximation, since the logistic  is approximately linear except for its tails. The nonlinear case will allow us to test the performance when the underlying prediction model has low quality predictions. 
+
+
+   \subsubsection{Optimization Model Parameters}
+     We use the following parameters for our optimization model in the simulations:
+
+     \begin{itemize}
+       \item $\epsilon=0.2$ We picked this because it focuses on minimizing the CVaR of the $80^{th}$ percentile of the loss distribution, which roughly corresponds to once in every 5 year events, which is the desired frequency of insurance payouts.  
+       \item $\epsilon_P=0.01$ This is a commonly set value by regulators.  
+       \item $c_k=0.15$ This is an estimate from the literature (\cite{kielholz2000cost}). 
+       \item $s_z = 1, \forall z$ This is for simplicity
+   \end{itemize}
+
+   \subsubsection{Scenarios to be tested}
+     We are interested in how the two models behave in three basic scenarios. The first scenario is when there is no correlation between the losses in the two insured zones. The second scenario is when the losses in the two zones are positively correlated. The last scenario is when the losses in the two zones are negatively correlated. We test both DGPs for each scenario. 
+
+     \paragraph*{No correlation Case}
+      This is the baseline case where the losses of the two zones are uncorrelated. 
+       \begin{itemize}
+           \item $\Sigma = \begin{bmatrix}
+               2 & 0 \\
+               0 & 2 
+               \end{bmatrix} $
+       \end{itemize}
+
+     \paragraph*{Positive correlation Case}
+       This is the case where the losses of the two zones are positively correlated. This is an important scenario to test, because it is highly common in agricultural insurance. Covariate risk is one of the reasons that agricultural insurance is so difficult, since it increases the risk of catastrophic losses for the insurer. Intuitively, if one farmer was affected by a drought, it is likely that many others were affected as well. This can happen when two insured areas are geographically close to each other. 
+       \begin{itemize}
+           \item $\Sigma = \begin{bmatrix}
+               2 & 1.6 \\
+               1.6 & 2 
+               \end{bmatrix} $
+       \end{itemize}
+
+     \paragraph*{Negative correlation Case}
+       This is the case where the losses of the two zones are negatively correlated. This is a common feature of large scale climate processes. For example, certain El Nino-Southern Oscillation states are associated with increased rainfall in the Greater Horn of Africa, but with increased drought probabiliy in Southern Africa (\cite{barrett2007poverty}). 
+       \begin{itemize}
+           \item $\Sigma = \begin{bmatrix}
+               2 & -1.6 \\
+               -1.6 & 2 
+               \end{bmatrix} $
+       \end{itemize}
+
+   \subsubsection{Simulation details}
+     For each scenario we draw 300 samples for training, 50 samples for parameter selection (which are used to select the strike value in the baseline model), and 100 samples for evaluation. We run 1000 of these scenarios and compute the metrics for each one. We then report the median, $5^{th}$, and $95^{th}$ percentile values of each performance metric across the 1000 simulations. 
+     \begin{enumerate}
+       \item Draw samples from model, samples will be of the form $(\ell,\theta)$ where $\ell$ is loss and $\theta$ is the predictor. 
+       \item Train linear prediction model. We run $\ell = \beta_0 + \beta_1\theta +\epsilon$. Use model to generate predictions $\hat{\ell}(\theta)$ for training and test data. 
+       \item Determine the parameters for baseline contracts using method described in section 2. 
+       \item Once the baseline contracts have been determined, use training data to determine cost of baseline method on the training data. This gives us $\overline{\pi}$ for our model. 
+       \item Use $\hat{\ell}$ from step 2, training data, and $\overline{\pi}$ from step 4 as input into optimization model. Use optimization  model to determine contract parameters. 
+       \item Given test data, generate predictions and use predictions to calculate payouts from baseline and from optimal contract. 
+       \item Calculate performance metrics on test data. 
+     \end{enumerate}
+
+ \subsection{Performance Metrics}
+   The following are the metrics we calculate on the test set. Below, $N$ is the sample size. 
+
+   \paragraph*{Maximum CVaR} This is the maximum Conditional Value at Risk of the farmer's net loss across the two insured zones. For each sample $\left \{\ell^i_1,\theta^i_1, \ell^i_2, \theta^i_2 \right \}_{i=1}^N$ in the test set, we calculate the net loss, $\Delta \ell^i_j \triangleq  \ell^i_j +\pi_j - I_j(\theta^i_j)$. We then compute the  $(1-\epsilon)-$quantile of this quantity by zone, and then calculate the average of all values greater than or equal to this quantity by zone. We then take the maximum $\max \left \{ CVaR_{1-\epsilon} \left ( \Delta \ell_1 \right ), CVaR_{1-\epsilon} \left ( \Delta \ell_2 \right ) \right \}$. 
+
+   \paragraph*{Maximum VaR} This is the maximum Value at Risk of the farmer's net loss across the two insured zones. For each sample $\left \{\ell^i_1,\theta^i_1, \ell^i_2, \theta^i_2 \right \}_{i=1}^N$ in the test set, we calculate the net loss, $\Delta \ell^i_j \triangleq  \ell^i_j +\pi_j - I_j(\theta^i_j)$. We then compute the  $(1-\epsilon)-$quantile of this quantity by zone, and take the maximum $\max \left \{ VaR_{1-\epsilon} \left ( \Delta \ell_1 \right ), VaR_{1-\epsilon} \left ( \Delta \ell_2 \right ) \right \}$.
+
+   \paragraph*{Difference in VaR} This is the difference in Value at Risk of the farmer's net loss in the two insured zones. For each sample $\left \{\ell^i_1,\theta^i_1, \ell^i_2, \theta^i_2 \right \}_{i=1}^N$ in the test set, we calculate the net loss, $\Delta \ell^i_j \triangleq  \ell^i_j +\pi_j - I_j(\theta^i_j)$. We then compute the quantile of this quantity by zone, and take the absolute value of the difference: $\left |VaR_{1-\epsilon}\left ( \Delta \ell^i_1 \right ) - VaR_{1-\epsilon} \left ( \Delta \ell^i_2 \right ) \right |$.
+
+   \paragraph*{Maximum Semi-Variance}
+
+   \paragraph*{Maximum Skewness}
+
+   \paragraph*{Required Capital} We report this measure because we think it is one of the comparitive advantages of our method, and it has implications for the insurer. Higher capital requirements for the insurance translate to higher costs for the insurer, and it is cost that is not necessarily benefitting the farmers. The formula for required capital is: $K(I(\theta)) = CVaR_{1-\epsilon_P}(\sum_z s_z I_z(\theta)) - \mathbb{E}[\sum_z s_z I_z(\theta)]$. For the $CVaR_{1-\epsilon_P}$, we first calculate the sum of all payouts in every scenario. We use these sums to calculate the empirical $VaR_{1-\epsilon_P}(\sum_z s_z I_z(\theta))$. We then calculate the average of all sums greater than or equal to this quantity. We calculate $\mathbb{E}[\sum_z s_z I_z(\theta)]$ using the empirical mean. We set $\epsilon_P = 0.01$ because it is a commonly used value by regulators. 
+
+   \paragraph*{Average Cost of Insurance} We report this measure to ensure that the two methods have the same (or very similar costs). This will make it easier to compare the methods. We define this to be $\frac{1}{N}\sum_{i=1}^N \sum_z I_z(\theta^i_z) + c_{\kappa} K$. This is the empirical average of the cost of the insurance in every scenario in the test set plus the cost of capital
+
+   \paragraph*{Probability of loss exceeding threshold} We report this metric because it is of particular interest to practitioners. This metric is motivated by the literature on poverty traps, which shows that negative shocks can have very long lasting effects for individuals, especially if these shocks bring the individual's wealth below a certain threshold. We calculate this in the following way. For each sample $\left \{\ell^i_1,\theta^i_1, \ell^i_2, \theta^i_2 \right \}_{i=1}^N$ in the test set, we calculate the net loss, $\Delta \ell_j^i \triangleq  \ell^i_j - I_j(\theta^i_j)$. We then create an indicator variable $p^i_j =  \mathbbm{1}\{ \Delta \ell^i_j > \bar{\ell} \}$. The probability of loss exceeding a certain threshold is then: $P(\Delta \ell > \bar{\ell}) = \frac{1}{N}\sum_{i=1}^N (p^i_1 \lor p^i_2)$. We set $\bar{\ell}$ to be the $60^{th}$ percentile of the loss variable, $\ell$.
+
+
+\end{document}

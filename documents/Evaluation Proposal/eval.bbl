@@ -1,0 +1,138 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{ynt/global//global/global}
+    \entry{kielholz2000cost}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=41f05fe04d5a44d8952f07682c83f9a1}{%
+           family={Kielholz},
+           familyi={K\bibinitperiod},
+           given={Walter},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {JSTOR}%
+      }
+      \strng{namehash}{41f05fe04d5a44d8952f07682c83f9a1}
+      \strng{fullhash}{41f05fe04d5a44d8952f07682c83f9a1}
+      \strng{bibnamehash}{41f05fe04d5a44d8952f07682c83f9a1}
+      \strng{authorbibnamehash}{41f05fe04d5a44d8952f07682c83f9a1}
+      \strng{authornamehash}{41f05fe04d5a44d8952f07682c83f9a1}
+      \strng{authorfullhash}{41f05fe04d5a44d8952f07682c83f9a1}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Geneva Papers on Risk and Insurance. Issues and Practice}
+      \field{number}{1}
+      \field{title}{The cost of capital for insurance companies}
+      \field{volume}{25}
+      \field{year}{2000}
+      \field{pages}{4\bibrangedash 24}
+      \range{pages}{21}
+    \endentry
+    \entry{barrett2007poverty}{unpublished}{}
+      \name{author}{10}{}{%
+        {{uniquename=0,uniquepart=base,hash=09f0c6940cb6971e7a5f0b4fa591055a}{%
+           family={Barrett},
+           familyi={B\bibinitperiod},
+           given={Christopher\bibnamedelima B},
+           giveni={C\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=719d750928dd2cc09fc49a78aeaec86f}{%
+           family={Barnett},
+           familyi={B\bibinitperiod},
+           given={Barry\bibnamedelima J},
+           giveni={B\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=ff0ece1c5271addab59e185670250716}{%
+           family={Carter},
+           familyi={C\bibinitperiod},
+           given={Michael\bibnamedelima R},
+           giveni={M\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=292239e6b081da51f6e4a1fc8f5b27fb}{%
+           family={Chantarat},
+           familyi={C\bibinitperiod},
+           given={Sommarat},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=2c23b161a8968ce8c77c96aa379f3721}{%
+           family={Hansen},
+           familyi={H\bibinitperiod},
+           given={James\bibnamedelima W},
+           giveni={J\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=a23eea872819f39c759087d09440458f}{%
+           family={Mude},
+           familyi={M\bibinitperiod},
+           given={Andrew\bibnamedelima G},
+           giveni={A\bibinitperiod\bibinitdelim G\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=278b97b8a3c2da20d883f8dbe245431c}{%
+           family={Osgood},
+           familyi={O\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=c8984a69e90b53247cbb44f52e4b049c}{%
+           family={Skees},
+           familyi={S\bibinitperiod},
+           given={Jerry\bibnamedelima R},
+           giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=5944de80ee28bba06971d112da411c6d}{%
+           family={Turvey},
+           familyi={T\bibinitperiod},
+           given={Calum\bibnamedelima G},
+           giveni={C\bibinitperiod\bibinitdelim G\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=d72cc9b17f93edfb3e8c39b3f4495d41}{%
+           family={Ward},
+           familyi={W\bibinitperiod},
+           given={M\bibnamedelima Neil},
+           giveni={M\bibinitperiod\bibinitdelim N\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {IRI Technical report}%
+      }
+      \strng{namehash}{6925eb72c7d3252b57f48213d45c54d7}
+      \strng{fullhash}{56b07bb1b89a303dec62d52de59ecf9a}
+      \strng{bibnamehash}{6925eb72c7d3252b57f48213d45c54d7}
+      \strng{authorbibnamehash}{6925eb72c7d3252b57f48213d45c54d7}
+      \strng{authornamehash}{6925eb72c7d3252b57f48213d45c54d7}
+      \strng{authorfullhash}{56b07bb1b89a303dec62d52de59ecf9a}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Poverty traps and climate risk: limitations and opportunities of index-based risk financing}
+      \field{year}{2007}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

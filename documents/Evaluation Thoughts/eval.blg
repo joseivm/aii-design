@@ -1,0 +1,9 @@
+[0] Config.pm:302> INFO - This is Biber 2.11
+[0] Config.pm:305> INFO - Logfile is 'eval.blg'
+[39] biber-darwin:313> INFO - === Wed Nov 16, 2022, 10:46:54
+[66] Biber.pm:371> INFO - Reading 'eval.bcf'
+[140] Biber.pm:857> INFO - Found 0 citekeys in bib section 0
+[147] Utils.pm:193> WARN - The file 'eval.bcf' does not contain any citations!
+[154] bbl.pm:617> INFO - Writing 'eval.bbl' with encoding 'UTF-8'
+[154] bbl.pm:720> INFO - Output to eval.bbl
+[155] Biber.pm:110> INFO - WARNINGS: 1
