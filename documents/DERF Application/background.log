@@ -1,16 +1,16 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  12 DEC 2022 10:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  30 DEC 2022 11:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/Users/joseivelarde/Projects/aii-design/documents/Sustainability Conference/abstract.tex"
-(/Users/joseivelarde/Projects/aii-design/documents/Sustainability Conference/abstract.tex
+**"/Users/joseivelarde/Projects/aii-design/documents/DERF Application/background.tex"
+(/Users/joseivelarde/Projects/aii-design/documents/DERF Application/background.tex
 LaTeX2e <2018-04-01> patch level 2
 Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/texlive/2018/texmf-dist/tex/latex/base/size11.clo
-File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count80
 \c@section=\count81
@@ -23,6 +23,8 @@ File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/times.sty
+Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2018/03/24 v5.7 Page Geometry
  (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/keyval.sty
@@ -267,83 +269,78 @@ File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen137
 \Gin@req@width=\dimen138
-) (/usr/local/texlive/2018/texmf-dist/tex/latex/preprint/authblk.sty
-Package: authblk 2001/02/27 1.3 (PWD)
-\affilsep=\skip50
-\@affilsep=\skip51
-\c@Maxaffil=\count118
-\c@authors=\count119
-\c@affil=\count120
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/biblatex.sty
 Package: biblatex 2018/03/04 v3.11 programmable bibliographies (PK/MW)
  (/usr/local/texlive/2018/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2018/02/11 v2.5e e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count121
+\etb@tempcnta=\count118
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/logreq/logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count122
+\lrq@indent=\count119
  (/usr/local/texlive/2018/texmf-dist/tex/latex/logreq/logreq.def
 File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
 )) (/usr/local/texlive/2018/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 ) (/usr/local/texlive/2018/texmf-dist/tex/generic/xstring/xstring.sty (/usr/local/texlive/2018/texmf-dist/tex/generic/xstring/xstring.tex
 \@xs@message=\write3
-\integerpart=\count123
-\decimalpart=\count124
+\integerpart=\count120
+\decimalpart=\count121
 )
 Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
 )
-\c@tabx@nest=\count125
-\c@listtotal=\count126
-\c@listcount=\count127
-\c@liststart=\count128
-\c@liststop=\count129
-\c@citecount=\count130
-\c@citetotal=\count131
-\c@multicitecount=\count132
-\c@multicitetotal=\count133
-\c@instcount=\count134
-\c@maxnames=\count135
-\c@minnames=\count136
-\c@maxitems=\count137
-\c@minitems=\count138
-\c@citecounter=\count139
-\c@savedcitecounter=\count140
-\c@uniquelist=\count141
-\c@uniquename=\count142
-\c@refsection=\count143
-\c@refsegment=\count144
-\c@maxextratitle=\count145
-\c@maxextratitleyear=\count146
-\c@maxextradate=\count147
-\c@maxextraalpha=\count148
-\c@abbrvpenalty=\count149
-\c@highnamepenalty=\count150
-\c@lownamepenalty=\count151
-\c@maxparens=\count152
-\c@parenlevel=\count153
-\blx@tempcnta=\count154
-\blx@tempcntb=\count155
-\blx@tempcntc=\count156
-\blx@maxsection=\count157
-\blx@maxsegment@0=\count158
-\blx@notetype=\count159
-\blx@parenlevel@text=\count160
-\blx@parenlevel@foot=\count161
-\blx@sectionciteorder@0=\count162
-\labelnumberwidth=\skip52
-\labelalphawidth=\skip53
-\biblabelsep=\skip54
-\bibitemsep=\skip55
-\bibnamesep=\skip56
-\bibinitsep=\skip57
-\bibparsep=\skip58
-\bibhang=\skip59
+\c@tabx@nest=\count122
+\c@listtotal=\count123
+\c@listcount=\count124
+\c@liststart=\count125
+\c@liststop=\count126
+\c@citecount=\count127
+\c@citetotal=\count128
+\c@multicitecount=\count129
+\c@multicitetotal=\count130
+\c@instcount=\count131
+\c@maxnames=\count132
+\c@minnames=\count133
+\c@maxitems=\count134
+\c@minitems=\count135
+\c@citecounter=\count136
+\c@savedcitecounter=\count137
+\c@uniquelist=\count138
+\c@uniquename=\count139
+\c@refsection=\count140
+\c@refsegment=\count141
+\c@maxextratitle=\count142
+\c@maxextratitleyear=\count143
+\c@maxextradate=\count144
+\c@maxextraalpha=\count145
+\c@abbrvpenalty=\count146
+\c@highnamepenalty=\count147
+\c@lownamepenalty=\count148
+\c@maxparens=\count149
+\c@parenlevel=\count150
+\blx@tempcnta=\count151
+\blx@tempcntb=\count152
+\blx@tempcntc=\count153
+\blx@maxsection=\count154
+\blx@maxsegment@0=\count155
+\blx@notetype=\count156
+\blx@parenlevel@text=\count157
+\blx@parenlevel@foot=\count158
+\blx@sectionciteorder@0=\count159
+\labelnumberwidth=\skip50
+\labelalphawidth=\skip51
+\biblabelsep=\skip52
+\bibitemsep=\skip53
+\bibnamesep=\skip54
+\bibinitsep=\skip55
+\bibparsep=\skip56
+\bibhang=\skip57
 \blx@bcfin=\read1
 \blx@bcfout=\write4
-\c@mincomprange=\count163
-\c@maxcomprange=\count164
-\c@mincompwidth=\count165
+\c@mincomprange=\count160
+\c@maxcomprange=\count161
+\c@mincompwidth=\count162
 Package biblatex Info: Trying to load biblatex default data model...
 Package biblatex Info: ... file 'blx-dm.def' found.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/blx-dm.def
@@ -353,88 +350,88 @@ Package biblatex Info: Trying to load biblatex style data model...
 Package biblatex Info: ... file 'bwl-FU.dbx' not found.
 Package biblatex Info: Trying to load biblatex custom data model...
 Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
-\c@afterword=\count166
-\c@savedafterword=\count167
-\c@annotator=\count168
-\c@savedannotator=\count169
-\c@author=\count170
-\c@savedauthor=\count171
-\c@bookauthor=\count172
-\c@savedbookauthor=\count173
-\c@commentator=\count174
-\c@savedcommentator=\count175
-\c@editor=\count176
-\c@savededitor=\count177
-\c@editora=\count178
-\c@savededitora=\count179
-\c@editorb=\count180
-\c@savededitorb=\count181
-\c@editorc=\count182
-\c@savededitorc=\count183
-\c@foreword=\count184
-\c@savedforeword=\count185
-\c@holder=\count186
-\c@savedholder=\count187
-\c@introduction=\count188
-\c@savedintroduction=\count189
-\c@namea=\count190
-\c@savednamea=\count191
-\c@nameb=\count192
-\c@savednameb=\count193
-\c@namec=\count194
-\c@savednamec=\count195
-\c@translator=\count196
-\c@savedtranslator=\count197
-\c@shortauthor=\count198
-\c@savedshortauthor=\count199
-\c@shorteditor=\count266
-\c@savedshorteditor=\count267
-\c@labelname=\count268
-\c@savedlabelname=\count269
-\c@institution=\count270
-\c@savedinstitution=\count271
-\c@lista=\count272
-\c@savedlista=\count273
-\c@listb=\count274
-\c@savedlistb=\count275
-\c@listc=\count276
-\c@savedlistc=\count277
-\c@listd=\count278
-\c@savedlistd=\count279
-\c@liste=\count280
-\c@savedliste=\count281
-\c@listf=\count282
-\c@savedlistf=\count283
-\c@location=\count284
-\c@savedlocation=\count285
-\c@organization=\count286
-\c@savedorganization=\count287
-\c@origlocation=\count288
-\c@savedoriglocation=\count289
-\c@origpublisher=\count290
-\c@savedorigpublisher=\count291
-\c@publisher=\count292
-\c@savedpublisher=\count293
-\c@language=\count294
-\c@savedlanguage=\count295
-\c@origlanguage=\count296
-\c@savedoriglanguage=\count297
-\c@pageref=\count298
-\c@savedpageref=\count299
-\shorthandwidth=\skip60
-\shortjournalwidth=\skip61
-\shortserieswidth=\skip62
-\shorttitlewidth=\skip63
-\shortauthorwidth=\skip64
-\shorteditorwidth=\skip65
-\locallabelnumberwidth=\skip66
-\locallabelalphawidth=\skip67
-\localshorthandwidth=\skip68
-\localshortjournalwidth=\skip69
-\localshortserieswidth=\skip70
-\localshorttitlewidth=\skip71
-\localshortauthorwidth=\skip72
-\localshorteditorwidth=\skip73
+\c@afterword=\count163
+\c@savedafterword=\count164
+\c@annotator=\count165
+\c@savedannotator=\count166
+\c@author=\count167
+\c@savedauthor=\count168
+\c@bookauthor=\count169
+\c@savedbookauthor=\count170
+\c@commentator=\count171
+\c@savedcommentator=\count172
+\c@editor=\count173
+\c@savededitor=\count174
+\c@editora=\count175
+\c@savededitora=\count176
+\c@editorb=\count177
+\c@savededitorb=\count178
+\c@editorc=\count179
+\c@savededitorc=\count180
+\c@foreword=\count181
+\c@savedforeword=\count182
+\c@holder=\count183
+\c@savedholder=\count184
+\c@introduction=\count185
+\c@savedintroduction=\count186
+\c@namea=\count187
+\c@savednamea=\count188
+\c@nameb=\count189
+\c@savednameb=\count190
+\c@namec=\count191
+\c@savednamec=\count192
+\c@translator=\count193
+\c@savedtranslator=\count194
+\c@shortauthor=\count195
+\c@savedshortauthor=\count196
+\c@shorteditor=\count197
+\c@savedshorteditor=\count198
+\c@labelname=\count199
+\c@savedlabelname=\count266
+\c@institution=\count267
+\c@savedinstitution=\count268
+\c@lista=\count269
+\c@savedlista=\count270
+\c@listb=\count271
+\c@savedlistb=\count272
+\c@listc=\count273
+\c@savedlistc=\count274
+\c@listd=\count275
+\c@savedlistd=\count276
+\c@liste=\count277
+\c@savedliste=\count278
+\c@listf=\count279
+\c@savedlistf=\count280
+\c@location=\count281
+\c@savedlocation=\count282
+\c@organization=\count283
+\c@savedorganization=\count284
+\c@origlocation=\count285
+\c@savedoriglocation=\count286
+\c@origpublisher=\count287
+\c@savedorigpublisher=\count288
+\c@publisher=\count289
+\c@savedpublisher=\count290
+\c@language=\count291
+\c@savedlanguage=\count292
+\c@origlanguage=\count293
+\c@savedoriglanguage=\count294
+\c@pageref=\count295
+\c@savedpageref=\count296
+\shorthandwidth=\skip58
+\shortjournalwidth=\skip59
+\shortserieswidth=\skip60
+\shorttitlewidth=\skip61
+\shortauthorwidth=\skip62
+\shorteditorwidth=\skip63
+\locallabelnumberwidth=\skip64
+\locallabelalphawidth=\skip65
+\localshorthandwidth=\skip66
+\localshortjournalwidth=\skip67
+\localshortserieswidth=\skip68
+\localshorttitlewidth=\skip69
+\localshortauthorwidth=\skip70
+\localshorteditorwidth=\skip71
 Package biblatex Info: Trying to load compatibility code...
 Package biblatex Info: ... file 'blx-compat.def' found.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/blx-compat.def
@@ -444,13 +441,13 @@ Package biblatex Info: Trying to load generic definitions...
 Package biblatex Info: ... file 'biblatex.def' found.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/biblatex.def
 File: biblatex.def 2018/03/04 v3.11 biblatex compatibility (PK/MW)
-\c@textcitecount=\count300
-\c@textcitetotal=\count301
-\c@textcitemaxnames=\count302
-\c@biburlnumpenalty=\count303
-\c@biburlucpenalty=\count304
-\c@biburllcpenalty=\count305
-\c@smartand=\count306
+\c@textcitecount=\count297
+\c@textcitetotal=\count298
+\c@textcitemaxnames=\count299
+\c@biburlnumpenalty=\count300
+\c@biburlucpenalty=\count301
+\c@biburllcpenalty=\count302
+\c@smartand=\count303
 )
 Package biblatex Info: Trying to load bibliography style 'bwl-FU'...
 Package biblatex Info: ... file 'bwl-FU.bbx' found.
@@ -464,8 +461,8 @@ Package biblatex Info: Trying to load bibliography style 'standard'...
 Package biblatex Info: ... file 'standard.bbx' found.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
 File: standard.bbx 2018/03/04 v3.11 biblatex bibliography style (PK/MW)
-\c@bbx:relatedcount=\count307
-\c@bbx:relatedtotal=\count308
+\c@bbx:relatedcount=\count304
+\c@bbx:relatedtotal=\count305
 )))
 Package biblatex Info: Trying to load citation style 'bwl-FU'...
 Package biblatex Info: ... file 'bwl-FU.cbx' found.
@@ -489,32 +486,40 @@ Package biblatex Info: Trying to load configuration file...
 Package biblatex Info: ... file 'biblatex.cfg' found.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/biblatex.cfg
 File: biblatex.cfg 
-))
+)) (/usr/local/texlive/2018/texmf-dist/tex/latex/titling/titling.sty
+Package: titling 2009/09/04 v2.1d maketitle typesetting
+\thanksmarkwidth=\skip72
+\thanksmargin=\skip73
+\droptitle=\skip74
+)
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/lbx/english.lbx
 File: english.lbx 2018/03/04 v3.11 biblatex localization (PK/MW)
 )
-\@quotelevel=\count309
-\@quotereset=\count310
- (/Users/joseivelarde/Projects/aii-design/documents/Sustainability Conference/abstract.aux)
-\openout1 = `abstract.aux'.
+\@quotelevel=\count306
+\@quotereset=\count307
+ (/Users/joseivelarde/Projects/aii-design/documents/DERF Application/background.aux)
+\openout1 = `background.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 24.
+ (/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -534,12 +539,12 @@ LaTeX Font Info:    ... okay on input line 25.
 * \topmargin=-37.0pt
 * \headheight=12.0pt
 * \headsep=25.0pt
-* \topskip=11.0pt
+* \topskip=12.0pt
 * \footskip=30.0pt
-* \marginparwidth=59.0pt
+* \marginparwidth=44.0pt
 * \marginparsep=10.0pt
 * \columnsep=10.0pt
-* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -550,33 +555,33 @@ LaTeX Font Info:    ... okay on input line 25.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \AtBeginShipoutBox=\box30
-Package hyperref Info: Link coloring OFF on input line 25.
+Package hyperref Info: Link coloring OFF on input line 24.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
  (/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count311
+\c@section@level=\count308
 )
-LaTeX Info: Redefining \ref on input line 25.
-LaTeX Info: Redefining \pageref on input line 25.
-LaTeX Info: Redefining \nameref on input line 25.
- (/Users/joseivelarde/Projects/aii-design/documents/Sustainability Conference/abstract.out) (/Users/joseivelarde/Projects/aii-design/documents/Sustainability Conference/abstract.out)
+LaTeX Info: Redefining \ref on input line 24.
+LaTeX Info: Redefining \pageref on input line 24.
+LaTeX Info: Redefining \nameref on input line 24.
+ (/Users/joseivelarde/Projects/aii-design/documents/DERF Application/background.out) (/Users/joseivelarde/Projects/aii-design/documents/DERF Application/background.out)
 \@outlinefile=\write5
-\openout5 = `abstract.out'.
+\openout5 = `background.out'.
 
  (/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count312
+\scratchcounter=\count309
 \scratchdimen=\dimen139
 \scratchbox=\box31
-\nofMPsegments=\count313
-\nofMParguments=\count314
+\nofMPsegments=\count310
+\nofMParguments=\count311
 \everyMPshowfont=\toks29
-\MPscratchCnt=\count315
+\MPscratchCnt=\count312
 \MPscratchDim=\dimen140
-\MPnumerator=\count316
-\makeMPintoPDFobject=\count317
+\MPnumerator=\count313
+\makeMPintoPDFobject=\count314
 \everyMPtoPDFconversion=\toks30
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -593,18 +598,18 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
-\openout4 = `abstract.bcf'.
+\openout4 = `background.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'abstract.bbl' found.
- (/Users/joseivelarde/Projects/aii-design/documents/Sustainability Conference/abstract.bbl)
-Package biblatex Info: Reference section=0 on input line 25.
-Package biblatex Info: Reference segment=0 on input line 25.
-LaTeX Font Info:    Try loading font information for U+msa on input line 41.
+Package biblatex Info: ... file 'background.bbl' found.
+ (/Users/joseivelarde/Projects/aii-design/documents/DERF Application/background.bbl)
+Package biblatex Info: Reference section=0 on input line 24.
+Package biblatex Info: Reference segment=0 on input line 24.
+LaTeX Font Info:    Try loading font information for U+msa on input line 35.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 41.
+LaTeX Font Info:    Try loading font information for U+msb on input line 35.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
@@ -613,37 +618,29 @@ Package atveryend Info: Empty hook `BeforeClearDocument' on input line 45.
 
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 45.
- (/Users/joseivelarde/Projects/aii-design/documents/Sustainability Conference/abstract.aux)
+ (/Users/joseivelarde/Projects/aii-design/documents/DERF Application/background.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 45.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 45.
-Package rerunfilecheck Info: File `abstract.out' has not changed.
+Package rerunfilecheck Info: File `background.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package logreq Info: Writing requests to 'abstract.run.xml'.
-\openout1 = `abstract.run.xml'.
+Package logreq Info: Writing requests to 'background.run.xml'.
+\openout1 = `background.run.xml'.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 45.
  ) 
 Here is how much of TeX's memory you used:
- 13288 strings out of 492649
- 220576 string characters out of 6129622
- 671218 words of memory out of 5000000
- 17027 multiletter control sequences out of 15000+600000
- 8885 words of font info for 34 fonts, out of 8000000 for 9000
+ 13137 strings out of 492649
+ 217553 string characters out of 6129622
+ 668249 words of memory out of 5000000
+ 16868 multiletter control sequences out of 15000+600000
+ 9870 words of font info for 34 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,4n,45p,2044b,930s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{cite.0@jensen2019does} has been referenced but does not exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{cite.0@flatnes2018improving} has been referenced but does not exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{cite.0@chantarat2013designing} has been referenced but does not exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{cite.0@greatrex2015scaling} has been referenced but does not exist, replaced by a fixed one
-
-</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on "/Users/joseivelarde/Projects/aii-design/documents/Sustainability Conference/abstract.pdf" (1 page, 59397 bytes).
+ 36i,4n,32p,1283b,742s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
+Output written on "/Users/joseivelarde/Projects/aii-design/documents/DERF Application/background.pdf" (1 page, 25135 bytes).
 PDF statistics:
- 37 PDF objects out of 1000 (max. 8388607)
- 29 compressed objects within 1 object stream
- 6 named destinations out of 1000 (max. 500000)
+ 22 PDF objects out of 1000 (max. 8388607)
+ 16 compressed objects within 1 object stream
+ 2 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
