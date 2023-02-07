@@ -25,6 +25,74 @@ TABLES_DIR = PROJECT_DIR + '/output/tables'
 
 ##### Contract Design Functions #####
 # Opt
+def min_CVaR_program2(pred_y,train_y,params,include_premium=False):
+    # params: epsilon, pi_max, pi_min, beta_z, eps_p, c_k, K_z
+    eps_p = params['epsilon_p']
+    sizes = params['P']
+    epsilon = params['epsilon']
+    c_k = params['c_k']
+    budget = params['B']
+
+    n_samples = train_y.shape[0]
+    n_zones = train_y.shape[1]
+    S = np.tile(sizes,(n_samples,1))
+    p = np.ones(n_samples)/n_samples
+    A = cp.Variable((n_samples,n_zones))
+    B = cp.Variable((n_samples,n_zones))
+    t = cp.Variable((n_samples,n_zones))
+    t_k = cp.Variable(n_samples)
+    pi = cp.Variable((n_samples,n_zones))
+    alpha = cp.Variable((n_samples,n_zones))
+    omega = cp.Variable((n_samples,n_zones))
+    gamma = cp.Variable((n_samples,n_zones))
+    gamma_p = cp.Variable(n_samples)
+    m = cp.Variable()
+    K = cp.Variable()
+
+    constraints = []
+
+    # objective, m >= CVaR(l_z - I_z(theta_z))
+    constraints.append(t[0,:] + (1/epsilon)*(p @ gamma) <= m*np.ones(n_zones))
+
+    # CVaR constraints for each zone's loss, gamma^k_z >= l_z - min(a_z \hat{l_z}+b_z, K_z) - t
+    if include_premium:
+        constraints.append(gamma >= train_y + pi - omega -t)
+    else:
+        constraints.append(gamma >= train_y - omega -t)
+
+    constraints.append(gamma >= 0)
+    constraints.append(B <= 0)
+
+    # Portfolio CVaR constraint: CVaR(\sum_z I_z(\theta_z)) <= K^P + \sum_z E[I_z(\theta_Z)]
+    constraints.append(t_k + (1/eps_p)*(p @ gamma_p) <= K + (1/n_samples)*cp.sum(cp.multiply(S,omega)))
+    constraints.append(gamma_p >= cp.sum(cp.multiply(S,alpha),axis=1)-t_k)
+    constraints.append(gamma_p >= 0)
+    constraints.append(omega <= cp.multiply(pred_y,A)+B)
+    constraints.append(omega <= 1)
+    constraints.append(alpha >= cp.multiply(pred_y,A)+B)
+    constraints.append(alpha >= 0)
+
+    # budget constraint
+    constraints.append(budget >= (1/n_samples)*cp.sum(alpha) + c_k*K)
+
+    # premium definition 
+    if include_premium:
+        constraints.append(pi[0,:] == (1/n_samples)*cp.sum(alpha,axis=0) + (1/np.sum(sizes)*c_k*K))
+
+    for i in range(n_samples-1):
+        constraints.append(A[i,:] == A[i+1,:])
+        constraints.append(B[i,:] == B[i+1,:])
+        constraints.append(t[i,:] == t[i+1,:])
+        if include_premium:
+            constraints.append(pi[i,:] == pi[i+1,:])
+
+    objective = cp.Minimize(m)
+    problem = cp.Problem(objective,constraints)
+    if 'Projects' in os.getcwd():
+        problem.solve(solver=cp.GUROBI)
+    else:
+        problem.solve(solver=cp.SCIPY, scipy_options={"method":"highs"})
+    return (A.value[0,:], B.value[0,:])
 
 def min_CVaR_program(pred_y,train_y,params,include_premium=False):
     # params: epsilon, pi_max, pi_min, beta_z, eps_p, c_k, K_z
@@ -159,8 +227,8 @@ def construct_data_for_optimization(hhdf):
         dfs.append(combined_df)
     
     df = pd.concat(dfs)
-    pred_y = df[['PredictedLoss_upper','PredictedLoss_lower']].to_numpy()
-    train_y = df[['ActualLoss_upper','ActualLoss_lower']].to_numpy()
+    pred_y = df[['PredMortalityRate_upper','PredMortalityRate_lower']].to_numpy()
+    train_y = df[['MortalityRate_upper','MortalityRate_lower']].to_numpy()
     return pred_y,train_y
 
 ##### Performance Metric Functions #####
@@ -317,8 +385,8 @@ def run_eval(train_data,test_data,hhdf,params,include_premium=False,surplus_shar
     train_hhdf = hhdf.merge(train_data[['NDVILocation','Season','PredMortalityRate']],left_on=merge_cols,right_on=merge_cols)
 
     # Transform household predicted livstock loss into predicted monetary loss
-    train_hhdf['PredictedLoss'] = train_hhdf['HerdSize']*train_hhdf['PredMortalityRate']*livestock_value
-    train_hhdf['ActualLoss'] = train_hhdf['LivestockLosses']*livestock_value
+    # train_hhdf['PredictedLoss'] = train_hhdf['HerdSize']*train_hhdf['PredMortalityRate']*livestock_value
+    # train_hhdf['ActualLoss'] = train_hhdf['LivestockLosses']*livestock_value
 
     # Create dataset that has samples of the form (pred_loss_u, pred_loss_l) (actual_loss_u,actual_loss_l)
     pred_y, train_y = construct_data_for_optimization(train_hhdf)
@@ -381,11 +449,12 @@ def determine_budget_params(pred_y,strike_vals,Ps,c_k=0.15):
     bdf = pd.DataFrame()
     n_zones = pred_y.shape[1]
     for zone in np.arange(n_zones):
-        pred_col = 'PredictedLosses{}'.format(zone)
+        pred_col = 'PredMortalityRate{}'.format(zone)
         payout_col = 'Payout{}'.format(zone)
         bdf[pred_col] = pred_y[:,zone]
         bdf[payout_col] = np.maximum(bdf[pred_col]-strike_vals[zone],0)
-        bdf[payout_col] = np.minimum(bdf[payout_col],Ps[zone])
+        bdf[payout_col] = np.minimum(bdf[payout_col],1)
+        bdf[payout_col] = bdf[payout_col]*Ps[zone]
 
     bdf['Total Payouts'] = bdf['Payout0']+bdf['Payout1']
     loss_quantile = np.quantile(bdf['Total Payouts'],0.99)
@@ -400,13 +469,13 @@ def cross_val():
     reg_data = pd.read_csv(kenya_reg_data_filename)
     hhdf = pd.read_csv(kenya_hh_data_filename)
     cvar_eps = 0.2
-    P = 40000
-    params = {'epsilon':cvar_eps,'epsilon_p':0.01,'P':np.array([P,P]),'rho':np.array([0.5,0.5]),'c_k':0.15}
     years = [str(i) for i in range(2010,2014)]
     results = []
     for year in years:
         train_data = reg_data.loc[~reg_data.Season.str.contains(year),:]
         test_data = reg_data.loc[reg_data.Season.str.contains(year),:]
+        average_sizes = train_data.groupby('Cluster')['HerdSize'].sum().to_numpy()[::-1]
+        params = {'epsilon':cvar_eps,'epsilon_p':0.01,'P':average_sizes,'rho':np.array([0.5,0.5]),'c_k':0.15}
         cv_results,a,b = run_eval(train_data,test_data,hhdf,params,0.65)
         results.append(cv_results)
 

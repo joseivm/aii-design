@@ -173,7 +173,9 @@ def make_household_data():
     herd_sizes = ldf.groupby(groupby_cols)['HerdSize'].max().reset_index()
     losses = ldf.groupby(groupby_cols)['Losses'].sum().reset_index()
     hhdf = herd_sizes.merge(losses,left_on=groupby_cols,right_on=groupby_cols)
+    hhdf.loc[hhdf.Losses > hhdf.HerdSize,'HerdSize'] = hhdf.loc[hhdf.Losses > hhdf.HerdSize,'Losses']
     hhdf.rename(columns={'Losses':'LivestockLosses'},inplace=True)
+    hhdf['MortalityRate'] = hhdf['LivestockLosses']/hhdf['HerdSize']
     return hhdf
 
 def get_mortality_rates():
@@ -203,16 +205,46 @@ def get_mortality_rates():
     seasonal_mortality = average_monthly_mortality.groupby(merge_cols)['Losses'].sum().reset_index()
     seasonal_max_herd_size = average_monthly_herd_size.groupby(merge_cols)['HerdSize'].max().reset_index()
     sdf = seasonal_mortality.merge(seasonal_max_herd_size,left_on=merge_cols,right_on=merge_cols)
+    sdf.loc[sdf.Losses > sdf.HerdSize, 'HerdSize'] = sdf.loc[sdf.Losses > sdf.HerdSize, 'Losses']
     sdf['MortalityRate'] = sdf['Losses']/sdf['HerdSize']
     sdf.replace([np.inf,-np.inf],np.nan,inplace=True)
     return sdf.loc[sdf.MortalityRate.notna(),:]
+
+def get_total_village_herd_size():
+    ldf = load_loss_data(groupby_cols= ['hhid','Year','Month'])
+
+    household_info_filename = SURVEY_DATA_DIR + '/S0A Household Identification Information.dta'
+    hdf = pd.read_stata(household_info_filename,convert_categoricals=False)
+
+    hh_villages = hdf.loc[hdf.location != '',:].groupby(['hhid','location']).size().reset_index(name='N')
+    ldf = ldf.merge(hh_villages,left_on='hhid',right_on='hhid')
+    ldf.rename(columns={'location':'Location'},inplace=True)
+
+    panel_geo_cw = pd.read_csv(panel_admin_cw_filename)
+    panel_geo_cw['Location'] = panel_geo_cw['Location'].str.upper()
+    ldf = ldf.merge(panel_geo_cw,left_on='Location',right_on='Location')
+
+    ldf = add_seasons(ldf)
+    hdf = get_herd_size()
+    merge_cols = ['Year','Month','hhid']
+    ldf = ldf.merge(hdf,left_on=merge_cols,right_on=merge_cols)
+
+    hh_seasonal_groupby = ['Cluster','NDVILocation','Location','Season','hhid']
+    village_seasonal_groupby = ['Cluster','NDVILocation','Location','Season']
+    hh_herd_sizes = ldf.groupby(hh_seasonal_groupby)['HerdSize'].max().reset_index()
+    village_total_insured = hh_herd_sizes.groupby(village_seasonal_groupby)['HerdSize'].sum().reset_index(name='TotalInsured')
+    return village_total_insured
 
 def make_regression_data():
     df = pd.read_csv(NDVI_covariate_data)
     df.rename(columns={'Location':'NDVILocation'},inplace=True)
     ldf = get_mortality_rates()
-    merge_cols = ['NDVILocation','Season']
-    df = df.merge(ldf,left_on=merge_cols,right_on=merge_cols)
+    cov_merge_cols = ['NDVILocation','Season']
+    df = df.merge(ldf,left_on=cov_merge_cols,right_on=cov_merge_cols)
+
+    village_herd_sizes = get_total_village_herd_size()
+    herd_size_merge_cols = ['Cluster','NDVILocation','Location','Season']
+    df = df.merge(village_herd_sizes,left_on=herd_size_merge_cols,right_on=herd_size_merge_cols)
     df['SRSD'] = df.Season.str.contains('SRSD')
     df['Good Regime'] = df.PostNDVI >= 0
     df = df.loc[~df.SRSD,:]
