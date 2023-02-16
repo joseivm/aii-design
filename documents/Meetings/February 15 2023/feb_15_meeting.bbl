@@ -1,0 +1,68 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{ynt/global//global/global}
+    \entry{bertsimas2018data}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=5b57425178d5ae2d2835ef44cb330e42}{%
+           family={Bertsimas},
+           familyi={B\bibinitperiod},
+           given={Dimitris},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=91e105fa60887e252869bd6fd2cdd66c}{%
+           family={Gupta},
+           familyi={G\bibinitperiod},
+           given={Vishal},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=2db96cc54afe3fe8c684be53af54a7bf}{%
+           family={Kallus},
+           familyi={K\bibinitperiod},
+           given={Nathan},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{5df1ec2832099d8a5ebd6dcb03b41d6b}
+      \strng{fullhash}{5df1ec2832099d8a5ebd6dcb03b41d6b}
+      \strng{bibnamehash}{5df1ec2832099d8a5ebd6dcb03b41d6b}
+      \strng{authorbibnamehash}{5df1ec2832099d8a5ebd6dcb03b41d6b}
+      \strng{authornamehash}{5df1ec2832099d8a5ebd6dcb03b41d6b}
+      \strng{authorfullhash}{5df1ec2832099d8a5ebd6dcb03b41d6b}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Mathematical Programming}
+      \field{title}{Data-driven robust optimization}
+      \field{volume}{167}
+      \field{year}{2018}
+      \field{pages}{235\bibrangedash 292}
+      \range{pages}{58}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

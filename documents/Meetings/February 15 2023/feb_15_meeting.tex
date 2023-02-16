@@ -1,0 +1,94 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb,bbm}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage[
+backend=biber,
+style=bwl-FU,
+sorting=ynt
+]{biblatex}
+\addbibresource{../../main.bib}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\title{Meeting}
+\author{José I. Velarde Morales}
+
+\begin{document}
+\maketitle
+\section{Project Recap}
+In our previous meeting, we laid out the potential next steps for the project. They were as follows: 
+\begin{enumerate}
+    \item \textbf{Update Kenya evaluation to use loss rate model.} The original Kenya evaluation used our first model, which featured absolute losses instead of loss rates. The first next step we identified was to have the Kenya evaluation use the loss rate model. 
+    \item \textbf{Develop robust optimization model}. One of the flaws of our current model is that it's approach to handle uncertainty relies on having many samples from the underlying distribution. This is impractical for our setting, since the setting we study is characterized by lack of data. As a result, we want to use a robust optimization model to better address the uncertainty in this setting. 
+    \item \textbf{Analysis of robust model.} We also discussed the need to have a theoretical component for the paper. One option would be to perform an analysis of the robust model. 
+    \item \textbf{Implement and evaluate robust model.} The last step would be to re-do our synthetic and real-world data evaluations using the robust optimization model. 
+\end{enumerate}
+
+\section{Robust Model}
+\subsection{Current Single Zone Model}
+  Our single zone model minimizes the conditional value at risk of farmers' net loss (i.e. loss net of insurance and premium payments), subject to an overall budget constraint. The total cost of the insurance consists of payouts and of costs associated with holding capital. We first describe the model parameters, and then describe the model. The model will output values for $a$ and $b$, and the final insurance contracts will be $I(\theta) = \min \left \{\max \left \{0,a\hat{\ell}(\theta) + b \right \}, 1 \right \}$.
+  \paragraph*{Model Parameters}
+  \begin{itemize}
+    \item $\epsilon$: This is the $\epsilon$ used for the $CVaR$ objective.  $\epsilon = 0.1$ means that our objective is $E[\ell - I(\theta)|\ell -I(\theta) \geq VaR_{1-0.1}\left ( \ell - I(\theta) \right )]$. 
+    \item $\epsilon_K$: This is the epsilon used in the formula for required capital. Recall that the required capital $K = CVaR_{1-\epsilon_K}(I(\theta)) - E[I(\theta)]$.
+    \item $\overline{\pi}$: This is the budget constraint for the total cost of the insurance. 
+    \item $s$: This is the total insured amount.
+    \item $c_{\kappa}$: This is the cost of capital. 
+\end{itemize}
+  
+  \paragraph*{Model}
+  In the model below, our objective is the conditional value at risk of the farmer's loss net of insurance and the cost of the premium. The first constraint is the budget constraint and the second constraint is the definition of the required capital. $\ell, \pi, I(\theta)$ are in terms of rates. So, for example, $\ell$ represents the share of the product that was lost. $\pi$ is also expressed as a share of the total insured amount. And similarly, $I(\theta)$ is the share of the insured amount that is paid out. 
+  \begin{align}
+    \min_{a,b,K,\pi} &\ CVaR_{1-\epsilon}\left(\ell + \pi  -  \underline{I(\theta)} \right)\\
+    \text{s.t.   } & \pi = \mathbb{E} \left [ \overline{I(\theta)} \right ] + \frac{1}{s}c_k K\\
+    K &= CVaR_{1-\epsilon_P} \left( s\overline{I(\theta)} \} \right) - \mathbb{E}\left [ s\underline{I(\theta)} \right ]\\
+    \overline{I(\theta)} &= \max \left \{0,a\hat{\ell}(\theta) + b \right \}\\
+    \underline{I(\theta)} &= \min \left \{a\hat{\ell}(\theta)+b,1 \right \}\\
+    \pi &\leq \overline{\pi}
+\end{align}
+
+\subsection{Robust Single Zone Model}
+We want to develop a tractable reformulation of the robust version of the following model. Here, $\mathcal{F}$ denotes the set of probability distributions we want to be robust against. $CVAR_{1-\epsilon}^F(x)$ means the expectation in the $CVAR$ is taken with respect to probability distribution $F$. 
+\begin{align}
+    \min_{a,b,K,\pi} &\ \sup_{F \in \mathcal{F}} CVaR^F_{1-\epsilon} \left ( \ell + \pi  -  \underline{I(\theta)} \right )\\
+    \text{s.t.   } & \pi \leq \mathbb{E}_F \left [ \overline{I(\theta)} \right ] + \frac{1}{s}c_k K, \forall F \in \mathcal{F} \label{premium}\\
+    K &\leq CVaR^F_{1-\epsilon_P} \left( s\overline{I(\theta)} \} \right) - \mathbb{E}_F \left [ s\underline{I(\theta)} \right ], \forall F \in \mathcal{F} \label{req-capital}\\
+    \overline{I(\theta)} &= \max \left \{0,a\hat{\ell}(\theta) + b \right \}\\
+    \underline{I(\theta)} &= \min \left \{a\hat{\ell}(\theta)+b,1 \right \}\\
+    \pi &\leq \overline{\pi}
+\end{align}
+
+I am planning on using the approach described in \cite{bertsimas2018data} to develop the robust model. I was going to use the approach outlined in Section 7 of the paper to create the uncertainty set. For the rest of the reformulation, according to Section 2.1 of \cite{bertsimas2018data}, given a function $f(u,x)$ that is concave in $u$ for any $x$, the constraint $f(u,x) \leq 0, \forall u \in \mathcal{U}$ will be satisfied under a mild regularity condition if $ \exists v \in \mathbb{R}^d$ such that $\delta^*(v|\mathcal{U}) - f_*(v,x) \leq 0$, where $\delta^*(v|\mathcal{U})$ is the support function of $\mathcal{U}$ and $f_*(v,x)$ is the partial concave-conjugate of $f(u,x)$. So, I was thinking that my next steps should be to work on finding the concave-conjugates for the relevant functions in the objective and constraints (\ref{premium}) and (\ref{req-capital}). 
+
+\section{Kenya Evaluation Updates}
+  I implemented the following changes to the evaluation using the Kenyan Pastoralist data: 
+  \begin{itemize}
+    \item The evaluation now uses our loss rate model. This allows it to more easily handle farmers of different sizes. 
+    \item The evaluation now takes into account the cost of the insurance to the farmer. The model calculates the farmer's wealth net of the insurance payout plus however much the farmer has to pay for the insurance. 
+    \item The results are stronger now, the insurance developed by our model provides comparable protection at a significantly lower cost. 
+  \end{itemize}
+
+\begin{table}[H]
+  \centering 
+  \begin{tabular}{lcccccc}
+    \toprule
+       Model &  Max CVaR &  Max VaR &  Max SemiVar &  $|VaR_2 - VaR_1|$ &  Required Capital &  Average Cost \\
+    \midrule
+    Baseline &         0.69 &        0.52 &            0.22 &                  0.12 &           2392871 &          5265 \\
+         Opt &         0.64 &        0.52 &            0.22 &            0.10     &           2488362 &          3789 \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{Next Steps}
+\begin{enumerate}
+  \item Work on robust model, specifically work on finding the concave conjugates of the robust constraints in our model. 
+  \item Write up a more detailed description of the Kenya evaluation. 
+\end{enumerate}
+\end{document}

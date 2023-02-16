@@ -1,0 +1,22 @@
+\BOOKMARK [1][-]{section.1}{Baseline Method}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Method description}{section.1}% 2
+\BOOKMARK [1][-]{section.2}{Data Sources}{}% 3
+\BOOKMARK [2][-]{subsection.2.1}{Kenya Household Survey Data}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.2}{NDVI Data}{section.2}% 5
+\BOOKMARK [1][-]{section.3}{Evaluation Datasets}{}% 6
+\BOOKMARK [2][-]{subsection.3.1}{Prediction Model Data}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.2}{Augmented Household Data}{section.3}% 8
+\BOOKMARK [1][-]{section.4}{Evaluation}{}% 9
+\BOOKMARK [2][-]{subsection.4.1}{Model Parameters}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.2}{Evaluation Procedure}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.3}{Performance Metrics}{section.4}% 12
+\BOOKMARK [1][-]{section.5}{Model}{}% 13
+\BOOKMARK [1][-]{section.6}{Evaluation}{}% 14
+\BOOKMARK [2][-]{subsection.6.1}{Main Changes}{section.6}% 15
+\BOOKMARK [2][-]{subsection.6.2}{Simulation Set Up}{section.6}% 16
+\BOOKMARK [2][-]{subsection.6.3}{Old Data Generating Process}{section.6}% 17
+\BOOKMARK [3][-]{subsubsection.6.3.1}{New Data Generating Process}{subsection.6.3}% 18
+\BOOKMARK [3][-]{subsubsection.6.3.2}{Optimization Model Parameters}{subsection.6.3}% 19
+\BOOKMARK [3][-]{subsubsection.6.3.3}{Scenarios to be tested}{subsection.6.3}% 20
+\BOOKMARK [3][-]{subsubsection.6.3.4}{Simulation details}{subsection.6.3}% 21
+\BOOKMARK [2][-]{subsection.6.4}{Performance Metrics}{section.6}% 22

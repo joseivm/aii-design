@@ -504,4 +504,6 @@ def cross_val():
     res = rdf.groupby('Model').mean().reset_index()
     print(res)
     res_filename = TABLES_DIR + '/Kenya/kenya_eval2.tex'
-    res.to_latex(res_filename,float_format='%.0f',escape=False,index=False)
+    res.to_latex(res_filename,float_format='%.2f',escape=False,index=False)
+
+cross_val()
