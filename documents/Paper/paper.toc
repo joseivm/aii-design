@@ -1,0 +1,79 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2}Literature Review}{2}{section.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Impact of Index Insurance}{2}{section*.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Demand for Index Insurance}{2}{section*.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Design of Index Insurance}{3}{section*.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Optimization Literature}{3}{section*.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Sustainable Operations}{3}{section*.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3}Optimization Approach}{3}{section.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1}Objective and Constraints}{3}{subsection.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2}Index Insurance Definition and Parameters}{4}{subsection.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.3}CVaR Model}{4}{subsection.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.3.1}Motivation}{4}{subsubsection.3.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.3.2}Changes to constraints}{5}{subsubsection.3.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.3.3}Single Zone Model}{5}{subsubsection.3.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.4}Multiple Zone Model}{7}{subsection.3.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4}Evaluation}{8}{section.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1}Baseline Method}{8}{subsection.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {4.1.1}Method description}{9}{subsubsection.4.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.2}Performance Metrics}{9}{subsection.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.3}Synthetic Data Evaluation}{10}{subsection.4.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {4.3.1}Data Generating Process}{10}{subsubsection.4.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {4.3.2}Optimization Model Parameters}{11}{subsubsection.4.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {4.3.3}Scenarios tested}{11}{subsubsection.4.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {4.3.4}Simulation details}{12}{subsubsection.4.3.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {4.3.5}Results}{12}{subsubsection.4.3.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsubsection}{\numberline {4.3.5.1}Correctly specified prediction model}{12}{subsubsubsection.4.3.5.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{No correlation Case}{12}{section*.19}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Positive Correlation Case}{13}{section*.20}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Negative Correlation Case}{14}{section*.21}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsubsection}{\numberline {4.3.5.2}Incorrectly specified prediction model}{15}{subsubsubsection.4.3.5.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{No correlation Case}{15}{section*.22}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Positive Correlation Case}{16}{section*.23}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Negative Correlation Case}{17}{section*.24}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.4}Kenya Evaluation}{18}{subsection.4.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {4.4.1}Data Sources}{18}{subsubsection.4.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {4.4.2}Data Creation}{18}{subsubsection.4.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {4.4.3}Evaluation Procedure}{18}{subsubsection.4.4.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {4.4.4}Results}{18}{subsubsection.4.4.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5}Discussion}{18}{section.5}

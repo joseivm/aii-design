@@ -1,0 +1,9 @@
+[0] Config.pm:302> INFO - This is Biber 2.11
+[0] Config.pm:305> INFO - Logfile is 'background.blg'
+[43] biber-darwin:313> INFO - === Thu Apr 13, 2023, 12:44:12
+[70] Biber.pm:371> INFO - Reading 'background.bcf'
+[211] Biber.pm:857> INFO - Found 0 citekeys in bib section 0
+[223] Utils.pm:193> WARN - The file 'background.bcf' does not contain any citations!
+[230] bbl.pm:617> INFO - Writing 'background.bbl' with encoding 'UTF-8'
+[230] bbl.pm:720> INFO - Output to background.bbl
+[230] Biber.pm:110> INFO - WARNINGS: 1

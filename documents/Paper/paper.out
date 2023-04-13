@@ -1,0 +1,28 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Literature Review}{}% 2
+\BOOKMARK [1][-]{section.3}{Optimization Approach}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Objective and Constraints}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Index Insurance Definition and Parameters}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.3}{CVaR Model}{section.3}% 6
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Motivation}{subsection.3.3}% 7
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Changes to constraints}{subsection.3.3}% 8
+\BOOKMARK [3][-]{subsubsection.3.3.3}{Single Zone Model}{subsection.3.3}% 9
+\BOOKMARK [2][-]{subsection.3.4}{Multiple Zone Model}{section.3}% 10
+\BOOKMARK [1][-]{section.4}{Evaluation}{}% 11
+\BOOKMARK [2][-]{subsection.4.1}{Baseline Method}{section.4}% 12
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Method description}{subsection.4.1}% 13
+\BOOKMARK [2][-]{subsection.4.2}{Performance Metrics}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.3}{Synthetic Data Evaluation}{section.4}% 15
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Data Generating Process}{subsection.4.3}% 16
+\BOOKMARK [3][-]{subsubsection.4.3.2}{Optimization Model Parameters}{subsection.4.3}% 17
+\BOOKMARK [3][-]{subsubsection.4.3.3}{Scenarios tested}{subsection.4.3}% 18
+\BOOKMARK [3][-]{subsubsection.4.3.4}{Simulation details}{subsection.4.3}% 19
+\BOOKMARK [3][-]{subsubsection.4.3.5}{Results}{subsection.4.3}% 20
+\BOOKMARK [4][-]{subsubsubsection.4.3.5.1}{Correctly specified prediction model}{subsubsection.4.3.5}% 21
+\BOOKMARK [4][-]{subsubsubsection.4.3.5.2}{Incorrectly specified prediction model}{subsubsection.4.3.5}% 22
+\BOOKMARK [2][-]{subsection.4.4}{Kenya Evaluation}{section.4}% 23
+\BOOKMARK [3][-]{subsubsection.4.4.1}{Data Sources}{subsection.4.4}% 24
+\BOOKMARK [3][-]{subsubsection.4.4.2}{Data Creation}{subsection.4.4}% 25
+\BOOKMARK [3][-]{subsubsection.4.4.3}{Evaluation Procedure}{subsection.4.4}% 26
+\BOOKMARK [3][-]{subsubsection.4.4.4}{Results}{subsection.4.4}% 27
+\BOOKMARK [1][-]{section.5}{Discussion}{}% 28

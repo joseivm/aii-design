@@ -1,0 +1,18 @@
+[0] Config.pm:302> INFO - This is Biber 2.11
+[0] Config.pm:305> INFO - Logfile is 'paper.blg'
+[42] biber-darwin:313> INFO - === Thu Mar  9, 2023, 13:46:26
+[68] Biber.pm:371> INFO - Reading 'paper.bcf'
+[171] Biber.pm:857> INFO - Found 22 citekeys in bib section 0
+[185] Biber.pm:3976> INFO - Processing section 0
+[197] Biber.pm:4136> INFO - Looking for bibtex format file '../main.bib' for section 0
+[200] bibtex.pm:1500> INFO - LaTeX decoding ...
+[279] bibtex.pm:1316> INFO - Found BibTeX data source '../main.bib'
+[470] Utils.pm:193> WARN - BibTeX subsystem: warning: comma(s) at end of name (removing)
+[470] Utils.pm:193> WARN - BibTeX subsystem: author, warning: comma(s) at end of name (removing)
+[525] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[525] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[525] Biber.pm:3804> INFO - Sorting list 'ynt/global//global/global' of type 'entry' with template 'ynt' and locale 'en-US'
+[525] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
+[554] bbl.pm:617> INFO - Writing 'paper.bbl' with encoding 'UTF-8'
+[584] bbl.pm:720> INFO - Output to paper.bbl
+[589] Biber.pm:110> INFO - WARNINGS: 2

@@ -531,7 +531,7 @@ def run_bootstrap_scenario(sigma,params,scenario_name,include_premium=False,seed
     return(bdict,odict)
 
 def debugging():
-    regime = 'nonlinear'
+    regime = 'linear'
     P = 1
     include_premium = True 
     n=10
@@ -585,8 +585,8 @@ def debugging():
     print(bootstrap_comparison_df(bdf,odf))
 
 start = time.time()
-bootstrap_scenario_exploration('linear',1,True,1000)
-bootstrap_scenario_exploration('nonlinear',1,True,1000)
+bootstrap_scenario_exploration('linear',1,True,500)
+bootstrap_scenario_exploration('nonlinear',1,True,500)
 # bootstrap_scenario_exploration('linear',8,False,100)
 # bootstrap_scenario_exploration('nonlinear',45,False,100)
 end = time.time()

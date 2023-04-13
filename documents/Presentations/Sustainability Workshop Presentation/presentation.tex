@@ -1,0 +1,216 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\graphicspath{{./Figures/}}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{booktabs}
+% \usepackage[square,numbers]{natbib}
+%\bibliographystyle{unsrtnat}
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+
+\newtheorem{defn}[theorem]{Definition}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=blue,
+    citecolor=black
+}
+
+\usetheme{Boadilla}
+\usecolortheme{beaver}
+
+ \usepackage[
+    backend=biber,
+    style=authoryear,url=false
+  ]{biblatex}
+
+\addbibresource{../../main.bib}
+
+\title[Agricultural Index Insurance]{Agricultural Index Insurance: An Optimization Approach}
+\author{José I. Velarde Morales \and Linwei Xin}
+\institute[Chicago Booth]
+{
+
+  University of Chicago\\
+  Booth School of Business
+
+}
+
+
+  
+
+
+\begin{document}
+\frame{\titlepage}
+\section{Introduction}
+
+\subsection{The Problem of Agricultural Risk}
+\begin{frame}{The Problem of Agricultural Risk}
+\begin{itemize}
+    \setlength\itemsep{2em}
+    \item Farmers face a lot of risk, and the lack of risk management tools forces them to use coping strategies that hurt their long term welfare.
+   
+    \item Traditional insurance is prohibitively costly in most developing countries due to lack of data and high verification costs.
+
+    \item Moral hazard, adverse selection, and the presence of large covariate shocks make the problem of agricultural insurance especially hard. 
+\end{itemize}
+\end{frame}
+
+\subsection{A Proposed Solution: Index Insurance}
+\begin{frame}{A Proposed Solution: Index Insurance}
+\begin{itemize}
+   \setlength\itemsep{1.5em}
+    \item In index insurance, an index (or statistic) is created using easily observable quantities (e.g. rainfall), and it is used to determine whether the insured party suffered an adverse event. 
+    \item If the index falls below a pre-determined threshold, the insurance company automatically issues out payments to the insured. 
+    \item This allows the insurance company to reduce verification costs.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Index Insurance in Practice}
+\begin{itemize}
+    \setlength\itemsep{1.5em}
+    \item Since it was first proposed, index insurance programs have been implemented in many countries including India, Mexico, Tanzania, Malawi, Kenya, and many others (\cite{jensen2017agricultural}). 
+    
+    \item Today, tens of millions of farmers worldwide are covered by index insurance programs (\cite{greatrex2015scaling}). 
+    
+    \item However, in most of these cases, the insurance has to be heavily subsidized by governments due to high cost and low demand (\cite{greatrex2015scaling}). 
+\end{itemize}
+\end{frame}
+
+\subsection{Project Overview}
+\begin{frame}{Project Overview}
+ \begin{itemize}
+    \setlength\itemsep{1em}
+    \item Traditionally, the contract for each insured zone is designed independently of all other zones.
+     \item The goal of this project is to make insurance less costly by improving the design of the insurance contracts. 
+    \item Our method simultaneously determines the contract parameters for different areas, while taking into account the correlation between the areas. 
+ \end{itemize}
+\end{frame}
+
+
+
+
+
+\section{Optimization Approach}
+\begin{frame}{Model Overview}
+    \begin{itemize}
+       \setlength\itemsep{1.5em}
+        \item We conducted interviews with researchers and practitioners that had implemented index insurance programs in several countries (Malawi, Kenya, Senegal, Thailand, among others) to learn more about the context. 
+        \item \textbf{Objective:} minimize risk faced by farmers 
+        \item \textbf{Constraints:} Budget constraints and price constraints
+        \item \textbf{Cost to insurer:} sum of payouts plus cost of required capital: $C(\theta_z) = \sum_z P_z(\theta_z) + c_k K$
+    \end{itemize}    
+    \end{frame}
+
+% \subsection{CVaR Model}
+
+% \begin{frame}{Idealized CVaR Model}
+%     \begin{itemize}
+%         \item \textbf{Objective:} conditional value at risk of the farmers' loss net of insurance.
+%         \item  \textbf{Constraint 1:} budget constraint
+%         \item \textbf{Constraint 2:} definition of required capital
+%         \item \textbf{Constraint 3:} structure of contract
+%     \end{itemize}
+
+%     \begin{align}
+%         \min_{a,b,K,\pi} \max_z &\quad CVaR_{1-\epsilon}\left (\ell_z  + \pi_z - I_z(\theta_z)\right ) \notag\\
+%         \text{s.t.   } \quad & \mathbb{E}\left [ \sum_z I_z(\theta_z) \right ] +  c_{\kappa} K \leq B \\
+%         K &= CVaR_{1-\epsilon_K} \left( \sum_z s_z I_z(\theta_z) \right ) - \mathbb{E}\left [ \sum_z s_zI_z(\theta_z) \right ]\\
+%         &I_z(\theta_z) = \min \left \{ \max \left \{0,a_z\hat{\ell_z}(\theta_z) + b_z \right \},1 \right \}
+%       \end{align}
+     
+%     \end{frame}
+
+
+\section{Evaluation}
+\subsection{Baseline Method}
+\begin{frame}{Evaluation Method}
+    \begin{itemize}
+        \setlength\itemsep{2em}
+        \item \textbf{Baseline Method:} We compare our method to the method developed in \cite{chantarat2013designing}. This is the method that was used to design Kenya's index insurance program, and is what is most commonly used in academic publications (see \cite{flatnes2018improving}; \cite{jensen2019does}). 
+        \item \textbf{Kenya Household Survey Data:} We used a household survey of Kenyan pastoralists. This survey tracked monthly livestock levels and losses for 900 households between 2010-2013. 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Evaluation Procedure}
+\begin{enumerate}
+\setlength\itemsep{2em}
+    \item Split data into training and test sets
+    \item Use training set to design insurance contracts using both methods
+    \item Apply insurance contracts designed by the two methods to farmers in the tests set and compare outcomes. 
+\end{enumerate}
+Performance Metrics: Conditional Value at Risk $(CVaR)$, Value at Risk $(VaR)$, semi-variance.
+\end{frame}
+
+\subsection{Results}
+\begin{frame}{Results}
+ The insurance contracts developed by our method are $20\%$ less costly than the baseline with this dataset, while offering comparable coverage. 
+
+ \begin{table}[]
+\small
+    \centering
+\begin{tabular}{lrrrr}
+\toprule
+   Model &  Max CVaR &  Max VaR &  Max SemiVar &   Average Cost \\
+\midrule
+Baseline &      0.69 &     0.52 &         0.22 &             \textbf{5263.64} \\
+     Opt &      0.65 &     0.53 &         0.22 &            \textbf{3794.80} \\
+\bottomrule
+\end{tabular}
+    \caption{Results using Kenya household data}
+    
+\end{table}
+    
+\end{frame}
+
+\begin{frame}{Summary of Results}
+    \begin{itemize}
+        \setlength\itemsep{1.5em}
+            \item Our method offers comparable coverage to the status quo as measured by $CVaR, VaR,$ and semi-variance
+            \item Contracts designed by our method are over $15\%$ less costly on average.
+            \item Our method reduces costs associated with required capital. 
+            \item Our method is more robust to misspecification of prediction model. 
+        \end{itemize}
+    
+\end{frame}
+
+% \begin{frame}{Why our method outperforms the baseline}
+% \begin{itemize}
+% \setlength\itemsep{2em}
+%     \item Adjusts payout strategy based on the correlation between the insured zones, making it less risky for the insurer. 
+%     \item Our method is more robust to misspecification of prediction model. 
+% \end{itemize}
+% \end{frame}
+
+\begin{frame}{Summary}
+    \begin{itemize}
+        \setlength\itemsep{1.5em}
+        \item We make index insurance more cost effective by improving the design of the insurance contracts. 
+        \item Our method simultaneously designs the contracts for all insured zones, taking into account correlation between zones.
+        \item Our method is able to outperform baseline because it is better at managing risk and because it is more robust to errors in the prediction model. 
+    \end{itemize}
+    
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}[noframenumbering, plain]{References}
+\printbibliography
+\end{frame}
+
+
+
+
+\end{document}

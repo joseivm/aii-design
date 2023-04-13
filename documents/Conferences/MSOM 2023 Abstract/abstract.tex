@@ -1,0 +1,225 @@
+\documentclass[12pt]{article}
+%\parskip 1.75\parskip plus 3pt minus 1pt
+%\renewcommand{\baselinestretch}{2}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{xspace}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{setspace}
+\usepackage{times}
+\usepackage{amsfonts}
+\usepackage{pdfsync}
+
+\usepackage[
+backend=biber,
+style=numeric,
+sorting=ynt
+]{biblatex}
+\addbibresource{../../main.bib}
+
+%\linespread{1.6}
+
+\newcounter{enumerate_t} \newenvironment{enumerate_t} { \begin{list}{{\bf (\roman{enumerate_t})}}   {     \usecounter{enumerate_t}
+\setlength{\parsep}{-5pt}     \setlength{\topsep}{5pt}   } } { \end{list} }
+\evensidemargin=0.20in \oddsidemargin=-0.15in
+\textwidth=6.7in \topmargin= -0.4in
+\headheight=0.0in \headsep=0.0in \textheight=9.3in
+
+\usepackage[colorlinks=true,breaklinks=true,bookmarks=true,urlcolor=blue,
+     citecolor=blue,linkcolor=blue,bookmarksopen=false,draft=false]{hyperref}
+
+\def\EMAIL#1{\href{mailto:#1}{#1}}% When hyperref is used, otherwise outcomment
+\def\URL#1{\href{#1}{#1}}         % When hyperref is used, otherwise outcomment
+% Natbib setup for numeric style
+
+%\usepackage{psfrag}
+%\usepackage{epsfig}
+%\usepackage{amsmath,amsthm}
+%\usepackage{epsfig}
+%\usepackage{pst-all}
+%\usepackage{bm}
+%\usepackage[dvips]{graphicx}
+%% Hyperref setup
+%\usepackage[colorlinks=true,breaklinks=true,bookmarks=true,urlcolor=blue,
+%     citecolor=blue,linkcolor=blue,bookmarksopen=false,draft=false]{hyperref}
+
+%\def\EMAIL#1{\href{mailto:#1}{#1}}% When hyperref is used, otherwise outcomment
+%\def\URL#1{\href{#1}{#1}}         % When hyperref is used, otherwise outcomment
+
+%% Setup of theorem styles. Outcomment only one.
+%% Preferred default is the first option.
+%\TheoremsNumberedThrough     % Preferred (Theorem 1, Lemma 1, Theorem 2)
+%\TheoremsNumberedByChapter  % (Theorem 1.1, Lema 1.1, Theorem 1.2)
+
+%% Setup of the equation numbering system. Outcomment only one.
+%% Preferred default is the first option.
+%\EquationsNumberedThrough    % Default: (1), (2), ...
+%\EquationsNumberedBySection % (1.1), (1.2), ...
+
+% In the reviewing and copyediting stage enter the manuscript number.
+%\MANUSCRIPTNO{} % When the article is logged in and DOI assigned to it,
+                 %   this manuscript number is no longer necessary
+
+\makeatletter
+\renewcommand\@date{{%
+\vspace{-\baselineskip}%
+\large\centering
+\begin{tabular}{@{}c@{}}
+     Jose Velarde Morales \\
+     \normalsize jvelarde@chicagobooth.edu
+\end{tabular}%
+\quad and\quad
+\begin{tabular}{@{}c@{}}
+     Linwei Xin \\
+     \normalsize linwei.xin@chicagobooth.edu
+\end{tabular}
+
+\bigskip
+
+Booth School of Business, University of Chicago
+
+\medskip
+
+% \today
+}}
+\makeatother
+
+%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%
+
+% Outcomment only when entries are known. Otherwise leave as is and
+%   default values will be used.
+%\setcounter{page}{1}
+%\VOLUME{00}%
+%\NO{0}%
+%\MONTH{Xxxxx}% (month or a similar seasonal id)
+%\YEAR{0000}% e.g., 2005
+%\FIRSTPAGE{000}%
+%\LASTPAGE{000}%
+%\SHORTYEAR{00}% shortened year (two-digit)
+%\ISSUE{0000} %
+%\LONGFIRSTPAGE{0001} %
+%\DOI{10.1287/xxxx.0000.0000}%
+
+%Author's names for the running heads
+%\RUNAUTHOR{Goldberg et al.} % for four or more authors
+% Enter authors following the given pattern:
+%\RUNAUTHOR{}
+
+% Title or shortened title suitable for running heads. Sample:
+%\RUNTITLE{Asymptotic optimality of constant-order policies for lost sales models}
+% Enter the (shortened) title:
+%\RUNTITLE{}
+
+% Full title. Sample:
+\vspace{-5ex}
+\title{Agricultural Index Insurance: An Optimization Approach}
+% Enter the full title:
+%\TITLE{}
+
+% Block of authors and their affiliations starts here:
+% NOTE: Authors with same affiliation, if the order of authors allows,
+%   should be entered in ONE field, separated by a comma.
+%   \EMAIL field can be repeated if more than one author
+
+
+% \date{\vspace{-10ex}}
+
+
+\maketitle
+
+
+% \ARTICLEAUTHORS{
+% \AUTHOR{José I. Velarde Morales}
+% \AFF{Booth School of Business, University of Chicago, \EMAIL{jvelarde@chicagobooth.edu }. \URL{}}
+% \AUTHOR{Linwei Xin}
+% \AFF{Booth School of Business, University of Chicago, \EMAIL{linwei.xin@chicagobooth.edu }. \URL{}}
+% }  
+
+%\begin{abstract}
+%Lost sales inventory models with large lead times, which arise in many
+%practical settings, are notoriously difficult to optimize due to the curse of
+%dimensionality.
+%In this paper we show that when lead times are large, a very simple
+%constant-order policy, first studied by Reiman (\cite{Reiman04}), performs
+%nearly optimally.
+%The main insight of our work is that when the lead time is very large, such a
+%significant amount of randomness is injected into the system between when an
+%order for more inventory is placed and when that order is received, that
+%``being smart" algorithmically provides almost no benefit.
+%Our main proof technique combines a novel coupling for suprema of random walks
+%with arguments from queueing theory.
+%\end{abstract}
+
+% Sample
+%\KEYWORDS{deterministic inventory theory; infinite linear programming duality;
+%  existence of optimal policies; semi-Markov decision process; cyclic schedule}
+%\MSCCLASS{Primary: 90B05; secondary: 90C40, 90C90}
+%\ORMSCLASS{Primary: Inventory/production: deterministic multi-item;
+%  secondary: dynamic programming/optimal control: deterministic
+%  semi-Markov; programming: infinite dimensional}
+%\HISTORY{Received November 20, 2003; revised March 8, 2004, and March 26, 2004.}
+
+% Fill in data. If unknown, outcomment the field
+%\KEYWORDS{inventory; lost sales; approximation/heuristics; asymptotics; queueing theory; random walk; coupling}
+%\MSCCLASS{Primary: 90B05; secondary: 90B22 }
+%\ORMSCLASS{Inventory/production , approximation/heuristics}
+%\HISTORY{}
+
+%\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Samples of sectioning (and labeling) in MOOR.
+% NOTE: (1) all section levels end with a period,
+%       (2) capitalization is as shown (sentence style, not title style).
+%
+%\section{Introduction.}\label{intro} %%1.
+%\subsection{Duality and the classical EOQ problem.}\label{class-EOQ} %% 1.1.
+%\subsection{Outline.}\label{outline1} %% 1.2.
+%\subsubsection{Cyclic schedules for the general deterministic SMDP.}
+%  \label{cyclic-schedules} %% 1.2.1
+%\section{Problem description.}\label{problemdescription} %% 2.
+
+% Text of your paper here
+
+% Appendix here
+% Options are (1) APPENDIX (with or without general title) or
+%             (2) APPENDICES (if it has more than one unrelated sections)
+% Outcomment the appropriate case if necessary
+%
+% \begin{APPENDIX}{<Title of the Appendix>}
+% \end{APPENDIX}
+%
+%   or
+%
+% \begin{APPENDICES}
+% \section{<Title of Section A>}
+% \section{<Title of Section B>}
+% etc
+% \end{APPENDICES}
+{
+\doublespacing
+\noindent
+\textbf{Research Problem.}\ \ \ \
+We study the problem of contract design for agricultural index insurance and develop a method to make it more cost efficient. Index insurance is a popular way of providing agricultural insurance in developing countries. Index insurance programs have been implemented in a variety of countries (e.g. India, Mexico, Tanzania) and it is estimated that tens of millions of farmers worldwide are covered by such programs \cite{greatrex2015scaling}. In index insurance, an index (or statistic) is created using easily observable quantities, and it is used to determine whether the insured party suffered an adverse event. Even though index insurance has proved to be a less costly way of providing insurance for small farmers, it has been difficult to scale up. Two of the biggest problems with index insurance are low take up and high cost. Farmers are often unwilling to purchase the insurance at market prices. Providing insurance in these contexts is often more costly due to the presence of correlated risks. We develop a method to simultaneously design the contracts of all insured zones while taking into account the correlations between the zones. 
+\noindent
+\\\textbf{Literature Review}\ \ \ \
+There are many studies that evaluate how access to index insurance affects the behavior of farmers (see \cite{karlan2014agricultural}; \cite{cole2013barriers}; \cite{jensen2017agricultural}). Overall, there is evidence that index insurance reduces reliance on detrimental risk-coping strategies, increases investment, and leads to riskier, but more profitable production decisions. However, there has been relatively little research done on the design of index insurance. In \cite{chantarat2013designing}, the authors describe the design of an index insurance program for pastoralists in Northern Kenya. Most subsequent academic research on the topic follows the same core method (\cite{flatnes2018improving}; \cite{jensen2019does}). To the extent of our knowledge, we are the first to use an optimization based approach to this problem. 
+\noindent
+\\\textbf{Methodology}\ \ \ \
+We conducted interviews with researchers and practitioners to learn more about the context and inform our approach. Based on these interviews, we developed an optimization program to simultaenously design the insurance contracts for all insured zones. This allows us to make better tradeoffs between coverage and the cost of holding capital. Our program's objective is to minimize risk faced by farmers subject to a budget constraint. We use the Conditional Value at Risk $(CVaR)$ as our measure of risk, and derive a convex approximation to the problem. We evaluate our method by comparing its performance with the method developed by \cite{chantarat2013designing}. This method is the standard method used in academic publications describing the design of index insurance programs (see \cite{flatnes2018improving}; \cite{jensen2019does}). It is also what was used to design Kenya's Index Based Livestock Insurance (IBLI) program. 
+
+We first compare the two methods using synthetic data. We compare the performance of the two methods under different scenarios with varying degrees of correlation between the insured zones. We also compare the how the two methods are affected by the quality of the underlying prediction model. Finally, we compare the two methods using a detailed dataset of livestock losses for Kenyan pastoralists between 2009 and 2013. 
+\noindent
+\\\textbf{Main results.}\ \ \ \
+We find that the insurance contracts designed by our method are significantly more cost efficient than the baseline in all scenarios tested using synthetic data. The contracts designed by our method offer comparable coverage at a lower cost, or better coverage at the same cost. Our method is able to outperform the baseline because it changes its payout strategy based on the correlation between the insured zones. This allows it to make better tradeoffs between coverage and costs associated with risk. Our method also takes into account the quality of the prediction model when designing contracts. Our method also outperforms the baseline when evaluated using real data from Kenya's index insurance program. In this evaluation, we find that our method is more robust to the misspecification of the underlying prediction model. This allows our method to provide comparable coverage at a significantly lower cost for the insurer. 
+
+
+%Note that the performance of constant-order policies has been studied in other inventory control models. Similar to the joint pricing and inventory control problem, the structure of the optimal policy is also poorly understood for many inventory models without pricing decisions such as single-sourcing lost-sales and dual-sourcing inventory models. In particular, in a single-sourcing lost-sales model, a constant-order policy was proved to be asymptotically optimal as the lead time grows (e.g., \cite{Goldberg12}). \cite{Xin14} later demonstrated that the rate of convergence is at least as fast as exponential. \cite{Bu17} further extended the result to single-sourcing lost-sales models with general random supply functions. In a more complex dual-sourcing model, \cite{Xin15} proved that a Tailored Base-Surge policy, which is a combination of a constant-order (for the slow source) and a base-stock (for the fast source) policy, is asymptotically optimal as the lead time difference between the two sources grows.
+
+}
+
+\printbibliography
+\end{document}

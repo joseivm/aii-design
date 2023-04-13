@@ -80,7 +80,7 @@ In both cases we have: $\theta \sim \mathcal{N}((0,0),\Sigma), \epsilon \sim \ma
        \item $\epsilon_P=0.01$ This is a commonly set value by regulators.  
        \item $c_k=0.15$ This is an estimate from the literature (\cite{kielholz2000cost}). 
        \item $s_z = 1, \forall z$ This is for simplicity
-   \end{itemize}
+    \end{itemize}
 
    \subsubsection{Scenarios to be tested}
      We are interested in how the two models behave in three basic scenarios. The first scenario is when there is no correlation between the losses in the two insured zones. The second scenario is when the losses in the two zones are positively correlated. The last scenario is when the losses in the two zones are negatively correlated. We test both DGPs for each scenario. 
@@ -104,7 +104,7 @@ In both cases we have: $\theta \sim \mathcal{N}((0,0),\Sigma), \epsilon \sim \ma
        \end{itemize}
 
      \paragraph*{Negative correlation Case}
-       This is the case where the losses of the two zones are negatively correlated. This is a common feature of large scale climate processes. For example, certain El Nino-Southern Oscillation states are associated with increased rainfall in the Greater Horn of Africa, but with increased drought probabiliy in Southern Africa (\cite{barrett2007poverty}). 
+       This is the case where the losses of the two zones are negatively correlated. This is a common feature of large scale climate processes. For example, certain El Nino-Southern Oscillation states are associated with increased rainfall in the Greater Horn of Africa, but with increased drought probability in Southern Africa (\cite{barrett2007poverty}). 
        \begin{itemize}
            \item $\Sigma = \begin{bmatrix}
                2 & -1.6 \\
@@ -137,7 +137,7 @@ In both cases we have: $\theta \sim \mathcal{N}((0,0),\Sigma), \epsilon \sim \ma
 
    \paragraph*{Maximum Skewness}
 
-   \paragraph*{Required Capital} We report this measure because we think it is one of the comparitive advantages of our method, and it has implications for the insurer. Higher capital requirements for the insurance translate to higher costs for the insurer, and it is cost that is not necessarily benefitting the farmers. The formula for required capital is: $K(I(\theta)) = CVaR_{1-\epsilon_P}(\sum_z s_z I_z(\theta)) - \mathbb{E}[\sum_z s_z I_z(\theta)]$. For the $CVaR_{1-\epsilon_P}$, we first calculate the sum of all payouts in every scenario. We use these sums to calculate the empirical $VaR_{1-\epsilon_P}(\sum_z s_z I_z(\theta))$. We then calculate the average of all sums greater than or equal to this quantity. We calculate $\mathbb{E}[\sum_z s_z I_z(\theta)]$ using the empirical mean. We set $\epsilon_P = 0.01$ because it is a commonly used value by regulators. 
+   \paragraph*{Required Capital} We report this measure because we think it is one of the comparative advantages of our method, and it has implications for the insurer. Higher capital requirements for the insurance translate to higher costs for the insurer, and it is cost that is not necessarily benefitting the farmers. The formula for required capital is: $K(I(\theta)) = CVaR_{1-\epsilon_P}(\sum_z s_z I_z(\theta)) - \mathbb{E}[\sum_z s_z I_z(\theta)]$. For the $CVaR_{1-\epsilon_P}$, we first calculate the sum of all payouts in every scenario. We use these sums to calculate the empirical $VaR_{1-\epsilon_P}(\sum_z s_z I_z(\theta))$. We then calculate the average of all sums greater than or equal to this quantity. We calculate $\mathbb{E}[\sum_z s_z I_z(\theta)]$ using the empirical mean. We set $\epsilon_P = 0.01$ because it is a commonly used value by regulators. 
 
    \paragraph*{Average Cost of Insurance} We report this measure to ensure that the two methods have the same (or very similar costs). This will make it easier to compare the methods. We define this to be $\frac{1}{N}\sum_{i=1}^N \sum_z I_z(\theta^i_z) + c_{\kappa} K$. This is the empirical average of the cost of the insurance in every scenario in the test set plus the cost of capital
 
