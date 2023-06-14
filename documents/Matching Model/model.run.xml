@@ -81,7 +81,7 @@
       <file>model.bcf</file>
     </requires>
     <requires type="editable">
-      <file>../../main.bib</file>
+      <file>../main.bib</file>
     </requires>
   </external>
 </requests>

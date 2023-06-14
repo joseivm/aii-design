@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  9 MAR 2023 13:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  16 MAY 2023 10:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -652,7 +652,7 @@ File: ../../output/figures/Logit_Bootstrap/neg_corr_linear_premium.png Graphic f
 Package pdftex.def Info: ../../output/figures/Logit_Bootstrap/neg_corr_linear_premium.png  used on input line 373.
 (pdftex.def)             Requested size: 352.31625pt x 211.39055pt.
 [14 <../../output/figures/Logit_Bootstrap/pos_corr_linear_premium.png>] (/Users/joseivelarde/Projects/aii-design/documents/Paper/../../output/tables/Logit_Bootstrap/neg_corr_linear_premium.tex)
-Overfull \hbox (13.05885pt too wide) in paragraph at lines 1--382
+Overfull \hbox (14.7255pt too wide) in paragraph at lines 1--382
  [][] 
  []
 
@@ -662,7 +662,7 @@ File: ../../output/figures/Logit_Bootstrap/no_corr_nonlinear_premium.png Graphic
 Package pdftex.def Info: ../../output/figures/Logit_Bootstrap/no_corr_nonlinear_premium.png  used on input line 390.
 (pdftex.def)             Requested size: 352.31625pt x 211.39055pt.
 [15 <../../output/figures/Logit_Bootstrap/neg_corr_linear_premium.png>] (/Users/joseivelarde/Projects/aii-design/documents/Paper/../../output/tables/Logit_Bootstrap/no_corr_nonlinear_premium.tex)
-Overfull \hbox (45.2984pt too wide) in paragraph at lines 1--399
+Overfull \hbox (48.9484pt too wide) in paragraph at lines 1--399
  [][] 
  []
 
@@ -672,7 +672,7 @@ File: ../../output/figures/Logit_Bootstrap/pos_corr_nonlinear_premium.png Graphi
 Package pdftex.def Info: ../../output/figures/Logit_Bootstrap/pos_corr_nonlinear_premium.png  used on input line 408.
 (pdftex.def)             Requested size: 352.31625pt x 211.39055pt.
 [16 <../../output/figures/Logit_Bootstrap/no_corr_nonlinear_premium.png>] (/Users/joseivelarde/Projects/aii-design/documents/Paper/../../output/tables/Logit_Bootstrap/pos_corr_nonlinear_premium.tex)
-Overfull \hbox (46.97131pt too wide) in paragraph at lines 1--417
+Overfull \hbox (50.6213pt too wide) in paragraph at lines 1--417
  [][] 
  []
 
@@ -709,7 +709,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  42i,10n,45p,1733b,1283s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/joseivelarde/Projects/aii-design/documents/Paper/paper.pdf (20 pages, 477304 bytes).
+Output written on /Users/joseivelarde/Projects/aii-design/documents/Paper/paper.pdf (20 pages, 507319 bytes).
 PDF statistics:
  502 PDF objects out of 1000 (max. 8388607)
  446 compressed objects within 5 object streams

@@ -1,0 +1,123 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb,bbm}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage[
+backend=biber,
+style=bwl-FU,
+sorting=ynt
+]{biblatex}
+\addbibresource{../../main.bib}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\title{Matching Model Updates}
+\author{José I. Velarde Morales}
+
+\begin{document}
+\maketitle
+
+\section{Multi-Phase Model} \label{limited-data}
+  \subsection{Problems}
+    I was able to implement the model, however, it doesn't work as one would hope. It seems to be having the problems you predicted, mainly, the formulation doesn't always force the decision variables to take on useful values. Im listing the problems and some solutions I tried below: 
+    \begin{enumerate}
+        \item $z_y$ wasn't tracking if there was a payout in year $y$, we would sometimes get solutions with $z_y=1$ even if there was no payout in year $y$. 
+        \item Dekads would only be assigned to the most important phase. 
+        \item All of the weight is allocated to the most important phase
+        \item All of the payout is allocated to the most important phase
+    \end{enumerate}
+
+    \paragraph{Attempted Solutions} 
+    \begin{enumerate}
+        \item Add constraint that $\epsilon -M(1-z) \leq \sum_{t=1}^{T} \min \left \{ a_t \eta^y_t + b_t, w_t \right \}$. We want $z=1$ if there was a payout and $z=0$ if there was no payout. 
+        \item Add constraints that each phase is assigned at least one dekad: $\sum_{d=1}^{D} A_{td} \geq 1, \forall d$. 
+        \item Add constraint that $w_t \in [\underline{w_t},\overline{w_t}]$. \textbf{Note:} This still just assigns as much weight as possible to the most important phase. 
+        \item Replace premium constraint with budget constraint $\sum_y \sum_t \max \left \{ a_t \eta^y_t + b_t,0 \right \} \leq B$ and another constraint that $B\underline{w_t} \leq \sum_y \max \left \{ a_t \eta^y_t + b_t,0 \right \} \leq B \overline{w_t}$. \textbf{Note:} This did not fix the problem, because we use $\alpha_{yt}$ to represent $\max \left \{ a_t \eta^y_t + b_t,0 \right \}$, and the program would set $\alpha_{yt} = B\underline{w_t}$ for one year and just leave $a_t, b_t = 0$. 
+    \end{enumerate}
+
+    \subsection{Data Generating Process}
+    The original data generating process for the toy example was: 
+    $Y = w_1 Y_1 + w_2 Y_2 + w_3 Y_3$. Here, $Y$ represents total output, $Y_t$ represents output in phase $t$, and $w_t$ is the weight, or relative importance of phase $t$. $Y_t = \min \left \{ \max \left \{ \theta_t- \theta^*, 0 \right \} 1 \right \}$. Here, $\theta_t \sim N(3,1)$ and $\theta^* = 2$. Here, $\theta_t$ was meant to represent rainfall in phase $t$, and the intuition behind the data generating process is that output is starts dropping if rainfall goes below a certain threshold. Here, output would start to drop if rainfall was one standard deviation below the mean, and there would be full loss of phase $t$'s output if rainfall was two standard deviations below the mean. \\
+    I tried this original data generating process, but the contract parameters, $a,b$ would always be set to 0. However, I realized that under this DGP, the optimal value for $a,b$ would be $a=-1, b=2$. This is a problem because we use a reformulation to express the bilinear term: $a_t \eta^y_t$ (since $\eta^y_t = \sum_{d=1}^{D} \theta_{yd}A_{td}$, the term $a_t \eta^y_t$ is bilinear). The reformulation works for a binary variable, $z$ and a continuous variable $x$, but requires that $x \geq 0$. As a result, I changed the DGP to reflect predicted loss instead of rainfall. The new DGP is $L = w_1 \ell_1 + w_2 \ell_2 + w_3 \ell_3$, with $\ell_t \sim N(3,1)$. This was kind of a quick change, and I will work on improving it. However, this did help the problem, and $a,b$ were no longer always 0. 
+      
+
+  \subsection{Model}
+  In this model, we are maximizing the number of bad years as identified by farmers in which the insurance would have issued a payout. In other words, if year $y$ was identified as farmers as a particularly bad year, we want the insurance we design to have issued out a payout in that year. In the model below, the payouts are assumed to be in rates. The model will output values for $a$ and $b$, and the final contracts will be $I(\eta) = \sum_{t}^{T} \min \left \{ \max \left \{ a_t \eta_t + b_t, 0 \right \}, w_t \right \}$, where $\eta_t$ is the sum of rainfall in phase $t$. So if the total insured amount is $s$, the payout will be $sI(\eta)$.
+
+    \paragraph{Data}
+      \begin{itemize}
+        \item $\theta \in \mathbb{R}^{D \times Y}$: $\theta$ is remote sensing data where $D$ is the number of dekads (10 day intervals), and $Y$ is the number of years we have data for. In practice, $\theta$ is often rainfall, $D=36$ because there are 365 days in the year, and $Y\in [20,40]$.
+        \item $\beta \in \{ 0,1\}^Y$: $\beta$ is a binary vector indicating bad years as identified by farmers. $\beta_i = 1$ if farmers identified year $i$ as a bad year. 
+        \item $T$: number of phases in insurance contract. 
+        \item $\overline{\pi}$: budget 
+        \item $\underline{f}, \overline{f}$: minimum and maximum desired frequency for insurance
+        \item $s$: is the total insured amount. 
+        \item $m$: the number of ordinal payout constraints we allow to be violated. 
+      \end{itemize}
+
+    \paragraph{Decision Variables}
+      \begin{itemize}
+        \item $z \in \{ 0,1\}^Y$: $z$ is a binary variable indicating in which years the insurance would have issued a payout. $z_i = 1$ if the insurance would have issued out a payout in the $i^{th}$ year of the historical data.
+        \item $A \in \{ 0,1\}^{T \times D}$: $Y$ is a binary matrix indicating which dekads are included in which phase. $A_{td} = 1$ if dekad $d$ is included in phase $t$. 
+        \item $\eta \in \mathbb{R}^{Y \times T}$: $\eta^y_t$ is the sum of rainfall in phase $t$ of year $y$. 
+        \item $\alpha \in \mathbb{R}^{Y \times T}$: Upper bound on payout, $\alpha_{yt} = \max \left \{ a_t \eta^y_t + b_t, 0 \right \}$
+        \item $\omega \in \mathbb{R}^{Y \times T}$: Lower bound on payout, $\omega_{yt} = \min \left \{ a_t \eta^y_t + b_t, w_t \right \}$
+        \item $w_t$ is the weight assigned to phase $t$. We have that $\sum_t w_t = 1$ 
+        \item $D \in \{ 0,1\}^{T \times D-1}$: this is a helper variable to ensure that phases are continuous. For example, we wouldn't want phase 1 to be dekads 1,2, 4 and for phase 2 to be dekads 3, 5, and 6. 
+        \item $d \in \{ 0,1\}^{J}$: this is a binary vector indicating which of the ordinal payout constraints can be satisfied. Here, $J$ is the number of constraints that specify that the payout in year $i$ should be greater than the payout in year $j$ if year $i$ was ranked worse than year $j$. If $d_k=1$, then the $k^{th}$ ordinality constraint doesn't have to be satisfied. 
+        % \item $\gamma \in \mathbb{R}^Y$: Helper variable for {\sf CVaR} reformulation        
+      \end{itemize}
+    
+    \begin{align}
+      \max_{A,D,z,\eta,a,b,d} &\sum_{y=1}^{Y} \beta_y \sum_{t=1}^{T} \min \left \{ a_t \eta^y_t +b_t, w_t \right \}  \\
+        \text{s.t.   } Mz_y &\geq \sum_{t=1}^{T} \max \left \{a_t \eta_t^y + b_t,0 \right \}, \quad \forall y\\
+        \underline{f} &\leq \frac{1}{Y} \sum_{y=1}^{Y} z_y \leq \overline{f}\\
+        \frac{1}{Y} \sum_{y=1}^{Y} & \sum_{t=1}^{T} \max \left \{a_t \eta^y_t + b_t,0 \right \} + \frac{1}{s}c_{\kappa}K \leq \overline{\pi}\\
+        K &= CVaR_{1-\epsilon_K} \left ( s\sum_{t=1}^{T} \max \left \{ a_t \eta_t + b_t,0 \right \} \right ) - \mathbb{E} \left [ s\sum_{t=1}^{T} \min \left \{ a_t \eta_t +b_t, w_t \right \} \right ]\\
+        Md_k + \sum_{t=1}^{T} &\max \left \{a_t \eta_t^{y_i} + b_t,0 \right \} \geq \sum_{t=1}^{T} \min \left \{a_t \eta_t^{y_j} + b_t,w_t \right \}, \forall i, j \quad \text{s.t. year i worse than year j}\\
+        \sum_{k=1}^{J} d_k &\leq m\\
+        \sum_{t=1}^{T} A_{t,d} &\leq 1, \quad \forall d \\ 
+        D_{t,d} &= |A_{t,d+1}-A_{t,d}|, \quad \forall t, \quad d=1,...,D-1\\
+        \sum_{d=1}^{D-1} D_{t,d} &\leq 2, \quad \forall t \\
+        A_{t,1} &+ A_{t,D} \leq 1, \forall t \\
+        \eta_t^y &= \sum_{d=1}^{D} \theta_{yd}A_{td}, \quad \forall t,d \\
+        \sum_{t=1}^T w_t &= 1\\
+        z_i, & A_{ij} \in \{ 0,1\}
+    \end{align}
+
+    Constraint (2) ensures that $z_i = 1$ if a payout was issued in year $i$, here $M$ is a large number, say 1000, such that if $z_y=1$ then the constraint is always satisfied. Constraint (3) is the payout frequency constraint. Constraints (4) and (5) are the budget constraints. Constraint (4) is our proxy for the premium, it includes the average payout and the cost of capital. It is a rate, and is supposed to represent the cost of the insurance per insured unit. Constraint (5) is the definition of the cost of capital. Constraint (6) ensures that if year $i$ is worse than year $j$, then the payout in year $i$ is greater than or equal to the payout in year $j$. Constraint (7) specifies that at least $J-m$ of the constraints specified in Constraint (6) need to be satisfied. This is because Constraint (6) will automatically be satisfied if $d_k=1$. In other words, Constraint (6) can be violated if $d_k=1$. As a result, Constraint (7) specifies that constraints in Constraint (6) can be violated at most $m$ times. Constraint (8) ensures each dekad is assigned to at most one phase. $D$ is a helper variable we use to ensure that the phases are continuous. Let $a_t$ be the $t^{th}$ row of $A$, this vector will have $i=1$ if dekad $i$ is in phase $t$. We set $D_{t,d} = |A_{t,d+1}-A_{t,d}|$. Intuitively, $D$ keeps tracks of the number of times $a_t$ switches from 1 to 0 or vice versa. In order for a phase to be continuous, it can switch at most 2 times. The only non-continuous sequences that satisfy this are sequences starting and ending with ones, and having zeros in the middle: $(1,1,0,...,0,1,1)$. We exclude these sequences with constraint (11). Constraint (12) defines $\eta^y_t$ to be the sum of rainfall in phase $t$ of year $y$. Constraint (13) specifies that the sum of the weights for all of the phases has to be equal to 1.
+
+    \paragraph{LP Reformulation} Using the results from \cite{rockafellar2002conditional}, we can reformulate the above as a mixed integer linear program: 
+
+    \begin{align*}
+      \max_{A,D,z,\gamma,a,b,\alpha} &\sum_{y=1}^{Y} \sum_{t=1}^{T} \beta_y \omega_{yt} \\
+        \text{s.t.   } Mz_y &\geq \sum_{t=1}^{T} \alpha_{yt}, &&\forall y\\
+        \underline{f} \leq \frac{1}{Y} & \sum_{y=1}^{Y} z_y \leq \overline{f}\\
+        \frac{1}{Y} \sum_{y=1}^{Y} & \sum_{t=1}^{T} \alpha_{yt} + c_{\kappa}K \leq \overline{\pi}\\
+        t_k + \frac{1}{\epsilon_K} &\sum_{y=1}^{Y} p^y \gamma^y \leq K + \frac{1}{Y} \sum_y \sum_t \omega_{yt}\\
+        \gamma^y &\geq \sum_{t=1}^{T} \alpha_{yt} - t_K &&\forall y \\
+        \gamma^y &\geq 0  &&\forall y\\
+        \alpha_{yt} &\geq \sum_{d=1}^{D} h_{ytd} + b_t &&\forall y,t \\
+        \alpha_{yt} &\geq 0  &&\forall y,t\\
+        \omega_{yt} &\leq \sum_{d=1}^{D} h_{ytd} + b_t &&\forall y,t\\
+        \omega_{yt} &\leq w_t &&\forall y,t\\
+        h_{ytd} &\leq a_t \theta_{yd} &&\forall y,t,d\\
+        h_{ytd} &\geq 0 &&\forall y,t,d\\
+        h_{ytd} &\leq M A_{td} &&\forall y,t,d\\
+        h_{ytd} &\geq a_t \theta_{yd} + M(A_{td}-1) &&\forall y,t,d\\ 
+        \sum_{t=1}^{T} A_{t,d} &\leq 1 &&\forall d \\ 
+        D_{t,d} &\geq A_{t,d+1}-A_{t,d} &&\forall t, \quad d=1,...,D-1\\
+        D_{t,d} &\geq -(A_{t,d+1}-A_{t,d}) && \forall t, \quad d=1,...,D-1\\
+        \sum_{d=1}^{D-1} D_{t,d} &\leq 2 &&\forall t \\
+        A_{t,1} &+ A_{t,D} \leq 1 &&\forall t \\
+        \eta_t^y &= \sum_{d=1}^{D} \theta_{yd}A_{td} &&\forall t,d \\
+        \sum_{t=1}^T w_t &= 1\\
+        z_i, & A_{ij} \in \{ 0,1\}
+    \end{align*}
+  
+\end{document}

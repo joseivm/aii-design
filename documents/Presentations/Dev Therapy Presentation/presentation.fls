@@ -353,20 +353,22 @@ INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncms
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy Presentation/../../../output/figures/Bootstrap/pos_corr_nonlinear_premium.png
-INPUT ../../../output/figures/Bootstrap/pos_corr_nonlinear_premium.png
-INPUT ../../../output/figures/Bootstrap/pos_corr_nonlinear_premium.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy Presentation/../../../output/figures/Presentation/sample_insurance_contract.png
+INPUT ../../../output/figures/Presentation/sample_insurance_contract.png
+INPUT ../../../output/figures/Presentation/sample_insurance_contract.png
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssi10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmss12.tfm
 INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy Presentation/presentation.toc
 INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy Presentation/presentation.toc
 INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy Presentation/presentation.toc
 INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy Presentation/presentation.toc
-INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/bbm-macros/ubbm.fd
-INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/bbm-macros/ubbm.fd
-INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/bbm/bbm10.tfm
-INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/bbm/bbm8.tfm
-INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/bbm/bbm6.tfm
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy Presentation/../../../output/figures/Logit_Bootstrap/farmer_loss_hist_no_corr_linear.png
+INPUT ../../../output/figures/Logit_Bootstrap/farmer_loss_hist_no_corr_linear.png
+INPUT ../../../output/figures/Logit_Bootstrap/farmer_loss_hist_no_corr_linear.png
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmss10.tfm
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy Presentation/../../../output/figures/Logit_Bootstrap/insurer_cost_no_corr_linear.png
+INPUT ../../../output/figures/Logit_Bootstrap/insurer_cost_no_corr_linear.png
+INPUT ../../../output/figures/Logit_Bootstrap/insurer_cost_no_corr_linear.png
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
@@ -378,15 +380,17 @@ INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
-INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/bbm/bbm5.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
-INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmss10.tfm
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy Presentation/../../../output/figures/Logit_Bootstrap/farmer_loss_hist_no_corr_nonlinear.png
+INPUT ../../../output/figures/Logit_Bootstrap/farmer_loss_hist_no_corr_nonlinear.png
+INPUT ../../../output/figures/Logit_Bootstrap/farmer_loss_hist_no_corr_nonlinear.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy Presentation/../../../output/figures/Logit_Bootstrap/insurer_cost_no_corr_nonlinear.png
+INPUT ../../../output/figures/Logit_Bootstrap/insurer_cost_no_corr_nonlinear.png
+INPUT ../../../output/figures/Logit_Bootstrap/insurer_cost_no_corr_nonlinear.png
 INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy Presentation/presentation.toc
 INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy Presentation/presentation.toc
-INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmss9.tfm
-INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
@@ -396,8 +400,6 @@ INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
-INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/bbm/bbm10.tfm
-INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/bbm/bbm7.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
@@ -412,14 +414,13 @@ INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therap
 INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy Presentation/presentation.out
 INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy Presentation/presentation.run.xml
 OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy Presentation/presentation.run.xml
-INPUT /Users/joseivelarde/Library/texlive/2018/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb
-INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb

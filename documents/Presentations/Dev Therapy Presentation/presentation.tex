@@ -17,10 +17,7 @@
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    filecolor=magenta,      
-    urlcolor=cyan,
+    allcolors={}
 }
 
 \usetheme{Boadilla}
@@ -34,7 +31,7 @@ sorting=ynt
 \addbibresource{../../main.bib}
 
 \title[Agricultural Index Insurance]{Agricultural Index Insurance: An Optimization Approach}
-\author[José I. Velarde Morales]{José I. Velarde Morales}
+\author[José Velarde Morales]{José I. Velarde Morales \and Linwei Xin}
 \institute[Chicago Booth]
 {
 
@@ -44,10 +41,8 @@ sorting=ynt
 }
 
 
-  
-
-
 \begin{document}
+\beamertemplatenavigationsymbolsempty
 \frame{\titlepage}
 \section{Introduction}
 
@@ -67,7 +62,7 @@ sorting=ynt
 \begin{frame}{A Proposed Solution: Index Insurance}
 \begin{itemize}
    \setlength\itemsep{1em}
-    \item Researchers developed index insurance as a less costly way to offer insurance in developing countries. 
+    % \item Researchers developed index insurance as a less costly way to offer insurance in developing countries. 
     \item In index insurance, an index (or statistic) is created using easily observable quantities (e.g. rainfall), and it is used to determine whether the insured party suffered an adverse event. 
     \item If the index falls below a pre-determined threshold, the insurance company automatically issues out payments to the insured. 
     \item This allows the insurance company to circumvent the issue of verification and moral hazard, since the actions of individual farmers cannot affect the index.
@@ -88,21 +83,20 @@ sorting=ynt
 \subsection{Project Overview}
 \begin{frame}{Project Overview}
  \begin{itemize}
-    \setlength\itemsep{1em}
-     \item The goal of this project is to make insurance less costly by improving the design of the insurance contracts. 
+    \setlength\itemsep{1em}   
     \item Traditionally, the contract for each insured zone is designed independently of all other zones. %This ignores valuable information about the correlation between zones that affects the cost of insuring the whole portfolio. 
-    \item Our method simultaneously determines the contract parameters for different areas, while taking into account the correlation between the areas. 
-    \item This allows it to make better trade offs between coverage and the costs associated with capital requirements.
+    \item The goal of this project is to make insurance less costly by improving the design of the insurance contracts.
+    \item Our method simultaneously determines the contract parameters for different areas, while taking into account the correlation between the areas, reducing risk for the insurer. 
+    % \item This allows it to make better trade offs between coverage and the costs associated with risk.
  \end{itemize}
 \end{frame}
 
-\begin{frame}{What I would like feedback on}
-    \begin{itemize}
-       \setlength\itemsep{1em}
-        \item Evaluation (what metrics to report, evaluation with observational and synthetic data, etc.)
-       \item Data imputation
-    \end{itemize}
-   \end{frame}
+% \begin{frame}{What I would like feedback on}
+%     \begin{itemize}
+%        \setlength\itemsep{1em}
+%         \item Evaluation (what metrics to report, evaluation with observational and synthetic data, etc.)
+%     \end{itemize}
+%    \end{frame}
 
 % \subsection{Literature Review}
 \begin{frame}{Index Insurance Literature}
@@ -133,40 +127,40 @@ sorting=ynt
 
   
 \subsection{Index Insurance Background}
-\begin{frame}{Index Insurance: General Context}
-\begin{itemize}
-    \setlength\itemsep{1em}
-    \item Index insurance is a named-peril insurance.
-    \item It is often tied to access to credit.
-    \item Offered at different levels (micro level, meso level, and macro level)
-    \item Often based on public-private partnerships. Research institutions usually design the product, and insurance companies (or governments) sell it. 
-\end{itemize}
-\end{frame} 
+% \begin{frame}{Index Insurance: General Context}
+% \begin{itemize}
+%     \setlength\itemsep{1em}
+%     \item Index insurance is a named-peril insurance.
+%     \item It is often tied to access to credit.
+%     \item Offered at different levels (micro level, meso level, and macro level)
+%     \item Often based on public-private partnerships. Research institutions usually design the product, and insurance companies (or governments) sell it. 
+% \end{itemize}
+% \end{frame} 
 
 \begin{frame}{Index Insurance: Design}
-Index insurance design generally consists of three steps: 
+% Index insurance design generally consists of three steps: 
 \begin{enumerate}
     \setlength\itemsep{1em}
     \item Prediction: building a model to predict loss. 
     \item Contract design: designing contracts specifying payouts based on model predictions.
     \item Pricing: product pricing
 \end{enumerate}
-This project focuses on the second step. Currently, a research team usually designs the insurance product, and the insurance company then prices the product.
+% This project focuses on the second step. Currently, a research team usually designs the insurance product, and the insurance company then prices the product.
 \end{frame} 
 
 \begin{frame}{Index Insurance: Definition and Parameters}
 \begin{itemize}
     \setlength\itemsep{1em}
-    \item Index insurance uses a signal, $\theta$, that is used to predict agricultural loss, $\hat{\ell}(\theta)$
-    \item Index insurance contracts normally have the form: $I(\theta) = \min \left \{ \left (a\hat{\ell}(\theta) + b \right )^+, P \right \}$, where $P$ is the maximum payout, and $a,b$ are the contract parameters.
-    \item The expected cost, $C(I(\theta))$, of an insurance contract, $I(\theta)$ for an insurer is: $C(I(\theta)) = \mathbb{E}[I(\theta)] + c_{\kappa} K(I(\theta))$, where $c_{\kappa}$ is the cost of holding capital, and $K$ is the amount of capital required to insure the contract.
-    \item The formula for $K$ is $K(I(\theta)) = CVaR_{1-\epsilon_P}\left ( I(\theta) \right ) - \mathbb{E}[I(\theta)]$.
+    \item Index insurance uses a signal, $\theta$, to predict agricultural loss, $\hat{\ell}(\theta)$
+    \item Contract form: $I(\theta) = \min \left \{ \max \left \{a\hat{\ell}(\theta) - b,0 \right \}, 1 \right \}$, $a,b$ are the contract parameters.
+    \item Expected cost for insurer: $C(I(\theta)) = \mathbb{E}[I(\theta)] + c_{\kappa} K(I(\theta))$, where $c_{\kappa}$ is the cost of capital, and $K$ is required capital.
+    \item $K(I(\theta)) = CVaR_{1-\epsilon_P}\left ( I(\theta) \right ) - \mathbb{E}[I(\theta)]$.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Example of Payout Functions}
+\begin{frame}{Example of Index Insurance Contract}
     \begin{figure}
-        \includegraphics[width=\textwidth]{../../../output/figures/Bootstrap/pos_corr_nonlinear_premium.png}
+        \includegraphics[width=0.9\textwidth]{../../../output/figures/Presentation/sample_insurance_contract.png}
     \end{figure}
 \end{frame}
 
@@ -175,14 +169,14 @@ This project focuses on the second step. Currently, a research team usually desi
 \begin{itemize}
    \setlength\itemsep{2em}
     \item We conducted interviews with researchers and practitioners that had implemented index insurance programs in several countries (Malawi, Kenya, Senegal, Thailand, among others) to learn more about the context. 
-    \item \textbf{Objective:} minimize risk faced by farmers, maybe minimize probability that wealth drops below a certain threshold.
-    \item \textbf{Constraints:} Budget constraints are very important from both demand and supply side.
+    \item \textbf{Objective:} minimize risk faced by farmers
+    \item \textbf{Constraints:} Price constraints and payout frequency
 \end{itemize}    
 \end{frame}
 
 
 \begin{frame}{Risk Measures}
-We are interested in minimizing the risk faced by farmers, so we need a measure of this risk. 
+% We are interested in minimizing the risk faced by farmers, so we need a measure of this risk. 
 
 \begin{defn}
     For a random variable $z$, representing loss, the $(1-\epsilon)$ Value at Risk $(VaR)$ is given by 
@@ -202,58 +196,91 @@ We are interested in minimizing the risk faced by farmers, so we need a measure 
 \subsection{CVaR Model}
 \begin{frame}{Idealized CVaR Model}
 \label{ideal-model}
-\begin{itemize}
-    \item \textbf{Objective:} conditional value at risk of the farmers' loss net of insurance.
-    \item  \textbf{Constraint 1:} piecewise linear structure of the contract. 
-    \item \textbf{Constraint 2:} budget constraint.
-    \item \textbf{Constraint 3:} definition of required capital.
-\end{itemize}
+% \begin{itemize}
+%     \item \textbf{Objective:} conditional value at risk of the farmers' loss net of insurance.
+%     \item  \textbf{Constraint 1:} piecewise linear structure of the contract. 
+%     \item \textbf{Constraint 2:} definition of premium
+%     \item \textbf{Constraint 3:} definition of required capital
+%     \item \textbf{Constraint 4:} payout frequency constraint
+% \end{itemize}
  
 \begin{align}
-        \min_{a,b,\pi, K}  & \quad CVaR_{1-\epsilon}\left ( \ell + \mathbb{E}[I(\theta)] - I(\theta) \right) \notag\\
-        \text{s.t.   }I(\theta) &= \min \{ (a\hat{\ell}(\theta) + b)^+,P \} \\
-        \mathbb{E}&\left [ I(\theta) \right ] + c_{\kappa} K \leq B \\
-        K &= \left( CVaR_{1-\epsilon}\left ( I(\theta) \right ) - \mathbb{E}[I(\theta)] \right) \label{cons-budget}
-    \end{align}
+    \min_{a,b,\pi, K}  & \quad {\sf CVaR}_{1-\epsilon}\left ( \ell + \pi - I(\theta) \right ) \nonumber \\
+    \text{s.t.} & \quad I(\theta) =  \min \left \{\max \left \{0,a\hat{\ell}(\theta) - b \right \}, 1 \right \}\\
+    & \quad \pi = \mathbb{E}\left [ I(\theta) \right ] + c_{\kappa} K \\
+    & \quad K = {\sf CVaR}_{1-\epsilon_K}\left ( I(\theta)\right )  - \mathbb{E}[I(\theta)] \\
+    & \quad \underline{f} \leq \mathbb{P}\left ( I(\theta) > 0 \right ) \leq \overline{f}\\
+    &\quad \pi \leq \overline{\pi}.
+\end{align}
 \end{frame}
+
+\begin{frame}[noframenumbering]{Idealized CVaR Model}
+    \label{ideal-model}
+    \begin{align}
+        \min_{a,b,\pi, K}  & \quad {\sf CVaR}_{1-\epsilon}\left ( \ell + \pi - I(\theta) \right ) \nonumber \\
+        \text{s.t.} & \quad I(\theta) =  \min \left \{\max \left \{0,a\hat{\ell}(\theta) - b \right \}, 1 \right \}\\
+        & \quad \pi = \mathbb{E}\left [ I(\theta) \right ] + c_{\kappa} K \\
+        & \quad K = {\sf CVaR}_{1-\epsilon_K}\left ( I(\theta)\right )  - \mathbb{E}[I(\theta)] \\
+        & \quad \underline{f} \leq \mathbb{P}\left ( I(\theta) > 0 \right ) \leq \overline{f}\\
+        &\quad \pi \leq \overline{\pi}.
+    \end{align}
+    \end{frame}
 
 \begin{frame}{Multiple Zone}
     \begin{align}
-        \min_{a,b,K} \max_z &\quad CVaR_{1-\epsilon}\left (\ell_z + \mathbb{E}[I_z(\theta_z)] - I_z(\theta_z) \right )\\
-        \text{s.t.   } &\quad I_z(\theta_z) = \min \{ (a_z\hat{\ell_z}(\theta_z) + b_z)^+,P_z \} \\
-        \mathbb{E} &\left [ \sum_z I_z(\theta_z) \right ] + c_{\kappa} K \leq B\\
-        K  &= CVaR_{1-\epsilon_K} \left( \sum_z I_z(\theta_z) \right ) - \mathbb{E}\left [ \sum_z I_z(\theta_z) \right]
+        \min_{a,b,K} \max_z &\quad {\sf CVaR}_{1-\epsilon}\left (\ell_z  + \pi_z - I_z(\theta_z) \right )\\
+        \text{s.t.   } &\quad I_z(\theta_z) = \min \left \{ \max \left \{ a_z\hat{\ell_z}(\theta_z) + b_z,0 \right \},1 \right \} \\
+        &\quad \pi_z  = \mathbb{E}\left [ I_z(\theta_z) \right ] + \frac{c_{\kappa}}{\sum_z s_z} K\\
+        &\quad K =  {\sf CVaR}_{1-\epsilon_K} \left ( \sum_z s_z I_z(\theta_z) \right ) - \mathbb{E}\left [ \sum_z s_zI_z(\theta_z) \right ] \\
+        & \quad \underline{f} \leq \mathbb{P}\left ( I_z(\theta_z) > 0 \right ) \leq \overline{f}\\
+        &\quad\pi_z \leq \overline{\pi_z}
       \end{align}
 \end{frame}
 
-\begin{frame}{Convex Approximation}
+\begin{frame}[noframenumbering]{Multiple Zone}
+    \begin{align}
+        \min_{a,b,K} \max_z &\quad {\sf CVaR}_{1-\epsilon}\left (\ell_z  + \pi_z - I_z(\theta_z) \right )\\
+        \text{s.t.   } &\quad I_z(\theta_z) = \min \left \{ \max \left \{ a_z\hat{\ell_z}(\theta_z) + b_z,0 \right \},1 \right \} \\
+        &\quad \pi_z  = \mathbb{E}\left [ I_z(\theta_z) \right ] + \frac{c_{\kappa}}{\sum_z s_z} K\\
+        &\quad K =  {\sf CVaR}_{1-\epsilon_K} \left ( \sum_z s_z I_z(\theta_z) \right ) - \mathbb{E}\left [ \sum_z s_zI_z(\theta_z) \right ] \\
+        & \quad \underline{f} \leq \mathbb{P}\left ( I_z(\theta_z) > 0 \right ) \leq \overline{f}\\
+        &\quad\pi_z \leq \overline{\pi_z}
+      \end{align}
+\end{frame}
 
-\begin{align}
-      \min_{a,b,K} \max_z &\quad CVaR_{1-\epsilon}\left (\ell_z + \mathbb{E}\left[ \overline{I_z}(\theta_z) \right ] - \underline{I_z}(\theta_z) \right )\\
-      \text{s.t.   } &\quad \mathbb{E}\left [ \sum_z \overline{I_z}(\theta_z) \right ] + c_{\kappa} K \leq B\\
-      K  &= CVaR_{1-\epsilon_K} \left( \sum_z \overline{I_z}(\theta_z) \right ) - \mathbb{E}\left [ \sum_z \underline{I_z}(\theta_z) \right]\\
-      \overline{I_z}(\theta_z) &= \max \left \{ 0,a_z\hat{\ell_z}(\theta_z) + b_z\right \} \\
-      \underline{I_z}(\theta_z) &= \min \{ a_z\hat{\ell_z}(\theta_z) + b_z, P_z \}
-    \end{align}
+\begin{frame}{Convex Relaxation}
+
+    \begin{align}
+        \min_{a,b,K,\pi} \max_z &\quad {\sf CVaR}_{1-\epsilon}\left (\ell_z  + \pi_z - \underline{I_z(\theta_z)} \right )\\
+        \text{s.t.} &\quad \pi_z  = \mathbb{E}\left [ \overline{I_z(\theta_z)} \right ] + \frac{c_{\kappa}}{\sum_z s_z} K \\
+        &\quad K =  {\sf CVaR}_{1-\epsilon_K} \left ( \sum_z s_z\overline{I_z(\theta_z)} \right ) - \mathbb{E}\left [ \sum_z s_z\underline{I_z(\theta_z)} \right ] \\
+        & \quad a\hat{\ell_{\underline{f}}} \leq b \leq a\hat{\ell_{\overline{f}}}\\
+        &\quad \overline{I_z(\theta_z)} = \max \left \{0,a_z\hat{\ell_z}(\theta_z) + b_z \right \} \\
+        &\quad\underline{I_z(\theta_z)} = \min \left \{a_z\hat{\ell_z}(\theta_z)+b_z,1 \right \} \\
+        &\quad\pi_z \leq \overline{\pi_z} \nonumber.
+      \end{align}
 % \hyperlink{ideal-model}{\beamerbutton{Idealized model}}\\
-\hyperlink{convex-approx}{\beamerbutton{Convex approximations}}
+% \hyperlink{convex-approx}{\beamerbutton{Convex approximations}}
 \end{frame}
 
 \begin{frame}{LP Reformulation}
-\scalebox{0.8}{\parbox{\linewidth}{%
+\scalebox{0.7}{\parbox{\linewidth}{%
 Using the results from \cite{rockafellar2002conditional}, we get: 
-\begin{align}
-      \min_{a,b,\alpha,\gamma,t,m,K^P} \quad & m\\
-      \text{s.t.} \quad t_z &+ \frac{1}{\epsilon} \sum_j p^j \gamma_z^j \leq m, \forall z\\
-      \gamma_z^j &\geq \ell^j - \min\left\{(a_z\hat{\ell_z}(\theta_z^j) + b_z), P_z\right\} -t_z, \forall j, \forall z \\
-      \gamma_z^j &\geq 0, \forall j, \forall z\\
-      B &\geq \frac{1}{N} \sum_j \sum_z \alpha^j_z + c_{\kappa} K\\
-      t_K &+ \frac{1}{\epsilon_K} \sum_j p^j \gamma_K^j \leq K+Z\pi_{SQ}\\
-      \gamma_K^j &\geq \sum_z \alpha^j_z -t_K, \forall j \\
-      \gamma_K^j &\geq 0, \forall j\\
-      \alpha^j_z &\geq a_z \hat{\ell_z}(\theta^j_z) + b_z, \forall j, \forall z\\
-      \alpha^j_z &\geq 0, \forall j, \forall z
-  \end{align}
+\begin{align*}
+    \min_{a,b,\alpha,\omega,\gamma,t,m,K,\pi} \quad & m\\
+    \text{s.t.} \quad t_z &+ \frac{1}{\epsilon} \sum_j p^j \gamma_z^j \leq m, \forall z\\
+    \gamma_z^j &\geq s_z \left (\ell^j + \pi_z - \omega^j_z \right ) -t_z, \forall j, \forall z \\
+    \gamma_z^j &\geq 0, \forall j, \forall z\\
+    \pi_z &= \frac{1}{N} \sum_j \alpha^j_z + \frac{1}{\sum_z s_z} c_{\kappa} K\\
+    t_K &+ \frac{1}{\epsilon_K} \sum_j p^j \gamma_K^j \leq K+ \frac{1}{N}\sum_j \sum_z s_z \omega^j_z\\
+    \gamma_K^j &\geq \sum_z s_z \alpha^j_z -t_K, \forall j \\
+    \gamma_K^j &\geq 0, \forall j\\
+    \alpha^j_z &\geq a_z \hat{\ell_z}(\theta^j_z) + b_z, \forall j, \forall z\\
+    \alpha^j_z &\geq 0, \forall j, \forall z\\
+    \omega^j_z &\leq a_z \hat{\ell_z}(\theta^j_z) + b_z, \forall j, \forall z\\
+    \omega^j_z &\leq 1, \forall j, \forall z\\
+    \pi_z &\leq \overline{\pi_z}, \forall z.
+  \end{align*}
     }}
 \end{frame}
 
@@ -264,12 +291,13 @@ Using the results from \cite{rockafellar2002conditional}, we get:
 \end{frame}
 \subsection{Baseline Method}\label{baseline}
 \begin{frame}{Baseline Method}
-    \begin{itemize}
+    Baseline method: \cite{chantarat2013designing}. Common in academic publications, used to design Kenya's IBLI program. Method consists of: 
+    \\~~\\
+    \begin{enumerate}
         \setlength\itemsep{1em}
-        \item We compare our method to the method developed in \cite{chantarat2013designing}. This method is the most commonly used in academic publications and is what is used in Kenya's index insurance program. 
-        \item A linear regression model is used to predict losses in each insured area. A different model is estimated for each area. Each area normally has multiple villages in it. 
-        \item Contracts are of the form: $I(\theta) = \min \left \{ (\hat{\ell}(\theta)-\ell^*)^+,P \right \}$ where $\hat{\ell}(\theta)$ is the predicted loss,  $\ell^*$ is the strike value, and $P$ is the maximum payout. In other words, their contract pays farmers for the full predicted loss beyond a threshold, $\ell^*$. This threshold, $\ell^*$ is the contract's strike value. The strike value is chosen to maximize the correlation of payouts and losses. 
-    \end{itemize}
+        \item Use linear model to predict loss.
+        \item Contracts are of the form: $I(\theta) = \times \min \left \{\max \left \{0,\hat{\ell}(\theta) - b \right \}, 1 \right \}$. $b$ is chosen to maximize the correlation of payouts and losses. 
+    \end{enumerate}
 \end{frame}
 
 \subsection{Synthetic Data Evaluation}
@@ -278,58 +306,126 @@ Using the results from \cite{rockafellar2002conditional}, we get:
     \tableofcontents[currentsection,currentsubsection]
 \end{frame}
 
-\begin{frame}{Setup}
-    We use the following data generating processes:  
-      \begin{itemize}
-        \item Linear DGP: $\ell = \beta \theta + \epsilon$
-        \item Nonlinear DGP: $\ell = \beta \theta^2 + \epsilon$
-      \end{itemize}
-
-    In both cases we have: $\theta \sim \mathcal{N}((5,5),\Sigma), \beta = diag(1.5,1.5), \epsilon \sim \mathcal{N}(0,I)$. \\~~\\
-    With each data generating process, we test the following scenarios: 
+\begin{frame}{What we wanted to test}
     \begin{itemize}
-          \item \textbf{No correlation case:} $corr(\theta_1,\theta_2) = 0$
-          \item \textbf{Positive correlation case:} $corr(\theta_1,\theta_2) = 0.8$
-          \item \textbf{Negative correlation case:} $corr(\theta_1,\theta_2) = 0.8$
-      \end{itemize}
-\end{frame}
-
-\begin{frame}{Simulation Details}
-In each simulation we: 
-    \begin{enumerate}
-        \item Generate training and test samples, samples will be of the form $\left \{\ell^i_1,\theta^i_1, \ell^i_2, \theta^i_2 \right \}_{i=1}^N$ where $\ell$ is loss and $\theta$ is the predictor. 
-        \item Train linear prediction model. We run $\ell = \beta_0 + \beta_1\theta +\epsilon$. Use model to generate predictions $\hat{\ell}(\theta)$ for training and test data. 
-        \item Use training data and model predictions to design contracts using both methods.  
-        \item Given test data and predicted losses, calculate payouts from both contracts. 
-        \item Calculate performance metrics on test data. 
-        \end{enumerate}
-We run this 500 times for each scenario. We report the mean and $95 \%$ confidence intervals of each performance metric across the 500 simulations.
-\end{frame}
-
-\begin{frame}{Performance Metrics}
-    For each sample in the test set, we calculate the net loss, $\Delta \ell_z^i \triangleq  \ell^i_z + \pi_z - I_z(\theta^i_z)$. 
-    \begin{itemize}
-        \item \textbf{Maximum CVaR:} This is the expected value of the net loss given the loss is above a certain threshold. $CVaR_z = \mathbb{E}\left [ \Delta \ell_z | \ell_z \geq VaR_{0.8} (\ell_z) \right ]$.
-        \item \textbf{Maximum VaR:} This the $80^{th}$ quantile of the distribution of the net loss. 
-        \item \textbf{Maximum Semi-variance}: This is the variance conditional on the loss being beyond a certain threshold. $\frac{1}{N-1}\sum_i (\Delta \ell_z^i - \overline{\ell})^2 \mathbbm{1} \{\ell_z > \overline{\ell_z}\}$ 
-        \item \textbf{$|VaR_2 - VaR_1|$:} Absolute value of the difference betweent the $VaR$ of the two zones. 
-        \item \textbf{Required Capital:} $K(I(\theta)) = CVaR_{1-\epsilon_P}(\sum_z I_z(\theta)) - \mathbb{E}[\sum_z I_z(\theta)]$. 
-        \item \textbf{Average Cost:} We define this to be $\frac{1}{N}\sum_{i=1}^N \sum_z I_z(\theta^i_z) + c_{\kappa} K$. This is the empirical average of the cost of the insurance in every scenario in the test set plus the cost of capital
+        \setlength\itemsep{2em}
+        \item How is our method's performance affected by errors in the prediction model?
+        \item How are costs affected by correlation between zones?
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Summary of Results: Correctly Specified Model}
-Our model outperforms or matches the performance of the baseline contracts in the following areas: 
-\begin{itemize}
-%   \setlength\itemsep{2em}
-    \item \textbf{Maximum Value at Risk:} the value at risk of the worst off zone is lower under our contracts, usually by about $5-6\%$.
-    \item \textbf{Equity:} the difference in the value at risk of the two zones is lower under our contracts.  
-    
-    \item \textbf{Maximum Semi-Variance} the variance conditional on loss exceeding a certain threshold is lower in our model, usually by about $20\%$.
-    
-    \item \textbf{Required Capital:} The contracts designed by our model consistently require less capital to fund than the baseline, $12-15\%$ less capital. 
-\end{itemize}
+\begin{frame}{Setup}
+    We use the following data generating process $\ell_z = \frac{1}{1+e^{f(\theta_z)}}$ with $f(\theta_z)$:  
+      \begin{itemize}
+        \item Linear case: $f(\theta) = \beta \theta + \epsilon$
+        \item Nonlinear case: $f(\theta) = \beta_0 + \beta_1 \theta + \beta_2 \theta^2 + \ldots + \beta_n \theta^n+ \epsilon$
+      \end{itemize}
+
+      In both cases, $\theta \sim \mathcal{N}((0,0),\Sigma), \epsilon \sim \mathcal{N}(0,\rho I)$. In both cases, $\beta_i$ is drawn randomly. Vary $\rho$ to test effect of correlation.
 \end{frame}
+
+% \begin{frame}{Setup}
+%     We use the following data generating processes:  
+%       \begin{itemize}
+%         \item Main DGP: $\ell_z = \frac{1}{1+e^{f(\theta_z)}}$
+%         \item  Linear case: $f(\theta) = \beta \theta + \epsilon$
+%         \item Nonlinear case: $f(\theta) = \beta_0 + \beta_1 \theta + \beta_2 \theta^2 + \ldots + \beta_n \theta^n+ \epsilon$
+%       \end{itemize}
+
+%       In both cases, $\theta \sim \mathcal{N}((0,0),\Sigma), \epsilon \sim \mathcal{N}(0,\rho I)$. In both cases, $\beta_i$ is drawn randomly.
+%     %  \\~~\\
+%     With each data generating process, we test the following scenarios: 
+%     \begin{itemize}
+%           \item \textbf{No correlation case:} $corr(\theta_1,\theta_2) = 0$
+%           \item \textbf{Positive correlation case:} $corr(\theta_1,\theta_2) = 0.8$
+%           \item \textbf{Negative correlation case:} $corr(\theta_1,\theta_2) = 0.8$
+%       \end{itemize}
+% \end{frame}
+
+\begin{frame}{Simulation Details}
+    \begin{enumerate}
+        \setlength\itemsep{2em}
+        \item Generate training and test samples.
+        % \item Train linear prediction model. We run $\ell = \beta_0 + \beta_1\theta +\epsilon$. Use model to generate predictions $\hat{\ell}(\theta)$ for training and test data. 
+        \item Use training data and model predictions to design contracts using both methods.  
+        % \item Given test data and predicted losses, calculate payouts from both contracts. 
+        % \item Calculate performance metrics on test data. 
+        \item Apply insurance contracts designed by the two methods to farmers in the test set and compare outcomes.
+        \end{enumerate}
+    We run this 200 times for every scenario we test. 
+% We run this 500 times for each scenario. We report the mean and $95 \%$ confidence intervals of each performance metric across the 500 simulations. 
+\end{frame}
+
+\begin{frame}{Performance Metrics}
+    For each sample in the test set, we calculate the net loss. Then we calculate the following metrics: 
+    \\~~\\
+    \begin{table}
+        \centering
+        \begin{tabular}{|l|l|}
+            \hline
+            \textbf{Farmer Welfare Measures} & \textbf{Insurer Cost/Risk Measures} \\ \hline
+            Conditional Value at Risk (CVaR) & Average Cost                        \\
+            Value at Risk (VaR)              & Required Capital                    \\
+            Semi-Variance                    &                                     \\ \hline
+            \end{tabular}
+    \end{table}
+    % \begin{itemize}
+    %     \setlength\itemsep{2em}
+    %     \item \textbf{Farmer Welfare Measures:} Conditional Value at Risk ({\sf CVaR}), Value at Risk ({\sf VaR}), Semi-Variance
+    %     \item \textbf{Insurer Cost/Risk Measures:} Required Capital, Average Cost
+    % \end{itemize} 
+    % \begin{itemize}
+    %     \item \textbf{Maximum CVaR:} This is the expected value of the net loss given the loss is above a certain threshold. $CVaR_z = \mathbb{E}\left [ \Delta \ell_z | \ell_z \geq VaR_{0.8} (\ell_z) \right ]$.
+    %     \item \textbf{Maximum VaR:} This the $80^{th}$ quantile of the distribution of the net loss. 
+    %     \item \textbf{Maximum Semi-variance}: This is the variance conditional on the loss being beyond a certain threshold. $\frac{1}{N-1}\sum_i (\Delta \ell_z^i - \overline{\ell})^2 \mathbbm{1} \{\ell_z > \overline{\ell_z}\}$ 
+    %     \item \textbf{$|VaR_2 - VaR_1|$:} Absolute value of the difference betweent the $VaR$ of the two zones. 
+    %     \item \textbf{Required Capital:} $K(I(\theta)) = CVaR_{1-\epsilon_P}(\sum_z I_z(\theta)) - \mathbb{E}[\sum_z I_z(\theta)]$. 
+    %     \item \textbf{Average Cost:} We define this to be $\frac{1}{N}\sum_{i=1}^N \sum_z I_z(\theta^i_z) + c_{\kappa} K$. This is the empirical average of the cost of the insurance in every scenario in the test set plus the cost of capital
+    % \end{itemize}
+\end{frame}
+
+\begin{frame}{Summary of Results: (Almost) Correctly Specified Model}
+Our model offers slightly worse protection than the baseline, but at a much lower cost and risk for the insurer. This is achieved through both, better risk management, and smarter allocation of payouts. 
+\begin{itemize}
+    \item \textbf{Metrics on which our model does better:} Maximum Semi-Variance, Required Capital, Average Cost
+    \item \textbf{Metrics on which baseline model does better:} Maximum CVaR 
+    \item \textbf{Metrics on which we tie:} Maximum VaR
+\end{itemize}
+% \begin{itemize}
+% %   \setlength\itemsep{2em}
+%     \item \textbf{Maximum Value at Risk:} the value at risk of the worst off zone is lower under our contracts, usually by about $5-6\%$.
+%     \item \textbf{Equity:} the difference in the value at risk of the two zones is lower under our contracts.  
+    
+%     \item \textbf{Maximum Semi-Variance} the variance conditional on loss exceeding a certain threshold is lower in our model, usually by about $20\%$.
+    
+%     \item \textbf{Required Capital:} The contracts designed by our model consistently require less capital to fund than the baseline, $12-15\%$ less capital. 
+% \end{itemize}
+\end{frame}
+
+\begin{frame}{Histograms: Model Correctly Specified}
+\begin{itemize}
+    \item Distribution of farmer loss is similar under both
+    \item Cost for insurer is radically different
+\end{itemize}
+\begin{figure}
+\centering
+  \begin{subfigure}[b]{0.47\textwidth}
+    \includegraphics[width=\textwidth]{../../../output/figures/Logit_Bootstrap/farmer_loss_hist_no_corr_linear.png}
+    \caption{Farmer net loss}
+    \label{fig:f1}
+  \end{subfigure}
+ \hfill
+  \begin{subfigure}[b]{0.47\textwidth}
+    \includegraphics[width=\textwidth]{../../../output/figures/Logit_Bootstrap/insurer_cost_no_corr_linear.png}
+    \caption{Insurer cost}
+    \label{fig:f2}
+  \end{subfigure}
+  \caption{Distribution of outcomes}
+\end{figure}
+    
+\end{frame}
+
+
 
 \begin{frame}[noframenumbering, plain]{Results: Correctly Specified Prediction Model}
 \fontsize{6.5pt}{8pt}\selectfont
@@ -337,29 +433,29 @@ Our model outperforms or matches the performance of the baseline contracts in th
 \subcaptionbox{No correlation}{
     \begin{tabular}{ccccccc}
         \toprule
-   Model &     Max CVaR &      Max VaR &    Max SemiVar & $|VaR_2 - VaR_1|$ & Required Capital & Average Cost \\
-\midrule
-Baseline &         6.23 &         6.35 &          19.72 &              0.87 &             7.04 &         6.11 \\
-         &  [6.17, 6.3] & [6.29, 6.41] & [19.26, 20.17] &      [0.81, 0.93] &     [6.94, 7.14] &  [6.02, 6.2] \\
-     Opt &         6.18 &         5.98 &          14.78 &              0.21 &             6.12 &         6.08 \\
-         & [6.13, 6.24] & [5.93, 6.02] & [14.38, 15.19] &       [0.2, 0.23] &     [6.03, 6.21] & [5.99, 6.17] \\
-    Diff &         0.05 &         0.37 &           4.93 &              0.66 &             0.92 &         0.03 \\
-         & [0.02, 0.08] &  [0.34, 0.4] &   [4.66, 5.21] &       [0.6, 0.72] &     [0.88, 0.95] & [0.02, 0.03] \\
-\bottomrule
+        Model &       Max CVaR &      Max VaR &  Max SemiVar & $|VaR_2 - VaR_1|$ & Required Capital & Average Cost \\
+     \midrule
+     Baseline &           0.60 &         0.62 &         0.02 &              0.01 &             0.64 &         0.81 \\
+              &   [0.58, 0.63] &  [0.6, 0.65] & [0.01, 0.04] &       [0.0, 0.04] &     [0.55, 0.79] & [0.65, 0.92] \\
+          Opt &           0.64 &         0.63 &         0.01 &              0.01 &             0.55 &         0.48 \\
+              &   [0.61, 0.67] & [0.61, 0.66] & [0.01, 0.03] &       [0.0, 0.03] &     [0.43, 0.69] & [0.43, 0.54] \\
+         Diff &          -0.04 &        -0.01 &         0.01 &              0.00 &             0.10 &         0.33 \\
+              & [-0.07, -0.01] & [-0.02, 0.0] &  [0.0, 0.02] &     [-0.02, 0.03] &     [0.05, 0.16] & [0.15, 0.43] \\
+     \bottomrule
         \end{tabular}}
 
 \subcaptionbox{Positive correlation}{
     \begin{tabular}{ccccccc}
         \toprule
-   Model &      Max CVaR &      Max VaR &    Max SemiVar & $|VaR_2 - VaR_1|$ & Required Capital & Average Cost \\
-\midrule
-Baseline &          6.19 &         6.28 &          19.44 &              0.77 &             9.18 &         6.45 \\
-         &  [6.12, 6.26] & [6.22, 6.34] & [18.98, 19.91] &      [0.72, 0.83] &     [9.09, 9.28] & [6.36, 6.54] \\
-     Opt &          6.21 &         5.94 &          14.24 &              0.19 &             7.81 &         6.41 \\
-         &  [6.15, 6.26] & [5.89, 5.99] & [13.84, 14.65] &      [0.18, 0.21] &      [7.7, 7.91] &  [6.32, 6.5] \\
-    Diff &         -0.02 &         0.34 &            5.2 &              0.58 &             1.38 &         0.04 \\
-         & [-0.05, 0.01] & [0.31, 0.37] &   [4.95, 5.46] &      [0.52, 0.63] &     [1.33, 1.43] & [0.03, 0.05] \\
-\bottomrule
+        Model &       Max CVaR &      Max VaR &  Max SemiVar & $|VaR_2 - VaR_1|$ & Required Capital & Average Cost \\
+     \midrule
+     Baseline &           0.61 &         0.64 &         0.02 &              0.01 &             0.88 &         0.82 \\
+              &   [0.59, 0.65] & [0.62, 0.66] & [0.01, 0.03] &       [0.0, 0.03] &      [0.72, 1.1] & [0.68, 0.96] \\
+          Opt &           0.65 &         0.65 &         0.01 &              0.01 &             0.74 &         0.52 \\
+              &   [0.63, 0.68] & [0.62, 0.67] &  [0.0, 0.02] &       [0.0, 0.03] &      [0.6, 0.98] & [0.44, 0.59] \\
+         Diff &          -0.03 &        -0.01 &         0.01 &              0.00 &             0.13 &         0.31 \\
+              & [-0.06, -0.02] & [-0.02, 0.0] &  [0.0, 0.01] &     [-0.02, 0.02] &     [0.09, 0.17] & [0.18, 0.43] \\
+     \bottomrule
         \end{tabular}}
 
 \end{table}
@@ -386,17 +482,37 @@ Baseline &          6.19 &         6.28 &          19.44 &              0.77 &  
 \end{frame}
 
 \begin{frame}{Summary of Results: Misspecified Model}
-    A fair comparison is harder in this case because it becomes harder to enforce the budget constraint, and the models end up having different costs. Our model generally does better on the following metrics: 
+    In this case, our results are even stronger. We match the performance of the basline method on most metrics, and the cost is significantly lower. 
     \begin{itemize}
-      \setlength\itemsep{1em}
-        
-      \item \textbf{Maximum Semi-Variance} the variance conditional on loss exceeding a certain threshold is lower in our model, usually by about $20\%$.
-        
-        \item \textbf{Required Capital:} The contracts designed by our model generally require less capital to fund than the baseline, $12-15\%$ less capital. 
-        \item \textbf{Average Cost}: The contracts designed by our model tend to be $6-10\%$ less costly. 
-    \end{itemize}
-    However, it does worse on all other metrics. We can make it competitive using a heuristic reallocation policy. 
+        \setlength\itemsep{1em}
+        \item \textbf{Metrics on which our model does better:} Maximum Semi-Variance, Required Capital 
+        \item \textbf{Metrics on which baseline model does better:} Maximum CVaR 
+        \item \textbf{Metrics on which we tie:} Maximum VaR, Average Cost
+    \end{itemize} 
     \end{frame}
+
+    \begin{frame}{Histograms: Model Misspecified}
+        \begin{itemize}
+            \item Distribution of farmer loss is similar under both
+            \item Cost for insurer is radically different
+        \end{itemize}
+        \begin{figure}
+        \centering
+          \begin{subfigure}[b]{0.47\textwidth}
+            \includegraphics[width=\textwidth]{../../../output/figures/Logit_Bootstrap/farmer_loss_hist_no_corr_nonlinear.png}
+            \caption{Farmer net loss}
+            \label{fig:f1}
+          \end{subfigure}
+         \hfill
+          \begin{subfigure}[b]{0.47\textwidth}
+            \includegraphics[width=\textwidth]{../../../output/figures/Logit_Bootstrap/insurer_cost_no_corr_nonlinear.png}
+            \caption{Insurer cost}
+            \label{fig:f2}
+          \end{subfigure}
+          \caption{Distribution of outcomes}
+        \end{figure}
+            
+        \end{frame}
 
 \begin{frame}[noframenumbering, plain]{Results: Misspecified Prediction Model}
     \fontsize{6.5pt}{8pt}\selectfont
@@ -404,28 +520,28 @@ Baseline &          6.19 &         6.28 &          19.44 &              0.77 &  
     \subcaptionbox{No correlation}{
         \begin{tabular}{ccccccc}
             \toprule
-            Model &       Max CVaR &        Max VaR &      Max SemiVar & $|VaR_2 - VaR_1|$ & Required Capital &   Average Cost \\
+            Model &     Max CVaR &       Max VaR &   Max SemiVar & $|VaR_2 - VaR_1|$ & Required Capital & Average Cost \\
          \midrule
-         Baseline &          35.54 &          27.43 &           820.02 &              2.25 &             53.1 &          40.94 \\
-                  & [35.28, 35.79] &  [27.3, 27.56] &  [806.9, 833.15] &      [2.07, 2.43] &   [52.67, 53.52] &  [40.69, 41.2] \\
-              Opt &          38.67 &          30.61 &           628.58 &              2.41 &            50.87 &          38.31 \\
-                  &  [38.44, 38.9] & [30.45, 30.76] & [616.93, 640.23] &      [2.25, 2.58] &   [50.33, 51.41] & [38.06, 38.56] \\
-             Diff &          -3.13 &          -3.18 &           191.44 &             -0.16 &             2.23 &           2.63 \\
-                  & [-3.25, -3.01] & [-3.32, -3.04] & [184.69, 198.19] &     [-0.39, 0.06] &      [1.95, 2.5] &   [2.55, 2.72] \\
+         Baseline &         0.65 &          0.67 &          0.02 &              0.02 &             0.70 &         0.91 \\
+                  &  [0.6, 0.84] &  [0.61, 0.77] &  [0.01, 0.08] &       [0.0, 0.07] &     [0.21, 0.93] &  [0.7, 0.97] \\
+              Opt &         0.71 &          0.67 &          0.03 &              0.02 &             0.61 &         0.56 \\
+                  & [0.64, 0.86] &  [0.61, 0.77] &  [0.01, 0.08] &       [0.0, 0.08] &      [0.0, 0.86] &  [0.0, 0.74] \\
+             Diff &        -0.04 &         -0.00 &         -0.00 &             -0.00 &             0.10 &         0.36 \\
+                  & [-0.1, 0.02] & [-0.02, 0.06] & [-0.03, 0.02] &     [-0.03, 0.03] &    [-0.03, 0.26] & [0.18, 0.81] \\
          \bottomrule
             \end{tabular}}
     
     \subcaptionbox{Positive correlation}{
         \begin{tabular}{ccccccc}
             \toprule
-            Model &       Max CVaR &        Max VaR &      Max SemiVar & $|VaR_2 - VaR_1|$ & Required Capital &   Average Cost \\
+            Model &      Max CVaR &       Max VaR &   Max SemiVar & $|VaR_2 - VaR_1|$ & Required Capital & Average Cost \\
          \midrule
-         Baseline &          34.97 &          27.15 &           817.11 &              1.73 &            56.97 &          41.51 \\
-                  & [34.69, 35.25] & [27.02, 27.29] & [803.66, 830.55] &      [1.58, 1.87] &   [56.67, 57.27] & [41.26, 41.77] \\
-              Opt &           39.9 &           32.2 &           521.22 &               1.5 &            60.61 &          37.17 \\
-                  & [39.63, 40.16] & [32.03, 32.37] & [510.86, 531.58] &       [1.39, 1.6] &    [60.3, 60.91] & [36.94, 37.41] \\
-             Diff &          -4.93 &          -5.04 &           295.88 &              0.23 &            -3.64 &           4.34 \\
-                  &  [-5.05, -4.8] &  [-5.19, -4.9] & [288.47, 303.29] &       [0.06, 0.4] &   [-3.88, -3.39] &   [4.23, 4.45] \\
+         Baseline &          0.68 &          0.69 &          0.02 &              0.01 &             0.98 &         0.95 \\
+                  &  [0.62, 0.85] &  [0.63, 0.79] &  [0.01, 0.05] &       [0.0, 0.04] &     [0.26, 1.21] & [0.59, 1.03] \\
+              Opt &          0.73 &          0.69 &          0.03 &              0.02 &             0.83 &         0.57 \\
+                  &  [0.66, 0.86] &  [0.62, 0.76] &  [0.01, 0.08] &       [0.0, 0.05] &      [0.0, 1.19] &   [0.0, 0.8] \\
+             Diff &         -0.04 &          0.00 &         -0.00 &             -0.00 &             0.13 &         0.36 \\
+                  & [-0.09, 0.01] & [-0.02, 0.07] & [-0.04, 0.01] &     [-0.03, 0.02] &    [-0.07, 0.38] & [0.14, 0.81] \\
          \bottomrule
             \end{tabular}}
     
@@ -466,53 +582,59 @@ Baseline &          6.19 &         6.28 &          19.44 &              0.77 &  
 
 \begin{frame}{Data Sources}
 \begin{itemize}
-    \setlength\itemsep{1em}
-    \item \textbf{NDVI Data:} The Normalized Difference Vegetation Index (NDVI) is a satellite-based indicator of the amount and health of vegetation. We use NDVI data for Kenya between 2000-2015. There are $\sim 23,000,000$ observations per time period, and 365 time periods.
+    \setlength\itemsep{2em}
+    \item \textbf{NDVI Data:} The Normalized Difference Vegetation Index (NDVI) is a satellite-based indicator of the amount and health of vegetation. We use NDVI data for Kenya between 2000-2015. %There are $\sim 23,000,000$ observations per time period, and 365 time periods.
     \item \textbf{Kenya Household Survey Data:} This survey was conducted as part of the development of the Index based livestock insurance (IBLI) program in northern Kenya.  This dataset has information on household location, livestock levels and changes for each month in 2010-2013. There are 900 households in this dataset. 
-    \item \textbf{Kenya Geospatial Data:} This dataset contains the geospatial boundaries of larger villages in Kenya. 
+    %\item \textbf{Kenya Geospatial Data:} This dataset contains the geospatial boundaries of larger villages in Kenya. 
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Data Creation}
-\begin{enumerate}
-   \item Data for prediction model
-   \begin{enumerate}
-       \item NDVI Data
-       \begin{enumerate}
-        %    \item Change NDVI data coordinates to standard coordinates
-           \item Use geospatial information to merge NDVI data with village geospatial data. 
-           \item For each village, you now have many NDVI values. Use this to calculate village level features for relevant time periods. 
-           \item \textbf{Outcome:} data set with village level NDVI features across time.
-       \end{enumerate}
-       \item Survey Data
-       \begin{enumerate}
-           \item Merge survey data with Kenya geospatial data. 
-           \item Calculate herd mortality for each village in each season. 
-           \item \textbf{Outcome:} data set with village level herd mortality across time
-       \end{enumerate}
-       \item Merge two datasets at the village by season level.
-   \end{enumerate}
-   \item Train prediction model using data from previous step. 
-    \item Add model predictions to household survey data 
-\end{enumerate}
 % \begin{enumerate}
-%     \item Calculate NDVI metrics for each village in each season. These metrics will be the features for our predictive model. 
-%     \item Use household data to calculate average livestock mortality in each village in each season. 
-%     \item Merge the two resulting datasets to create a dataset for regression.
-%     \item Train prediction model for each cluster and use this model to predict herd mortality at the village level. 
-%     \item Add model predictions to household data. 
-% \end{enumerate}   
+%    \item Data for prediction model
+%    \begin{enumerate}
+%        \item NDVI Data
+%        \begin{enumerate}
+%         %    \item Change NDVI data coordinates to standard coordinates
+%            \item Use geospatial information to merge NDVI data with village geospatial data. 
+%            \item For each village, you now have many NDVI values. Use this to calculate village level features for relevant time periods. 
+%            \item \textbf{Outcome:} data set with village level NDVI features across time.
+%        \end{enumerate}
+%        \item Survey Data
+%        \begin{enumerate}
+%            \item Merge survey data with Kenya geospatial data. 
+%            \item Calculate herd mortality for each village in each season. 
+%            \item \textbf{Outcome:} data set with village level herd mortality across time
+%        \end{enumerate}
+%        \item Merge two datasets at the village by season level.
+%    \end{enumerate}
+%    \item Train prediction model using data from previous step. 
+%     \item Add model predictions to household survey data 
+% \end{enumerate}
+\begin{enumerate}
+    \item Calculate NDVI metrics for each village in each season. These metrics will be the features for our predictive model. 
+    \item Use household data to calculate average livestock mortality in each village in each season. 
+    \item Merge the two resulting datasets to create a dataset for regression.
+    \item Train prediction model for each cluster and use this model to predict herd mortality at the village level. 
+    \item Add model predictions to household data. 
+\end{enumerate}   
 \end{frame}
 
 \begin{frame}{Evaluation Procedure}
 We use leave one out cross validation to evaluate our method. In each iteration, we leave out one year of data for testing.
+% \begin{enumerate}
+%     \item Split regression data and household survey data into training/test set
+%     \item Train prediction model on training data
+%     \item Use model to calculate village level predicted losses, add this to household training data
+%     \item Calculate insurance contracts based on the training data using both methods.
+%     \item Use prediction model to calculate village level predicted losses on the test set. 
+%     \item Calculate insurance payouts on test data.
+% \end{enumerate}
 \begin{enumerate}
-    \item Split regression data and household survey data into training/test set
-    \item Train prediction model on training data
-    \item Use model to calculate village level predicted losses, add this to household training data
-    \item Calculate insurance contracts based on the training data using both methods.
-    \item Use prediction model to calculate village level predicted losses on the test set. 
-    \item Calculate insurance payouts on test data.
+    \item Split data into training and test sets 
+    \item Train prediction model on training data, create predictions for the test set
+    \item Use training data and model predictions to design contracts using both methods.
+    \item Apply insurance contracts designed by the two methods to farmers in the test set and compare outcomes.
 \end{enumerate}
 \end{frame}
 
@@ -521,14 +643,23 @@ The insurance contracts developed by our model provide slightly better protectio
 \begin{table}[]
 \small
     \centering
-    \begin{tabular}{lrrrr}
-\toprule
-    Model &  Max VaR &  $|VaR_2 - VaR_1|$ &  Required Capital &  Average Cost \\
-\midrule
- Baseline &     1303 &               1316 &           3014405 &          6449 \\
-      Opt &     1286 &               1361 &           2626260 &          5864 \\
-\bottomrule
-\end{tabular}
+%     \begin{tabular}{lrrrr}
+% \toprule
+%     Model &  Max VaR &  $|VaR_2 - VaR_1|$ &  Required Capital &  Average Cost \\
+% \midrule
+%  Baseline &     1303 &               1316 &           3014405 &          6449 \\
+%       Opt &     1286 &               1361 &           2626260 &          5864 \\
+% \bottomrule
+% \end{tabular}
+
+\begin{tabular}{lrrrr}
+    \toprule
+       Model &  Max CVaR &  Max VaR &  $|VaR_2 - VaR_1|$ &  Average Cost \\
+    \midrule
+    Baseline &      0.69 &     0.52 &               0.13 &       5263.64 \\
+         Opt &      0.65 &     0.53 &               0.10 &       3794.80 \\
+    \bottomrule
+    \end{tabular}
     \caption{Results using Kenya household data}
     
 \end{table}
@@ -539,8 +670,8 @@ The insurance contracts developed by our model provide slightly better protectio
 \begin{frame}{Conclusions}
     \begin{itemize}
     \setlength\itemsep{2em}
-        \item In some cases, the contracts designed by our model are able to offer better protection at a similar costs, or comparable protection at lower costs than the baseline method. 
-        \item It outperforms the baseline when the prediction model is correclty specified and on the Kenyan pastoralist data. 
+        \item The contracts designed by our model are able to offer better protection at a similar costs, or comparable protection at lower costs than the baseline method. 
+        \item It outperforms the baseline when the prediction model is incorrectly specified and on the Kenyan pastoralist data. 
         \item Our method is more cost effective because it takes into account spatial correlations between  areas and the costs of capital requirements. Thus, the model makes better trade offs between costs and coverage than the baseline method. 
         
     \end{itemize}
@@ -570,7 +701,7 @@ The insurance contracts developed by our model provide slightly better protectio
 \end{itemize}
  
 \begin{align}
-        \min_{a,b,\pi, K}  & \quad CVaR_{1-\epsilon}\left ( \ell - I(\theta) \right) \notag\\
+        \min_{a,b,\pi, K}  & \quad CVaR_{1-\epsilon}\left ( \ell - I(\theta) \right ) \notag\\
         \text{s.t.   }I(\theta) &= \min \{ (a\hat{\ell}(\theta) + b)^+,P \} \\
         \mathbb{E}\left [ I(\theta) \right ] &+ c_{\kappa} K \leq B \\
         K &= \left( CVaR_{1-\epsilon}\left ( I(\theta) \right ) - \mathbb{E}[I(\theta)] \right) \label{cons-budget}
@@ -587,7 +718,7 @@ We use the following approximations of $I(\theta)$ to make the problem convex:
 \begin{itemize}
     \item Note that $\overline{I(\theta)} \geq I(\theta)$ and $\overline{I(\theta)}$ is convex. Conversely, $\underline{I(\theta)} \leq I(\theta)$ and $\underline{I(\theta)}$ is concave. 
     \item We replace $I(\theta)$ with either $\overline{I(\theta)}$ or $\underline{I(\theta)}$ where necessary to obtain conservative and convex approximations. 
-    \item We also need approximations or proxies for $E[I(\theta)]$ in constraint \ref{cons-budget}. We use $\pi_{SQ} = E[I_{SQ}(\theta)]$, where $I_{SQ}$ is the contract designed using the status quo method, as a proxy for $E[I(\theta)]$ in constraint \ref{cons-budget}.
+    \item We also need approximations or proxies for $E[I(\theta)]$ in constraint . We use $\pi_{SQ} = E[I_{SQ}(\theta)]$, where $I_{SQ}$ is the contract designed using the status quo method, as a proxy for $E[I(\theta)]$ in constraint .
 \end{itemize}
 \end{frame}
 

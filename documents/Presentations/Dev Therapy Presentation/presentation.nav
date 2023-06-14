@@ -41,75 +41,75 @@
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {6}{6}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {1}{3}{3}{7/7}{Project Overview}{0}}
+\headcommand {\beamer@sectionpages {2}{6}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionpages {5}{6}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\sectionentry {2}{Optimization Approach}{7}{Optimization Approach}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {2}{0}{1}{7/7}{}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {7}{7}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@sectionpages {2}{7}}
+\headcommand {\beamer@subsectionpages {7}{7}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionpages {5}{7}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{8}{Index Insurance Background}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\sectionentry {2}{Optimization Approach}{8}{Optimization Approach}{0}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {2}{0}{1}{8/8}{}{0}}
+\headcommand {\slideentry {2}{1}{1}{8/8}{Index Insurance Background}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {8}{8}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionpages {8}{8}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionentry {0}{2}{1}{9}{Index Insurance Background}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {2}{1}{1}{9/9}{Index Insurance Background}{0}}
+\headcommand {\slideentry {2}{1}{2}{9/9}{Index Insurance Background}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {9}{9}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {2}{1}{2}{10/10}{Index Insurance Background}{0}}
+\headcommand {\slideentry {2}{1}{3}{10/10}{Index Insurance Background}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {10}{10}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {2}{1}{3}{11/11}{Index Insurance Background}{0}}
+\headcommand {\beamer@subsectionpages {8}{10}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionentry {0}{2}{2}{11}{Objectives and Constraints}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {2}{2}{1}{11/11}{Objectives and Constraints}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {11}{11}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {2}{1}{4}{12/12}{Index Insurance Background}{0}}
+\headcommand {\slideentry {2}{2}{2}{12/12}{Objectives and Constraints}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {12}{12}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionpages {9}{12}}
+\headcommand {\beamer@subsectionpages {11}{12}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionentry {0}{2}{2}{13}{Objectives and Constraints}}
+\headcommand {\beamer@subsectionentry {0}{2}{3}{13}{CVaR Model}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {2}{2}{1}{13/13}{Objectives and Constraints}{0}}
+\headcommand {\slideentry {2}{3}{1}{13/13}{CVaR Model}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {13}{13}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {2}{2}{2}{14/14}{Objectives and Constraints}{0}}
+\headcommand {\slideentry {2}{3}{2}{14/14}{CVaR Model}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {14}{14}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionpages {13}{14}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionentry {0}{2}{3}{15}{CVaR Model}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {2}{3}{1}{15/15}{CVaR Model}{0}}
+\headcommand {\slideentry {2}{3}{3}{15/15}{CVaR Model}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {15}{15}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {2}{3}{2}{16/16}{CVaR Model}{0}}
+\headcommand {\slideentry {2}{3}{4}{16/16}{CVaR Model}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {16}{16}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {2}{3}{3}{17/17}{CVaR Model}{0}}
+\headcommand {\slideentry {2}{3}{5}{17/17}{CVaR Model}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {17}{17}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {2}{3}{4}{18/18}{CVaR Model}{0}}
+\headcommand {\slideentry {2}{3}{6}{18/18}{CVaR Model}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {18}{18}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@sectionpages {8}{18}}
+\headcommand {\beamer@sectionpages {7}{18}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionpages {15}{18}}
+\headcommand {\beamer@subsectionpages {13}{18}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\sectionentry {3}{Evaluation}{19}{Evaluation}{0}}
 \defcounter {refsection}{0}\relax 
@@ -165,79 +165,91 @@
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {29}{29}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionpages {21}{29}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionentry {0}{3}{3}{30}{Kenya Pastoralist Data}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {3}{3}{1}{30/30}{Kenya Pastoralist Data}{0}}
+\headcommand {\slideentry {3}{2}{10}{30/30}{Synthetic Data Evaluation}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {30}{30}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {3}{3}{2}{31/31}{Kenya Pastoralist Data}{0}}
+\headcommand {\slideentry {3}{2}{11}{31/31}{Synthetic Data Evaluation}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {31}{31}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {3}{3}{3}{32/32}{Kenya Pastoralist Data}{0}}
+\headcommand {\slideentry {3}{2}{12}{32/32}{Synthetic Data Evaluation}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {32}{32}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {3}{3}{4}{33/33}{Kenya Pastoralist Data}{0}}
+\headcommand {\beamer@subsectionpages {21}{32}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionentry {0}{3}{3}{33}{Kenya Pastoralist Data}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {3}{3}{1}{33/33}{Kenya Pastoralist Data}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {33}{33}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {3}{3}{5}{34/34}{Kenya Pastoralist Data}{0}}
+\headcommand {\slideentry {3}{3}{2}{34/34}{Kenya Pastoralist Data}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {34}{34}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@sectionpages {19}{34}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionpages {30}{34}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\sectionentry {4}{Conclusion and Next Steps}{35}{Conclusion and Next Steps}{0}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionpages {35}{34}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionentry {0}{4}{1}{35}{Conclusions}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {4}{1}{1}{35/35}{Conclusions}{0}}
+\headcommand {\slideentry {3}{3}{3}{35/35}{Kenya Pastoralist Data}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {35}{35}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionpages {35}{35}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionentry {0}{4}{2}{36}{Next Steps}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {4}{2}{1}{36/36}{Next Steps}{0}}
+\headcommand {\slideentry {3}{3}{4}{36/36}{Kenya Pastoralist Data}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {36}{36}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@sectionpages {35}{36}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionpages {36}{36}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\sectionentry {5}{References}{37}{References}{0}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {5}{0}{0}{37/37}{Next Steps}{0}}
+\headcommand {\slideentry {3}{3}{5}{37/37}{Kenya Pastoralist Data}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {37}{37}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {5}{0}{1}{38/38}{Next Steps}{0}}
+\headcommand {\beamer@sectionpages {19}{37}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionpages {33}{37}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\sectionentry {4}{Conclusion and Next Steps}{38}{Conclusion and Next Steps}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionpages {38}{37}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionentry {0}{4}{1}{38}{Conclusions}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {4}{1}{1}{38/38}{Conclusions}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {38}{38}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {5}{0}{2}{39/39}{Next Steps}{0}}
+\headcommand {\beamer@subsectionpages {38}{38}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionentry {0}{4}{2}{39}{Next Steps}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {4}{2}{1}{39/39}{Next Steps}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {39}{39}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {5}{0}{3}{40/40}{Next Steps}{0}}
+\headcommand {\beamer@sectionpages {38}{39}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionpages {39}{39}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\sectionentry {5}{References}{40}{References}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {5}{0}{0}{40/40}{Next Steps}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {40}{40}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {5}{0}{4}{41/41}{Next Steps}{0}}
+\headcommand {\slideentry {5}{0}{1}{41/41}{Next Steps}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {41}{41}}
-\headcommand {\beamer@partpages {1}{41}}
-\headcommand {\beamer@subsectionpages {36}{41}}
-\headcommand {\beamer@sectionpages {35}{41}}
-\headcommand {\beamer@documentpages {41}}
-\headcommand {\gdef \inserttotalframenumber {29}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {5}{0}{2}{42/42}{Next Steps}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {42}{42}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {5}{0}{3}{43/43}{Next Steps}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {43}{43}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {5}{0}{4}{44/44}{Next Steps}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {44}{44}}
+\headcommand {\beamer@partpages {1}{44}}
+\headcommand {\beamer@subsectionpages {39}{44}}
+\headcommand {\beamer@sectionpages {38}{44}}
+\headcommand {\beamer@documentpages {44}}
+\headcommand {\gdef \inserttotalframenumber {30}}

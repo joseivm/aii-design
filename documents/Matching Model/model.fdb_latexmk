@@ -1,12 +1,13 @@
 # Fdb version 3
-["biber model"] 1681403526 "model.bcf" "model.bbl" "model" 1681406710
-  "model.bcf" 1681406710 90076 ca6ebf77c24cc933155a3c12c70be4fd ""
+["biber model"] 1682367294 "model.bcf" "model.bbl" "model" 1682433650
+  "../main.bib" 1676476860 10084 748c73cada9105c77a352e108b23e093 ""
+  "model.bcf" 1682433650 90141 918e131cea2f112afa36162db1eac3da ""
   (generated)
-  "model.blg"
   "model.bbl"
-["pdflatex"] 1681406709 "/Users/joseivelarde/Projects/aii-design/documents/Matching Model/model.tex" "/Users/joseivelarde/Projects/aii-design/documents/Matching Model/model.pdf" "model" 1681406710
-  "/Users/joseivelarde/Projects/aii-design/documents/Matching Model/model.aux" 1681406710 1856 9e42f669652cef0c0878e58466db2203 ""
-  "/Users/joseivelarde/Projects/aii-design/documents/Matching Model/model.tex" 1681406707 7557 e5b641a0cad2134e5804fe175f5a3157 ""
+  "model.blg"
+["pdflatex"] 1682433649 "/Users/joseivelarde/Projects/aii-design/documents/Matching Model/model.tex" "/Users/joseivelarde/Projects/aii-design/documents/Matching Model/model.pdf" "model" 1682433650
+  "/Users/joseivelarde/Projects/aii-design/documents/Matching Model/model.aux" 1682433650 2095 85baa8716a5a51b3c512faf7f41c3318 ""
+  "/Users/joseivelarde/Projects/aii-design/documents/Matching Model/model.tex" 1682433648 11249 754d6850d64805ad6184533c13bc81a3 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1480098698 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -106,17 +107,17 @@
   "/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1523934492 2717033 f61a5287d9c22a39a74f1979fe3f905c ""
   "/usr/local/texlive/2018/texmf-var/web2c/pdftex/pdflatex.fmt" 1523934516 4220280 10cab8fbd7c5a7c52aba9917e190d018 ""
   "/usr/local/texlive/2018/texmf.cnf" 1523934483 577 0b39adfd7c93507ff20c9c14c2f1a33f ""
-  "model.aux" 1681406710 1856 9e42f669652cef0c0878e58466db2203 ""
-  "model.bbl" 1681403530 466 5e94f251ea8a419bbae6173a1e9a9c1d "biber model"
-  "model.out" 1681406710 186 b42a0348536f2c4d2d990ec6bb1ff2ef ""
-  "model.run.xml" 1681406710 2378 6f212df1e4c133728557c11e8b2c4b94 ""
-  "model.tex" 1681406707 7557 e5b641a0cad2134e5804fe175f5a3157 ""
+  "model.aux" 1682433650 2095 85baa8716a5a51b3c512faf7f41c3318 ""
+  "model.bbl" 1682367296 2119 076ba52ae0020a44fca67ec54573e029 "biber model"
+  "model.out" 1682433650 186 b42a0348536f2c4d2d990ec6bb1ff2ef ""
+  "model.run.xml" 1682433650 2375 a7068c90b9288b9a44ffd6a2c1bc9736 ""
+  "model.tex" 1682433648 11249 754d6850d64805ad6184533c13bc81a3 ""
   (generated)
   "model.log"
-  "model.bcf"
-  "model.aux"
-  "/Users/joseivelarde/Projects/aii-design/documents/Matching Model/model.pdf"
-  "model.run.xml"
-  "model.out"
-  "model.pdf"
   "/Users/joseivelarde/Projects/aii-design/documents/Matching Model/model.log"
+  "model.run.xml"
+  "model.bcf"
+  "/Users/joseivelarde/Projects/aii-design/documents/Matching Model/model.pdf"
+  "model.out"
+  "model.aux"
+  "model.pdf"
