@@ -1,0 +1,38 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+
+\title{Meeting}
+\begin{document}
+\maketitle
+\section{High level questions}
+  \begin{itemize}
+    \item What are the advantages of our method over Chen et al (2023)? Our method might be more appropriate for data scarce settings, which is more typical of index insurance in developing countries. Second, our method more directly captures the costs associated with higher variance in payouts, and directly addresses the problem of managing correlated risk. Our method can also handle more flexible constraints.
+    \item What are the weaknesses of our method relative to Chen et al (2023)? It is probably cleaner to optimize over the prediction model and the insurance contract in one step. It is possible that their method is optimal if we are designing the contract for one zone at a time. 
+  \end{itemize}
+
+% \section{Questions to think about}
+%   \begin{itemize}
+%     \item Is there a way to make our method more robust to data scarcity? Maybe we can find a way to have it incorporate farmer knowledge in the absence of data?
+%     \item When designing the contracts simultaenously, what if one region gets a worse contract than they would have had the contracts been designed independently? Can we argue this is socially optimal? Would it be possible to add a constraint to address this? This is probably true in other areas of society (e.g. taxes and spending). We could argue that this is more efficient, because it leads to better risk management and lower overall costs. 
+%   \end{itemize}
+
+\section{Thoughts Chen et al (2023)}
+  \begin{itemize}
+    \item Their model $\pi(I) = \lambda \mathbb{E}[I(\theta)]$ assumes that the cost of the insurance depends only on average payout. In practice, variance is probably also important. 
+    \item They don't really show that the improvements come from using the neural network for the contract design. They also don't seem to provide a fair comparison to the baseline method of building a prediction system first and then designing the contracts. The contracts they compare to are all much simpler or have access to far less data than their method. I think a more fair comparison to the baseline would have been to use a similarly complex neural network to predict, and then use a baseline method to design the contracts. It could be that all the gains here are coming from just having a more complex prediction model.
+    \item Their method requires a lot of data. Their preferred model has around 10,000 parameters, meaning you need about an equivalent number of data points to train it.
+    \item Their supply framework doesn't seem very convincing. 
+  \end{itemize}
+
+\section{Things we could consider adding}
+  \begin{itemize}
+    \item Supply and demand framework. We can copy their demand framework, but I think a better supply framework is needed. Maybe something that considers insurer's expected profits. 
+    \item Incorporate different utility functions to both model and evaluation.
+    \item Add a comparison to their method to the evaluation, maybe see how the two methods compare as less data becomes available. 
+    \item Use their data for evaluation. 
+    \item Maybe think about a way to make our method more robust to data scarcity? Or a way to incorporate farmer knowledge in the absence of data?
+  \end{itemize}
+
+
+\end{document}

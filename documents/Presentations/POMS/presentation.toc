@@ -12,18 +12,18 @@
 \defcounter {refsection}{0}\relax 
 \beamer@subsectionintoc {2}{1}{Index Insurance Background}{8}{0}{2}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {2}{2}{Objectives and Constraints}{11}{0}{2}
+\beamer@subsectionintoc {2}{2}{Objectives and Constraints}{12}{0}{2}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {2}{3}{CVaR Model}{13}{0}{2}
+\beamer@subsectionintoc {2}{3}{CVaR Model}{14}{0}{2}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {3}{Evaluation}{19}{0}{3}
+\beamer@sectionintoc {3}{Evaluation}{20}{0}{3}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {3}{1}{Baseline Method}{20}{0}{3}
+\beamer@subsectionintoc {3}{1}{Baseline Method}{21}{0}{3}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {3}{2}{Synthetic Data Evaluation}{21}{0}{3}
+\beamer@subsectionintoc {3}{2}{Synthetic Data Evaluation}{22}{0}{3}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {3}{3}{Kenya Pastoralist Data}{31}{0}{3}
+\beamer@subsectionintoc {3}{3}{Kenya Pastoralist Data}{32}{0}{3}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {4}{Conclusion}{35}{0}{4}
+\beamer@sectionintoc {4}{Conclusion}{36}{0}{4}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {4}{1}{Conclusions}{35}{0}{4}
+\beamer@subsectionintoc {4}{1}{Conclusions}{36}{0}{4}

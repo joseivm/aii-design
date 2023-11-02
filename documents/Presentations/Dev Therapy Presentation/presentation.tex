@@ -193,6 +193,24 @@ sorting=ynt
   \end{defn}
 \end{frame}
 
+\begin{frame}{Motivation}
+    \begin{itemize}
+        \item Given a convex function $g(x)$, $P(g(x) \leq 0 ) \geq 1-\epsilon \iff VaR_{1-\epsilon}(g(x)) \leq 0$. 
+        \item As a result, the constraint $P(g(x) \leq 0) \geq 1-\epsilon$ can be expressed as $VaR_{1-\epsilon}(g(x)) \leq 0$.
+        \item However, $VaR_{1-\epsilon}(g(x))$ is not generally a convex function. However, $CVaR_{1-\epsilon}(g(x))$ is. 
+        \item Furthermore, we have that $VaR_{1-\epsilon}(g(x)) \leq CVaR_{1-\epsilon}(g(x))$. Thus, $CVaR_{1-\epsilon}(g(x))$ is often used as an approximation for $VaR$ constraints. 
+        \item In our context, $g(x) = \ell + \pi -I(\theta)$.
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}
+    Alternatively, we could see it as minimizing the farmer's net loss in loss events that occur with frequency less than or equal to $1/\epsilon$.
+    \begin{figure}
+        \includegraphics[width=0.9\textwidth]{../../../output/CVaR.png}
+    \end{figure}
+\end{frame}
+
 \subsection{CVaR Model}
 \begin{frame}{Idealized CVaR Model}
 \label{ideal-model}
@@ -296,7 +314,7 @@ Using the results from \cite{rockafellar2002conditional}, we get:
     \begin{enumerate}
         \setlength\itemsep{1em}
         \item Use linear model to predict loss.
-        \item Contracts are of the form: $I(\theta) = \times \min \left \{\max \left \{0,\hat{\ell}(\theta) - b \right \}, 1 \right \}$. $b$ is chosen to maximize the correlation of payouts and losses. 
+        \item Contracts are of the form: $I(\theta) = \min \left \{\max \left \{0,\hat{\ell}(\theta) - b \right \}, 1 \right \}$. $b$ is chosen to maximize the correlation of payouts and losses. 
     \end{enumerate}
 \end{frame}
 
@@ -677,15 +695,15 @@ The insurance contracts developed by our model provide slightly better protectio
     \end{itemize}
 \end{frame}
 
-\subsection{Next Steps}
-\begin{frame}{Next Steps}
-\begin{itemize}
-\setlength\itemsep{2em}
-    \item We are working with practitioners to improve the model and possibly test it in practice.
-    \item We are working with the Bank of Thailand on the implementation of their satellite-based index insurance program. 
-    \item We are also talking to the International Research Institute for Climate and Society at Columbia, they have worked on the implementation of numerous index insurance programs in Africa.   
-\end{itemize}
-\end{frame}
+% \subsection{Next Steps}
+% \begin{frame}{Next Steps}
+% \begin{itemize}
+% \setlength\itemsep{2em}
+%     \item We are working with practitioners to improve the model and possibly test it in practice.
+%     \item We are working with the Bank of Thailand on the implementation of their satellite-based index insurance program. 
+%     \item We are also talking to the International Research Institute for Climate and Society at Columbia, they have worked on the implementation of numerous index insurance programs in Africa.   
+% \end{itemize}
+% \end{frame}
 
 \begin{frame}[noframenumbering, plain]{References}
 \printbibliography

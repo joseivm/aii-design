@@ -251,12 +251,11 @@ def min_CVaR_program(pred_y,train_y,params,include_premium=True):
         constraints.append(gamma >= train_y - omega - cp.vstack([t]*n_samples))
 
     constraints.append(gamma >= 0) # 2
-    b_upper_bound = np.quantile(pred_y,max_frequency,axis=0)
-    b_lower_bound = np.quantile(pred_y,min_frequency,axis=0)
+    max_frequency_quantile = np.quantile(pred_y,1-max_frequency,axis=0)
+    min_frequency_quantile = np.quantile(pred_y,1-min_frequency,axis=0)
 
-    constraints.append(b <= cp.multiply(a,b_upper_bound)) # 3
-    constraints.append(b >= cp.multiply(a,b_lower_bound)) # 4
-    # constraints.append(b <= -0.25)
+    constraints.append(b <= cp.multiply(a,min_frequency_quantile)) # 3
+    constraints.append(b >= cp.multiply(a,max_frequency_quantile)) # 4
 
     # Portfolio CVaR constraint: CVaR(\sum_z I_z(\theta_z)) <= K^P + \sum_z E[I_z(\theta_Z)]
     constraints.append(t_k + (1/eps_p)*(p @ gamma_p) <= K + (1/n_samples)*cp.sum(cp.multiply(S,omega))) # 5

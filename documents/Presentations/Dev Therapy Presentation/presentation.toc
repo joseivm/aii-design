@@ -14,18 +14,16 @@
 \defcounter {refsection}{0}\relax 
 \beamer@subsectionintoc {2}{2}{Objectives and Constraints}{11}{0}{2}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {2}{3}{CVaR Model}{13}{0}{2}
+\beamer@subsectionintoc {2}{3}{CVaR Model}{15}{0}{2}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {3}{Evaluation}{19}{0}{3}
+\beamer@sectionintoc {3}{Evaluation}{21}{0}{3}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {3}{1}{Baseline Method}{20}{0}{3}
+\beamer@subsectionintoc {3}{1}{Baseline Method}{22}{0}{3}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {3}{2}{Synthetic Data Evaluation}{21}{0}{3}
+\beamer@subsectionintoc {3}{2}{Synthetic Data Evaluation}{23}{0}{3}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {3}{3}{Kenya Pastoralist Data}{33}{0}{3}
+\beamer@subsectionintoc {3}{3}{Kenya Pastoralist Data}{35}{0}{3}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {4}{Conclusion and Next Steps}{38}{0}{4}
+\beamer@sectionintoc {4}{Conclusion and Next Steps}{40}{0}{4}
 \defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {4}{1}{Conclusions}{38}{0}{4}
-\defcounter {refsection}{0}\relax 
-\beamer@subsectionintoc {4}{2}{Next Steps}{39}{0}{4}
+\beamer@subsectionintoc {4}{1}{Conclusions}{40}{0}{4}

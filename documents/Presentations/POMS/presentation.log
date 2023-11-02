@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  23 MAY 2023 10:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  14 OCT 2023 21:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -973,6 +973,8 @@ Package biblatex Info: Reference segment=0 on input line 44.
 
 ] [8
 
+] [9
+
 ]
 LaTeX Font Info:    Try loading font information for U+msa on input line 159.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -985,47 +987,45 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input line 159.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/mathkerncmss.
-) [9
+) [10
 
 ]
-<../../../output/figures/Presentation/sample_insurance_contract.png, id=202, 709.65125pt x 497.86pt>
+<../../../output/figures/Presentation/sample_insurance_contract.png, id=208, 709.65125pt x 497.86pt>
 File: ../../../output/figures/Presentation/sample_insurance_contract.png Graphic file (type png)
 <use ../../../output/figures/Presentation/sample_insurance_contract.png>
 Package pdftex.def Info: ../../../output/figures/Presentation/sample_insurance_contract.png  used on input line 166.
 (pdftex.def)             Requested size: 308.06367pt x 216.12674pt.
- [10
+ [11
 
- <../../../output/figures/Presentation/sample_insurance_contract.png>] [11
-
-] [12
+ <../../../output/figures/Presentation/sample_insurance_contract.png>] [12
 
 ] [13
+
+] [14
 
 ]pdfTeX warning (ext4): destination with the same identifier (name{ideal-model}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.228     \end{frame}
-                      [14
-
-] [15
+                      [15
 
 ] [16
 
 ] [17
 
+] [18
+
 ]
 Overfull \vbox (2.90425pt too high) detected at line 286
  []
 
-[18
+[19
 
-] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/POMS/presentation.toc) [19
+] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/POMS/presentation.toc) [20
 
-] [20
+] [21
 
-] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/POMS/presentation.toc) [21
-
-] [22
+] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/POMS/presentation.toc) [22
 
 ] [23
 
@@ -1035,21 +1035,23 @@ Overfull \vbox (2.90425pt too high) detected at line 286
 
 ] [26
 
+] [27
+
 ]
-<../../../output/figures/Logit_Bootstrap/farmer_loss_hist_no_corr_linear.png, id=341, 462.528pt x 346.896pt>
+<../../../output/figures/Logit_Bootstrap/farmer_loss_hist_no_corr_linear.png, id=347, 462.528pt x 346.896pt>
 File: ../../../output/figures/Logit_Bootstrap/farmer_loss_hist_no_corr_linear.png Graphic file (type png)
 <use ../../../output/figures/Logit_Bootstrap/farmer_loss_hist_no_corr_linear.png>
 Package pdftex.def Info: ../../../output/figures/Logit_Bootstrap/farmer_loss_hist_no_corr_linear.png  used on input line 380.
 (pdftex.def)             Requested size: 160.8792pt x 120.65848pt.
-<../../../output/figures/Logit_Bootstrap/insurer_cost_no_corr_linear.png, id=342, 462.528pt x 346.896pt>
+<../../../output/figures/Logit_Bootstrap/insurer_cost_no_corr_linear.png, id=348, 462.528pt x 346.896pt>
 File: ../../../output/figures/Logit_Bootstrap/insurer_cost_no_corr_linear.png Graphic file (type png)
 <use ../../../output/figures/Logit_Bootstrap/insurer_cost_no_corr_linear.png>
 Package pdftex.def Info: ../../../output/figures/Logit_Bootstrap/insurer_cost_no_corr_linear.png  used on input line 380.
 (pdftex.def)             Requested size: 160.8792pt x 120.65848pt.
- [27
+ [28
 
  <../../../output/figures/Logit_Bootstrap/farmer_loss_hist_no_corr_linear.png> <../../../output/figures/Logit_Bootstrap/insurer_cost_no_corr_linear.png>]
-<../../../output/figures/Logit_Bootstrap/cost_vs_corr_linear_exploration.png, id=351, 462.528pt x 346.896pt>
+<../../../output/figures/Logit_Bootstrap/cost_vs_corr_linear_exploration.png, id=357, 462.528pt x 346.896pt>
 File: ../../../output/figures/Logit_Bootstrap/cost_vs_corr_linear_exploration.png Graphic file (type png)
 <use ../../../output/figures/Logit_Bootstrap/cost_vs_corr_linear_exploration.png>
 Package pdftex.def Info: ../../../output/figures/Logit_Bootstrap/cost_vs_corr_linear_exploration.png  used on input line 387.
@@ -1058,28 +1060,28 @@ Package pdftex.def Info: ../../../output/figures/Logit_Bootstrap/cost_vs_corr_li
 Overfull \vbox (13.98816pt too high) detected at line 387
  []
 
-[28
+[29
 
  <../../../output/figures/Logit_Bootstrap/cost_vs_corr_linear_exploration.png>]
-<../../../output/figures/Logit_Bootstrap/Max_VaR_vs_error_nonlinear.png, id=359, 462.528pt x 346.896pt>
+<../../../output/figures/Logit_Bootstrap/Max_VaR_vs_error_nonlinear.png, id=365, 462.528pt x 346.896pt>
 File: ../../../output/figures/Logit_Bootstrap/Max_VaR_vs_error_nonlinear.png Graphic file (type png)
 <use ../../../output/figures/Logit_Bootstrap/Max_VaR_vs_error_nonlinear.png>
 Package pdftex.def Info: ../../../output/figures/Logit_Bootstrap/Max_VaR_vs_error_nonlinear.png  used on input line 403.
 (pdftex.def)             Requested size: 160.8792pt x 120.65848pt.
-<../../../output/figures/Logit_Bootstrap/cost_vs_error_nonlinear.png, id=360, 462.528pt x 346.896pt>
+<../../../output/figures/Logit_Bootstrap/cost_vs_error_nonlinear.png, id=366, 462.528pt x 346.896pt>
 File: ../../../output/figures/Logit_Bootstrap/cost_vs_error_nonlinear.png Graphic file (type png)
 <use ../../../output/figures/Logit_Bootstrap/cost_vs_error_nonlinear.png>
 Package pdftex.def Info: ../../../output/figures/Logit_Bootstrap/cost_vs_error_nonlinear.png  used on input line 403.
 (pdftex.def)             Requested size: 160.8792pt x 120.65848pt.
- [29
+ [30
 
  <../../../output/figures/Logit_Bootstrap/Max_VaR_vs_error_nonlinear.png> <../../../output/figures/Logit_Bootstrap/cost_vs_error_nonlinear.png>]
-<../../../output/figures/Presentation/slope_vs_corr.png, id=369, 462.528pt x 346.896pt>
+<../../../output/figures/Presentation/slope_vs_corr.png, id=375, 462.528pt x 346.896pt>
 File: ../../../output/figures/Presentation/slope_vs_corr.png Graphic file (type png)
 <use ../../../output/figures/Presentation/slope_vs_corr.png>
 Package pdftex.def Info: ../../../output/figures/Presentation/slope_vs_corr.png  used on input line 424.
 (pdftex.def)             Requested size: 154.03183pt x 115.52408pt.
-<../../../output/figures/Presentation/intercept_vs_corr.png, id=370, 462.528pt x 346.896pt>
+<../../../output/figures/Presentation/intercept_vs_corr.png, id=376, 462.528pt x 346.896pt>
 File: ../../../output/figures/Presentation/intercept_vs_corr.png Graphic file (type png)
 <use ../../../output/figures/Presentation/intercept_vs_corr.png>
 Package pdftex.def Info: ../../../output/figures/Presentation/intercept_vs_corr.png  used on input line 424.
@@ -1088,11 +1090,9 @@ Package pdftex.def Info: ../../../output/figures/Presentation/intercept_vs_corr.
 Overfull \vbox (2.38268pt too high) detected at line 424
  []
 
-[30
+[31
 
- <../../../output/figures/Presentation/slope_vs_corr.png> <../../../output/figures/Presentation/intercept_vs_corr.png>] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/POMS/presentation.toc) [31
-
-] [32
+ <../../../output/figures/Presentation/slope_vs_corr.png> <../../../output/figures/Presentation/intercept_vs_corr.png>] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/POMS/presentation.toc) [32
 
 ] [33
 
@@ -1100,23 +1100,25 @@ Overfull \vbox (2.38268pt too high) detected at line 424
 
 ] [35
 
+] [36
+
 ]
 Overfull \vbox (196.49214pt too high) detected at line 634
  []
 
-[36
+[37
 
- </usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamericonarticle.pdf>] [37
+ </usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamericonarticle.pdf>] [38
 
-] [38
+] [39
 
 ]
-<../../../output/figures/Presentation/payout_vs_epsilon.png, id=448, 462.528pt x 346.896pt>
+<../../../output/figures/Presentation/payout_vs_epsilon.png, id=454, 462.528pt x 346.896pt>
 File: ../../../output/figures/Presentation/payout_vs_epsilon.png Graphic file (type png)
 <use ../../../output/figures/Presentation/payout_vs_epsilon.png>
 Package pdftex.def Info: ../../../output/figures/Presentation/payout_vs_epsilon.png  used on input line 675.
 (pdftex.def)             Requested size: 222.49083pt x 171.14502pt.
- [39
+ [40
 
  <../../../output/figures/Presentation/payout_vs_epsilon.png>]
 
@@ -1156,7 +1158,7 @@ LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <3.25> not available
 Overfull \vbox (4.82088pt too high) detected at line 718
  []
 
-[40
+[41
 
 ]
 \tf@nav=\write8
@@ -1174,7 +1176,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 720.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 720.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 720.
 Package rerunfilecheck Info: File `presentation.out' has not changed.
-(rerunfilecheck)             Checksum: 1C96CBB3AF76DC59FC20C55E9DF0AA0C;959.
+(rerunfilecheck)             Checksum: 9437BDB879760D9F6F11DC14FC32501F;959.
 
 
 LaTeX Font Warning: Size substitutions with differences
@@ -1188,18 +1190,18 @@ Package logreq Info: Writing requests to 'presentation.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 25044 strings out of 492649
- 481468 string characters out of 6129622
+ 25048 strings out of 492649
+ 481513 string characters out of 6129622
  897548 words of memory out of 5000000
- 28319 multiletter control sequences out of 15000+600000
+ 28321 multiletter control sequences out of 15000+600000
  19162 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,16n,63p,875b,1315s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/joseivelarde/Projects/aii-design/documents/Presentations/POMS/presentation.pdf (40 pages, 417651 bytes).
+Output written on /Users/joseivelarde/Projects/aii-design/documents/Presentations/POMS/presentation.pdf (41 pages, 418976 bytes).
 PDF statistics:
- 540 PDF objects out of 1000 (max. 8388607)
- 442 compressed objects within 5 object streams
- 113 named destinations out of 1000 (max. 500000)
+ 547 PDF objects out of 1000 (max. 8388607)
+ 448 compressed objects within 5 object streams
+ 115 named destinations out of 1000 (max. 500000)
  256 words of extra memory for PDF output out of 10000 (max. 10000000)
 
