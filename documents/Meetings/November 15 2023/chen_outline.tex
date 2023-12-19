@@ -1,0 +1,54 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+
+\title{Chen et al 2023 Outline}
+\begin{document}
+\maketitle
+
+\section{Model}
+  In this section, they describe the optimization problem they are trying to solve, the relevant variables, and the modeling assumptions. Except for the definition of the premium, our modeling approach is nearly identical. 
+\section{NN-based Solution}
+  \subsection{Feasible set}
+    Here they just describe the neural network architecture they use and other details related to training. 
+  \subsection{Penalty Method}
+    Here, they describe the method they use to make sure that the neural network satisfies the constraints. They add a penalty term to the objective, penalizing violations of the constraint. They train the neural network several times, each time increasing the penalty parameter, until the contract designed by the neural network satisfies the premium constraint. 
+
+\section{Performance of NN Method}
+  \subsection{Data}
+    Here they just describe their data sources, which will be the same as ours. 
+  \subsection{Baseline Case}
+    \subsubsection{Determining Market Loading Equilibrium}
+      Here they describe how they calculate the market loading equilibrium. They fit a simple supply curve using data from the US insurance market, and they train the NN model using different values of the loading parameter to get the demand curve. The equilibrium loading parameter is the intersection of these two curves. 
+    \subsubsection{Selection the Optimal NN Model}
+      Here they just describe how they select the best NN model. They choose the one that has the best performance on the validation set. 
+    \subsubsection{Performance of Optimal Index Insurance}
+      Here they just present their results for their different models. They report utility, percent improvement in utility, certainty equivalent wealth (CEW), CEW improvement, CEW percent improvement, and premium. 
+
+\section{Interpreting NN Based Index Insurance}
+  \subsection{Global Interpretability}
+    They describe how they use a gradient-based analysis to determine the most important weather features. 
+  \subsection{Local Interpretability}
+    They describe how they used an existing method to provide local interpretations. 
+  \subsection{Comparison with Simple Insurance Contracts}
+    Here they just compare the performance of their method to simpler contracts (e.g. ones based on linear regression or polynomial models).
+
+\section{Robustness of NN-Based Index Insurance}
+  \subsection{Out of state tests}
+    They use their model to predict out of state loss. 
+  \subsection{Overinsuring constraint}
+    They just discuss the constraint that the payout should be less than or equal to the loss. They also show the model's performance when that constraint is added. 
+  \subsection{Weather Predictability and Conditional Contracts}
+    Their model uses the current year's weather data to predict losses in the current year. In this section, they test the effect of using current year and previous year's weather to predict current year's losses. They present the results of those experiments. 
+
+\section{Extensions}
+  \subsection{Quantifying the Impacts of Contract Complexity}
+    Here, they use some estimates of how averse people are to complex contracts to study the overall utility implications of their method. The tradeoffs here is that their method offers better protection than a simpler method, but is less interpretable so farmers get disutility from the complexity.
+  \subsection{Role of Government Subsidies}
+    This section just studies how government subsidies affect farmer utility and insurer profits (they increase both).
+  \subsection{Hybrid Contracts}
+    Here they describe contracts that are the maximum of the NN model and a simpler linear contract. They compare the performance of the hybrid contracts to their original method. 
+  \subsection{Corporate Farming}
+    They have a brief discussion of how their method can be used for corporate farming where the policy-holder is interested in minimizing tail-risk instead of maximizing utility. 
+    
+\end{document}

@@ -696,7 +696,7 @@ def run_bootstrap_scenario(sigma,params,scenario_name,include_premium=True,n_sam
     nonlinear = 'nonlinear' in scenario_name
     y, X = make_multi_zone_logit_data(sigma,n=n_samples,nonlinear=nonlinear,seed=seed)
     train_x, test_x, train_y, test_y = train_test_split(X,y,test_size=0.33,random_state=seed)
-    test_x, eval_x, test_y, eval_y =train_test_split(test_x,test_y,test_size=0.33,random_state=seed)
+    test_x, eval_x, test_y, eval_y = train_test_split(test_x,test_y,test_size=0.33,random_state=seed)
 
     pred_model = LinearRegression().fit(train_x,train_y)
     pred_train_y = pred_model.predict(train_x)

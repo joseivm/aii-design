@@ -1,0 +1,231 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{ynt/global//global/global}
+    \entry{fulcher2013highly}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=b1caa5035c72fc1bf4083af5b8a0e811}{%
+           family={Fulcher},
+           familyi={F\bibinitperiod},
+           given={Ben\bibnamedelima D},
+           giveni={B\bibinitperiod\bibinitdelim D\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=4d0b94dc15af4c70d05d41e16b4402ea}{%
+           family={Little},
+           familyi={L\bibinitperiod},
+           given={Max\bibnamedelima A},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=15be7903ae3b29884dc7abfd73fcc2f4}{%
+           family={Jones},
+           familyi={J\bibinitperiod},
+           given={Nick\bibnamedelima S},
+           giveni={N\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {The Royal Society}%
+      }
+      \strng{namehash}{dbf9c2ebcdad69f8e8c15033e6126d38}
+      \strng{fullhash}{dbf9c2ebcdad69f8e8c15033e6126d38}
+      \strng{bibnamehash}{dbf9c2ebcdad69f8e8c15033e6126d38}
+      \strng{authorbibnamehash}{dbf9c2ebcdad69f8e8c15033e6126d38}
+      \strng{authornamehash}{dbf9c2ebcdad69f8e8c15033e6126d38}
+      \strng{authorfullhash}{dbf9c2ebcdad69f8e8c15033e6126d38}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of the Royal Society Interface}
+      \field{number}{83}
+      \field{title}{Highly comparative time-series analysis: the empirical structure of time series and their methods}
+      \field{volume}{10}
+      \field{year}{2013}
+      \field{pages}{20130048}
+      \range{pages}{1}
+    \endentry
+    \entry{lubba2019catch22}{article}{}
+      \name{author}{6}{}{%
+        {{uniquename=0,uniquepart=base,hash=8111d3f6828b72159417a51308325355}{%
+           family={Lubba},
+           familyi={L\bibinitperiod},
+           given={Carl\bibnamedelima H},
+           giveni={C\bibinitperiod\bibinitdelim H\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=4b2e5e6422a38aa31023c30dea858ef0}{%
+           family={Sethi},
+           familyi={S\bibinitperiod},
+           given={Sarab\bibnamedelima S},
+           giveni={S\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=2387c2a6095a02ec1a1cdc509203aa9e}{%
+           family={Knaute},
+           familyi={K\bibinitperiod},
+           given={Philip},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=146b606f9176a7b7bac34e1cedd07319}{%
+           family={Schultz},
+           familyi={S\bibinitperiod},
+           given={Simon\bibnamedelima R},
+           giveni={S\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=b1caa5035c72fc1bf4083af5b8a0e811}{%
+           family={Fulcher},
+           familyi={F\bibinitperiod},
+           given={Ben\bibnamedelima D},
+           giveni={B\bibinitperiod\bibinitdelim D\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=15be7903ae3b29884dc7abfd73fcc2f4}{%
+           family={Jones},
+           familyi={J\bibinitperiod},
+           given={Nick\bibnamedelima S},
+           giveni={N\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{d5769eced4b1f09a367fb7bec8936cfb}
+      \strng{fullhash}{865214d314cb3f9969903e5e29eea846}
+      \strng{bibnamehash}{d5769eced4b1f09a367fb7bec8936cfb}
+      \strng{authorbibnamehash}{d5769eced4b1f09a367fb7bec8936cfb}
+      \strng{authornamehash}{d5769eced4b1f09a367fb7bec8936cfb}
+      \strng{authorfullhash}{865214d314cb3f9969903e5e29eea846}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Data Mining and Knowledge Discovery}
+      \field{number}{6}
+      \field{title}{catch22: CAnonical Time-series CHaracteristics: Selected through highly comparative time-series analysis}
+      \field{volume}{33}
+      \field{year}{2019}
+      \field{pages}{1821\bibrangedash 1852}
+      \range{pages}{32}
+    \endentry
+    \entry{dempster2020rocket}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=dfc3014a7042700e9c020d83338c6f87}{%
+           family={Dempster},
+           familyi={D\bibinitperiod},
+           given={Angus},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=079aac40002b405c1e577c4435ef3751}{%
+           family={Petitjean},
+           familyi={P\bibinitperiod},
+           given={Fran{ç}ois},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=da5fdbc1e50d7547a3e1e1aef241d2e3}{%
+           family={Webb},
+           familyi={W\bibinitperiod},
+           given={Geoffrey\bibnamedelima I},
+           giveni={G\bibinitperiod\bibinitdelim I\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{dd518ef59ac261969d2191b1383e4338}
+      \strng{fullhash}{dd518ef59ac261969d2191b1383e4338}
+      \strng{bibnamehash}{dd518ef59ac261969d2191b1383e4338}
+      \strng{authorbibnamehash}{dd518ef59ac261969d2191b1383e4338}
+      \strng{authornamehash}{dd518ef59ac261969d2191b1383e4338}
+      \strng{authorfullhash}{dd518ef59ac261969d2191b1383e4338}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Data Mining and Knowledge Discovery}
+      \field{number}{5}
+      \field{title}{ROCKET: exceptionally fast and accurate time series classification using random convolutional kernels}
+      \field{volume}{34}
+      \field{year}{2020}
+      \field{pages}{1454\bibrangedash 1495}
+      \range{pages}{42}
+    \endentry
+    \entry{ruiz2021great}{article}{}
+      \name{author}{5}{}{%
+        {{uniquename=0,uniquepart=base,hash=10ef262338c09a7e37f46eb5794d39b7}{%
+           family={Ruiz},
+           familyi={R\bibinitperiod},
+           given={Alejandro\bibnamedelima Pasos},
+           giveni={A\bibinitperiod\bibinitdelim P\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=3b228e35fa98f0031675a74c51c732aa}{%
+           family={Flynn},
+           familyi={F\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=581e715de8729458ae55138a0c645fb3}{%
+           family={Large},
+           familyi={L\bibinitperiod},
+           given={James},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=43a883a23c3291f7fbe9b6b871e257ee}{%
+           family={Middlehurst},
+           familyi={M\bibinitperiod},
+           given={Matthew},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=c7fb166325e9c0da61ccc1e704db8c97}{%
+           family={Bagnall},
+           familyi={B\bibinitperiod},
+           given={Anthony},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{8e9135ee5f6f5f51b2a9c2f68e7f730a}
+      \strng{fullhash}{8361bc0015ad71f75f49cb1a70516346}
+      \strng{bibnamehash}{8e9135ee5f6f5f51b2a9c2f68e7f730a}
+      \strng{authorbibnamehash}{8e9135ee5f6f5f51b2a9c2f68e7f730a}
+      \strng{authornamehash}{8e9135ee5f6f5f51b2a9c2f68e7f730a}
+      \strng{authorfullhash}{8361bc0015ad71f75f49cb1a70516346}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Data Mining and Knowledge Discovery}
+      \field{number}{2}
+      \field{title}{The great multivariate time series classification bake off: a review and experimental evaluation of recent algorithmic advances}
+      \field{volume}{35}
+      \field{year}{2021}
+      \field{pages}{401\bibrangedash 449}
+      \range{pages}{49}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

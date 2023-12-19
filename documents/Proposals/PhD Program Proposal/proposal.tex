@@ -1,0 +1,75 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb,bbm}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage[
+backend=biber,
+style=bwl-FU,
+sorting=ynt
+]{biblatex}
+\addbibresource{main.bib}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\title{Agricultural Index Insurance: An Optimization Approach}
+\date{}
+
+\begin{document}
+\maketitle
+\section{Introduction}
+Lack of access to credit and insurance is often cited as a significant factor hindering agricultural productivity in developing countries. Nearly two thirds of the world's poor are employed in agriculture, and addressing this problem could have significant welfare implications. Agricultural insurance is, even in the best circumstances, a hard problem. Many of the features one would want (independent units, uncorrelated risk, etc) are missing in this context. When considering insurance in developing countries, the problem becomes even harder because of verification costs. Traditionally, whenever an adverse event happens, the insured party contacts the insurer, and the insurer verifies the claim and issues a payout. However, agriculture in developing countries is often characterized by many small farmers spread out over hard to reach regions. This makes verification prohibitively costly. Additionally, the presence of correlated risks makes insurance more expensive because it makes large payouts more likely. Intuitively, if one farmer is affected by a drought, it is likely that other farmers were also affected. If large payouts are more likely, the insurer must have larger reserves in order to maintain solvency. 
+
+Researchers developed index insurance as a less costly way to offer insurance in developing countries. In index insurance, an index (or statistic) is created using easily observable quantities, and it is used to determine whether the insured party suffered an adverse event. In the past, indices have been constructed using rainfall, weather, and satellite images. If the index falls below a pre-determined threshold, the insurance company automatically issues out payments to the insured. Even though index insurance has proved to be a less costly way of providing insurance for small farmers, it has been difficult to scale up. There are several problems with index insurance. One of the main problems is low take up: farmers are often unwilling to purchase the insurance at market prices. Another problem, as previously mentioned, is the cost. In this project, we develop a method that makes insurance less costly by improving the design of insurance contracts. The goal is to better evaluate this method, and hopefully implement it in practice.
+
+The Bank of Thailand is working on designing the country's index insurance program. It has an extraordinarily rich dataset of agricultural losses. This data offers us a unique opportunity to evaluate and improve our method, and it could inform the design of index insurance programs in other countries. 
+
+\section{Data}
+The Bank of Agricultural Connection in Thailand offers loans to rural farmers to purchase inputs for farming. Along with these loans, the Bank also offers insurance against natural disasters such as floods and droughts. As part of this existing insurance scheme, the Bank has collected a very rich dataset on plot-level losses. This dataset includes the rice variety planted, the planting date, the harvest date, the total loss, and the date in which the disaster occurred. It has roughly 22 million observations spanning from 2015-2022, and the coverage is nationwide. 
+
+\section{Method}
+Index insurance generally involves an easily observable signal, $\theta$, that is used to predict the loss, $\hat{\ell}(\theta)$, of some agricultural product. For example, $\theta$ could be rainfall, and $\hat{\ell}(\theta)$ could be livestock mortality. Index insurance is generally used in contexts where it is too costly to observe the true loss, $\ell(\theta)$, so it is based on a predicted loss, $\hat{\ell(\theta)}$ instead. Index insurance contracts normally have the following form: 
+\begin{equation}
+   I(\theta)=\ I(\hat{l}(\theta)) \triangleq\ \min \left \{\max \left \{0,a\hat{\ell}(\theta) + b \right \}, 1 \right \}, 
+\end{equation}
+where $a,b$ are the contract parameters. Without loss of generality, the maximum payout is scaled to be one here. We also use $I(\theta)$ instead of $I(\hat{\ell}(\theta))$ for ease of notation. The premium a farmer pays for an insurance contract $I(\theta)$ is:%, $I(\theta)$ for an insurer in a single period : 
+\begin{equation}\label{eq-02}
+   \pi(I(\theta)) \triangleq\ \mathbb{E}[I(\theta)] + c_{\kappa} K(I(\theta)).
+\end{equation}
+Here, the premium $\pi(I(\theta))$ is the expected payout plus costs of capital. $K(I(\theta))$ is a function of $I(\theta)$ that represents the amount of capital required to insure the contract, and it is usually set by regulators and meant to ensure that insurers have enough capital to fulfill their contractual obligations with high probability. Intuitively, when $\mathbb{E}[I(\theta)]$ is the same for two different contracts, if one of them is riskier for the insurer than the other, then the insurer will have to sell it at a higher price to make the same profit. The additional term $c_{\kappa} K(I(\theta))$ captures this additional cost of risk. $c_{\kappa}$ is the cost of holding capital and its value usually ranges from $0.09$ to $0.17$ in the literature (\cite{kielholz2000cost}; \cite{barinov2020estimating}). The model we developed for designing insurance contracts for multiple zones is: 
+
+\begin{align}
+    \min_{a,b,K,\pi} \max_z &\quad {\sf CVaR}_{1-\epsilon}\left (\ell_z  + \pi_z - \underline{I_z(\theta_z)} \right )\label{eq-33}\\
+    \text{s.t.} &\quad \pi_z  = \mathbb{E}\left [ \overline{I_z(\theta_z)} \right ] + \frac{c_{\kappa}}{\sum_z s_z}  \left [ {\sf CVaR}_{1-\epsilon_K} \left ( \sum_z s_z\overline{I_z(\theta_z)} \right ) - \mathbb{E}\left [ \sum_{z'} s_{z'}\underline{I_{z'}(\theta_{z'})} \right ] \right ] \label{eq-32}\\
+    &\quad \overline{I_z(\theta_z)} = \max \left \{0,a_z\hat{\ell_z}(\theta_z) + b_z \right \} \nonumber\\
+    &\quad\underline{I_z(\theta_z)} = \min \left \{a_z\hat{\ell_z}(\theta_z)+b_z,1 \right \} \nonumber\\
+    &\quad\pi_z \leq \overline{\pi_z} \nonumber.
+  \end{align}
+
+  Here, our objective is to minimize the maximum ${\sf CVaR}$ of farmers' net loss across all zones. Here, $\ell_z$ denotes the loss for a farmer in zone $z$, $\pi_z$ is the premium for zone $z$, and $I_z(\theta_z)$ is the payout for zone $z$. The first constraint specifies the definition of the premium. Here, the cost of capital is defined as $K(I(\theta)) \triangleq {\sf CVaR}_{1-\epsilon_K} \left ( \sum_z s_z\overline{I_z(\theta_z)} \right ) - \mathbb{E}\left [ \sum_{z'} s_{z'}\underline{I_{z'}(\theta_{z'})} \right ]$ as described in \cite{mapfumo2017risk}. The next two constraints specify the piecewise linear structure of the contract, and the last constraint limits the size of the premium. 
+
+\section{Objectives}
+  We have evaluated our method using both observational and synthetic data, and we found that our method outperformed the baseline. However, the observational data had some significant limitations with regards to size and quality. The Bank of Thailand is working on designing the country's index insurance program. I have been collaborating with them over the last year to improve different aspects of the program. The design of an index insurance program generally consists of three steps. The first step is to design a model to predict loss. The second step is to design contracts that map predicted losses to payouts. The last step is to price these contracts. The objective of this trip is two-fold. First, their data will provide us an opportunity to better evaluate our method. We further hope to improve the method using input from the team at the Bank of Thailand, and from interviews and focus group discussions with farmers.  Second, if our method proves effective, we could use it to inform the contract design of the country's index insurance program. 
+
+  \newpage
+\section*{Budget}
+This budget has expenses for a 12-week trip to Thailand to work at the Bank of Thailand. It includes accommodation costs and daily expenses (e.g. food and transportation).
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|l|l|}
+  \hline
+  \textbf{Item}  & \textbf{Cost} & \textbf{Notes}                                         \\ \hline
+  Flights        & 2200          & This would include in-country flights for field visits \\ \hline
+  Accommodation   & 1800          &  600 per month times 3 months                                          \\ \hline
+  Daily expenses & 1050           & 350 per month times 3 months                                            \\ \hline
+  \textbf{Total} & 5050 & \\ \hline
+  \end{tabular}
+  \end{table}
+
+\end{document}
