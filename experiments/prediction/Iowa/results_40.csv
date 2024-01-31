@@ -1,0 +1,31 @@
+Loss Recall,Payout Precision,Average Cost,Cost Per Coverage,MSE,Algorithm,Transform,Time,Model Name,Algorithm Args
+0.853,0.885,225.053,263.855,12165.202,Ridge,catch22,0.000,catch22_Ridge_yPq,None
+0.857,0.877,227.517,265.383,11997.379,Lasso,catch22,0.000,catch22_Lasso_tEG,None
+0.840,0.903,212.603,253.058,12356.530,SVR,catch22,0.050,catch22_SVR_6Xf,None
+0.862,0.873,229.388,266.145,11865.085,Random Forest,catch22,0.400,catch22_Random Forest_COL,{'n_estimators': 250}
+0.848,0.876,225.093,265.409,12767.598,Gradient Boosting,catch22,0.130,catch22_Gradient Boosting_6re,{'n_estimators': 250}
+0.844,0.896,220.079,260.842,12534.736,Ridge,chen,0.000,chen_Ridge_Nuy,None
+0.850,0.887,223.856,263.457,12153.911,Lasso,chen,0.000,chen_Lasso_7Cw,None
+0.844,0.906,212.817,252.028,11849.655,SVR,chen,0.040,chen_SVR_y26,None
+0.878,0.862,237.283,270.251,11512.196,Random Forest,chen,0.410,chen_Random Forest_Nnx,{'n_estimators': 250}
+0.839,0.887,217.769,259.407,14066.127,Gradient Boosting,chen,0.120,chen_Gradient Boosting_1sw,{'n_estimators': 250}
+0.761,0.795,255.208,335.298,35825.920,Ridge,rocket,0.010,rocket_Ridge_XqW,None
+0.849,0.850,236.600,278.719,15618.743,Lasso,rocket,0.120,rocket_Lasso_KmD,None
+0.841,0.903,212.437,252.617,12493.258,SVR,rocket,2.230,rocket_SVR_9zQ,None
+0.881,0.862,240.029,272.516,11164.043,Random Forest,rocket,26.010,rocket_Random Forest_iPC,{'n_estimators': 250}
+0.880,0.862,240.987,273.893,11525.149,Gradient Boosting,rocket,4.020,rocket_Gradient Boosting_vSx,{'n_estimators': 250}
+0.944,0.722,194.032,205.632,7541.713,Ridge,chen,0.000,chen_Ridge_szX,None
+0.933,0.786,172.545,185.007,4558.171,Lasso,chen,0.000,chen_Lasso_59i,None
+0.891,0.833,148.471,166.555,3937.261,SVR,chen,0.060,chen_SVR_lNw,None
+0.935,0.762,176.166,188.480,5244.645,Random Forest,chen,0.480,chen_Random Forest_iQC,{'n_estimators': 250}
+0.933,0.758,177.727,190.429,5499.928,Gradient Boosting,chen,0.140,chen_Gradient Boosting_kyb,{'n_estimators': 250}
+0.927,0.764,175.889,189.810,5851.053,Ridge,catch22,0.000,catch22_Ridge_qL0,None
+0.932,0.769,174.267,187.076,5262.540,Lasso,catch22,0.000,catch22_Lasso_vfM,None
+0.891,0.829,149.316,167.640,4102.959,SVR,catch22,0.080,catch22_SVR_b8P,None
+0.937,0.752,179.711,191.746,5794.065,Random Forest,catch22,0.480,catch22_Random Forest_lc7,{'n_estimators': 250}
+0.930,0.749,181.012,194.612,6508.356,Gradient Boosting,catch22,0.150,catch22_Gradient Boosting_tDV,{'n_estimators': 250}
+0.745,0.765,155.405,208.511,15538.444,Ridge,rocket,0.020,rocket_Ridge_J4T,None
+0.906,0.793,165.005,182.184,5086.160,Lasso,rocket,0.060,rocket_Lasso_gJv,None
+0.893,0.831,149.181,167.078,3966.646,SVR,rocket,3.560,rocket_SVR_Evo,None
+0.940,0.766,175.500,186.768,4878.629,Random Forest,rocket,28.970,rocket_Random Forest_7du,{'n_estimators': 250}
+0.937,0.762,177.656,189.687,5434.946,Gradient Boosting,rocket,4.680,rocket_Gradient Boosting_BzG,{'n_estimators': 250}

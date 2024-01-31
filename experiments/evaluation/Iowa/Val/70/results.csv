@@ -1,0 +1,10 @@
+Utility,CEW,Insurer Risk,Premium,Eval Name,Method,a,b,Market Loading,Params
+-36.002,155.593,103.693,99.396,catch22_SVR_Y9M_ub100_sF2,Our Method,0.490,3.780,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 638.0}"
+-39.185,145.003,136.775,99.971,catch22_Random Forest_5oI_ub100_gge,Our Method,0.590,51.870,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 638.0}"
+-38.513,147.165,134.822,99.896,catch22_Gradient Boosting_RlU_ub100_lke,Our Method,0.430,7.410,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 638.0}"
+-36.051,155.422,116.651,99.252,chen_SVR_1US_ub100_C3L,Our Method,1.120,137.360,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 638.0}"
+-39.711,143.336,133.051,99.973,chen_Random Forest_Wa4_ub100_2gb,Our Method,0.570,46.550,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 638.0}"
+-37.654,149.986,124.586,97.821,chen_Gradient Boosting_BUb_ub100_MY0,Our Method,0.390,0.130,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 638.0}"
+-36.168,155.019,121.496,98.842,rocket_SVR_hEk_ub100_Pj9,Our Method,1.570,229.080,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 638.0}"
+-39.700,143.369,146.337,99.974,rocket_Random Forest_7Rv_ub100_L8N,Our Method,0.570,47.590,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 638.0}"
+-37.745,149.683,155.189,99.949,rocket_Gradient Boosting_VE4_ub100_tDK,Our Method,0.430,8.330,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 638.0}"

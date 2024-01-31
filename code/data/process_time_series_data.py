@@ -3,11 +3,13 @@ import numpy as np
 import os
 import re
 from functools import reduce
+from sklearn.model_selection import train_test_split
 from sklearn.linear_model import HuberRegressor, RANSACRegressor, TheilSenRegressor
 from sklearn.preprocessing import StandardScaler, QuantileTransformer
 from sktime.transformations.panel.rocket import MiniRocketMultivariate
 from sktime.transformations.panel.catch22 import Catch22
 import time
+from pathlib import Path
 
 from dotenv import load_dotenv, find_dotenv
 dotenv_path = find_dotenv()
@@ -20,19 +22,17 @@ PRISM_DATA_DIR = os.path.join(RAW_DATA_DIR,'PRISM')
 NASS_DATA_DIR = os.path.join(RAW_DATA_DIR,'NASS')
 
 # Output files/dirs
-PRED_DATA_DIR = os.path.join(PROJECT_DIR,'data','processed','Illinois')
 TRANSFORMS_DIR = os.path.join(PROJECT_DIR,'data','time-series-transforms')
 
 ##### Data Loading ##### 
 def load_yield_data(state):
-    filename = f"{state} yields new.csv"
+    filename = f"{state} yields.csv"
     filepath = os.path.join(NASS_DATA_DIR,filename)
     df = pd.read_csv(filepath)
 
     relevant_cols = ['Year','County ANSI','County','Value']
-    county_obs = df.groupby('County')['Year'].nunique().reset_index(name='N')
-    full_data_counties = county_obs.loc[county_obs.N >= 93, 'County']
-
+    full_data_counties = df.loc[(df.Year == 2022) & (df['County ANSI'].notna()),'County']
+            
     df = df.loc[df.County.isin(full_data_counties),relevant_cols]
 
     df['County ANSI'] = df['County ANSI'].astype(int).astype(str)
@@ -42,9 +42,9 @@ def load_yield_data(state):
     df['CountyCode'] = '17' + df['County ANSI']
     return df
 
-def load_prism_data(state):
-    fnames = os.listdir(os.path.join(PRISM_DATA_DIR,state))
-    filepaths = [os.path.join(PRISM_DATA_DIR,state,f) for f in fnames]
+def load_prism_data():
+    fnames = os.listdir(os.path.join(PRISM_DATA_DIR))
+    filepaths = [os.path.join(PRISM_DATA_DIR,f) for f in fnames if '.csv' in f]
     dfs = [pd.read_csv(filepath) for filepath in filepaths]
     pdf = pd.concat(dfs)
     pdf = pdf.loc[pdf.Name.notna(),:]
@@ -72,8 +72,10 @@ def load_prism_data(state):
 
 def add_detrended_values(df):
     df['1'] = 1
-    df['t'] = df['Year'] - 1924
+    df['t'] = df['Year'] - df['Year'].min()-1
     df['t^2'] = df['t']**2
+
+    current_yr = df.Year.max()
 
     for county in df.County.unique():
         X = df.loc[df.County == county,['1','t','t^2']]
@@ -86,16 +88,23 @@ def add_detrended_values(df):
         df.loc[df.County == county,'RANSAC Trend'] = ransac.predict(X)
         df.loc[df.County == county,'TS Trend'] = ts.predict(X)
 
-        df.loc[df.County == county, 'Huber Index'] = df.loc[(df.County == county) & (df.Year == 2018),
+        df.loc[df.County == county, 'Huber Index'] = df.loc[(df.County == county) & (df.Year == current_yr),
                                                             'Huber Trend'].mean()/df['Huber Trend']
-        df.loc[df.County == county, 'RANSAC Index'] = df.loc[(df.County == county) & (df.Year == 2018),
+        df.loc[df.County == county, 'RANSAC Index'] = df.loc[(df.County == county) & (df.Year == current_yr),
                                                             'RANSAC Trend'].mean()/df['RANSAC Trend']
-        df.loc[df.County == county, 'TS Index'] = df.loc[(df.County == county) & (df.Year == 2018),
+        df.loc[df.County == county, 'TS Index'] = df.loc[(df.County == county) & (df.Year == current_yr),
                                                             'TS Trend'].mean()/df['TS Trend']
 
-    df['Huber Value'] = df['Value']*df['Huber Index']
-    df['RANSAC Value'] = df['Value']*df['RANSAC Index']
-    df['TS Value'] = df['Value']*df['TS Index']
+    trend_vals = df.loc[df.Year == current_yr,['County','TS Trend','Huber Trend','RANSAC Trend']]
+    # trend_vals = df.loc[df.Year == current_yr,['County','TS Trend','RANSAC Trend']]
+    df = df.merge(trend_vals,suffixes=('',' current'),on='County')
+    df['Huber Value'] = df['Value'] - df['Huber Trend'] + df['Huber Trend current']
+    df['RANSAC Value'] = df['Value'] - df['RANSAC Trend'] + df['RANSAC Trend current']
+    df['TS Value'] = df['Value'] - df['TS Trend'] + df['TS Trend current']
+
+    # df['Huber Value'] = df['Value']*df['Huber Index']
+    # df['RANSAC Value'] = df['Value']*df['RANSAC Index']
+    # df['TS Value'] = df['Value']*df['TS Index']
 
     return df.drop(columns=['1','t','t^2'])
 
@@ -109,30 +118,37 @@ def add_detrended_values_old(df,random_state=50):
 
     huber = HuberRegressor().fit(X,y)
     ransac = RANSACRegressor(random_state=random_state).fit(X,y)
+    ts = TheilSenRegressor(random_state=1).fit(X,y)
     df['Huber Trend'] = huber.predict(X)
     df['RANSAC Trend'] = ransac.predict(X)
+    df['TS Trend'] = ts.predict(X)
 
-    df['Huber Index'] = df.loc[df.Year == 2018,'Huber Trend'].mean()/df['Huber Trend']
-    df['RANSAC Index'] = df.loc[df.Year == 2018,'RANSAC Trend'].mean()/df['RANSAC Trend']
+    df['Huber Value'] = df['Value'] - df['Huber Trend'] + df.loc[df.Year == 2018,'Huber Trend'].mean()
+    df['RANSAC Value'] = df['Value'] - df['RANSAC Trend'] + df.loc[df.Year == 2018,'RANSAC Trend'].mean()
+    df['TS Value'] = df['Value'] - df['TS Trend'] + df.loc[df.Year == 2018,'TS Trend'].mean()
+    # df['Huber Index'] = df.loc[df.Year == 2018,'Huber Trend'].mean()/df['Huber Trend']
+    # df['RANSAC Index'] = df.loc[df.Year == 2018,'RANSAC Trend'].mean()/df['RANSAC Trend']
 
-    df['Huber Value'] = df['Value']*df['Huber Index']
-    df['RANSAC Value'] = df['Value']*df['RANSAC Index']
+    # df['Huber Value'] = df['Value']*df['Huber Index']
+    # df['RANSAC Value'] = df['Value']*df['RANSAC Index']
+
     return df.drop(columns=['1','t','t^2'])
 
 ##### Transformations #####
-def save_transformed_data(state, transformer, trf_name):
+def save_transformed_data(state, transformer, trf_name, length):
     # Load data
-    ldf = create_loss_data(state)
-    pdf = load_prism_data(state)
+    ldf = create_loss_data(state,length)
+    pdf = load_prism_data()
     pdf = pdf.loc[pdf.CountyYear.isin(ldf.index),:]
 
     # turn it into a ts tensor
     ts_data, obs_idx = create_raw_ts_tensors(pdf)
 
     # split into train/val/test (this includes the standardizing)
-    train_mask = obs_idx.str[-4:].astype(int) <= 1991
-    val_mask = (obs_idx.str[-4:].astype(int) > 1991) & (obs_idx.str[-4:].astype(int) <= 2003)
-    test_mask = obs_idx.str[-4:].astype(int) > 2003
+    train_cutoff = get_train_cutoff(ldf)
+    train_mask = obs_idx.str[-4:].astype(int) <= train_cutoff
+    val_mask = (obs_idx.str[-4:].astype(int) > train_cutoff) & (obs_idx.str[-4:].astype(int) <= 2007)
+    test_mask = obs_idx.str[-4:].astype(int) > 2007
 
     train_idx = obs_idx.loc[train_mask]
     val_idx = obs_idx.loc[val_mask]
@@ -153,28 +169,29 @@ def save_transformed_data(state, transformer, trf_name):
     else:
         X_train_ts, X_val_ts, X_test_ts = train_ts, val_ts, test_ts
 
-    # scaler = StandardScaler()
-    # X_train_ts = scaler.fit_transform(X_train_ts)
-    # X_val_ts = scaler.transform(X_val_ts)
-    # X_test_ts = scaler.transform(X_test_ts)
+    scaler = StandardScaler()
+    X_train_ts = scaler.fit_transform(X_train_ts)
+    X_val_ts = scaler.transform(X_val_ts)
+    X_test_ts = scaler.transform(X_test_ts)
 
     y_train = ldf.loc[train_idx,'TSLoss']
     y_val = ldf.loc[val_idx,'TSLoss']
     y_test = ldf.loc[test_idx,'TSLoss']
 
     # save
-    save(X_train_ts, y_train, X_val_ts, y_val, X_test_ts, y_test, trf_name)
+    save(X_train_ts, y_train, X_val_ts, y_val, X_test_ts, y_test, trf_name, state,length)
 
-def save_chen_data(state):
-    ldf = create_loss_data(state)
-    pdf = load_prism_data(state)
+def save_chen_data(state,length):
+    ldf = create_loss_data(state,length)
+    pdf = load_prism_data()
 
     df = ldf.merge(pdf,on=['CountyCode','Year'])
     df = df.sort_values('CountyYear')
     feats = [col for col in df.columns if re.search('[0-9]',col)]
-    train_data = df.loc[df.Year <= 1991,:]
-    val_data = df.loc[(df.Year > 1991) & (df.Year <= 2003),:]
-    test_data = df.loc[df.Year > 2003,:]
+    train_cutoff = get_train_cutoff(ldf)
+    train_data = df.loc[df.Year <= train_cutoff,:]
+    val_data = df.loc[(df.Year > train_cutoff) & (df.Year <= 2007),:]
+    test_data = df.loc[df.Year > 2007,:]
 
     scaler = StandardScaler()
     X_train, y_train = train_data.loc[:,feats], train_data['TSLoss']
@@ -185,11 +202,12 @@ def save_chen_data(state):
     X_val = scaler.transform(X_val)
     X_test = scaler.transform(X_test)
 
-    save(X_train, y_train, X_val, y_val, X_test, y_test,'chen')
+    save(X_train, y_train, X_val, y_val, X_test, y_test,'chen',state,length)
 
-def create_loss_data(state):
+def create_loss_data(state, length):
     df = load_yield_data(state)
     df = add_detrended_values(df)
+    df = get_relevant_years(df,length)
     df['CountyYear'] = df['CountyCode'] + '-' + df['Year'].astype(str)
     df.set_index('CountyYear',inplace=True)
     df['Huber Bushel Loss'] = df['Huber Value'].max() - df['Huber Value']
@@ -200,24 +218,53 @@ def create_loss_data(state):
     df['TSLoss'] = df['TS Bushel Loss']*3.5
     return df.loc[df.TSLoss.notna(),:]
 
-def save(X_train, y_train, X_val, y_val, X_test, y_test, trf_name):
-    X_train_filename = f"X_train_{trf_name}.npy"
-    X_train_full_path = os.path.join(TRANSFORMS_DIR,X_train_filename)
+def get_relevant_years(df, length):
+    if length is not None:
+        cutoff_year = 2007-length + 1
+        df = df.loc[df.Year >= cutoff_year,:]
 
-    X_val_filename = f"X_val_{trf_name}.npy"
-    X_val_full_path = os.path.join(TRANSFORMS_DIR,X_val_filename)
+    county_obs = df.loc[df.Year <= 2007,:].groupby('County').size().reset_index(name='N')
+    full_data_counties = county_obs.loc[county_obs['N'] >= 2*length/3,'County']
+            
+    df = df.loc[df.County.isin(full_data_counties),:]
+    return df
 
-    X_test_filename = f"X_test_{trf_name}.npy"
-    X_test_full_path = os.path.join(TRANSFORMS_DIR,X_test_filename)
+def get_train_cutoff(ldf):
+    min_year = ldf.Year.min()
+    max_year = 2007
+    years = np.array([i for i in range(min_year,max_year+1)])
+    train, val = train_test_split(years,train_size=0.80,shuffle=False)
+    return train.max()
 
-    y_train_filename = f"y_train_{trf_name}.npy"
-    y_train_full_path = os.path.join(TRANSFORMS_DIR,y_train_filename)
+def get_train_val_cutoffs(ldf):
+    min_year = ldf.Year.min()
+    max_year = ldf.Year.max()
+    years = np.array([i for i in range(min_year,max_year+1)])
+    train, test = train_test_split(years,train_size=0.7,shuffle=False)
+    val, test = train_test_split(test,train_size=0.5,shuffle=False)
+    return train.max(), val.max()
 
-    y_val_filename = f"y_val_{trf_name}.npy"
-    y_val_full_path = os.path.join(TRANSFORMS_DIR,y_val_filename)
+def save(X_train, y_train, X_val, y_val, X_test, y_test, trf_name, state, length):
+    length = str(length)
+    save_dir = os.path.join(TRANSFORMS_DIR,state,trf_name)
+    Path(save_dir).mkdir(exist_ok=True)
+    X_train_filename = f"X_train_{trf_name}_L{length}.npy"
+    X_train_full_path = os.path.join(save_dir, X_train_filename)
 
-    y_test_filename = f"y_test_{trf_name}.npy"
-    y_test_full_path = os.path.join(TRANSFORMS_DIR,y_test_filename)
+    X_val_filename = f"X_val_{trf_name}_L{length}.npy"
+    X_val_full_path = os.path.join(save_dir, X_val_filename)
+
+    X_test_filename = f"X_test_{trf_name}_L{length}.npy"
+    X_test_full_path = os.path.join(save_dir, X_test_filename)
+
+    y_train_filename = f"y_train_{trf_name}_L{length}.npy"
+    y_train_full_path = os.path.join(save_dir, y_train_filename)
+
+    y_val_filename = f"y_val_{trf_name}_L{length}.npy"
+    y_val_full_path = os.path.join(save_dir, y_val_filename)
+
+    y_test_filename = f"y_test_{trf_name}_L{length}.npy"
+    y_test_full_path = os.path.join(save_dir, y_test_filename)
 
     np.save(X_train_full_path, X_train)
     np.save(X_val_full_path, X_val)
@@ -249,13 +296,19 @@ def create_raw_ts_tensors(pdf):
     ts_data = np.stack(weather_dfs,axis=1)
     return ts_data, obs_order
 
-state = 'Illinois'
+states = ['Illinois','Iowa','Indiana','Missouri']
+# states = ['Missouri']
+# state = 'Missouri'
+lengths = [i*10 for i in range(2,9)] + [83]
 # save_transformed_data(state,None,'raw')
-save_chen_data(state)
-transformer_dict = {'rocket':MiniRocketMultivariate,'catch22':Catch22, 'raw':None}
-for name, transformer in transformer_dict.items():
-    start = time.time()
-    save_transformed_data(state,transformer,name)
-    end = time.time()
-    total = (end-start)/60
-    print(f"{name}: {total} mins")
+for state in states:
+    for length in lengths:
+        print(length)
+        save_chen_data(state,length)
+        transformer_dict = {'rocket':MiniRocketMultivariate,'catch22':Catch22}
+        for name, transformer in transformer_dict.items():
+            start = time.time()
+            save_transformed_data(state,transformer,name,length)
+            end = time.time()
+            total = (end-start)/60
+            print(f"{name}: {total} mins")
