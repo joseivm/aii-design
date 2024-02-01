@@ -1,3 +1,0 @@
-Utility,CEW,Insurer Risk,Premium,Eval Name,Method,a,b,Market Loading,Params
--29.315,181.278,0.001,0.001,catch22_SVR_IqB_ub100_s8b,Our Method,0.000,0.000,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 548.0}"
--31.016,174.227,83.388,69.841,catch22_Random Forest_2Hk_ub100_3eD,Our Method,0.360,0.010,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 548.0}"

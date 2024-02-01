@@ -319,18 +319,26 @@ def choose_best_model(state, length, params):
     pred_dir = os.path.join(PREDICTIONS_DIR,state)
     results_fname = os.path.join(pred_dir,f"results_{length}.csv")
     rdf = pd.read_csv(results_fname)
-    bad_models = []
+    bad_model_dict = {str(i*10):[] for i in range(3,9)}
+    bad_model_dict['83'] = []
+    bad_model_dict['80'] = ['chen_Ridge','chen_Lasso','chen_SVR','chen_Random Forest','chen_Gradient Boosting',
+                            'catch22_Ridge','catch22_Lasso']
     # bad_models = []
     for model_name in rdf['Model Name'].unique():
         print(model_name)
+        bad_models = bad_model_dict[length]
         model_prefix = '_'.join(model_name.split('_')[:2])
-        if model_prefix not in bad_models:
-            run_eval(state, length, params, model_name, 'Val')
+        if model_prefix not in bad_models: 
+            try:
+                run_eval(state, length, params, model_name, 'Val')
+            except cp.error.SolverError:
+                print(f"{model_name} failed to run")
+                pass
 
 # Main Script
-state = 'Illinois'
-lengths = [i*10 for i in range(3,8)] + [83]
-# lengths = [98]
+state = 'Iowa'
+# lengths = [i*10 for i in range(7,9)] + [83]
+lengths = [80]
 for length in lengths:
     print(length)
     ##### Our definition of the premium #####

@@ -1,27 +1,4 @@
 Loss Recall,Payout Precision,Average Cost,Cost Per Coverage,MSE,Algorithm,Transform,Time,Model Name,Algorithm Args
-0.890,0.842,272.991,306.879,12161.883,Ridge,catch22,0.000,catch22_Ridge_BJm,None
-0.895,0.841,274.549,306.775,11634.611,Lasso,catch22,0.000,catch22_Lasso_7ao,None
-0.897,0.830,278.528,310.601,12122.730,SVR,catch22,0.070,catch22_SVR_SLE,None
-0.893,0.850,270.869,303.179,10980.854,Random Forest,catch22,0.530,catch22_Random Forest_GDG,{'n_estimators': 250}
-0.893,0.846,272.628,305.316,11297.735,Gradient Boosting,catch22,0.160,catch22_Gradient Boosting_feP,{'n_estimators': 250}
-0.923,0.799,303.240,328.642,12930.166,Ridge,chen,0.000,chen_Ridge_enz,None
-0.899,0.841,275.950,306.853,10868.805,Lasso,chen,0.000,chen_Lasso_Tl3,None
-0.899,0.831,278.702,310.178,11780.905,SVR,chen,0.060,chen_SVR_xa5,None
-0.880,0.860,262.120,297.776,11244.983,Random Forest,chen,0.490,chen_Random Forest_0Se,{'n_estimators': 250}
-0.890,0.852,268.540,301.870,11051.921,Gradient Boosting,chen,0.140,chen_Gradient Boosting_l6a,{'n_estimators': 250}
-0.808,0.828,270.074,334.343,23714.861,Ridge,rocket,0.020,rocket_Ridge_hrL,None
-0.888,0.851,270.422,304.569,11141.597,Lasso,rocket,0.080,rocket_Lasso_WZ0,None
-0.898,0.832,278.243,309.862,11786.361,SVR,rocket,3.230,rocket_SVR_meJ,None
-0.889,0.846,269.885,303.484,11485.055,Random Forest,rocket,32.020,rocket_Random Forest_uCx,{'n_estimators': 250}
-0.897,0.838,276.710,308.421,11614.796,Gradient Boosting,rocket,4.910,rocket_Gradient Boosting_XW1,{'n_estimators': 250}
-0.900,0.855,298.296,331.486,10999.231,Ridge,chen,0.000,chen_Ridge_BIO,None
-0.895,0.863,292.475,326.685,10767.918,Lasso,chen,0.000,chen_Lasso_NV6,None
-0.894,0.856,294.197,329.219,11532.640,SVR,chen,0.080,chen_SVR_fRg,None
-0.888,0.868,288.716,325.279,10776.191,Gradient Boosting,chen,0.170,chen_Gradient Boosting_OYI,{'n_estimators': 250}
-0.876,0.869,284.365,324.759,12181.120,Ridge,catch22,0.000,catch22_Ridge_CsA,None
-0.879,0.867,285.747,324.935,11997.325,Lasso,catch22,0.000,catch22_Lasso_ejX,None
-0.893,0.854,295.004,330.396,11932.699,SVR,catch22,0.090,catch22_SVR_JP3,None
-0.873,0.871,282.641,323.673,11855.147,Gradient Boosting,catch22,0.180,catch22_Gradient Boosting_AVr,{'n_estimators': 250}
 0.900,0.855,298.296,331.486,10999.231,Ridge,chen,0.000,chen_Ridge_zJO,None
 0.895,0.863,292.475,326.685,10767.918,Lasso,chen,0.000,chen_Lasso_ixW,None
 0.894,0.856,294.197,329.219,11532.640,SVR,chen,0.080,chen_SVR_dAD,None

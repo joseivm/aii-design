@@ -27,23 +27,23 @@ MODELS_DIR = os.path.join(PROJECT_DIR,'models')
 
 def load_data(state, transform,length):
     length = str(length)
-    X_train_fname = f"X_train_{transform}.npy"
-    X_train_full_path = os.path.join(TRANSFORMS_DIR, state,length, X_train_fname)
+    X_train_fname = f"X_train_{transform}_L{length}.npy"
+    X_train_full_path = os.path.join(TRANSFORMS_DIR, state,transform, X_train_fname)
 
-    X_val_fname = f"X_val_{transform}.npy"
-    X_val_full_path = os.path.join(TRANSFORMS_DIR, state,length,X_val_fname)
+    X_val_fname = f"X_val_{transform}_L{length}.npy"
+    X_val_full_path = os.path.join(TRANSFORMS_DIR, state,transform,X_val_fname)
 
-    X_test_fname = f"X_test_{transform}.npy"
-    X_test_full_path = os.path.join(TRANSFORMS_DIR, state,length,X_test_fname)
+    X_test_fname = f"X_test_{transform}_L{length}.npy"
+    X_test_full_path = os.path.join(TRANSFORMS_DIR, state,transform,X_test_fname)
 
-    y_train_fname = f"y_train_{transform}.npy"
-    y_train_full_path = os.path.join(TRANSFORMS_DIR, state,length,y_train_fname)
+    y_train_fname = f"y_train_{transform}_L{length}.npy"
+    y_train_full_path = os.path.join(TRANSFORMS_DIR, state,transform,y_train_fname)
 
-    y_val_fname = f"y_val_{transform}.npy"
-    y_val_full_path = os.path.join(TRANSFORMS_DIR, state,length,y_val_fname)
+    y_val_fname = f"y_val_{transform}_L{length}.npy"
+    y_val_full_path = os.path.join(TRANSFORMS_DIR, state,transform,y_val_fname)
 
-    y_test_fname = f"y_test_{transform}.npy"
-    y_test_full_path = os.path.join(TRANSFORMS_DIR, state,length,y_test_fname)
+    y_test_fname = f"y_test_{transform}_L{length}.npy"
+    y_test_full_path = os.path.join(TRANSFORMS_DIR, state,transform,y_test_fname)
 
     X_train = np.load(X_train_full_path)
     X_val = np.load(X_val_full_path)
@@ -147,9 +147,9 @@ def create_model_name(transform, algorithm):
 
     return model_name + model_id
 
-lengths = [i*10 for i in range(3,9)] + [83]
+lengths = [i*10 for i in range(8,9)] + [83]
 # states = ['Illinois','Iowa','Missouri','Indiana']
-states = ['Missouri']
+states = ['Iowa']
 transforms = ['chen','catch22','rocket']
 algorithms = {'Ridge': (Ridge,None), 'Lasso': (Lasso,None), 'SVR': (SVR,None), 
               'Random Forest': (RandomForestRegressor,{'n_estimators':250}),
@@ -157,6 +157,20 @@ algorithms = {'Ridge': (Ridge,None), 'Lasso': (Lasso,None), 'SVR': (SVR,None),
 
 # train_model('Iowa','rocket',GradientBoostingRegressor,'Gradient Boosting',{'n_estimators':250},83)
 
+start = time.time()
+for state in states:
+    for length in lengths:
+        for transform in transforms:
+            print(f"###### {state} ### {length} ### {transform}#####")
+            for name, (algorithm,alg_args) in algorithms.items():
+                if not (name == 'Random Forest' and transform == 'rocket'):
+                    train_model(state, transform, algorithm, name, alg_args, length)
+end = time.time()
+runtime = (end-start)/60
+print(f"Runtime: {runtime}")
+
+states = ['Indiana']
+lengths = [83]
 start = time.time()
 for state in states:
     for length in lengths:
