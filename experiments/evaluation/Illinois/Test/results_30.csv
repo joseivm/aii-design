@@ -1,0 +1,5 @@
+Utility,CEW,Insurer Risk,Premium,Method,Market Loading,Params,Eval Name,a,b
+-61.839,87.972,189.917,87.210,Chen uc,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.01, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",,,
+-57.939,96.116,144.403,28.563,Chen uc,1.241,"{'epsilon_p': 0.01, 'subsidy': 0, 'w_0': 388.6, 'c_k': 0, 'lr': 0.001, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1.2414}",,,
+-56.457,99.354,232.808,87.978,Our Method,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 88, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 534.0}",chen_Ridge_Bja_ub88_teO,0.460,26.780
+-56.456,99.357,245.522,99.948,Our Method,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 534.0}",chen_Ridge_Bja_ub100_ISI,0.460,15.400
