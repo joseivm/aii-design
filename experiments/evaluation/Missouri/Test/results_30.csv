@@ -1,0 +1,3 @@
+Utility,CEW,Insurer Risk,Premium,Eval Name,Method,a,b,Market Loading,Params
+-149.627,-22.479,106.194,87.918,rocket_SVR_ZrH_ub88_ej0,Our Method,2.980,766.830,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 88, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 560.0}"
+-167.881,-36.868,105.508,55.884,,Chen uc,,,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.005, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}"

@@ -1,7 +1,6 @@
 import pandas as pd
 import os
 import numpy as np
-import sklearn.metrics as metrics
 import time
 import cvxpy as cp
 import random, string
@@ -42,7 +41,7 @@ def load_chen_payouts(state, length, params):
 
 def load_payouts(state, length, model_name):
     length = str(length)
-    payout_dir = os.path.join(EVAL_DIR,state,length,'payouts')
+    payout_dir = os.path.join(EVAL_DIR,state,'Test',f"payouts {length}")
     pred_file = os.path.join(payout_dir,f"{model_name}.csv")
     pdf = pd.read_csv(pred_file)
     return pdf
@@ -196,8 +195,8 @@ def run_chen_eval(state, length,params):
     chen_metrics['Method'] = f"Chen {params['constrained']}"
     chen_metrics['Market Loading'] = params['market_loading']
     chen_metrics['Params'] = str(params)
-    results_dir = os.path.join(EVAL_DIR,state,length)
-    save_results(chen_metrics, results_dir)
+    results_dir = os.path.join(EVAL_DIR,state,'Test')
+    save_results(chen_metrics, results_dir, length)
 
 def no_insurance_eval(state, length, params):
     length = str(length)
@@ -283,13 +282,12 @@ def debug():
 
 def get_best_model(state, length):
     length = str(length)
-    pred_dir = os.path.join(PREDICTIONS_DIR,state,length)
-    results_fname = os.path.join(pred_dir,'results.csv')
+    pred_dir = os.path.join(EVAL_DIR,state,'Val')
+    results_fname = os.path.join(pred_dir,f"results_{length}.csv")
     rdf = pd.read_csv(results_fname)
-    rdf['F1'] = 2*rdf['Loss Recall']*rdf['Payout Precision']/(rdf['Loss Recall'] + rdf['Payout Precision'])
-    idx = rdf['F1'].idxmax()
-    best_model = rdf.loc[idx, 'Model Name']
-    return best_model
+    idx = rdf['Utility'].idxmax()
+    best_model = rdf.loc[idx, 'Eval Name']
+    return '_'.join(best_model.split('_')[:3])
 
 def get_results():
     lengths = [i*10 for i in range(3,10)]
@@ -309,7 +307,7 @@ def get_results():
     tst = rdf.groupby(['Length','Market Loading','Method'])['UtilityImprovement'].max().reset_index()
 
 def get_premium(market_loading, length):
-    fname = os.path.join(EVAL_DIR,'Illinois',str(length),'results.csv')
+    fname = os.path.join(EVAL_DIR,'Illinois','Test',f"results_{length}.csv")
     rdf = pd.read_csv(fname)
     premium = rdf.loc[(rdf['Market Loading'] == market_loading) & (rdf.Method == 'Chen uc'),'Premium'].item()
     return math.ceil(premium)
@@ -319,10 +317,8 @@ def choose_best_model(state, length, params):
     pred_dir = os.path.join(PREDICTIONS_DIR,state)
     results_fname = os.path.join(pred_dir,f"results_{length}.csv")
     rdf = pd.read_csv(results_fname)
-    bad_model_dict = {str(i*10):[] for i in range(3,9)}
+    bad_model_dict = {str(i*10):[] for i in range(2,9)}
     bad_model_dict['83'] = []
-    bad_model_dict['80'] = ['chen_Ridge','chen_Lasso','chen_SVR','chen_Random Forest','chen_Gradient Boosting',
-                            'catch22_Ridge','catch22_Lasso']
     # bad_models = []
     for model_name in rdf['Model Name'].unique():
         print(model_name)
@@ -336,25 +332,26 @@ def choose_best_model(state, length, params):
                 pass
 
 # Main Script
-state = 'Iowa'
-# lengths = [i*10 for i in range(7,9)] + [83]
-lengths = [80]
+state = 'Illinois'
+# lengths = [i*10 for i in range(3,9)] + [83]
+lengths = [20]
 for length in lengths:
     print(length)
     ##### Our definition of the premium #####
-    # premium_ub = get_premium(1,length)
+    premium_ub = get_premium(1,length)
+    # premium_ub = 100
     params = {'epsilon_p':0.01,'c_k':0.13,'subsidy':0,'w_0':388.6,
-                    'premium_ub':100,'risk_coef':0.008,'S':1, 'market_loading':1}
-    choose_best_model(state, length, params)
-
+              'premium_ub':premium_ub,'risk_coef':0.008,'S':1, 'market_loading':1}
+    # choose_best_model(state, length, params)
+    model_name = get_best_model(state, length)
     # params['premium_ub'] = 65
-    # run_eval(state, length, params)
+    run_eval(state, length, params, model_name)
 
     # params['premium_ub'] = 100
     # run_eval(state, length, params)
 
-    # params = {'epsilon_p':0.01,'c_k':0.13,'subsidy':0,'w_0':388.6,'lr':0.01,'constrained':'c',
-    #                 'premium_ub':100,'risk_coef':0.008,'S':1, 'market_loading':1}
+    # params = {'epsilon_p':0.01,'c_k':0.13,'subsidy':0,'w_0':388.6,'lr':0.01,'constrained':'uc',
+                    # 'premium_ub':100,'risk_coef':0.008,'S':1, 'market_loading':1}
     # run_chen_eval(state, length, params)
 
     # params['constrained'] = 'uc'
@@ -372,8 +369,8 @@ for length in lengths:
     # params['premium_ub'] = 100
     # run_eval(state, length, params)
 
-    # params = {'epsilon_p':0.01,'subsidy':0,'w_0':388.6, 'c_k':0,'lr':0.001,'constrained':'c',
-    #                 'premium_ub':100,'risk_coef':0.008,'S':1, 'market_loading':1.2414}
+    # params = {'epsilon_p':0.01,'subsidy':0,'w_0':388.6, 'c_k':0,'lr':0.001,'constrained':'uc',
+                    # 'premium_ub':100,'risk_coef':0.008,'S':1, 'market_loading':1.2414}
     # no_insurance_eval(state, length, params)
     # run_chen_eval(state, length, params)
     # params['constrained'] = 'uc'

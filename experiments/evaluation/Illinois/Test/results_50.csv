@@ -1,0 +1,5 @@
+Utility,CEW,Insurer Risk,Premium,Method,Market Loading,Params,Eval Name,a,b
+-62.349,86.947,177.089,77.435,Chen uc,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.01, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",,,
+-55.041,102.529,156.815,26.377,Chen uc,1.241,"{'epsilon_p': 0.01, 'subsidy': 0, 'w_0': 388.6, 'c_k': 0, 'lr': 0.001, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1.2414}",,,
+-75.261,63.419,143.956,77.986,Our Method,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 78, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 534.0}",rocket_Lasso_Ekz_ub78_VKx,0.500,40.150
+-75.421,63.153,168.206,99.982,Our Method,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 534.0}",rocket_Lasso_Ekz_ub100_Q43,0.510,22.130

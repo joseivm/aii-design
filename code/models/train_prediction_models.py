@@ -147,9 +147,10 @@ def create_model_name(transform, algorithm):
 
     return model_name + model_id
 
-lengths = [i*10 for i in range(8,9)] + [83]
+# lengths = [i*10 for i in range(8,9)] + [83]
+lengths = [20]
 # states = ['Illinois','Iowa','Missouri','Indiana']
-states = ['Iowa']
+states = ['Illinois']
 transforms = ['chen','catch22','rocket']
 algorithms = {'Ridge': (Ridge,None), 'Lasso': (Lasso,None), 'SVR': (SVR,None), 
               'Random Forest': (RandomForestRegressor,{'n_estimators':250}),
@@ -169,16 +170,3 @@ end = time.time()
 runtime = (end-start)/60
 print(f"Runtime: {runtime}")
 
-states = ['Indiana']
-lengths = [83]
-start = time.time()
-for state in states:
-    for length in lengths:
-        for transform in transforms:
-            print(f"###### {state} ### {length} ### {transform}#####")
-            for name, (algorithm,alg_args) in algorithms.items():
-                if not (name == 'Random Forest' and transform == 'rocket'):
-                    train_model(state, transform, algorithm, name, alg_args, length)
-end = time.time()
-runtime = (end-start)/60
-print(f"Runtime: {runtime}")
