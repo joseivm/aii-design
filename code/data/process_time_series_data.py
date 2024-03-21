@@ -180,6 +180,8 @@ def save_transformed_data(state, transformer, trf_name, length):
 
     # save
     save(X_train_ts, y_train, X_val_ts, y_val, X_test_ts, y_test, trf_name, state,length)
+    save_dir = os.path.join(TRANSFORMS_DIR,state, trf_name)
+    
 
 def save_chen_data(state,length):
     ldf = create_loss_data(state,length)
@@ -202,20 +204,42 @@ def save_chen_data(state,length):
     X_val = scaler.transform(X_val)
     X_test = scaler.transform(X_test)
 
+    print(f"State: {state} Length: {length} Size: {X_train.shape[0]}")
+    save_dates(train_data['CountyYear'],val_data['CountyYear'], test_data['CountyYear'],state,length)
     save(X_train, y_train, X_val, y_val, X_test, y_test,'chen',state,length)
+
+def debug():
+    # One way to do this would be to keep only the counties that would have enough in the 20 case
+    # This would drop 2 in the Missouri case.
+    states = ['Iowa','Missouri','Indiana']
+    lengths = [i*10 for i in range(2,9)] + [83]
+    for state in states:
+        for length in lengths:
+            ldf = create_loss_data(state,length)
+            pdf = load_prism_data()
+
+            df = ldf.merge(pdf,on=['CountyCode','Year'])
+            df = df.sort_values('CountyYear')
+            feats = [col for col in df.columns if re.search('[0-9]',col)]
+            train_cutoff = get_train_cutoff(ldf)
+            train_data = df.loc[df.Year <= train_cutoff,:]
+            val_data = df.loc[(df.Year > train_cutoff) & (df.Year <= 2007),:]
+            test_data = df.loc[df.Year > 2007,:]
+            avg = test_data['TSLoss'].mean()
+            print(f"{state} Length: {length} Loss: {avg}")
 
 def create_loss_data(state, length):
     df = load_yield_data(state)
     df = add_detrended_values(df)
-    df = get_relevant_years(df,length)
-    df['CountyYear'] = df['CountyCode'] + '-' + df['Year'].astype(str)
-    df.set_index('CountyYear',inplace=True)
     df['Huber Bushel Loss'] = df['Huber Value'].max() - df['Huber Value']
     df['RANSAC Bushel Loss'] = df['RANSAC Value'].max() - df['RANSAC Value']
     df['TS Bushel Loss'] = df['TS Value'].max() - df['TS Value']
     df['HuberLoss'] = df['Huber Bushel Loss']*3.5
     df['RANSACLoss'] = df['RANSAC Bushel Loss']*3.5
     df['TSLoss'] = df['TS Bushel Loss']*3.5
+    df = get_relevant_years(df,length)
+    df['CountyYear'] = df['CountyCode'] + '-' + df['Year'].astype(str)
+    df.set_index('CountyYear',inplace=True)
     return df.loc[df.TSLoss.notna(),:]
 
 def get_relevant_years(df, length):
@@ -223,14 +247,15 @@ def get_relevant_years(df, length):
         cutoff_year = 2007-length + 1
         df = df.loc[df.Year >= cutoff_year,:]
 
-    county_obs = df.loc[df.Year <= 2007,:].groupby('County').size().reset_index(name='N')
-    full_data_counties = county_obs.loc[county_obs['N'] >= 2*length/3,'County']
-            
+    # making sure they have enough obs for length 20 case
+    county_obs = df.loc[(df.Year >= 1988)&(df.Year <= 2007),:].groupby('County').size().reset_index(name='N')
+    full_data_counties = county_obs.loc[county_obs['N'] >= 2*20/3,'County'] 
+
     df = df.loc[df.County.isin(full_data_counties),:]
     return df
 
 def get_train_cutoff(ldf):
-    min_year = ldf.Year.min()
+    min_year = int(ldf.Year.min())
     max_year = 2007
     years = np.array([i for i in range(min_year,max_year+1)])
     train, val = train_test_split(years,train_size=0.80,shuffle=False)
@@ -274,6 +299,22 @@ def save(X_train, y_train, X_val, y_val, X_test, y_test, trf_name, state, length
     np.save(y_val_full_path, y_val)
     np.save(y_test_full_path, y_test)
 
+def save_dates(train_years, val_years, test_years, state, length):
+    length = str(length)
+    save_dir = os.path.join(TRANSFORMS_DIR,state)
+    train_yrs_fname = f"train_years_L{length}.npy"
+    train_yrs_full_path = os.path.join(save_dir, train_yrs_fname)
+
+    val_yrs_fname = f"val_years_L{length}.npy"
+    val_yrs_full_path = os.path.join(save_dir, val_yrs_fname)
+
+    test_yrs_fname = f"test_years_L{length}.npy"
+    test_yrs_full_path = os.path.join(save_dir, test_yrs_fname)
+
+    np.save(train_yrs_full_path, train_years)
+    np.save(val_yrs_full_path, val_years)
+    np.save(test_yrs_full_path, test_years)
+
 def scale_data(X_train, X_val, X_test, transformer=QuantileTransformer):
     for channel in range(X_train.shape[1]):
         trf = transformer()
@@ -296,19 +337,20 @@ def create_raw_ts_tensors(pdf):
     ts_data = np.stack(weather_dfs,axis=1)
     return ts_data, obs_order
 
-states = ['Illinois','Iowa','Indiana','Missouri']
-# states = ['Missouri']
+# states = ['Iowa','Indiana','Missouri','Illinois']
+states = ['Indiana']
 # state = 'Missouri'
-lengths = [i*10 for i in range(2,9)] + [83]
+# lengths = [i*10 for i in range(2,9)] + [83]
+lengths = [80]
 # save_transformed_data(state,None,'raw')
 for state in states:
     for length in lengths:
         print(length)
         save_chen_data(state,length)
-        transformer_dict = {'rocket':MiniRocketMultivariate,'catch22':Catch22}
-        for name, transformer in transformer_dict.items():
-            start = time.time()
-            save_transformed_data(state,transformer,name,length)
-            end = time.time()
-            total = (end-start)/60
-            print(f"{name}: {total} mins")
+        # transformer_dict = {'catch22':Catch22}
+        # for name, transformer in transformer_dict.items():
+        #     start = time.time()
+        #     save_transformed_data(state,transformer,name,length)
+        #     end = time.time()
+        #     total = (end-start)/60
+        #     print(f"{name}: {total} mins")

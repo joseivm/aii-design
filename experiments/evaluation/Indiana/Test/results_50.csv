@@ -1,0 +1,4 @@
+Utility,CEW,Insurer Risk,Premium,Insurer Cost,Method,Market Loading,Params,Eval Name,a,b,Required Capital
+-42.313,135.404,63.103,27.014,23935.099,Chen uc,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.005, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",,,,
+-38.766,146.347,0.000,0.000,0.000,No Insurance,,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.005, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",,,,
+-38.766,146.347,0.002,0.002,1.571,Our Method,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 28, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 424.0}",chen_Lasso_Knf_ub28_LCb,0.000,0.000,0.001

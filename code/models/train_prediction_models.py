@@ -147,11 +147,11 @@ def create_model_name(transform, algorithm):
 
     return model_name + model_id
 
-# lengths = [i*10 for i in range(8,9)] + [83]
-lengths = [20]
-# states = ['Illinois','Iowa','Missouri','Indiana']
-states = ['Illinois']
-transforms = ['chen','catch22','rocket']
+# lengths = [i*10 for i in range(2,9)] + [83]
+lengths = [80]
+# states = ['Iowa','Missouri','Indiana']
+states = ['Indiana']
+transforms = ['chen','catch22']
 algorithms = {'Ridge': (Ridge,None), 'Lasso': (Lasso,None), 'SVR': (SVR,None), 
               'Random Forest': (RandomForestRegressor,{'n_estimators':250}),
               'Gradient Boosting':(GradientBoostingRegressor,{'n_estimators':250})}

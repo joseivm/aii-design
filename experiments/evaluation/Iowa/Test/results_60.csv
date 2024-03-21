@@ -1,0 +1,4 @@
+Utility,CEW,Insurer Risk,Premium,Insurer Cost,Method,Market Loading,Params,Eval Name,a,b
+-39.012,145.555,87.205,48.315,46966.006,Chen uc,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.005, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",,,
+-35.862,156.080,0.000,0.000,0.000,No Insurance,,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.005, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",,,
+-36.966,152.291,68.533,49.948,61544.606,Our Method,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 50, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 548.0}",chen_SVR_3TH_ub50_8Hx,0.960,105.430

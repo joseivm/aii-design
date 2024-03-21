@@ -1,0 +1,4 @@
+Utility,CEW,Insurer Risk,Premium,Insurer Cost,Eval Name,Method,a,b,Market Loading,Params,Required Capital
+-36.195,154.924,26.304,18.169,22801.794,chen_Gradient Boosting_BX0_ub60_9R9,Our Method,0.100,0.020,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 60, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 548.0}",
+-37.168,151.607,56.112,31.565,35332.576,,Chen uc,,,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.005, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",26.321
+-35.862,156.080,0.000,0.000,0.000,,No Insurance,,,,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.005, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",

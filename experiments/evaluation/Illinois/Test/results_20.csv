@@ -1,3 +1,6 @@
-Utility,CEW,Insurer Risk,Premium,Method,Market Loading,Params,Eval Name,a,b
--66.646,78.614,193.800,82.762,Chen uc,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.01, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",,,
--66.528,78.836,134.514,82.972,Our Method,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 83, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 576.0}",rocket_SVR_u9X_ub83_ZQ7,3.000,625.590
+Utility,CEW,Insurer Risk,Premium,Method,Market Loading,Params,Eval Name,a,b,Insurer Cost
+-66.646,78.614,193.800,82.762,Chen uc,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.01, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",,,,
+-71.791,69.320,0.000,0.000,No Insurance,,"{'epsilon_p': 0.01, 'subsidy': 0, 'w_0': 388.6, 'c_k': 0, 'lr': 0.001, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1.2414}",,,,
+-56.484,99.294,163.201,32.704,Chen uc,1.241,"{'epsilon_p': 0.01, 'subsidy': 0, 'w_0': 388.6, 'c_k': 0, 'lr': 0.001, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1.2414}",,,,
+-63.382,84.891,109.201,33.000,Our Method,1.241,"{'epsilon_p': 0.01, 'c_k': 0, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 33, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1.2414, 'P': 576.0}",catch22_Ridge_yN8_ub33_UXj,0.440,82.420,37065.529
+-65.387,80.998,130.819,82.985,Our Method,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 83, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 576.0}",chen_SVR_dR1_ub83_GOg,1.420,260.000,99062.981

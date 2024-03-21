@@ -1,3 +1,4 @@
-Utility,CEW,Insurer Risk,Premium,Eval Name,Method,a,b,Market Loading,Params
--138.584,-12.895,0.003,0.002,chen_Ridge_zJO_ub60_b7A,Our Method,0.000,0.000,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 60, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 560.0}"
--139.030,-13.297,54.255,29.782,,Chen uc,,,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.005, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}"
+Utility,CEW,Insurer Risk,Premium,Eval Name,Method,a,b,Market Loading,Params,Insurer Cost,Required Capital,Overall Utility,Illinois_Premium,Illinois_Utility,Indiana_Premium,Indiana_Utility,Iowa_Premium,Iowa_Utility,Missouri_Premium,Missouri_Utility
+-139.333,-13.569,51.398,30.034,,Chen uc,,,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.005, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",14495.589,,,,,,,,,,
+-135.859,-10.413,0.000,0.000,,No Insurance,,,,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.005, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",0.000,,,,,,,,,,
+-135.859,-10.413,0.005,0.004,chen_Ridge_Hfb_ub41_5Y9,Our Method,0.000,0.000,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 41, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 560.0}",2.584,0.001,,,,,,,,,

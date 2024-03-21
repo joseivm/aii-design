@@ -1,9 +1,9 @@
-PWD /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3
+PWD /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2
 INPUT /usr/local/texlive/2018/texmf.cnf
 INPUT /usr/local/texlive/2018/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2018/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.tex
-OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.log
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.tex
+OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.log
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamer.cls
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamer.cls
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamerbasemodes.sty
@@ -210,7 +210,7 @@ INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamercolorthemedefaul
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamerinnerthemedefault.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamerinnerthemedefault.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamericonbook.pdf
-OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.pdf
+OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.pdf
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamericonbook.pdf
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamericonbook.20.pdf
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamericonbook.20.pdf
@@ -281,9 +281,9 @@ INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/biblatex.cfg
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/biblatex.cfg
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/lbx/english.lbx
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/lbx/english.lbx
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.aux
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.aux
-OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.aux
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.aux
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.aux
+OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.aux
 INPUT /usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
@@ -296,13 +296,13 @@ INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.out
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.out
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.out
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.out
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.out
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.out
-OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.out
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.out
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.out
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.out
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.out
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.out
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.out
+OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.out
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/translator/translator-bibliography-dictionary-English.dict
@@ -315,20 +315,20 @@ INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/translator/translator-numbers
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/translator/translator-numbers-dictionary-English.dict
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/translator/translator-theorem-dictionary-English.dict
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/translator/translator-theorem-dictionary-English.dict
-OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.bcf
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.bbl
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.bbl
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.bbl
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.nav
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.nav
+OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.bcf
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.bbl
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.bbl
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.bbl
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.nav
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.nav
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmss12.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
 INPUT /usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.toc
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.toc
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.toc
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.toc
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm
@@ -353,22 +353,22 @@ INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncms
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/../../../output/figures/Presentation/sample_insurance_contract.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/../../../output/figures/Presentation/sample_insurance_contract.png
 INPUT ../../../output/figures/Presentation/sample_insurance_contract.png
 INPUT ../../../output/figures/Presentation/sample_insurance_contract.png
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.toc
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.toc
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.toc
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.toc
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssi10.tfm
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/../../../output/figures/Chen_Replication/Our_premium_results.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/../../../output/figures/Chen_Replication/Our_premium_results.png
 INPUT ../../../output/figures/Chen_Replication/Our_premium_results.png
 INPUT ../../../output/figures/Chen_Replication/Our_premium_results.png
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/../../../output/figures/Chen_Replication/farmer_wealth_hist2.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/../../../output/figures/Chen_Replication/farmer_wealth_hist2.png
 INPUT ../../../output/figures/Chen_Replication/farmer_wealth_hist2.png
 INPUT ../../../output/figures/Chen_Replication/farmer_wealth_hist2.png
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/../../../output/figures/Chen_Replication/combined_scatter.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/../../../output/figures/Chen_Replication/combined_scatter.png
 INPUT ../../../output/figures/Chen_Replication/combined_scatter.png
 INPUT ../../../output/figures/Chen_Replication/combined_scatter.png
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/../../../output/figures/Presentation/payout_vs_epsilon.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/../../../output/figures/Presentation/payout_vs_epsilon.png
 INPUT ../../../output/figures/Presentation/payout_vs_epsilon.png
 INPUT ../../../output/figures/Presentation/payout_vs_epsilon.png
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
@@ -386,14 +386,14 @@ INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathker
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmss10.tfm
-OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.nav
-OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.toc
-OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.snm
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.aux
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.out
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.out
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.run.xml
-OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 3/presentation.run.xml
+OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.nav
+OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.toc
+OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.snm
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.aux
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.out
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.out
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.run.xml
+OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Dev Therapy 2/presentation.run.xml
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
