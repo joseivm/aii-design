@@ -18,7 +18,7 @@ PROJECT_DIR = os.environ.get("PROJECT_DIR")
 EXPERIMENTS_DIR = os.path.join(PROJECT_DIR,'experiments')
 EVAL_DIR = os.path.join(EXPERIMENTS_DIR,'evaluation')
 PREDICTIONS_DIR = os.path.join(EXPERIMENTS_DIR,'prediction')
-FIGURES_DIR = os.path.join(PROJECT_DIR,'output','figures','Evaluation')
+FIGURES_DIR = os.path.join(PROJECT_DIR,'output','figures','Evaluation 2')
 
 ##### Data Loading #####
 def load_model_predictions(state, length, model_name):
@@ -26,6 +26,22 @@ def load_model_predictions(state, length, model_name):
     pred_file = os.path.join(pred_dir,f"{model_name}_preds.csv")
     pdf = pd.read_csv(pred_file)
     return pdf
+
+# def load_chen_payouts(state, length, market_loading):
+#     length = str(length)
+#     if market_loading == 1 and state == 'Illinois':
+#         params = {'market_loading':1, 'c_k':0.13, 'lr':0.01, 'constrained':'uc'}
+#     elif market_loading == 1 and state in ['Iowa','Indiana','Missouri']:
+#         params = {'market_loading':1, 'c_k':0.13, 'lr':0.005, 'constrained':'uc'}
+#     else:
+#         params = {'market_loading':1.2414, 'c_k':0, 'lr':0.001, 'constrained':'uc'}
+
+#     market_loading,c_k = params['market_loading'], params['c_k']
+#     lr, constrained = params['lr'], params['constrained']
+#     payout_dir = os.path.join(EVAL_DIR,state, 'Chen Payouts')
+#     pred_name = f"NN Payouts {state} L{length} ml{market_loading} ck{c_k} lr{lr}".replace('.','')
+#     pred_file = os.path.join(payout_dir,f"{pred_name} {constrained}.csv")
+#     return pd.read_csv(pred_file)
 
 def load_chen_payouts(state, length, market_loading):
     length = str(length)
@@ -38,9 +54,11 @@ def load_chen_payouts(state, length, market_loading):
 
     market_loading,c_k = params['market_loading'], params['c_k']
     lr, constrained = params['lr'], params['constrained']
-    payout_dir = os.path.join(EVAL_DIR,state, 'Chen Payouts')
-    pred_name = f"NN Payouts {state} L{length} ml{market_loading} ck{c_k} lr{lr}".replace('.','')
-    pred_file = os.path.join(payout_dir,f"{pred_name} {constrained}.csv")
+    payout_dir = os.path.join(EVAL_DIR,state, 'Chen Payouts 2')
+    pred_name = [fname for fname in os.listdir(payout_dir) if f"L{length} ml{market_loading}" in fname][0]
+    # pred_name = f"NN Payouts {state} L{length} ml{market_loading} ck{c_k} lr{lr}".replace('.','')
+    # pred_file = os.path.join(payout_dir,f"{pred_name} {constrained}.csv")
+    pred_file = os.path.join(payout_dir,pred_name)
     return pd.read_csv(pred_file)
 
 def load_payouts(state, length, model_name):
@@ -53,7 +71,7 @@ def load_payouts(state, length, model_name):
 def get_eval_name(state, length, market_loading):
     length = str(length)
     pred_dir = os.path.join(EVAL_DIR,state,'Test')
-    results_fname = os.path.join(pred_dir,f"results_{length}.csv")
+    results_fname = os.path.join(pred_dir,f"results_{length}_2.csv")
     rdf = pd.read_csv(results_fname)
     rdf = rdf.loc[(rdf['Market Loading'] == market_loading) & (rdf['Method'] == 'Our Method'),:]
     idx = rdf['Utility'].idxmax()
@@ -132,26 +150,26 @@ def get_results(state):
     lengths = [i*10 for i in range(2,9)]
     rdfs = []
     for length in lengths:
-        fname = os.path.join(EVAL_DIR,state,'Test',f"results_{length}.csv")
+        fname = os.path.join(EVAL_DIR,state,'Test',f"results_{length}_2.csv")
         rdf = pd.read_csv(fname)
         rdf['Length'] = length
         rdfs.append(rdf)
 
     rdf = pd.concat(rdfs)
-    rdf.loc[rdf.Method == 'No Insurance','Market Loading'] = 1.241
-    ni_df = rdf.loc[rdf.Method == 'No Insurance',:].copy()
-    ni_df['Market Loading'] = 1
-    rdf = pd.concat([rdf,ni_df],ignore_index=True)
+    # rdf.loc[rdf.Method == 'No Insurance','Market Loading'] = 1.241
+    # ni_df = rdf.loc[rdf.Method == 'No Insurance',:].copy()
+    # ni_df['Market Loading'] = 1
+    # rdf = pd.concat([rdf,ni_df],ignore_index=True)
 
-    ni_df = rdf.loc[rdf.Method == 'No Insurance',['Length','Utility','Market Loading']]
-    rdf = rdf.merge(ni_df,on=['Length','Market Loading'],suffixes=('',' NI'))
-    rdf['UtilityImprovement'] = rdf['Utility']-rdf['Utility NI']
+    # ni_df = rdf.loc[rdf.Method == 'No Insurance',['Length','Utility','Market Loading']]
+    # rdf = rdf.merge(ni_df,on=['Length','Market Loading'],suffixes=('',' NI'))
+    # rdf['UtilityImprovement'] = rdf['Utility']-rdf['Utility NI']
 
-    chen_costs = get_chen_costs(state)
-    our_costs = get_model_costs(state,rdf)
-    all_costs = pd.concat([chen_costs, our_costs])
-    rdf = rdf.merge(all_costs, on=['Length','Market Loading','Method'],how='left')
-    rdf['Cost Per Utility'] = rdf['Cost']/rdf['UtilityImprovement']
+    # chen_costs = get_chen_costs(state)
+    # our_costs = get_model_costs(state,rdf)
+    # all_costs = pd.concat([chen_costs, our_costs])
+    # rdf = rdf.merge(all_costs, on=['Length','Market Loading','Method'],how='left')
+    # rdf['Cost Per Utility'] = rdf['Cost']/rdf['UtilityImprovement']
     return rdf
 
 def get_prediction_results(metric):
@@ -180,9 +198,10 @@ def metric_vs_length_figure(rdf, state, market_loading, metric, length):
     sns.relplot(data=rdf.loc[rdf['Market Loading'] == market_loading,:],x=length,y=metric,hue='Method')
     plot_fname = os.path.join(FIGURES_DIR,plot_name+'.png')
     plt.savefig(plot_fname)
+    plt.close()
 
 def get_chen_premium(state, length, market_loading):
-    fname = os.path.join(EVAL_DIR,state,'Test',f"results_{length}.csv")
+    fname = os.path.join(EVAL_DIR,state,'Test',f"results_{length}_2.csv")
     rdf = pd.read_csv(fname)
     premium = rdf.loc[(rdf['Market Loading'] == market_loading) & (rdf.Method == 'Chen uc'),'Premium'].item()
     return premium
@@ -252,64 +271,66 @@ def over_under_prediction_errors_vs_length(state):
     plot_fname = os.path.join(FIGURES_DIR,plot_name+'.png')
     plt.savefig(plot_fname)
 
-state = 'Iowa'
-iadf = get_raw_payouts(state)
-sns.pointplot(data=iadf,x='Length',y='Utility',hue='Method',dodge=True)
-plot_name = f"{state}_Average_Utility.png"
-plot_fname = os.path.join(FIGURES_DIR,plot_name+'.png')
-plt.savefig(plot_fname)
-plt.close()
+def payouts_vs_losses(state, pdf):
+    alpha = 0.008
+    cdf = load_chen_payouts('Illinois',30,1)
+    cdf = cdf.loc[cdf.Set == 'Test',:]
+    cdf['Wealth'] = 797.6 - 76.448 -cdf['Loss'] + cdf['Payout']
+    cdf['Utility'] = -(1/alpha)*np.exp(-alpha*cdf['Wealth'])
+    df['Method'] = 'Our Method'
+    cdf['Method'] = 'Chen'
 
-sns.pointplot(data=iadf,x='Length',y='Utility',hue='Method',dodge=True)
-plot_name = f"{state}_Average_Utility.png"
-plot_fname = os.path.join(FIGURES_DIR,plot_name+'.png')
-plt.savefig(plot_fname)
+    bdf = pd.concat([df,cdf],ignore_index=True)
+    sns.lmplot(data=bdf,x='Loss',y='Payout',hue='Method')
+
+def share_better_off(state):
+    state_init_w_0 = {'Illinois':813-504+388.6, 'Indiana':818-504+388.6, 'Iowa':879-504+388.6,
+                    'Missouri':873-504+388.6}
+    data = []
+    for i in range(2,9):
+        length = str(i*10)
+        print(length)
+        cdf = load_chen_payouts(state, length, 1)
+        odf = get_payouts(state, length, 1)
+        alpha = 0.008
+        cdf['Premium'] = get_chen_premium(state, length, 1)
+        cdf['Wealth'] = state_init_w_0[state] - cdf['Premium'] -cdf['Loss'] + cdf['Payout']
+        cdf['Utility'] = -(1/alpha)*np.exp(-alpha*cdf['Wealth'])
+        cdf['NI Wealth'] = state_init_w_0[state]  -cdf['Loss']
+        cdf['NI Utility'] = -(1/alpha)*np.exp(-alpha*cdf['NI Wealth'])
+
+        odf['NI Wealth'] = state_init_w_0[state]  -odf['Loss']
+        odf['NI Utility'] = -(1/alpha)*np.exp(-alpha*odf['NI Wealth'])
+        odf['Better Off'] = odf['Utility'] > odf['NI Utility']
+        cdf['Better Off'] = cdf['Utility'] > cdf['NI Utility']
+
+        cdf_share = cdf.loc[cdf.Set == 'Test','Better Off'].sum()/(cdf.Set == 'Test').sum()
+        odf_share = odf.loc[odf.Set == 'Test','Better Off'].sum()/(odf.Set == 'Test').sum()
+        data.append({'Method':'Our Method','Length':length,'Share':odf_share})
+        data.append({'Method':'Chen uc','Length':length,'Share':cdf_share})
+
+    df = pd.DataFrame(data)
 
 
-state = 'Iowa'
-rdf = get_results(state)
-metrics = ['Utility','UtilityImprovement','Cost Per Utility','Cost']
-market_loadings = [1]
-for market_loading in market_loadings:
-    for metric in metrics:
-        metric_vs_length_figure(rdf, state,market_loading, metric, 'Length')
+# Utility, Insurer cost, required capital
 
-state = 'Illinois'
-length = 30
-model_name = 'chen_Ridge_Bja_ub88_teO'
-df = load_payouts(state, length, model_name)
+states = ['Illinois','Indiana','Iowa','Missouri']
+market_loading = 1
+for state in states:
+    rdf = get_results(state)
+    rdf.loc[rdf['Market Loading'].isna(),'Market Loading'] = market_loading
+    rdf = rdf.loc[rdf.Method != 'Chantarat',:]
+    metric_vs_length_figure(rdf,state,market_loading,'Utility','Length')
+    metric_vs_length_figure(rdf, state, market_loading, 'Insurer Cost','Length')
+    # metric_vs_length_figure(rdf, state, market_loading, 'Required Capital','Length')
+
+state_init_w_0 = {'Illinois':813-504+388.6, 'Indiana':818-504+388.6, 'Iowa':879-504+388.6,
+                  'Missouri':873-504+388.6}
 
 
-params = {'c_k':0.13, 'market_loading':1,'constrained':'uc','lr':0.01}
-cdf = load_chen_payouts('Illinois',30,params)
-cdf = cdf.loc[cdf.Set == 'Test',:]
-cdf['Wealth'] = 388.6 -87.2 -cdf['Loss'] + cdf['Payout']
-df['Method'] = 'Our Method'
-cdf['Method'] = 'Chen'
+state = 'Indiana'
+length = 20
+cdf = load_chen_payouts(state, length,1)
+odf = get_payouts(state, length,1)
 
-bdf = pd.concat([df,cdf],ignore_index=True)
-sns.lmplot(data=bdf,x='Loss',y='Payout',hue='Method')
 
-params = {'c_k':0, 'market_loading':1.2414,'constrained':'uc','lr':0.001}
-cdf2 = load_chen_payouts('Illinois',30,params)
-cdf2 = cdf2.loc[cdf2.Set == 'Test',:]
-
-sns.lmplot(data=bdf,x='Loss',y='Payout',hue='Method',palette=['tab:orange','tab:blue'])
-
-our_payouts = []
-chen_payouts = []
-for i in range(100):
-    ccdf2 = cdf2.sample(n=500)
-    ccdf = cdf.sample(n=500)
-    our_payouts.append(ccdf.Payout.sum())
-    chen_payouts.append(ccdf2.Payout.sum())
-
-plt.hist(chen_payouts,alpha=0.6,bins=30,label='Chen')
-plt.hist(our_payouts,bins=30,label='Our method',alpha=0.6)
-plt.xlabel('Insurer Cost')
-plt.ylabel('Frequency')
-# plt.hist(odf['TotalPayout'],alpha=0.5,bins=30,label='our method')
-# plt.hist(bdf['TotalPayout'],alpha=0.5,bins=30,label='baseline')
-# plt.xlabel('Insurer Cost')
-# plt.ylabel('Frequency')
-plt.legend()

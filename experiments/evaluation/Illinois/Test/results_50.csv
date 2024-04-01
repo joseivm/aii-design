@@ -1,6 +1,6 @@
-Utility,CEW,Insurer Risk,Premium,Method,Market Loading,Params,Eval Name,a,b,Insurer Cost
--62.349,86.947,177.089,77.435,Chen uc,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.01, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",,,,
--55.041,102.529,156.815,26.377,Chen uc,1.241,"{'epsilon_p': 0.01, 'subsidy': 0, 'w_0': 388.6, 'c_k': 0, 'lr': 0.001, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1.2414}",,,,
--71.791,69.320,0.000,0.000,No Insurance,,"{'epsilon_p': 0.01, 'subsidy': 0, 'w_0': 388.6, 'c_k': 0, 'lr': 0.001, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1.2414}",,,,
--64.976,81.787,126.001,77.995,Our Method,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 78, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 534.0}",chen_SVR_vjN_ub78_wfe,0.900,117.200,
--59.075,93.688,122.435,27.000,Our Method,1.241,"{'epsilon_p': 0.01, 'c_k': 0, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 27, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1.2414, 'P': 534.0}",chen_Ridge_D81_ub27_ePR,0.370,60.180,26457.801
+Utility,CEW,Insurer Risk,Premium,Method,Market Loading,Params,Eval Name,a,b,Insurer Cost,Required Capital
+-62.349,86.947,177.089,77.435,Chen uc,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.01, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",,,,,
+-55.041,102.529,156.815,26.377,Chen uc,1.241,"{'epsilon_p': 0.01, 'subsidy': 0, 'w_0': 388.6, 'c_k': 0, 'lr': 0.001, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1.2414}",,,,,
+-71.791,69.320,0.000,0.000,No Insurance,,"{'epsilon_p': 0.01, 'subsidy': 0, 'w_0': 388.6, 'c_k': 0, 'lr': 0.001, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1.2414}",,,,,
+-59.075,93.688,122.435,27.000,Our Method,1.241,"{'epsilon_p': 0.01, 'c_k': 0, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 27, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1.2414, 'P': 534.0}",chen_Ridge_D81_ub27_ePR,0.370,60.180,26457.801,
+-64.976,81.787,126.001,77.995,Our Method,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 78, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 534.0}",chen_SVR_vjN_ub78_gPY,0.900,117.200,93508.320,72.332

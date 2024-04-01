@@ -1,4 +1,5 @@
-Utility,CEW,Insurer Risk,Premium,Insurer Cost,Method,Market Loading,Params,Eval Name,a,b
--45.781,125.556,118.881,61.126,38430.027,Chen uc,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.005, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",,,
--35.862,156.080,0.000,0.000,0.000,No Insurance,,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.005, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",,,
--36.605,153.518,96.268,62.983,64995.034,Our Method,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 63, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 538.0}",chen_Lasso_FsK_ub63_XJe,0.580,41.740
+Utility,CEW,Insurer Risk,Premium,Insurer Cost,Method,Market Loading,Params,Eval Name,a,b,Required Capital
+-45.781,125.556,118.881,61.126,38430.027,Chen uc,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.005, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",,,,
+-35.862,156.080,0.000,0.000,0.000,No Insurance,,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'lr': 0.005, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",,,,
+-36.605,153.518,96.268,62.983,64995.034,Our Method,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 63, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 538.0}",chen_Lasso_FsK_ub63_XJe,0.580,41.740,
+-39.487,144.044,95.083,61.983,63768.445,Our Method,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 388.6, 'premium_ub': 62, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 548.0}",chen_Lasso_SY5_ub62_swf,0.570,47.660,80.731

@@ -1,0 +1,7 @@
+Utility,CEW,Insurer Risk,Premium,Insurer Cost,Method,Market Loading,Params,Required Capital,Eval Name,a,b
+-2.282,500.418,145.143,65.666,67434.581,Chen uc,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'lr': 0.005, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",59.128,,,
+-2.723,478.320,0.000,0.000,0.000,No Insurance,,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'lr': 0.005, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1}",,,,
+-2.487,489.661,84.563,36.224,37253.499,Our Method,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 67, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 534.0}",43.081,chen_Ridge_VV3_ub67_lwL,0.250,23.040
+-2.449,491.555,161.889,102.800,119633.990,Chantarat,1.000,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1, 'P': 534.0}",83.171,chen_SVR_bVq_ub200_W99,1.000,120.590
+-2.436,492.268,125.529,22.824,13812.261,Chen uc,1.241,"{'epsilon_p': 0.01, 'subsidy': 0, 'w_0': 797.6, 'c_k': 0, 'lr': 0.001, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1.2414}",150.860,,,
+-2.326,497.998,104.324,26.552,26954.828,Our Method,1.241,"{'epsilon_p': 0.01, 'subsidy': 0, 'w_0': 797.6, 'c_k': 0, 'lr': 0.001, 'constrained': 'uc', 'premium_ub': 100, 'risk_coef': 0.008, 'S': 1, 'market_loading': 1.2414, 'P': 534.0}",65.840,chen_Ridge_VV3_ub100_W4e,0.390,65.060

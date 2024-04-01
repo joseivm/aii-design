@@ -1,4 +1,4 @@
 Overall Utility,Illinois_Premium,Illinois_Utility,Indiana_Premium,Indiana_Utility,Iowa_Premium,Iowa_Utility,Missouri_Premium,Missouri_Utility,Insurer Cost,Required Capital,Eval Name,Method,Illinois_a,Illinois_b,Indiana_a,Indiana_b,Iowa_a,Iowa_b,Missouri_a,Missouri_b
--60.144,44.320,-66.025,37.124,-39.704,31.055,-34.127,73.760,-135.919,178066.284,8946.705,IL_IN_IA_MO_ml1_NwV,Our Method,0.880,166.000,0.270,15.610,0.520,57.000,4.060,1170.180
 -69.068,79.614,-64.989,46.166,-48.269,35.092,-40.905,73.422,-168.913,144947.289,19603.821,,Chen uc,,,,,,,,
 -62.116,0.000,-71.791,0.000,-38.766,0.000,-35.862,0.000,-135.859,0.000,,,No Insurance,,,,,,,,
+-61.084,42.944,-66.262,35.788,-39.763,34.784,-36.830,73.751,-135.995,179505.679,9102.472,IL_IN_IA_MO_ml1_Ruz,Our Method,0.860,161.680,0.230,10.370,0.660,83.060,4.060,1168.850

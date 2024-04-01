@@ -21,9 +21,6 @@ EVAL_DIR = os.path.join(EXPERIMENTS_DIR,'evaluation')
 PREDICTIONS_DIR = os.path.join(EXPERIMENTS_DIR,'prediction')
 TRANSFORMS_DIR = os.path.join(PROJECT_DIR,'data','time-series-transforms')
 
-# TODO: create a multizone evaluation using the single zone contracts, make sure it's apples to
-# apples when comparing the premium. 
-
 ##### Data Loading #####
 def load_model_predictions(state, length):
     model_name = get_best_model(state, length, 1)
@@ -123,6 +120,19 @@ def load_all_model_predictions(states, length):
         dfs.append(model_preds)
 
     return pd.concat(dfs,ignore_index=True)
+    
+def load_all_chen_payouts(states, length):
+    length = str(length)
+    all_dfs = []
+    for state in states:
+        chen_payouts = load_chen_payouts(state, length, 1)
+        pred_years = load_years(state, length)
+        chen_payouts['CountyYear'] = pred_years
+        chen_payouts['Year'] = chen_payouts['CountyYear'].apply(lambda x: int(x.split('-')[1]))
+        chen_payouts['State'] = state
+        all_dfs.append(chen_payouts)
+
+    return pd.concat(all_dfs, ignore_index=True)
     
 ##### Contract Design #####
 def optimization_program(pred_y,train_y,params):
@@ -287,22 +297,10 @@ def run_eval(states, length, params, eval_set='Test'):
     save_params(params, results_dir, length)
     
 def run_chen_eval(states, length, params):
-    length = str(length)
-    train_dfs = []
-    test_dfs = []
-    for state in states:
-        chen_payouts = load_chen_payouts(state, length, 1)
-        pred_years = load_years(state, length)
-        chen_payouts['CountyYear'] = pred_years
-        chen_payouts['Year'] = chen_payouts['CountyYear'].apply(lambda x: int(x.split('-')[1]))
-        chen_payouts['State'] = state
-        chen_train_payouts = chen_payouts.loc[chen_payouts.Set == 'Train', :]
-        chen_test_payouts = chen_payouts.loc[chen_payouts.Set == 'Test', :]
-        train_dfs.append(chen_train_payouts)
-        test_dfs.append(chen_test_payouts)
+    chen_payouts = load_all_chen_payouts(states, length)
+    train_payouts = chen_payouts.loc[chen_payouts.Set == 'Train',:]
+    test_payouts = chen_payouts.loc[chen_payouts.Set == 'Test',:]
 
-    train_payouts = pd.concat(train_dfs, ignore_index=True)
-    test_payouts = pd.concat(test_dfs, ignore_index=True)
     chen_premiums, req_capital = calculate_premiums(train_payouts, params['c_k'],params['S'])
     chen_eval_df = create_eval_df(test_payouts, chen_premiums, params)
 
@@ -441,20 +439,19 @@ def get_premium(state,market_loading, length):
 # Main Script
 states = ['Illinois','Indiana','Iowa','Missouri']
 # lengths = [i*10 for i in range(2,9)]
-lengths = [20]
+lengths = [20,30]
 for length in lengths:
     print(length)
     ##### Our definition of the premium #####
     # premium_ub = get_premium(1,length)
     # consider giving it the same premium_ub as the chen models. 
-    premium_ub = 100
     params = {'epsilon_p':0.01,'c_k':0.13,'subsidy':0,'w_0':388.6,
             'risk_coef':0.008,'S':[87,74,94,46], 'market_loading':1}
     # choose_best_model(state, length, params)
     # model_name = get_best_model(state, length, 1)
     run_eval(states, length, params)
-    run_chen_eval(states,length,params)
-    no_insurance_eval(states, length, params)
+    # run_chen_eval(states,length,params)
+    # no_insurance_eval(states, length, params)
 
     # params = {'epsilon_p':0.01,'c_k':0.13,'subsidy':0,'w_0':388.6,'lr':0.01,'constrained':'uc',
                     # 'premium_ub':100,'risk_coef':0.008,'S':1, 'market_loading':1}

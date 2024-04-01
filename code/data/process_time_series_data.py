@@ -182,7 +182,6 @@ def save_transformed_data(state, transformer, trf_name, length):
     save(X_train_ts, y_train, X_val_ts, y_val, X_test_ts, y_test, trf_name, state,length)
     save_dir = os.path.join(TRANSFORMS_DIR,state, trf_name)
     
-
 def save_chen_data(state,length):
     ldf = create_loss_data(state,length)
     pdf = load_prism_data()
@@ -336,6 +335,7 @@ def create_raw_ts_tensors(pdf):
     
     ts_data = np.stack(weather_dfs,axis=1)
     return ts_data, obs_order
+
 
 # states = ['Iowa','Indiana','Missouri','Illinois']
 states = ['Indiana']
