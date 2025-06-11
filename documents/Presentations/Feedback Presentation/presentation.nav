@@ -123,49 +123,49 @@
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {21}{21}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@sectionpages {14}{21}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionpages {17}{21}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\sectionentry {5}{Evaluation}{22}{Evaluation}{0}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {5}{0}{1}{22/22}{}{0}}
+\headcommand {\slideentry {4}{2}{6}{22/22}{Model}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {22}{22}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionpages {22}{22}}
+\headcommand {\beamer@sectionpages {14}{22}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionentry {0}{5}{1}{23}{Data}}
+\headcommand {\beamer@subsectionpages {17}{22}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {5}{1}{1}{23/23}{Data}{0}}
+\headcommand {\sectionentry {5}{Evaluation}{23}{Evaluation}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {5}{0}{1}{23/23}{}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {23}{23}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@subsectionpages {23}{23}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionentry {0}{5}{2}{24}{Procedure}}
+\headcommand {\beamer@subsectionentry {0}{5}{1}{24}{Data}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {5}{2}{1}{24/24}{Procedure}{0}}
+\headcommand {\slideentry {5}{1}{1}{24/24}{Data}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {24}{24}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@subsectionpages {24}{24}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionentry {0}{5}{3}{25}{Illinois Results}}
+\headcommand {\beamer@subsectionentry {0}{5}{2}{25}{Procedure}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {5}{3}{1}{25/25}{Illinois Results}{0}}
+\headcommand {\slideentry {5}{2}{1}{25/25}{Procedure}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {25}{25}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {5}{3}{2}{26/26}{Illinois Results}{0}}
+\headcommand {\beamer@subsectionpages {25}{25}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionentry {0}{5}{3}{26}{Illinois Results}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {5}{3}{1}{26/26}{Illinois Results}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {26}{26}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {5}{3}{3}{27/27}{Illinois Results}{0}}
+\headcommand {\slideentry {5}{3}{2}{27/27}{Illinois Results}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {27}{27}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionpages {25}{27}}
+\headcommand {\beamer@subsectionpages {26}{27}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@subsectionentry {0}{5}{4}{28}{Iowa Results}}
 \defcounter {refsection}{0}\relax 
@@ -257,11 +257,11 @@
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {41}{41}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@sectionpages {22}{41}}
+\headcommand {\beamer@sectionpages {23}{41}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@subsectionpages {41}{41}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\sectionentry {6}{Implementation Details}{42}{Implementation Details}{0}}
+\headcommand {\sectionentry {6}{Moving Forward}{42}{Moving Forward}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\slideentry {6}{0}{1}{42/42}{}{0}}
 \defcounter {refsection}{0}\relax 
@@ -279,69 +279,87 @@
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@subsectionpages {42}{44}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\sectionentry {7}{Questions}{45}{Questions}{0}}
+\headcommand {\sectionentry {7}{Implementation Details}{45}{Implementation Details}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\slideentry {7}{0}{1}{45/45}{}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {45}{45}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@sectionpages {45}{45}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionpages {45}{45}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\sectionentry {8}{Chen Premium Results}{46}{Chen Premium Results}{0}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionpages {46}{45}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionentry {0}{8}{1}{46}{Illinois Results}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {8}{1}{1}{46/46}{Illinois Results}{0}}
+\headcommand {\slideentry {7}{0}{2}{46/46}{}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {46}{46}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionpages {46}{46}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionentry {0}{8}{2}{47}{Iowa Results}}
-\defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {8}{2}{1}{47/47}{Iowa Results}{0}}
+\headcommand {\slideentry {7}{0}{3}{47/47}{}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {47}{47}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionpages {47}{47}}
+\headcommand {\beamer@sectionpages {45}{47}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionentry {0}{8}{3}{48}{Missouri Results}}
+\headcommand {\beamer@subsectionpages {45}{47}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {8}{3}{1}{48/48}{Missouri Results}{0}}
+\headcommand {\sectionentry {8}{Questions}{48}{Questions}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {8}{0}{1}{48/48}{}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {48}{48}}
 \defcounter {refsection}{0}\relax 
+\headcommand {\beamer@sectionpages {48}{48}}
+\defcounter {refsection}{0}\relax 
 \headcommand {\beamer@subsectionpages {48}{48}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@subsectionentry {0}{8}{4}{49}{Indiana Results}}
+\headcommand {\sectionentry {9}{Chen Premium Results}{49}{Chen Premium Results}{0}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {8}{4}{1}{49/49}{Indiana Results}{0}}
+\headcommand {\beamer@subsectionpages {49}{48}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionentry {0}{9}{1}{49}{Illinois Results}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {9}{1}{1}{49/49}{Illinois Results}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {49}{49}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\beamer@sectionpages {46}{49}}
-\defcounter {refsection}{0}\relax 
 \headcommand {\beamer@subsectionpages {49}{49}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\sectionentry {9}{References}{50}{References}{0}}
+\headcommand {\beamer@subsectionentry {0}{9}{2}{50}{Iowa Results}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {9}{0}{0}{50/50}{Indiana Results}{0}}
+\headcommand {\slideentry {9}{2}{1}{50/50}{Iowa Results}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {50}{50}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {9}{0}{1}{51/51}{Indiana Results}{0}}
+\headcommand {\beamer@subsectionpages {50}{50}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionentry {0}{9}{3}{51}{Missouri Results}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {9}{3}{1}{51/51}{Missouri Results}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {51}{51}}
 \defcounter {refsection}{0}\relax 
-\headcommand {\slideentry {9}{0}{2}{52/52}{Indiana Results}{0}}
+\headcommand {\beamer@subsectionpages {51}{51}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionentry {0}{9}{4}{52}{Indiana Results}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {9}{4}{1}{52/52}{Indiana Results}{0}}
 \defcounter {refsection}{0}\relax 
 \headcommand {\beamer@framepages {52}{52}}
-\headcommand {\beamer@partpages {1}{52}}
-\headcommand {\beamer@subsectionpages {49}{52}}
-\headcommand {\beamer@sectionpages {46}{52}}
-\headcommand {\beamer@documentpages {52}}
-\headcommand {\gdef \inserttotalframenumber {44}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@sectionpages {49}{52}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@subsectionpages {52}{52}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\sectionentry {10}{References}{53}{References}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {10}{0}{0}{53/53}{Indiana Results}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {53}{53}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {10}{0}{1}{54/54}{Indiana Results}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {54}{54}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\slideentry {10}{0}{2}{55/55}{Indiana Results}{0}}
+\defcounter {refsection}{0}\relax 
+\headcommand {\beamer@framepages {55}{55}}
+\headcommand {\beamer@partpages {1}{55}}
+\headcommand {\beamer@subsectionpages {52}{55}}
+\headcommand {\beamer@sectionpages {49}{55}}
+\headcommand {\beamer@documentpages {55}}
+\headcommand {\gdef \inserttotalframenumber {47}}

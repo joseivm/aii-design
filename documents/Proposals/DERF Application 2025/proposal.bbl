@@ -1,0 +1,421 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{ynt/global//global/global}
+    \entry{rockafellar2000optimization}{article}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=9cfd3443aed7c033e870e2e9970510a6}{%
+           family={Rockafellar},
+           familyi={R\bibinitperiod},
+           given={R\bibnamedelima Tyrrell},
+           giveni={R\bibinitperiod\bibinitdelim T\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=75a8a2346ba45ae5110aa302b89a30c7}{%
+           family={Uryasev},
+           familyi={U\bibinitperiod},
+           given={Stanislav},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Citeseer}%
+      }
+      \strng{namehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{fullhash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{bibnamehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{authorbibnamehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{authornamehash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \strng{authorfullhash}{3ba917653b29a6d97eb9b389e8c1515e}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of risk}
+      \field{title}{Optimization of conditional value-at-risk}
+      \field{volume}{2}
+      \field{year}{2000}
+      \field{pages}{21\bibrangedash 42}
+      \range{pages}{22}
+    \endentry
+    \entry{elabed2013managing}{article}{}
+      \name{author}{4}{}{%
+        {{uniquename=0,uniquepart=base,hash=c79245d36d996854e19f2510fa58d68f}{%
+           family={Elabed},
+           familyi={E\bibinitperiod},
+           given={Ghada},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=f0ed0eca8dbb0e6202f55fbb089e0856}{%
+           family={Bellemare},
+           familyi={B\bibinitperiod},
+           given={Marc\bibnamedelima F},
+           giveni={M\bibinitperiod\bibinitdelim F\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=ff0ece1c5271addab59e185670250716}{%
+           family={Carter},
+           familyi={C\bibinitperiod},
+           given={Michael\bibnamedelima R},
+           giveni={M\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=636b9b3c54ac2c2d8eed78325f074e4c}{%
+           family={Guirkinger},
+           familyi={G\bibinitperiod},
+           given={Catherine},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley Online Library}%
+      }
+      \strng{namehash}{62f90b472b5b4b1fcf783eb69ba48689}
+      \strng{fullhash}{189c5188c97e332d26582ed53921709c}
+      \strng{bibnamehash}{62f90b472b5b4b1fcf783eb69ba48689}
+      \strng{authorbibnamehash}{62f90b472b5b4b1fcf783eb69ba48689}
+      \strng{authornamehash}{62f90b472b5b4b1fcf783eb69ba48689}
+      \strng{authorfullhash}{189c5188c97e332d26582ed53921709c}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Agricultural Economics}
+      \field{number}{4-5}
+      \field{title}{Managing basis risk with multiscale index insurance}
+      \field{volume}{44}
+      \field{year}{2013}
+      \field{pages}{419\bibrangedash 431}
+      \range{pages}{13}
+    \endentry
+    \entry{greatrex2015scaling}{article}{}
+      \name{author}{8}{}{%
+        {{uniquename=0,uniquepart=base,hash=6cf46ef8d0f83e4768c329f84dc7084f}{%
+           family={Greatrex},
+           familyi={G\bibinitperiod},
+           given={Helen},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=4516acd3a1a7ee7f9cbec284834b113c}{%
+           family={Hansen},
+           familyi={H\bibinitperiod},
+           given={James},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=d217b0620194ecc0b6535d604bbac289}{%
+           family={Garvin},
+           familyi={G\bibinitperiod},
+           given={Samantha},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=0458286ac37b708b054f49256cd5cf84}{%
+           family={Diro},
+           familyi={D\bibinitperiod},
+           given={Rahel},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=2c610ecf8a86382a50511ebab801ed64}{%
+           family={Le\bibnamedelima Guen},
+           familyi={L\bibinitperiod\bibinitdelim G\bibinitperiod},
+           given={Margot},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=8fb78235799ff81983362c256a56bf03}{%
+           family={Blakeley},
+           familyi={B\bibinitperiod},
+           given={Sari},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=2344db50955df766c9ae1ec0f5f167c2}{%
+           family={Rao},
+           familyi={R\bibinitperiod},
+           given={Kolli},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=278b97b8a3c2da20d883f8dbe245431c}{%
+           family={Osgood},
+           familyi={O\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{2}{%
+        {CGIAR Research Program on Climate Change, Agriculture}%
+        {Food Security}%
+      }
+      \strng{namehash}{a620ed3140894de1f993c8a7ff1dfd1a}
+      \strng{fullhash}{dcda773f62960970931d663aa66e5acf}
+      \strng{bibnamehash}{a620ed3140894de1f993c8a7ff1dfd1a}
+      \strng{authorbibnamehash}{a620ed3140894de1f993c8a7ff1dfd1a}
+      \strng{authornamehash}{a620ed3140894de1f993c8a7ff1dfd1a}
+      \strng{authorfullhash}{dcda773f62960970931d663aa66e5acf}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{CCAFS Report}
+      \field{title}{Scaling up index insurance for smallholder farmers: Recent evidence and insights}
+      \field{year}{2015}
+    \endentry
+    \entry{clarke2016theory}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,uniquepart=base,hash=c99814b21fa91acf648cb427c51ae520}{%
+           family={Clarke},
+           familyi={C\bibinitperiod},
+           given={Daniel\bibnamedelima J},
+           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {American Economic Association 2014 Broadway, Suite 305, Nashville, TN 37203-2425}%
+      }
+      \strng{namehash}{c99814b21fa91acf648cb427c51ae520}
+      \strng{fullhash}{c99814b21fa91acf648cb427c51ae520}
+      \strng{bibnamehash}{c99814b21fa91acf648cb427c51ae520}
+      \strng{authorbibnamehash}{c99814b21fa91acf648cb427c51ae520}
+      \strng{authornamehash}{c99814b21fa91acf648cb427c51ae520}
+      \strng{authorfullhash}{c99814b21fa91acf648cb427c51ae520}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Economic Journal: Microeconomics}
+      \field{number}{1}
+      \field{title}{A theory of rational demand for index insurance}
+      \field{volume}{8}
+      \field{year}{2016}
+      \field{pages}{283\bibrangedash 306}
+      \range{pages}{24}
+    \endentry
+    \entry{jensen2016index}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=1,uniquepart=given,hash=337a061ab66b845e4f22f2effba6a7b9}{%
+           family={Jensen},
+           familyi={J\bibinitperiod},
+           given={Nathaniel\bibnamedelima D},
+           giveni={N\bibinitperiod\bibinitdelim D\bibinitperiod},
+           givenun=1}}%
+        {{uniquename=1,uniquepart=given,hash=09f0c6940cb6971e7a5f0b4fa591055a}{%
+           family={Barrett},
+           familyi={B\bibinitperiod},
+           given={Christopher\bibnamedelima B},
+           giveni={C\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=1}}%
+        {{uniquename=0,uniquepart=base,hash=a23eea872819f39c759087d09440458f}{%
+           family={Mude},
+           familyi={M\bibinitperiod},
+           given={Andrew\bibnamedelima G},
+           giveni={A\bibinitperiod\bibinitdelim G\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley Online Library}%
+      }
+      \strng{namehash}{22515338879bd25b33579457cf822307}
+      \strng{fullhash}{22515338879bd25b33579457cf822307}
+      \strng{bibnamehash}{22515338879bd25b33579457cf822307}
+      \strng{authorbibnamehash}{22515338879bd25b33579457cf822307}
+      \strng{authornamehash}{22515338879bd25b33579457cf822307}
+      \strng{authorfullhash}{22515338879bd25b33579457cf822307}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{American Journal of Agricultural Economics}
+      \field{number}{5}
+      \field{title}{Index insurance quality and basis risk: Evidence from northern Kenya}
+      \field{volume}{98}
+      \field{year}{2016}
+      \field{pages}{1450\bibrangedash 1469}
+      \range{pages}{20}
+    \endentry
+    \entry{jensen2017agricultural}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=1,uniquepart=given,hash=5a046b2ca5e1898cc27a680ce8931914}{%
+           family={Jensen},
+           familyi={J\bibinitperiod},
+           given={Nathaniel},
+           giveni={N\bibinitperiod},
+           givenun=1}}%
+        {{uniquename=1,uniquepart=given,hash=ecd8951059f0b065e717dd1338a8c157}{%
+           family={Barrett},
+           familyi={B\bibinitperiod},
+           given={Christopher},
+           giveni={C\bibinitperiod},
+           givenun=1}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley Online Library}%
+      }
+      \strng{namehash}{e41bdc4c5cd8048ac598285f1d28ad67}
+      \strng{fullhash}{e41bdc4c5cd8048ac598285f1d28ad67}
+      \strng{bibnamehash}{e41bdc4c5cd8048ac598285f1d28ad67}
+      \strng{authorbibnamehash}{e41bdc4c5cd8048ac598285f1d28ad67}
+      \strng{authornamehash}{e41bdc4c5cd8048ac598285f1d28ad67}
+      \strng{authorfullhash}{e41bdc4c5cd8048ac598285f1d28ad67}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Applied Economic Perspectives and Policy}
+      \field{number}{2}
+      \field{title}{Agricultural index insurance for development}
+      \field{volume}{39}
+      \field{year}{2017}
+      \field{pages}{199\bibrangedash 219}
+      \range{pages}{21}
+    \endentry
+    \entry{mapfumo2017risk}{book}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=c3c75e3e9b93f181d86a11c84beb09d3}{%
+           family={Mapfumo},
+           familyi={M\bibinitperiod},
+           given={Shadreck},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=97d584bee487daf46a4776a0edec4ddc}{%
+           family={Groenendaal},
+           familyi={G\bibinitperiod},
+           given={Huybert},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=84c211c7f85e5b5d7b0ea8de1f7321dc}{%
+           family={Dugger},
+           familyi={D\bibinitperiod},
+           given={Chloe},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {World Bank Publications}%
+      }
+      \strng{namehash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{fullhash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{bibnamehash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{authorbibnamehash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{authornamehash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{authorfullhash}{ead503babda8eb93ba07b590a1032e5a}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Risk modeling for appraising named peril index insurance products: A Guide for practitioners}
+      \field{year}{2017}
+    \endentry
+    \entry{flatnes2018improving}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=ce62b8be38f9625c3e2da9ad9377b63d}{%
+           family={Flatnes},
+           familyi={F\bibinitperiod},
+           given={Jon\bibnamedelima Einar},
+           giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=ff0ece1c5271addab59e185670250716}{%
+           family={Carter},
+           familyi={C\bibinitperiod},
+           given={Michael\bibnamedelima R},
+           giveni={M\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=e34db92ff916a65b7a116bd1fc813c4c}{%
+           family={Mercovich},
+           familyi={M\bibinitperiod},
+           given={Ryan},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{20c647fee69e776f16e38eea5bd0b9aa}
+      \strng{fullhash}{20c647fee69e776f16e38eea5bd0b9aa}
+      \strng{bibnamehash}{20c647fee69e776f16e38eea5bd0b9aa}
+      \strng{authorbibnamehash}{20c647fee69e776f16e38eea5bd0b9aa}
+      \strng{authornamehash}{20c647fee69e776f16e38eea5bd0b9aa}
+      \strng{authorfullhash}{20c647fee69e776f16e38eea5bd0b9aa}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Unpublished Working Paper}
+      \field{title}{Improving the quality of index insurance with a satellite-based conditional audit contract}
+      \field{year}{2018}
+    \endentry
+    \entry{estefania2024breaking}{report}{}
+      \name{author}{4}{}{%
+        {{uniquename=0,uniquepart=base,hash=a99676710918a223a288a183ba528145}{%
+           family={Estefania-Salazar},
+           familyi={E\bibinithyphendelim S\bibinitperiod},
+           given={Enrique},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=8c731328aeaa5ec4ac855f9dbb658e41}{%
+           family={Carter},
+           familyi={C\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=97124721ce9db19db6e15e8ab4d25cf4}{%
+           family={Iglesias},
+           familyi={I\bibinitperiod},
+           given={Eva},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=5f25a4f0c678c706422a27b6aab2b900}{%
+           family={Escribano},
+           familyi={E\bibinitperiod},
+           given={{Á}lvaro},
+           giveni={Á\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{institution}{1}{%
+        {National Bureau of Economic Research}%
+      }
+      \strng{namehash}{604f52e4e33a15b6843cfe66d3e3991c}
+      \strng{fullhash}{889147584a4c4697bb3496db89db591c}
+      \strng{bibnamehash}{604f52e4e33a15b6843cfe66d3e3991c}
+      \strng{authorbibnamehash}{604f52e4e33a15b6843cfe66d3e3991c}
+      \strng{authornamehash}{604f52e4e33a15b6843cfe66d3e3991c}
+      \strng{authorfullhash}{889147584a4c4697bb3496db89db591c}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Breaking Boundaries: Lower Tail Dependence Can Triple the Economic Value of Index Insurance for Rural Households}
+      \field{type}{techreport}
+      \field{year}{2024}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

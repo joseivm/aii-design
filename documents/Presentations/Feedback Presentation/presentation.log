@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  29 MAR 2024 12:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  22 OCT 2024 11:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -984,7 +984,7 @@ File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/mat
 ) [6
 
 ]
-<../../../output/figures/Presentation/sample_insurance_contract.png, id=221, 709.65125pt x 497.86pt>
+<../../../output/figures/Presentation/sample_insurance_contract.png, id=225, 709.65125pt x 497.86pt>
 File: ../../../output/figures/Presentation/sample_insurance_contract.png Graphic file (type png)
 <use ../../../output/figures/Presentation/sample_insurance_contract.png>
 Package pdftex.def Info: ../../../output/figures/Presentation/sample_insurance_contract.png  used on input line 162.
@@ -1000,7 +1000,7 @@ Package pdftex.def Info: ../../../output/figures/Presentation/sample_insurance_c
 ] [11
 
 ]
-<../../../output/figures/Chen Flowchart.png, id=269, 590.205pt x 504.88625pt>
+<../../../output/figures/Chen Flowchart.png, id=273, 590.205pt x 504.88625pt>
 File: ../../../output/figures/Chen Flowchart.png Graphic file (type png)
 <use ../../../output/figures/Chen Flowchart.png>
 Package pdftex.def Info: ../../../output/figures/Chen Flowchart.png  used on input line 202.
@@ -1018,7 +1018,7 @@ Overfull \vbox (2.54544pt too high) detected at line 202
 ] [15
 
 ]
-<../../../output/figures/Our Method Flowchart.png, id=305, 915.42pt x 508.90125pt>
+<../../../output/figures/Our Method Flowchart.png, id=309, 915.42pt x 508.90125pt>
 File: ../../../output/figures/Our Method Flowchart.png Graphic file (type png)
 <use ../../../output/figures/Our Method Flowchart.png>
 Package pdftex.def Info: ../../../output/figures/Our Method Flowchart.png  used on input line 232.
@@ -1033,62 +1033,56 @@ Package pdftex.def Info: ../../../output/figures/Our Method Flowchart.png  used 
 
 ] [20
 
+] [21
+
 ]
-Overfull \hbox (17.19937pt too wide) detected at line 309
+Overfull \hbox (17.19937pt too wide) detected at line 324
 []
  []
 
-[21
+[22
 
-] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation/presentation.toc) [22
-
-] [23
+] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation/presentation.toc) [23
 
 ] [24
 
 ] [25
 
-]
-<../../../output/figures/Evaluation 2/Illinois_Utility_Length_ml1.png, id=391, 463.2507pt x 361.35pt>
-File: ../../../output/figures/Evaluation 2/Illinois_Utility_Length_ml1.png Graphic file (type png)
-<use ../../../output/figures/Evaluation 2/Illinois_Utility_Length_ml1.png>
-Package pdftex.def Info: ../../../output/figures/Evaluation 2/Illinois_Utility_Length_ml1.png  used on input line 352.
-(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
- [26
+] [26
 
- <../../../output/figures/Evaluation 2/Illinois_Utility_Length_ml1.png>]
-<../../../output/figures/Evaluation 2/Illinois_Insurer Cost_Length_ml1.png, id=399, 463.2507pt x 361.35pt>
-File: ../../../output/figures/Evaluation 2/Illinois_Insurer Cost_Length_ml1.png Graphic file (type png)
-<use ../../../output/figures/Evaluation 2/Illinois_Insurer Cost_Length_ml1.png>
-Package pdftex.def Info: ../../../output/figures/Evaluation 2/Illinois_Insurer Cost_Length_ml1.png  used on input line 358.
-(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
+]
+<../../../output/figures/Evaluation/Illinois_Average_Utility_CI.png, id=401, 462.528pt x 346.896pt>
+File: ../../../output/figures/Evaluation/Illinois_Average_Utility_CI.png Graphic file (type png)
+<use ../../../output/figures/Evaluation/Illinois_Average_Utility_CI.png>
+Package pdftex.def Info: ../../../output/figures/Evaluation/Illinois_Average_Utility_CI.png  used on input line 368.
+(pdftex.def)             Requested size: 256.72147pt x 192.55072pt.
  [27
 
- <../../../output/figures/Evaluation 2/Illinois_Insurer Cost_Length_ml1.png>]
-<../../../output/figures/Evaluation 2/Iowa_Utility_Length_ml1.png, id=407, 463.2507pt x 361.35pt>
-File: ../../../output/figures/Evaluation 2/Iowa_Utility_Length_ml1.png Graphic file (type png)
-<use ../../../output/figures/Evaluation 2/Iowa_Utility_Length_ml1.png>
-Package pdftex.def Info: ../../../output/figures/Evaluation 2/Iowa_Utility_Length_ml1.png  used on input line 365.
-(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
+ <../../../output/figures/Evaluation/Illinois_Average_Utility_CI.png>]
+<../../../output/figures/Evaluation/Iowa_Average_Utility_CI.png, id=409, 462.528pt x 346.896pt>
+File: ../../../output/figures/Evaluation/Iowa_Average_Utility_CI.png Graphic file (type png)
+<use ../../../output/figures/Evaluation/Iowa_Average_Utility_CI.png>
+Package pdftex.def Info: ../../../output/figures/Evaluation/Iowa_Average_Utility_CI.png  used on input line 383.
+(pdftex.def)             Requested size: 256.72147pt x 192.55072pt.
  [28
 
- <../../../output/figures/Evaluation 2/Iowa_Utility_Length_ml1.png>]
-<../../../output/figures/Evaluation 2/Missouri_Utility_Length_ml1.png, id=415, 463.2507pt x 361.35pt>
-File: ../../../output/figures/Evaluation 2/Missouri_Utility_Length_ml1.png Graphic file (type png)
-<use ../../../output/figures/Evaluation 2/Missouri_Utility_Length_ml1.png>
-Package pdftex.def Info: ../../../output/figures/Evaluation 2/Missouri_Utility_Length_ml1.png  used on input line 378.
-(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
+ <../../../output/figures/Evaluation/Iowa_Average_Utility_CI.png>]
+<../../../output/figures/Evaluation/Missouri_Average_Utility_CI.png, id=417, 462.528pt x 346.896pt>
+File: ../../../output/figures/Evaluation/Missouri_Average_Utility_CI.png Graphic file (type png)
+<use ../../../output/figures/Evaluation/Missouri_Average_Utility_CI.png>
+Package pdftex.def Info: ../../../output/figures/Evaluation/Missouri_Average_Utility_CI.png  used on input line 397.
+(pdftex.def)             Requested size: 256.72147pt x 192.55072pt.
  [29
 
- <../../../output/figures/Evaluation 2/Missouri_Utility_Length_ml1.png>]
-<../../../output/figures/Evaluation 2/Indiana_Utility_Length_ml1.png, id=423, 463.2507pt x 361.35pt>
-File: ../../../output/figures/Evaluation 2/Indiana_Utility_Length_ml1.png Graphic file (type png)
-<use ../../../output/figures/Evaluation 2/Indiana_Utility_Length_ml1.png>
-Package pdftex.def Info: ../../../output/figures/Evaluation 2/Indiana_Utility_Length_ml1.png  used on input line 391.
-(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
+ <../../../output/figures/Evaluation/Missouri_Average_Utility_CI.png>]
+<../../../output/figures/Evaluation/Indiana_Average_Utility_CI.png, id=425, 462.528pt x 346.896pt>
+File: ../../../output/figures/Evaluation/Indiana_Average_Utility_CI.png Graphic file (type png)
+<use ../../../output/figures/Evaluation/Indiana_Average_Utility_CI.png>
+Package pdftex.def Info: ../../../output/figures/Evaluation/Indiana_Average_Utility_CI.png  used on input line 411.
+(pdftex.def)             Requested size: 256.72147pt x 192.55072pt.
  [30
 
- <../../../output/figures/Evaluation 2/Indiana_Utility_Length_ml1.png>] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation/presentation.toc) [31
+ <../../../output/figures/Evaluation/Indiana_Average_Utility_CI.png>] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation/presentation.toc) [31
 
 ] [32
 
@@ -1097,59 +1091,59 @@ Package pdftex.def Info: ../../../output/figures/Evaluation 2/Indiana_Utility_Le
 ] [34
 
 ]
-<../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png, id=468, 475.5366pt x 361.35pt>
+<../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png, id=470, 463.2507pt x 361.35pt>
 File: ../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png Graphic file (type png)
 <use ../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png>
-Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png  used on input line 439.
-(pdftex.def)             Requested size: 256.72147pt x 195.07646pt.
+Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png  used on input line 459.
+(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
  [35
 
  <../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png>]
-<../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png, id=476, 475.5366pt x 361.35pt>
+<../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png, id=478, 463.2507pt x 361.35pt>
 File: ../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png Graphic file (type png)
 <use ../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png>
-Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png  used on input line 445.
-(pdftex.def)             Requested size: 256.72147pt x 195.07646pt.
+Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png  used on input line 465.
+(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
  [36
 
  <../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png>]
-<../../../output/figures/Midwest Evaluation/Midwest_Required Capital_Length.png, id=484, 475.5366pt x 361.35pt>
+<../../../output/figures/Midwest Evaluation/Midwest_Required Capital_Length.png, id=486, 463.2507pt x 361.35pt>
 File: ../../../output/figures/Midwest Evaluation/Midwest_Required Capital_Length.png Graphic file (type png)
 <use ../../../output/figures/Midwest Evaluation/Midwest_Required Capital_Length.png>
-Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Midwest_Required Capital_Length.png  used on input line 451.
-(pdftex.def)             Requested size: 256.72147pt x 195.07646pt.
+Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Midwest_Required Capital_Length.png  used on input line 471.
+(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
  [37
 
  <../../../output/figures/Midwest Evaluation/Midwest_Required Capital_Length.png>]
-<../../../output/figures/Midwest Evaluation/Illinois_Utility_Length.png, id=493, 475.5366pt x 361.35pt>
+<../../../output/figures/Midwest Evaluation/Illinois_Utility_Length.png, id=495, 463.2507pt x 361.35pt>
 File: ../../../output/figures/Midwest Evaluation/Illinois_Utility_Length.png Graphic file (type png)
 <use ../../../output/figures/Midwest Evaluation/Illinois_Utility_Length.png>
-Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Illinois_Utility_Length.png  used on input line 458.
-(pdftex.def)             Requested size: 256.72147pt x 195.07646pt.
+Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Illinois_Utility_Length.png  used on input line 478.
+(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
  [38
 
  <../../../output/figures/Midwest Evaluation/Illinois_Utility_Length.png>]
-<../../../output/figures/Midwest Evaluation/Iowa_Utility_Length.png, id=501, 475.5366pt x 361.35pt>
+<../../../output/figures/Midwest Evaluation/Iowa_Utility_Length.png, id=503, 463.2507pt x 361.35pt>
 File: ../../../output/figures/Midwest Evaluation/Iowa_Utility_Length.png Graphic file (type png)
 <use ../../../output/figures/Midwest Evaluation/Iowa_Utility_Length.png>
-Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Iowa_Utility_Length.png  used on input line 465.
-(pdftex.def)             Requested size: 256.72147pt x 195.07646pt.
+Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Iowa_Utility_Length.png  used on input line 485.
+(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
  [39
 
  <../../../output/figures/Midwest Evaluation/Iowa_Utility_Length.png>]
-<../../../output/figures/Midwest Evaluation/Missouri_Utility_Length.png, id=509, 475.5366pt x 361.35pt>
+<../../../output/figures/Midwest Evaluation/Missouri_Utility_Length.png, id=511, 463.2507pt x 361.35pt>
 File: ../../../output/figures/Midwest Evaluation/Missouri_Utility_Length.png Graphic file (type png)
 <use ../../../output/figures/Midwest Evaluation/Missouri_Utility_Length.png>
-Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Missouri_Utility_Length.png  used on input line 472.
-(pdftex.def)             Requested size: 256.72147pt x 195.07646pt.
+Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Missouri_Utility_Length.png  used on input line 492.
+(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
  [40
 
  <../../../output/figures/Midwest Evaluation/Missouri_Utility_Length.png>]
-<../../../output/figures/Midwest Evaluation/Indiana_Utility_Length.png, id=517, 475.5366pt x 361.35pt>
+<../../../output/figures/Midwest Evaluation/Indiana_Utility_Length.png, id=519, 463.2507pt x 361.35pt>
 File: ../../../output/figures/Midwest Evaluation/Indiana_Utility_Length.png Graphic file (type png)
 <use ../../../output/figures/Midwest Evaluation/Indiana_Utility_Length.png>
-Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Indiana_Utility_Length.png  used on input line 479.
-(pdftex.def)             Requested size: 256.72147pt x 195.07646pt.
+Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Indiana_Utility_Length.png  used on input line 499.
+(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
  [41
 
  <../../../output/figures/Midwest Evaluation/Indiana_Utility_Length.png>] [42
@@ -1160,43 +1154,49 @@ Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Indiana_Util
 
 ] [45
 
+] [46
+
+] [47
+
+] [48
+
 ]
-<../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png, id=550, 463.2507pt x 361.35pt>
+<../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png, id=571, 463.2507pt x 361.35pt>
 File: ../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png Graphic file (type png)
 <use ../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png>
-Package pdftex.def Info: ../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png  used on input line 520.
-(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
- [46
-
- <../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png>]
-<../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png, id=558, 463.2507pt x 361.35pt>
-File: ../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png Graphic file (type png)
-<use ../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png>
-Package pdftex.def Info: ../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png  used on input line 527.
-(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
- [47
-
- <../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png>]
-<../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png, id=567, 463.2507pt x 361.35pt>
-File: ../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png Graphic file (type png)
-<use ../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png>
-Package pdftex.def Info: ../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png  used on input line 534.
-(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
- [48
-
- <../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png>]
-<../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png, id=575, 463.2507pt x 361.35pt>
-File: ../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png Graphic file (type png)
-<use ../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png>
-Package pdftex.def Info: ../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png  used on input line 541.
+Package pdftex.def Info: ../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png  used on input line 568.
 (pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
  [49
 
- <../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png>] [50
+ <../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png>]
+<../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png, id=580, 463.2507pt x 361.35pt>
+File: ../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png Graphic file (type png)
+<use ../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png>
+Package pdftex.def Info: ../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png  used on input line 575.
+(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
+ [50
 
- </usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamericonarticle.pdf>] [51
+ <../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png>]
+<../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png, id=588, 463.2507pt x 361.35pt>
+File: ../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png Graphic file (type png)
+<use ../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png>
+Package pdftex.def Info: ../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png  used on input line 582.
+(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
+ [51
 
-] [52
+ <../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png>]
+<../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png, id=596, 463.2507pt x 361.35pt>
+File: ../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png Graphic file (type png)
+<use ../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png>
+Package pdftex.def Info: ../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png  used on input line 589.
+(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
+ [52
+
+ <../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png>] [53
+
+ </usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamericonarticle.pdf>] [54
+
+] [55
 
 ]
 \tf@nav=\write8
@@ -1208,30 +1208,30 @@ Package pdftex.def Info: ../../../output/figures/Chen Premium/Indiana_Utility_Le
 \tf@snm=\write10
 \openout10 = `presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 604.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 604.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 652.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 652.
  (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation/presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 604.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 604.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 652.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 652.
 Package rerunfilecheck Info: File `presentation.out' has not changed.
-(rerunfilecheck)             Checksum: 25C36F1B89BD6E5C016E4EE2A7DB6814;1749.
+(rerunfilecheck)             Checksum: 881C2393186E1C9138E9E88F61DFDF13;1800.
 Package logreq Info: Writing requests to 'presentation.run.xml'.
 \openout1 = `presentation.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 25115 strings out of 492649
- 484176 string characters out of 6129622
- 896643 words of memory out of 5000000
- 28363 multiletter control sequences out of 15000+600000
+ 25129 strings out of 492649
+ 484012 string characters out of 6129622
+ 896644 words of memory out of 5000000
+ 28370 multiletter control sequences out of 15000+600000
  11040 words of font info for 40 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,16n,63p,894b,1272s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation/presentation.pdf" (52 pages, 640022 bytes).
+Output written on "/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation/presentation.pdf" (55 pages, 661235 bytes).
 PDF statistics:
- 689 PDF objects out of 1000 (max. 8388607)
- 560 compressed objects within 6 object streams
- 150 named destinations out of 1000 (max. 500000)
- 412 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 712 PDF objects out of 1000 (max. 8388607)
+ 582 compressed objects within 6 object streams
+ 157 named destinations out of 1000 (max. 500000)
+ 415 words of extra memory for PDF output out of 10000 (max. 10000000)
 

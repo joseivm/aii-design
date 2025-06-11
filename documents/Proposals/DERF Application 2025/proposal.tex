@@ -1,0 +1,222 @@
+\documentclass[12pt]{article}
+\usepackage{times}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb,bbm, setspace}
+\doublespacing
+\usepackage{sectsty}
+\sectionfont{\fontsize{13}{15}\selectfont}
+\subsectionfont{\fontsize{12}{15}\selectfont}
+\usepackage{float}
+\usepackage{titling}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage[
+backend=biber,
+style=bwl-FU,
+sorting=ynt
+]{biblatex}
+\addbibresource{main.bib}
+
+\renewenvironment{abstract}
+ {
+  \begin{center}
+  \bfseries An Optimization Approach to Index Insurance \vspace{-.5em}\vspace{0pt}
+  \end{center}
+  \list{}{
+    \setlength{\leftmargin}{0mm}%
+    \setlength{\rightmargin}{\leftmargin}%
+  }%
+  \item\relax}
+ {\endlist}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\setlength{\droptitle}{-7em}
+
+\title{Agricultural Index Insurance: An Optimization Approach}
+\date{}
+
+
+\begin{document}
+\begin{abstract}
+  The goal of this project is to improve the efficiency of index insurance through better contract design. In index insurance, easily observable quantities (e.g. rainfall) are used to predict agricultural loss. If the model predicts a large enough loss, the insurer automatically issues out payments. While index insurance is less costly to offer than traditional insurance, it can still be expensive and highly risky for insurers. We develop an optimization-based method to make the insurance less costly through improved risk management. The method we developed designs the contracts for all insured zones simultaneously, while taking into account the correlations between the zones. This reduces costs by reducing risk for the insurer. The Bank of Thailand has a uniquely rich data on agricultural losses. In this project, we hope to (1) evaluate our method using data from the Bank of Thailand, and (2) inform the design of their insurance program. 
+\end{abstract}
+% \maketitle
+% \vspace{-8em}
+\section{Introduction}
+Agricultural insurance is an important tool for risk managment, but it is usually too expensive to provide in developing countries due to high verification costs and moral hazard. Index insurance was developed as a less costly method to provide insurance in developing countries. In index insurance, an index (or statistic) is created using easily observable quantities, and it is used to determine whether the insured party suffered a loss. If the index falls below a pre-determined threshold, the insurer automatically issues out payments to the insured. Today, tens of millions of farmers across the world are covered under such programs (\cite{greatrex2015scaling}). Despite this, take up remains low due to high costs, and providing this insurance can still be exceedingly risky for insurers (\cite{jensen2017agricultural}). The goal of this project is to improve the efficiency of index isurance through better contract design. We develop a data-driven method to design interpretable and utility improving contracts. Our method can also design the contracts of multiple insured zones simultaneously, allowing for better risk management. This work will contribute to the literature on index insurance design. Previous work has focused on verfication mechanisms or signal selection (\cite{jensen2016index}; \cite{elabed2013managing}). The closest work to ours is from \cite{estefania2024breaking}, however it focuses on insurance zone boundaries. 
+% Farmers, especially farmers in developing countries, are exposed to a variety of risks. Agricultural insurance is a popular way of managing risk, but it is usually too expensive to provide in these contexts due to high verification costs. Index insurance was dveloped as a less costly method to provide insurance in developing countries. In index insurance, an index (or statistic) is created using easily observable quantities, and it is used to determine whether the insured party suffered a loss. If the index falls below a pre-determined threshold, the insurer automatically issues out payments to the insured. It is estimated that over 10 million farmers worldwide are covered by induex insurance programs (ADD CITATION). However, take up is still low due to high costs. The goal of this project is to improve the efficiency of index insurance through better contract design. We develop a method to design interpretable and  utility-maximizing contracts for farmers. Our method can additionally design the contracts of all insured zones simultanesouly. This allows it to consider the correlation of losses between zones when designing the contracts, allowing for better risk management. This work will contribute to the literature on index insurance design and evaluation. Previous work on contract design was based on simplified theoretical models, or ignored the question of contract parameters altogether.
+
+
+% Farmers, especially farmers in developing countries, are constantly exposed to a variety of risks. Due to financial market failures, rural farmers in developing countries rarely have access to the risk management tools used by farmers in wealthier countries to manage risk. As a result, when poor farmers do experience a negative shock, they are often forced to rely on coping strategies that hurt their long-term welfare. Agricultural insurance is usually too costly to provide in these contexts due to high verification costs and moral hazard. 
+% Researchers developed index insurance as a less costly way to offer insurance in developing countries. In index insurance, an index (or statistic) is created using easily observable quantities, and it is used to determine whether the insured party suffered an adverse event. In the past, indices have been constructed using rainfall, weather, and satellite images. If the index falls below a pre-determined threshold, the insurance company automatically issues out payments to the insured. Even though index insurance has proved to be a less costly way of providing insurance for small farmers, it has been difficult to scale up.
+
+ 
+% The goal of this project is to improve the efficiency of index insurance through better contract design. We develop a method to design the contracts of all insured zones simultanesouly. Our method takes into account the correlation of losses between zones when designing the contracts, allowing for better risk management.
+
+
+
+\section{Methodology and Research Approach}
+\subsection{Contract Design Method}
+% TODO: add farmer wealth model. 
+We consider a farmer that wishes to insure himself against weather risk. The farmer has initial wealth $w_0$ and experiences a random loss $\ell$. The insurer observes an index, $\theta$ and makes insurance payouts to the farmer based on $\theta$. Note, here $\theta$ can be a vector of raw weather indices (e.g. rainfall, temperature, etc) or it could be an estimate of loss based on weather indices, $\hat{\ell}(\theta)$. For the rest of this document, we will assume that we are using a loss prediction, but our method would also work if given the raw weather indices.\\
+We consider index insurance contracts of the form: 
+\begin{equation}\label{eq-01}
+ I(\theta)=\ I(\hat{l}(\theta)) \triangleq\ \min \left \{\max \left \{0,a\hat{\ell}(\theta) + b \right \}, 1 \right \}, 
+\end{equation}
+where $a,b$ are the contract parameters. Without loss of generality we can normalize the the maximum payout to one. We also use $I(\theta)$ instead of $I(\hat{\ell}(\theta))$ for ease of notation. Piecewise-linear contracts are popular both in practice and in the academic literature due to their simplicity and explainability. \\
+We assume that farmers pay a premium $\pi(I)$ for contract $I$. \begin{equation}\label{eq-02}
+ \pi(I(\theta)) \triangleq\ \mathbb{E}[I(\theta)] + c_{\kappa} K(I(\theta)).
+\end{equation}
+Here, the premium $\pi(I(\theta))$ is the expected payout plus costs of capital. $K(I(\theta))$ is a function of $I(\theta)$ that represents the amount of capital required to insure the contract, and it is usually set by regulators and meant to ensure that insurers have enough capital to fulfill their contractual obligations with high probability. The cost of capital $K(I(\theta))$ is based on the following commonly used formula (\cite{mapfumo2017risk}:
+
+\begin{equation}\label{cons-budget}
+ K(I(\theta)) =  {\sf CVaR}_{1-\epsilon_K}\left ( I(\theta)\right )  - \mathbb{E}[I(\theta)],
+\end{equation}
+
+We are interested in designing contracts that will maximize farmer welfare subject to a price constraint on the insurance. For simplicity, we only include price constraints here, but we could also add constraints on the historical payout frequency of the insurance contract. 
+
+% More specifically, we could add a constraint that ensures that the resulting contract would have paid out in $p\%$ of past years. This can be useful in controlling how often we expect contracts to pay out in the future.
+
+Including the premium and the realization of the loss, the farmer's wealth at the end of the season is $w = w_0 -\pi - \ell + I(\theta)$. Our method solves the following optimization problem: 
+
+\begin{align}
+    \max_{a,b,K,\pi} &\quad \mathbb{E} \left [  U\left(w_0 - \ell - \pi  +  \underline{I(\theta)} \right) \right ]\label{eq-06}\\
+    \text{s.t.} & \quad \overline{I(\theta)} = \max \left \{0,a\hat{\ell}(\theta) + b \right \} \nonumber\\
+    & \quad \underline{I(\theta)} = \min \left \{a\hat{\ell}(\theta)+b,1 \right \} \nonumber\\
+    & \quad \pi = \left (1-c_{\kappa} \right ) \mathbb{E} \left [ \overline{I(\theta)} \right ] + c_{\kappa} {\sf CVaR}_{1-\epsilon_K} \left( \overline{I(\theta)} \right) \label{eq-41}\\
+    % & \quad a \hat{F}^{-1}(\overline{f}) \leq b \leq a\hat{F}^{-1}(\underline{f})\\
+    & \quad \pi \leq \overline{\pi} \nonumber.
+\end{align}
+
+% This is a convex problem that can be quickly solved by publicly available convex optimization software, for problems thousands of decision variables and constraints. As mentioned in the introduction, 
+Our method can be extended to simultaneously design contracts for multiple zones at the same time. This allows us to account cor correlation between zones and make better trade-offs between cost and coverage. The multi-zone model can be found in the appendix. \\
+
+% When an insurer is insuring multiple zones at the same time, we index the variables corresponding to each zone with the subscript $z$. The required capital in our model becomes: 
+
+% \begin{equation}\label{eq-21}
+%          K(I(\theta)) = {\sf CVaR}_{1-\epsilon_K}\left(\sum_z s_z I_z(\theta_z)\right) - \mathbb{E}\left[\sum_z s_z I_z(\theta_z)\right],
+%       \end{equation}
+
+% and the premium becomes 
+%    \begin{equation}\label{eq-25}
+%          \pi_z = \mathbb{E}\left [ {I_z(\theta_z)} \right ] + \frac{c_{\kappa}}{\sum_z s_z} \left[{\sf CVaR}_{1-\epsilon_K}\left(\sum_z s_z I_z(\theta_z)\right) - \mathbb{E}\left[\sum_z s_z I_z(\theta_z)\right]\right].
+%     \end{equation}
+
+% where $s_z$ is the number of insured units in zone $z$. 
+% Intuitively, if the losses across insured zones are highly correlated, the tail risk of the sum of payouts will be higher. The optimization problem becomes: 
+
+% \begin{align}
+%       \max_{a,b,K,\pi} &\quad \mathbb{E} \left [ \sum_z U\left ( w_{0,z} -\ell_z^j -\pi_z + \underline{I_z(\theta^j_z)} \right ) \right ]\label{eq-33}\\
+%       \text{s.t.} &\quad \pi_z  = \mathbb{E}\left [ \overline{I_z(\theta_z)} \right ] + \frac{c_{\kappa}}{\sum_z s_z}  \left[{\sf CVaR}_{1-\epsilon_K} \left( \sum_z s_z\overline{I_z(\theta_z)} \right ) - \mathbb{E}\left [ \sum_{z'} s_{z'}\underline{I_{z'}(\theta_{z'})} \right ] \right] \label{eq-32}\\
+%       % & \quad a_z\hat{\ell_{z}^{\underline{f}}} \leq b_z \leq a_z\hat{\ell_{z}^{\overline{f}}}\\
+%       &\quad \overline{I_z(\theta_z)} = \max \left \{0,a_z\hat{\ell_z}(\theta_z) + b_z \right \} \nonumber\\
+%       &\quad\underline{I_z(\theta_z)} = \min \left \{a_z\hat{\ell_z}(\theta_z)+b_z,1 \right \} \nonumber\\
+%       &\quad\pi_z \leq \overline{\pi_z} \nonumber.
+%     \end{align}
+
+
+  \subsection{Data}
+  Thailand's Department of Agricultural Extension (DOAE) has an extensive dataset of plot level information for farmers in Thailand. This data includes each plot's geographical boundaries as well as information on rice planting activities. Loss data is available from the Government Disaster Relief Program, which provides administrative records of disaster relief payments for rice production loss caused by natural disasters. This dataset includes the rice variety planted, the planting date, the harvest date, the total loss, and the date in which the disaster occurred. It has roughly 22 million observations spanning from 2015 until 2022. This dataset's coverage is nationwide. Due to the sensitive nature of the data, it can only be accessed from a secure computer located at the Bank of Thailand. One of the difficulties in conducting research in index insurance is the lack of farmer level yield data, especially in lower or middle income countries. It is worth highlighting that this is a highly unique dataset for the context of index insurance. Thus, this project can inform investment decisions for the governments of similar countries. 
+
+  \subsection{Evaluation}
+  We have evaluated our method using county-level corn yield data from the US Midwest. Using this data, we found that our method outperforms existing methods. Our method leads to larger increases in farmer utility at lower risk for the insurer. However, this data is not representative of agriculture in developing countries. Thus, we hope to supplement this evaluation with more appropriate data. \par
+  We plan to evaluate our method using a utility-based framework in line with the previous literature (\cite{clarke2016theory}; \cite{flatnes2018improving}). We will also be using a cross-validation approach. We will iterate over the years in our dataset. In each iteration, the data from one year will be used as a test set, while the rest of the data will be used to design the contracts. This will allow us to evaluate contract performance out-of-sample. We will calculate all of the performance metrics of interest for each test year and report the average.  We additionally plan to use the data to conduct policy simulations. More specifically, we want to compare the welfare effects of different subsidy policies. We will compare these to a baseline of no insurance, and to a policy alternative of cash transfers with an equivalent cost to the insurance. We are interested in the following metrics: certainty equivalent, insurance premium, demand, and costs for the insurer.
+ 
+
+
+% \section{Objectives}
+%   We have evaluated our method using both observational and synthetic data, and we found that our method outperformed the baseline. The Bank of Thailand is working on designing the country's index insurance program. I have been collaborating with them over the last year to improve different aspects of the program. The design of an index insurance program generally consists of three steps. The first step is to design a model to predict loss. The second step is to design contracts that map predicted losses to payouts. The last step is to price these contracts. In my previous visit, I worked on improving the prediction model used in the insurance program. The next step in the program design is the contract design. The objective of this trip is two-fold. First, their data will provide us an opportunity to better evaluate our method. We further hope to improve the method using input from the team at the Bank of Thailand, and from interviews and focus group discussions with farmers. Second, if our method proves effective, we could use it to inform the contract design of the country's index insurance program. 
+
+  % \newpage
+\section{Budget Narrative and Timeline}
+I will be using this grant for a 3 month trip to Thailand to work with the Thai loss data. Due to the sensitive nature of the data, it can only be accessed from the Bank of Thailand's facilities in Bangkok. In the first month, my focus will on implementing the single-zone optimization model and the cross-validation evaluation. In the second month, I will focus on running policy simulations and on implementing the multi-zone model. During the last month, I will be focused on generating figures and tables from the results. 
+
+\paragraph{Month 1}
+\begin{itemize}
+  \item \textbf{Weeks 1-2:} Generate model cross-validation predictions and implement single-zone optimization model. 
+  \item \textbf{Weeks 3-4:} Implement insurance program evaluation
+\end{itemize}
+
+\paragraph*{Month 2}
+\begin{itemize}
+  \item \textbf{Weeks 1-2:} Run single zone policy simluations
+  \item \textbf{Weeks 3-4:} Implement multi-zone optimization model
+\end{itemize}
+
+\paragraph*{Month 3}
+\begin{itemize}
+  \item \textbf{Weeks 1-2:} Implement multi-zone cross-validation simulations
+  \item \textbf{Weeks 3-4:} Generate tables and figures from results
+\end{itemize}
+
+\newpage
+\printbibliography
+
+\section{Appendix}
+
+\subsection{Multiple Zone Model}
+The multiple zone model is very similar to the single zone model. In the objective, we maximize the sum of farmers utilities across all zones. We can think of this as solving the social planner's problem. The other change is that the budget constraint includes the payouts of all zones, and the required capital is determined using the sum of payouts across all zones.
+
+\noindent\textbf{Model Parameters:}
+\begin{itemize}
+  \item $\epsilon_K$: This is the epsilon used in the formula for required capital. Recall that the required capital $K(I(\theta)) = {\sf CVaR}_{1-\epsilon_K}(I(\theta)) - E[I(\theta)]$. 
+  \item $c_{\kappa}$: cost of capital. 
+  \item $s_z$: total insured amount for zone $z$.
+  \item $w_{0,z}$: this is initial wealth of farmers in zone $z$.
+\end{itemize}
+
+\noindent\textbf{Model:}
+In the model below, our objective is the average utility of farmers across all zones. The second constraint is the budget constraint, which now includes the sum of payouts across all zones. The formula for required capital was also changed to include the sum of payouts across all zones. 
+\begin{align}
+\max_{a,b,K,\pi} &\quad \mathbb{E} \left [ \sum_z U\left ( w_{0,z} -\ell_z^j -\pi_z + I_z(\theta^j_z) \right ) \right ]\label{eq-33}\\
+\text{s.t.} &\quad \pi_z  = \left (1-\frac{c_{\kappa}}{\sum_z s_z} \right)\mathbb{E}\left [ \overline{I_z(\theta_z)} \right ] + \frac{c_{\kappa}}{\sum_z s_z}  \left[{\sf CVaR}_{1-\epsilon_K} \left( \sum_z s_z\overline{I_z(\theta_z)} \right ) - \mathbb{E}\left [ \sum_{z' \neq z} s_{z'}\underline{I_{z'}(\theta_{z'})} \right ] \right] \label{eq-32}\\
+% & \quad a_z\hat{\ell_{z}^{\underline{f}}} \leq b_z \leq a_z\hat{\ell_{z}^{\overline{f}}}\\
+&\quad \overline{I_z(\theta_z)} = \max \left \{0,a_z\hat{\ell_z}(\theta_z) + b_z \right \} \nonumber\\
+&\quad\underline{I_z(\theta_z)} = \min \left \{a_z\hat{\ell_z}(\theta_z)+b_z,1 \right \} \nonumber\\
+&\quad\pi_z \leq \overline{\pi_z} \nonumber.
+\end{align}
+% \linwei{$\hat{\ell_{z}^{\underline{f}}}$ and $\hat{\ell_{z}^{\overline{f}}}$ are undefined}
+Here, the required capital in \eqref{eq-32} is an approximation of      
+\begin{equation}\label{eq-21}
+   K(I(\theta)) = {\sf CVaR}_{1-\epsilon_K}\left(\sum_z s_z I_z(\theta_z)\right) - \mathbb{E}\left[\sum_z s_z I_z(\theta_z)\right],
+\end{equation}
+and the premium in \eqref{eq-32} is an approximation of
+\begin{equation}\label{eq-25}
+   \pi_z = \mathbb{E}\left [ {I_z(\theta_z)} \right ] + \frac{c_{\kappa}}{\sum_z s_z} \left[{\sf CVaR}_{1-\epsilon_K}\left(\sum_z s_z I_z(\theta_z)\right) - \mathbb{E}\left[\sum_z s_z I_z(\theta_z)\right]\right].
+\end{equation}
+We reformulated Problem \eqref{eq-33} as a convex program  using the results from \cite{rockafellar2000optimization}. In the model below, $p^j$ is the probability of event $j$, and $j$ indexes the possible realizations of $\theta, \ell$. $N$ is the total number of samples. 
+
+\begin{align*}
+\max_{a,b,\alpha,\omega,\gamma,t_K,K,\pi} \quad & \frac{1}{N} \sum_j \sum_z U\left ( w_{0,z} -\ell_z^j -\pi_z + I_z(\theta^j_z) \right ) \\
+\text{s.t.} &\quad \pi_z = \left (1-\frac{c_{\kappa}}{\sum_z s_z} \right ) \frac{1}{N} \sum_j \alpha^j_z + \frac{c_{\kappa}}{\sum_z s_z}  \left (K - \frac{1}{N} \sum_j \sum_{z' \neq z} s_{z'} \omega_{z'}^j \right )\\
+t_K &+ \frac{1}{\epsilon_K} \sum_j p^j \gamma_K^j \leq K\\
+\gamma_K^j &\geq \sum_z s_z \alpha^j_z -t_K, \forall j \\
+\gamma_K^j &\geq 0, \forall j\\
+\alpha^j_z &\geq a_z \hat{\ell_z}(\theta^j_z) + b_z, \forall j, \forall z\\
+\alpha^j_z &\geq 0, \forall j, \forall z\\
+\omega^j_z &\leq a_z \hat{\ell_z}(\theta^j_z) + b_z, \forall j, \forall z\\
+\omega^j_z &\leq 1, \forall j, \forall z\\
+% a_z\hat{\ell_{z}^{\underline{f}}} &\leq b_z\\
+% a_z\hat{\ell_{z}^{\overline{f}}} &\geq b \\
+\pi_z &\leq \overline{\pi_z}, \forall z.
+\end{align*}
+
+% \section*{Budget}
+% This budget has expenses for a 12-week trip to Thailand to work at the Bank of Thailand. The main expenses are flights and accomodation. 
+
+% \begin{table}[H]
+%   \centering
+%   \begin{tabular}{|l|l|l|}
+%   \hline
+%   \textbf{Item}  & \textbf{Cost} & \textbf{Notes}                                         \\ \hline
+%   Flights        & 2200          & This would include in-country flights for field visits \\ \hline
+%   Accommodation   & 2100          &  700 per month times 3 months                          \\ \hline
+%   \textbf{Total} & 4300 & \\ \hline
+%   \end{tabular}
+%   \end{table}
+
+\end{document}

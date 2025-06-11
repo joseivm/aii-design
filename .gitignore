@@ -7,4 +7,7 @@ slurm*
 submit.sh
 data/processed/NDVI/HDF
 data/time-series-transforms/*/rocket
+data/time-series-tranforms/*/*/rocket
 models
+data/processed/Thailand_ts_data.csv
+data/raw/Thailand Geodata

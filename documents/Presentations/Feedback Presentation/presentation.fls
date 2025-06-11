@@ -374,26 +374,22 @@ INPUT ../../../output/figures/Our Method Flowchart.png
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssi10.tfm
 INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation/presentation.toc
 INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation/presentation.toc
-INPUT ../../../output/figures/Evaluation 2/Illinois_Utility_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Illinois_Utility_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Illinois_Utility_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Illinois_Utility_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Illinois_Insurer Cost_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Illinois_Insurer Cost_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Illinois_Insurer Cost_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Illinois_Insurer Cost_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Iowa_Utility_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Iowa_Utility_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Iowa_Utility_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Iowa_Utility_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Missouri_Utility_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Missouri_Utility_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Missouri_Utility_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Missouri_Utility_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Indiana_Utility_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Indiana_Utility_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Indiana_Utility_Length_ml1.png
-INPUT ../../../output/figures/Evaluation 2/Indiana_Utility_Length_ml1.png
+INPUT ../../../output/figures/Evaluation/Illinois_Average_Utility_CI.png
+INPUT ../../../output/figures/Evaluation/Illinois_Average_Utility_CI.png
+INPUT ../../../output/figures/Evaluation/Illinois_Average_Utility_CI.png
+INPUT ../../../output/figures/Evaluation/Illinois_Average_Utility_CI.png
+INPUT ../../../output/figures/Evaluation/Iowa_Average_Utility_CI.png
+INPUT ../../../output/figures/Evaluation/Iowa_Average_Utility_CI.png
+INPUT ../../../output/figures/Evaluation/Iowa_Average_Utility_CI.png
+INPUT ../../../output/figures/Evaluation/Iowa_Average_Utility_CI.png
+INPUT ../../../output/figures/Evaluation/Missouri_Average_Utility_CI.png
+INPUT ../../../output/figures/Evaluation/Missouri_Average_Utility_CI.png
+INPUT ../../../output/figures/Evaluation/Missouri_Average_Utility_CI.png
+INPUT ../../../output/figures/Evaluation/Missouri_Average_Utility_CI.png
+INPUT ../../../output/figures/Evaluation/Indiana_Average_Utility_CI.png
+INPUT ../../../output/figures/Evaluation/Indiana_Average_Utility_CI.png
+INPUT ../../../output/figures/Evaluation/Indiana_Average_Utility_CI.png
+INPUT ../../../output/figures/Evaluation/Indiana_Average_Utility_CI.png
 INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation/presentation.toc
 INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation/presentation.toc
 INPUT ../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png

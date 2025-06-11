@@ -3,6 +3,7 @@ import os
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+import ast
 
 
 from dotenv import load_dotenv, find_dotenv
@@ -172,6 +173,53 @@ def get_results(state):
     # rdf['Cost Per Utility'] = rdf['Cost']/rdf['UtilityImprovement']
     return rdf
 
+def get_midwest_results():
+    lengths = [i*10 for i in range(2,9)]
+    rdfs = []
+    for length in lengths:
+        fname = os.path.join(EVAL_DIR,'Midwest','Test',f"results_{length}.csv")
+        rdf = pd.read_csv(fname)
+        rdf['Length'] = length
+        rdfs.append(rdf)
+
+    rdf = pd.concat(rdfs)
+
+    return rdf
+
+def testing():
+    rdf = get_results('Illinois')
+    nidf = rdf.loc[rdf.Method == 'No Insurance',:]
+    nidf['NI CEW'] = nidf['CEW']
+    sdf = rdf.loc[rdf.Length <= 40,:]
+    sdf = sdf.merge(nidf[['Length','NI CEW']], on='Length')
+    sdf['DeltaCE'] = 100*(sdf['CEW'] - sdf['NI CEW'])/sdf['NI CEW']
+    odf = sdf.groupby('Method')[['DeltaCE','Premium','Required Capital']].mean().reset_index()
+    odf.loc[odf.Method != 'No Insurance',:].to_latex('Illinois small results.tex',index=False, float_format='%.2f')
+
+    ldf = rdf.loc[rdf.Length > 40,:]
+    ldf = ldf.merge(nidf[['Length','NI CEW']], on='Length')
+    ldf['DeltaCE'] = 100*(ldf['CEW'] - ldf['NI CEW'])/ldf['NI CEW']
+    odf = ldf.groupby('Method')[['DeltaCE','Premium','Required Capital']].mean().reset_index()
+    odf.loc[odf.Method != 'No Insurance',:].to_latex('Illinois large results.tex',index=False, float_format='%.2f')
+
+    rdf = get_midwest_results()
+    nidf = rdf.loc[rdf.Method == 'No Insurance',:]
+    nidf['NI Utility'] = nidf['Overall Utility']
+    sdf = rdf.loc[rdf.Length <= 40,:]
+    sdf = sdf.merge(nidf[['Length','NI Utility']], on='Length')
+    sdf['DeltaU'] = -100*(sdf['Overall Utility'] - sdf['NI Utility'])/sdf['NI Utility']
+    odf = sdf.groupby('Method')[['DeltaU','Insurer Cost','Required Capital']].mean().reset_index()
+    odf.loc[odf.Method != 'No Insurance',:].to_latex('Midwest small results.tex',index=False, float_format='%.2f')
+
+    ldf = rdf.loc[rdf.Length > 40,:]
+    ldf = ldf.merge(nidf[['Length','NI Utility']], on='Length')
+    ldf['DeltaU'] = -100*(ldf['Overall Utility'] - ldf['NI Utility'])/ldf['NI Utility']
+    odf = ldf.groupby('Method')[['DeltaU','Insurer Cost','Required Capital']].mean().reset_index()
+    odf.loc[odf.Method != 'No Insurance',:].to_latex('Midwest large results.tex',index=False, float_format='%.2f')
+
+
+
+
 def get_prediction_results(metric):
     dfs = []
     states = ['Illinois','Indiana','Iowa','Missouri']
@@ -311,26 +359,48 @@ def share_better_off(state):
 
     df = pd.DataFrame(data)
 
+def insurer_cost_figure(state, market_loading, c_k=0.13):
+    pdf = get_payouts(state, 20, market_loading)
+    n_test = pdf.loc[pdf.Set == 'Test',:].shape[0]
+    rdf = get_results(state)
+    rdf = rdf.loc[rdf['Market Loading'] == 1,:]
+    rdf = rdf.loc[rdf.Method != 'Chantarat',:]
+    rdf['Average Cost'] = rdf['Insurer Cost']/n_test + c_k*rdf['Required Capital']
+
+    rdf['Budget Constraint'] = rdf.Params.apply(lambda x: ast.literal_eval(x)['premium_ub'])
+    budget_constraint = rdf.loc[(rdf.Method == 'Our Method')&(rdf['Market Loading'] == market_loading),
+                                ['Market Loading','Length','Budget Constraint']]
+    budget_constraint['Method'] = 'Budget Constraint'
+    budget_constraint['Average Cost'] = budget_constraint['Budget Constraint']
+
+    rdf = pd.concat([rdf,budget_constraint],ignore_index=True)
+    sns.relplot(data=rdf,x='Length',y='Average Cost',hue='Method')
+    plot_name = f"{state}_Average Cost_Length_ml{market_loading}".replace('.','')
+    plot_fname = os.path.join(FIGURES_DIR,plot_name+'.png')
+    plt.savefig(plot_fname)
+    plt.close()
+
 
 # Utility, Insurer cost, required capital
 
 states = ['Illinois','Indiana','Iowa','Missouri']
 market_loading = 1
 for state in states:
+    # insurer_cost_figure(state, market_loading)
     rdf = get_results(state)
     rdf.loc[rdf['Market Loading'].isna(),'Market Loading'] = market_loading
-    rdf = rdf.loc[rdf.Method != 'Chantarat',:]
+    rdf = rdf.loc[rdf.Method != 'Chen uc',:]
     metric_vs_length_figure(rdf,state,market_loading,'Utility','Length')
     metric_vs_length_figure(rdf, state, market_loading, 'Insurer Cost','Length')
     # metric_vs_length_figure(rdf, state, market_loading, 'Required Capital','Length')
 
-state_init_w_0 = {'Illinois':813-504+388.6, 'Indiana':818-504+388.6, 'Iowa':879-504+388.6,
-                  'Missouri':873-504+388.6}
+# state_init_w_0 = {'Illinois':813-504+388.6, 'Indiana':818-504+388.6, 'Iowa':879-504+388.6,
+#                   'Missouri':873-504+388.6}
 
 
-state = 'Indiana'
-length = 20
-cdf = load_chen_payouts(state, length,1)
-odf = get_payouts(state, length,1)
+# state = 'Indiana'
+# length = 20
+# cdf = load_chen_payouts(state, length,1)
+# odf = get_payouts(state, length,1)
 
 

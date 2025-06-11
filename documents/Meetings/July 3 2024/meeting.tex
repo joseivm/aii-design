@@ -1,0 +1,84 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,bbm, amsfonts}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage[space]{grffile}
+
+\title{Meeting}
+
+\begin{document}
+\maketitle
+\section{Overview}
+  \begin{itemize}
+    \item In our last meeting, we discussed that the project was not substantial enough to publish yet, but we were unsure of how to proceed. 
+    \item I've been working on two things to strengthen the project. First, I've become more familiar with the actuarial literature and how they treat premiums. I discovered that there are around 6 commonly used premium definitions in that literature, and our method is compatible with 5 of these definitions. I think this shows our method is not tied to one specific definition of the premium. 
+    \item The second thing I've been working on is incorporating the possibility of reinsurance into our model. With reinsurance, the insurer has the opportunity to sell some of his risk to a reinsurer. This could make the insurance cheaper for the farmer.  
+  \end{itemize}
+
+\section{Premium Principles from the Actuarial Literature}
+   I've been reading several actuarial textbooks, and it appears that there are several definitions of the premium used. They refer to these as premium principles. Since ratemaking is considered propietary information, it is impossible to know what exact definition insurers use. However, there are several premium principles that have appeared in every resource I've seen: 
+
+   \paragraph*{Expected Value Principle}
+     \begin{align*}
+        \pi(I) &= (1 + \alpha)\mathbb{E}[I]
+     \end{align*}
+
+  \paragraph*{Standard Deviation Principle}
+    \begin{align*}
+        \pi(I) &= \mathbb{E}[I] + \alpha SD(I)
+    \end{align*}
+
+    where $SD(I)$ is the standard deviation of contract $I$. 
+
+  \paragraph*{Variance Principle}
+    \begin{align*}
+        \pi(I) &= \mathbb{E}[I] + \alpha Var(I)
+    \end{align*}
+
+    \paragraph*{Exponential Principle}
+    \begin{align*}
+        \pi(I) &= \frac{1}{\alpha} \log \mathbb{E}[e^{\alpha I}]
+    \end{align*}
+
+    \paragraph*{Esscher Utility Principle}
+    \begin{align*}
+        \pi(I) &= \frac{\mathbb{I e^{\alpha I}}}{\mathbb{E}[e^{\alpha I}]} 
+    \end{align*}
+
+    Our method is compatible with all of these premium principles except for the Esscher Utility Principle. 
+
+  
+\section{Reinsurance}
+  Some of the feedback I've received on this project concerns reinsurance. One finance professor suggested incorporating reinsurance into the model, because access to reinsurance could affect how insurers will deal with their tail risk, and it could be a nice way to enrich the model. This could also allow us to measure the welfare effects of access to reinsurance, since it's not always available or cheap in developing countries. 
+
+  For this, we will assume that the insurer has the option to purchase excess of loss reinsurance. In this type of reinsurance, the insurer chooses a retention level, $r$, and pays for all claims up to $r$. When claims exceed $r$, the insurer receives a payout from the reinsurer. The original contract for the farmer is $I(\theta) = \min \{ \max \{a\hat{\ell}(\theta) + b, 0 \},1 \}$. We will split this into the part that is paid by the primary insurer, $I_P$ and the part that is sold to the reinsurer, $I_R$.
+
+  \begin{align*}
+    I(\theta) &= I_P(\theta) + I_R(\theta)\\
+    &= \min \{ \max \{ a\hat{\ell}(\theta) + b, 0 \},r \} + \min \{ \max \{a\hat{\ell}(\theta) + b - r, 0 \},1 \}
+  \end{align*}
+  
+  Let $\Pi_P$ be the premium principle used by the primary insurer, and let $\Pi_R$ be the premium principle used by the reinsurer. The premium paid by the farmer would be $\pi = \Pi_P(I_P(\theta)) + \Pi_R(I_R(\theta)).$ Our model would then be: 
+
+  \begin{align}
+    \max_{a,b,K,\pi} &\quad \mathbb{E} \left [  U\left(w_0 - \ell - \pi  +  \underline{I(\theta)} \right) \right ]\\
+    \text{s.t.} & \quad \overline{I(\theta)} = \max \left \{0,a\hat{\ell}(\theta) + b \right \} \nonumber\\
+    & \quad \underline{I(\theta)} = \min \left \{a\hat{\ell}(\theta)+b,1 \right \} \nonumber\\
+    & \quad \pi = \pi_P + \pi_R\\
+    & \quad \pi_P = \mathbb{E}[I_P(\theta)] + c_k[{\sf CVaR}_{1-\epsilon_K} \left( \overline{I_P(\theta)} \right) - \mathbb{E}[\underline{I_P(\theta)}]]\\
+    & \quad \pi_R = \mathbb{E}[I_R(\theta)] + c_k \left [{\sf CVaR}_{1-\epsilon_K} \left( \overline{I_R(\theta)} \right) - \mathbb{E}[\underline{I_R(\theta)}] \right ] \\
+    & \quad \overline{I_P(\theta)} = \max \left \{0,a\hat{\ell}(\theta) + b \right \} \nonumber\\
+    & \quad \underline{I_P(\theta)} = \min \left \{a\hat{\ell}(\theta)+b,r \right \} \nonumber\\
+    & \quad \overline{I_R(\theta)} = \max \left \{0,a\hat{\ell}(\theta) + b -r \right \} \nonumber\\
+    & \quad \underline{I(\theta)} = \min \left \{a\hat{\ell}(\theta)+b - r,1 \right \} \nonumber\\
+    & \quad  0 \leq r \leq 1\\
+    & \quad \pi \leq \overline{\pi}
+\end{align}
+
+Note, here we have used the same premium principle for both the primary insurer and the reinsurer, bu we could in principle use a different one for each. 
+
+%   I started going through several resources to familiarize myself with the context. The first resource is \textit{Financial Economics of Insurance}. This is maily US focused, and at least in the US, it appears that reinsurance tends to be cheap, and is a commonly used way to reduce costs of capital. In their model, using reinsurance leads to lower costs of capital, but higher regulatory costs. To reconcile our model to theirs, we would have to use include a cost constraint for the insurer and to specify a functional form for these regulatory costs. In the model shown in the book, the regulatory costs are just assumed to be decreasing and convex in the amount of capital the insurer holds. 
+
+\end{document}

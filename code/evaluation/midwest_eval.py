@@ -45,6 +45,14 @@ def load_chen_payouts(state, length, market_loading):
     pred_file = os.path.join(payout_dir,f"{pred_name} {constrained}.csv")
     return pd.read_csv(pred_file)
 
+def load_chantarat_payouts(state, length):
+    results_fname = os.path.join(EVAL_DIR,state,'Test',f"results_{length}_2.csv")
+    rdf = pd.read_csv(results_fname)
+    model_name = rdf.loc[rdf.Method == 'Chantarat','Eval Name'].item()
+    payout_fname = os.path.join(EVAL_DIR, state, 'Test', f"Chantarat payouts {length}",f"{model_name}.csv")
+    payouts = pd.read_csv(payout_fname)
+    return payouts 
+
 def load_payouts(state, length, model_name):
     length = str(length)
     payout_dir = os.path.join(EVAL_DIR,state,'Test',f"payouts {length}")
@@ -52,7 +60,7 @@ def load_payouts(state, length, model_name):
     pdf = pd.read_csv(pred_file)
     return pdf
 
-def load_years(state, length):
+def load_years(state, length,val=True):
     state_dir = os.path.join(TRANSFORMS_DIR,state)
     train_fname = os.path.join(state_dir,f"train_years_L{length}.npy")
     val_fname = os.path.join(state_dir,f"val_years_L{length}.npy")
@@ -61,7 +69,11 @@ def load_years(state, length):
     train_yrs = np.load(train_fname,allow_pickle=True)
     val_yrs = np.load(val_fname,allow_pickle=True)
     test_yrs = np.load(test_fname,allow_pickle=True)
-    return np.concatenate([train_yrs, val_yrs, test_yrs])
+    if val:
+        yrs = np.concatenate([train_yrs, val_yrs, test_yrs])
+    else:
+        yrs = np.concatenate([train_yrs,test_yrs])
+    return yrs
 
 def get_best_model(state, length, market_loading):
     length = str(length)
@@ -75,6 +87,7 @@ def get_best_model(state, length, market_loading):
     return '_'.join(best_model.split('_')[:3])
 
 def create_multi_state_data(states, length):
+    # TODO: consider using statified sampling like in Thailand
     length = str(length)
     # Load all predictions
     train_dfs = {}
@@ -133,7 +146,21 @@ def load_all_chen_payouts(states, length):
         all_dfs.append(chen_payouts)
 
     return pd.concat(all_dfs, ignore_index=True)
-    
+
+def load_all_chantarat_payouts(states, length):
+    length = str(length)
+    all_dfs = []
+    for state in states:
+        chen_payouts = load_chantarat_payouts(state, length)
+        pred_years = load_years(state, length,False)
+        chen_payouts['CountyYear'] = pred_years
+        chen_payouts['Year'] = chen_payouts['CountyYear'].apply(lambda x: int(x.split('-')[1]))
+        chen_payouts['State'] = state
+        all_dfs.append(chen_payouts)
+
+    return pd.concat(all_dfs, ignore_index=True)
+
+
 ##### Contract Design #####
 def optimization_program(pred_y,train_y,params):
     # params: epsilon, pi_max, pi_min, beta_z, eps_p, c_k, K_z
@@ -313,6 +340,23 @@ def run_chen_eval(states, length, params):
     save_results(chen_metrics, results_dir, length)
     save_params(params, results_dir, length)
 
+def run_chantarat_eval(states, length, params):
+    payouts = load_all_chantarat_payouts(states, length)
+    train_payouts = payouts.loc[payouts.Set == 'Train',:]
+    test_payouts = payouts.loc[payouts.Set == 'Test',:]
+
+    premiums, req_capital = calculate_premiums(train_payouts, params['c_k'], params['S'])
+    eval_df = create_eval_df(test_payouts, premiums, params)
+
+    metrics = calculate_performance_metrics(eval_df)
+    metrics['Method'] = 'Chantarat'
+    metrics['Required Capital'] = req_capital
+    params['Eval Name'] = metrics['Method']
+    results_dir = os.path.join(EVAL_DIR,'Midwest','Test')
+    save_results(metrics, results_dir, length)
+    save_params(params, results_dir, length)
+
+
 def no_insurance_eval(states, length, params):
     length = str(length)
     pdfs = []
@@ -438,8 +482,8 @@ def get_premium(state,market_loading, length):
 
 # Main Script
 states = ['Illinois','Indiana','Iowa','Missouri']
-# lengths = [i*10 for i in range(2,9)]
-lengths = [20,30]
+lengths = [i*10 for i in range(2,9)]
+# lengths = [20,30]
 for length in lengths:
     print(length)
     ##### Our definition of the premium #####
@@ -449,7 +493,8 @@ for length in lengths:
             'risk_coef':0.008,'S':[87,74,94,46], 'market_loading':1}
     # choose_best_model(state, length, params)
     # model_name = get_best_model(state, length, 1)
-    run_eval(states, length, params)
+    # run_eval(states, length, params)
+    run_chantarat_eval(states, length,params)
     # run_chen_eval(states,length,params)
     # no_insurance_eval(states, length, params)
 

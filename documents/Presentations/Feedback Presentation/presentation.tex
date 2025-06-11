@@ -232,8 +232,23 @@ sorting=ynt
 \end{frame}
 
 \subsection{Model}
+\begin{frame}{Premium Principles}
+    Premium principles are the functionals used to map insurance contracts to premiums (prices). The exact pricing method used by insurers is considered to be proprietary information. However, there are several premium principles that are common in the actuarial literature, and our method is compatible with most of them:
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{ll}
+        Description & Definition \\ \hline
+        Expected value       & $(1+\alpha)\mathbb{E}[I]$           \\
+        Standard deviation   & $\mathbb{E}[I] + \alpha \sigma(I)$       \\
+        Variance             & $\mathbb{E}[I] + \alpha \sigma^2(I)$      \\
+        Exponential          & $\frac{1}{\alpha} \log \mathbb{E}[e^{\alpha I}]$    \\
+        Dutch                &  $\mathbb{E}[I] + \beta \mathbb{E}[(I-\alpha \mathbb{E}[I])_+]$                   \\ \hline
+        \end{tabular}
+        \end{table}
+\end{frame}
+
 \begin{frame}{Model}
-    We use the same model, just a different definition of the premium.
+    We use the same model as Chen, just a different definition of the premium. We opt for a definition of the premium that captures the cost of having payouts with a big right tail. 
     \vspace*{1em}
     \begin{itemize}
         \setlength\itemsep{2em}
@@ -347,20 +362,23 @@ Using the results from \cite{rockafellar2002conditional}, we get:
 
 \begin{frame}{Illinois: Utility}
     \begin{figure}
-        \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation 2/Illinois_Utility_Length_ml1.png}
+        % \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation 2/Illinois_Utility_Length_ml1.png}
+        \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation/Illinois_Average_Utility_CI.png}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Illinois: Insurer Cost}
-    \begin{figure}
-        \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation 2/Illinois_Insurer Cost_Length_ml1.png}
-    \end{figure}
-\end{frame}
+% \begin{frame}{Illinois: Insurer Cost}
+%     \begin{figure}
+%         \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation/Illinois_Cost_Length_ml1.png}
+
+%     \end{figure}
+% \end{frame}
 
 \subsection*{Iowa Results}
 \begin{frame}{Iowa: Utility}
     \begin{figure}
-        \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation 2/Iowa_Utility_Length_ml1.png}
+        % \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation 2/Iowa_Utility_Length_ml1.png}
+        \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation/Iowa_Average_Utility_CI.png}
     \end{figure}
 \end{frame}
 
@@ -373,7 +391,8 @@ Using the results from \cite{rockafellar2002conditional}, we get:
 \subsection*{Missouri Results}
 \begin{frame}{Missouri: Utility}
     \begin{figure}
-        \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation 2/Missouri_Utility_Length_ml1.png}
+        % \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation 2/Missouri_Utility_Length_ml1.png}
+        \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation/Missouri_Average_Utility_CI.png}
     \end{figure}
 \end{frame}
 
@@ -386,7 +405,8 @@ Using the results from \cite{rockafellar2002conditional}, we get:
 \subsection*{Indiana Results}
 \begin{frame}{Indiana: Utility}
     \begin{figure}
-        \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation 2/Indiana_Utility_Length_ml1.png}
+        % \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation 2/Indiana_Utility_Length_ml1.png}
+        \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation/Indiana_Average_Utility_CI.png}
     \end{figure}
 \end{frame}
 
@@ -478,6 +498,34 @@ Using the results from \cite{rockafellar2002conditional}, we get:
     \end{figure}
 \end{frame}
 
+\section*{Moving Forward}
+\begin{frame}{Things I was thinking about adding}
+    \begin{itemize}
+        \item Deep dive as to why my method does better, and when it does better?
+        \item Run the same evaluation but with shuffled data instead of having it orderd. 
+       \item I wanted to do more of a deep dive on the benefits of taking a portfolio approach, but not sure how beyond just looking at capital requirements. Maybe using an expected return and variance approach?
+        \item A robustness check on the stability of the solutions at different dataset lengths.
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Questions}
+    \begin{itemize}
+        \item What else should I report?
+        \item How can I strengthen this evaluation?
+       \item Any robustness checks I should add?
+        \item I feel like I should do a deep dive as to why the method does
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Thai Data}
+    \begin{itemize}
+        \item Plot-level losses caused by natural disasters between 2015-2022. 
+        \item I can access the raw data, and they can send me aggregate versions as well. There are around 7000 counties in Thailand, and around 80,000 villages, the data can be aggregated at both of those levels. 
+    \end{itemize}
+    
+\end{frame}
 
 \section*{Implementation Details}
 \begin{frame}{Loss Definition}

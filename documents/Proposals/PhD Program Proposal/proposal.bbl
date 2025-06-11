@@ -19,38 +19,6 @@
 
 \refsection{0}
   \datalist[entry]{ynt/global//global/global}
-    \entry{kielholz2000cost}{article}{}
-      \name{author}{1}{}{%
-        {{uniquename=0,uniquepart=base,hash=41f05fe04d5a44d8952f07682c83f9a1}{%
-           family={Kielholz},
-           familyi={K\bibinitperiod},
-           given={Walter},
-           giveni={W\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {JSTOR}%
-      }
-      \strng{namehash}{41f05fe04d5a44d8952f07682c83f9a1}
-      \strng{fullhash}{41f05fe04d5a44d8952f07682c83f9a1}
-      \strng{bibnamehash}{41f05fe04d5a44d8952f07682c83f9a1}
-      \strng{authorbibnamehash}{41f05fe04d5a44d8952f07682c83f9a1}
-      \strng{authornamehash}{41f05fe04d5a44d8952f07682c83f9a1}
-      \strng{authorfullhash}{41f05fe04d5a44d8952f07682c83f9a1}
-      \field{sortinit}{2}
-      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{The Geneva Papers on Risk and Insurance. Issues and Practice}
-      \field{number}{1}
-      \field{title}{The cost of capital for insurance companies}
-      \field{volume}{25}
-      \field{year}{2000}
-      \field{pages}{4\bibrangedash 24}
-      \range{pages}{21}
-    \endentry
     \entry{mapfumo2017risk}{book}{}
       \name{author}{3}{}{%
         {{uniquename=0,uniquepart=base,hash=c3c75e3e9b93f181d86a11c84beb09d3}{%
@@ -89,50 +57,6 @@
       \field{labeltitlesource}{title}
       \field{title}{Risk modeling for appraising named peril index insurance products: A Guide for practitioners}
       \field{year}{2017}
-    \endentry
-    \entry{barinov2020estimating}{article}{}
-      \name{author}{3}{}{%
-        {{uniquename=0,uniquepart=base,hash=92c86a9a4b1e8ce16e7da818f23a24f9}{%
-           family={Barinov},
-           familyi={B\bibinitperiod},
-           given={Alexander},
-           giveni={A\bibinitperiod},
-           givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=e106b052d53b6a902e810273e504d2ef}{%
-           family={Xu},
-           familyi={X\bibinitperiod},
-           given={Jianren},
-           giveni={J\bibinitperiod},
-           givenun=0}}%
-        {{uniquename=0,uniquepart=base,hash=5431a5d2902824cd5140864efdc0a3f1}{%
-           family={Pottier},
-           familyi={P\bibinitperiod},
-           given={Steven\bibnamedelima W},
-           giveni={S\bibinitperiod\bibinitdelim W\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {Wiley Online Library}%
-      }
-      \strng{namehash}{21c5e81d4f62769f5a7bd29dba860c3d}
-      \strng{fullhash}{21c5e81d4f62769f5a7bd29dba860c3d}
-      \strng{bibnamehash}{21c5e81d4f62769f5a7bd29dba860c3d}
-      \strng{authorbibnamehash}{21c5e81d4f62769f5a7bd29dba860c3d}
-      \strng{authornamehash}{21c5e81d4f62769f5a7bd29dba860c3d}
-      \strng{authorfullhash}{21c5e81d4f62769f5a7bd29dba860c3d}
-      \field{sortinit}{2}
-      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{year}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal of Risk and Insurance}
-      \field{number}{1}
-      \field{title}{Estimating the cost of equity capital for insurance firms with multiperiod asset pricing models}
-      \field{volume}{87}
-      \field{year}{2020}
-      \field{pages}{213\bibrangedash 245}
-      \range{pages}{33}
     \endentry
   \enddatalist
 \endrefsection

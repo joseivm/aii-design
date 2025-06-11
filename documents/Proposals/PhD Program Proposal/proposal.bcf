@@ -1975,9 +1975,7 @@
     <bcf:datasource type="file" datatype="bibtex">main.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">kielholz2000cost</bcf:citekey>
-    <bcf:citekey order="2">barinov2020estimating</bcf:citekey>
-    <bcf:citekey order="3">mapfumo2017risk</bcf:citekey>
+    <bcf:citekey order="1">mapfumo2017risk</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="ynt">
