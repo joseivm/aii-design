@@ -114,7 +114,7 @@ def create_multi_zone_data_old(zones, test_year, params, stratify=True, q=10, sa
     train_df = pd.concat(all_year_dfs, ignore_index=True)
     return train_df
 
-def create_multi_zone_data(pdf, sample=2000):
+def create_training_sample(pdf, sample=2000):
     ldf = load_loss_data()
     ldf = ldf.loc[ldf.Zone.isin(pdf.Zone.unique()),:]
     pdf = pdf.copy()
@@ -159,71 +159,6 @@ def create_multi_zone_data(pdf, sample=2000):
     return sample_df
 
 ##### Contract Design #####
-def optimization_program_old(pred_y,train_y,params):
-    # NOTE: we'll need to have two alphas and two omegas, one from simulated data and one from real data. 
-    # params: epsilon, pi_max, pi_min, beta_z, eps_p, c_k, K_z
-    # max_premium, max_payouts
-    eps_p = params['epsilon_p']
-    zone_sizes = params['S']
-    c_k = params['c_k']
-    max_premium = params['premium_ub']
-    max_payout = 1
-    market_loading = params['market_loading']
-    w_0 = params['w_0']
-    risk_coef = params['risk_coef']
-
-    if pred_y.ndim == 1:
-        pred_y = pred_y[:,np.newaxis]
-        train_y = train_y[:,np.newaxis]
-
-    n_samples = train_y.shape[0]
-    n_zones = train_y.shape[1]
-    S = np.tile(zone_sizes,(n_samples,1))
-    p = np.ones(n_samples)/n_samples
-
-    # contract vars
-    a = cp.Variable((1,n_zones))
-    b = cp.Variable((1,n_zones))
-    pi = cp.Variable(n_zones)
-
-    # cvar vars
-    t_k = cp.Variable()
-    gamma_p = cp.Variable(n_samples)
-
-    # approximation vars
-    alpha = cp.Variable((n_samples,n_zones)) # this should also be from simulated data
-    omega = cp.Variable((n_samples,n_zones)) # this should be from simulated data
-
-    K = cp.Variable()
-
-    constraints = []
-
-    # Portfolio CVaR constraint: CVaR(\sum_z I_z(\theta_z)) <= K^P + \sum_z E[I_z(\theta_Z)]
-    constraints.append(t_k + (1/eps_p)*(p @ gamma_p) <= K + (1/n_samples)*cp.sum(cp.multiply(S,omega))) # 5
-    constraints.append(gamma_p >= cp.sum(cp.multiply(S,alpha),axis=1) - t_k) # 6
-    constraints.append(gamma_p >= 0) # 7
-    constraints.append(omega <= cp.multiply(pred_y, a) - b) # 8
-    constraints.append(omega <= max_payout) # 9 
-    constraints.append(alpha >= cp.multiply(pred_y, a) - b) # 10
-    constraints.append(alpha >= 0) # 11
-
-    # premium definition and constraints
-    constraints.append(pi == (1/n_samples)*cp.sum(alpha,axis=0) + (1/np.sum(zone_sizes)*c_k*K))
-    constraints.append(max_premium >= market_loading*pi)
-    constraints.append(b >= 0)
-
-    # TODO: weight this by zone size
-    objective_expr = (1/(1 - risk_coef)) * (w_0 + 1 - train_y + omega - market_loading * cp.reshape(pi, (1, n_zones)))**(1 - risk_coef)
-    weighted_objective_expr = cp.multiply(S, objective_expr)
-    objective = cp.Maximize((1/n_samples) * cp.sum(weighted_objective_expr))
-    # objective = cp.Maximize((1/n_samples)*cp.sum((1/(1-risk_coef))*(
-    #     w_0 + 1 - train_y + omega - market_loading*cp.reshape(pi, (1, n_zones)))**(1-risk_coef)))
-    problem = cp.Problem(objective,constraints)
-    
-    problem.solve(max_iter=500)
-    
-    return (a.value[0], b.value[0])
-
 def optimization_program(simulated_preds: np.ndarray, sample_df: pd.DataFrame, params: dict):
     
     """
@@ -255,14 +190,18 @@ def optimization_program(simulated_preds: np.ndarray, sample_df: pd.DataFrame, p
     # 1) SIMULATED DATA BLOCK (premium & CVaR)
     # ----------------------------------------------------------------------------
     # Decision vars
-    a         = cp.Variable((1,Z))            # slope per zone
-    b         = cp.Variable((1,Z))            # intercept per zone
+    a         = cp.Variable(Z)            # slope per zone
+    b         = cp.Variable(Z)            # intercept per zone
+    a_row = cp.reshape(a, (1, Z))
+    b_row = cp.reshape(b, (1, Z))
+
     pi        = cp.Variable(Z)            # premium per zone
     t_k       = cp.Variable()             # CVaR auxiliary
     gamma     = cp.Variable(n_sim)        # CVaR auxiliary per sim
     alpha_sim = cp.Variable((n_sim, Z))   # spliced lower payouts per sim
     omega_sim = cp.Variable((n_sim, Z))   # spliced upper payouts per sim
     K         = cp.Variable()             # required capital
+    K_z       = cp.Variable(Z)
 
     # Exposures
     S_sim = np.tile(zone_sizes, (n_sim,1))   # (n_sim x Z)
@@ -283,18 +222,24 @@ def optimization_program(simulated_preds: np.ndarray, sample_df: pd.DataFrame, p
 
     # spliced definitions on simulated pred_y
     constraints += [
-        omega_sim <= cp.multiply(simulated_preds, a) - b,
+        omega_sim <= cp.multiply(simulated_preds, a_row) - b_row,
         omega_sim <= max_payout,
-        alpha_sim >= cp.multiply(simulated_preds, a) - b,
+        alpha_sim >= cp.multiply(simulated_preds, a_row) - b_row,
         alpha_sim >= 0
+    ]
+
+    constraints += [
+        cp.sum(K_z) == K,
+        K_z >= 0
     ]
 
     # premium definition & caps
     constraints += [
         pi == (1/n_sim)*cp.sum(alpha_sim, axis=0)
-              + (c_k/sumS)*K,
+      + cp.multiply(c_k / zone_sizes, K_z),
         max_premium >= market_loading*pi,
-        b >= 0
+        b >= 0,
+        (1/n_sim)*cp.sum(alpha_sim, axis=0) >= cp.multiply(c_k / zone_sizes, K_z) - 1e-8
     ]
 
     # ----------------------------------------------------------------------------
@@ -325,9 +270,9 @@ def optimization_program(simulated_preds: np.ndarray, sample_df: pd.DataFrame, p
 
         # spliced constraints on actual data
         constraints += [
-            omega_obj[z] <= a[0,iz]*pred_y_z - b[0,iz],
+            omega_obj[z] <= a[iz] * pred_y_z - b[iz],
             omega_obj[z] <= max_payout,
-            alpha_obj[z] >= a[0,iz]*pred_y_z - b[0,iz],
+            alpha_obj[z] >= a[iz] * pred_y_z - b[iz],
             alpha_obj[z] >= 0
         ]
 
@@ -346,9 +291,9 @@ def optimization_program(simulated_preds: np.ndarray, sample_df: pd.DataFrame, p
     objective = cp.Maximize(cp.sum(obj_terms))
 
     prob = cp.Problem(objective, constraints)
-    prob.solve(max_iter=500)
+    obj = prob.solve(max_iter=1000)
 
-    return a.value[0], b.value[0]
+    return a.value, b.value, K_z.value
 
 def add_opt_payouts(df, a, b, agg_level='Zone'):
     zdfs = []
@@ -392,9 +337,9 @@ def design_mz_contracts(params):
     # Load all predictions
     model_preds = load_all_zone_preds(zones, params)
     model_preds = model_preds.loc[model_preds.TestYear == test_year,:]
-    train_df = model_preds.loc[model_preds.Set == 'Train',:]
+    train_df = model_preds.loc[model_preds.Set == 'Val',:]
     test_df = model_preds.loc[model_preds.Set == 'Test',:]
-    mz_train_df = create_multi_zone_data(train_df, sample=1500)
+    mz_train_df = create_training_sample(train_df, sample=2000)
 
     # Get training preds
     sim_preds = simulate_zone_payouts(train_df,n_sim=2000)
@@ -407,11 +352,12 @@ def design_mz_contracts(params):
 
     # Design contracts
     # start = time.time()
-    a, b = optimization_program(sim_matrix, mz_train_df, params)
+    a, b, K_z = optimization_program(sim_matrix, mz_train_df, params)
     # end = time.time()
     # print(f"Runtime: {(end-start)/60}")
     a = {zone: val for zone, val in zip(zones, a)}
     b = {zone: val for zone, val in zip(zones, b)}
+    Ks = {zone: val/sum(K_z) for zone, val in zip(zones,K_z)}
 
     # Get test_preds
     sim_preds = pd.melt(sim_preds,id_vars='Year',var_name='Zone',value_name='PredLoss')
@@ -440,10 +386,11 @@ def design_mz_contracts(params):
     for zone in zones:
         contract_params[f"{zone}_a"] = np.round(a[zone],2)
         contract_params[f"{zone}_b"] = np.round(b[zone],2)
+        contract_params[f"{zone}_Kz"] = np.round(Ks[zone],3)
 
     # Save results to file
     param_df = pd.DataFrame([contract_params])
-    pdf_fname = os.path.join(payout_dir,f"contract_params.csv")
+    pdf_fname = os.path.join(payout_dir,f"contract_params_{test_year}.csv")
     param_df.to_csv(pdf_fname,index=False)
 
 def create_eval_df(payout_df, premiums, params):
@@ -492,6 +439,8 @@ def testing():
     ZONES = ['C1','C2','C3','N1','N2','N3','NE1','NE2','NE3','S1','S2']
     params = create_param_dict(ZONES,0.13,2017,alpha=1.5)
 
+
+# TODO: Add the if name == 'main' thing
 c_k = 0.02
 w_0 = 0.1
 alpha = 1.5

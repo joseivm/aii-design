@@ -1,3 +1,4 @@
-Method,RIB,RIB_OG,RIB_Diff,DeltaCE,MaxDeltaCE,Premium,Cost_II,Cost_PI,CapShare
-VMX,-0.850,-0.495,71.545,-3.199,3.765,0.030,0.022,0.027,0.152
-Chantarat,-0.169,-0.525,-67.829,-0.595,3.526,0.004,0.002,0.027,0.477
+Method,RIB,RIB_OG,ValidUtilityGain,DeltaCE,MaxDeltaCE,Premium,Cost_II,Cost_PI,CapShare
+VMX,-0.741,-0.400,0.506,-3.199,4.315,0.030,0.022,0.027,0.152
+RawPreds,-0.405,-0.394,0.642,-1.749,4.315,0.040,0.032,0.027,0.167
+Chantarat,-0.138,-0.407,0.848,-0.595,4.315,0.004,0.002,0.027,0.477

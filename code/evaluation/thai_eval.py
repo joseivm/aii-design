@@ -27,7 +27,8 @@ TEST_YEARS = np.arange(2015, 2023)
 
 ##### Data loading ##### 
 def load_payouts(method, c_k, w_0, alpha):
-    payout_dir = os.path.join(PAYOUTS_DIR, f"{method} ck{c_k} w{w_0} r{alpha}".replace('.',''))
+    pred_method = 'VMX' if method == 'RawPreds' else method
+    payout_dir = os.path.join(PAYOUTS_DIR, f"{pred_method} ck{c_k} w{w_0} r{alpha}".replace('.',''))
     payout_dfs = []
     for zone, year in itertools.product(ZONES, TEST_YEARS):
         fname = os.path.join(payout_dir,f"{zone}_{year}.csv")
@@ -44,7 +45,23 @@ def load_payouts(method, c_k, w_0, alpha):
         pdf['Premium'] = pdf.Premium.apply(lambda x: re.sub('[^0-9.]','',x))
         pdf['Premium'] = pdf.Premium.astype('float64')
 
+    pdf.loc[pdf.PredLoss < 0, 'PredLoss'] = 0
+    pdf.loc[pdf.PredLoss > 1, 'PredLoss'] = 1
+
+    if method == 'RawPreds':
+        pdf['Payout'] = pdf['PredLoss']
+
     return pdf
+
+def load_required_capital_shares(year, c_k, w_0, alpha):
+    payout_dir = os.path.join(PAYOUTS_DIR, f"VMX-M ck{c_k} w{w_0} r{alpha}".replace('.',''))
+    param_fpath = os.path.join(payout_dir,f"contract_params_{year}.csv")
+    pdf = pd.read_csv(param_fpath)
+    cols = [col for col in pdf.columns if 'Kz' in col]
+    pdf = pdf.loc[:,cols]
+    new_names = {col: col.split('_')[0] for col in cols}
+    pdf.rename(columns=new_names,inplace=True)
+    return pdf.squeeze(axis=0)
 
 def load_loss_data():
     fpath = os.path.join(PROJECT_DIR,'data','processed','Thailand_loss_data.csv')
@@ -54,8 +71,8 @@ def load_loss_data():
 
 ##### Evaluation #####
 def create_table(c_k, w_0, alpha):
-    metrics = ['Method','RIB','RIB_OG','RIB_Diff','DeltaCE','MaxDeltaCE','Premium','Cost_II','Cost_PI','CapShare']
-    methods = ['VMX','Chantarat','Chen']
+    metrics = ['Method','RIB','RIB_OG','ValidUtilityGain','DeltaCE','MaxDeltaCE','Premium','Cost_II','Cost_PI','CapShare']
+    methods = ['VMX','RawPreds','Chantarat','Chen']
     rdfs = []
     for method in methods:
         rdf = get_results(method, c_k, w_0, alpha)
@@ -68,8 +85,8 @@ def create_table(c_k, w_0, alpha):
     # return df[metrics]
 
 def create_mz_table(c_k, w_0, alpha):
-    metrics = ['Method','RIB','RIB_OG','RIB_Diff','DeltaCE','MaxDeltaCE','Premium','Cost_II','Cost_PI','CapShare']
-    methods = ['VMX-M','VMX','Chantarat','Chen']
+    metrics = ['Method','RIB','RIB_OG','ValidUtilityGain','DeltaCE','MaxDeltaCE','Premium','Cost_II','Cost_PI','CapShare']
+    methods = ['VMX-M','VMX','RawPreds','Chantarat','Chen']
     rdfs = []
     for method in methods:
         rdf = get_mz_results(method, c_k, w_0, alpha)
@@ -83,25 +100,23 @@ def create_mz_table(c_k, w_0, alpha):
 
 def get_results(method, c_k, w_0, alpha=3.5):
     pdf = load_payouts(method, c_k, w_0, alpha)
-    
-    for zone in pdf.Zone.unique():
-        zdf = pdf.loc[(pdf.Zone == zone),:]
-        rdf = performance_metrics(zdf, c_k, w_0, alpha=alpha)
-        worse = rdf['U_NI'] > rdf['U_PI']
-        # print(f"{zone}: DeltaCE:{rdf['DeltaCE']} Max {rdf['MaxDeltaCE']} RIB: {rdf['RIB']} Worse: {worse}")
 
-    # results = performance_metrics(pdf, c_k, w_0, alpha)
     rdf = performance_metrics(pdf, c_k, w_0, alpha)
     rdf['Method'] = method
     # print(f"Overall: DeltaCE:{rdf['DeltaCE']} Max {rdf['MaxDeltaCE']} RIB: {rdf['RIB']} ")
     return rdf
 
 def get_mz_results(method, c_k, w_0, alpha=2):
+    # if method is VMX i need to get the required capital shares and add them to premium_kwargs
     pdf = load_payouts(method, c_k, w_0, alpha)
     ldf = load_loss_data()
     zone_sizes = ldf.groupby(['Zone','Year'])['Weight'].sum().groupby('Zone').mean().loc[pdf.Zone.unique()]
+    premium_kwargs = {'zone_sizes':zone_sizes}
 
-    results = performance_metrics(pdf, c_k, w_0, alpha, premium_kwargs={'zone_sizes':zone_sizes})
+    if method == 'VMX-M':
+        premium_kwargs['cap_shares'] = True
+
+    results = performance_metrics(pdf, c_k, w_0, alpha, premium_kwargs)
     results['Method'] = method
     return results
 
@@ -117,10 +132,10 @@ def add_utility_metrics(df, w_0, alpha=1.5, subsidy=0):
     df['NI_Wealth'] = w_0 + 1 - df['Loss']
     df['NI_Utility'] = 1/(1-alpha)*df['NI_Wealth']**(1-alpha)
 
-    pi_premiums = df.groupby('Zone')['Loss'].mean().reset_index(name='PI_Premium')
-    df = df.merge(pi_premiums, on='Zone')
-    df['PI_Wealth'] = w_0 + 1 -df['PI_Premium']
-    df['PI_Utility'] = 1/(1-alpha)*df['PI_Wealth']**(1-alpha)
+    # pi_premiums = df.groupby('Zone')['Loss'].mean().reset_index(name='PI_Premium')
+    # df = df.merge(pi_premiums, on='Zone')
+    # df['PI_Wealth'] = w_0 + 1 -df['PI_Premium']
+    # df['PI_Utility'] = 1/(1-alpha)*df['PI_Wealth']**(1-alpha)
     return df
 
 def create_ii_df(payout_df, c_k, premium_kwargs):
@@ -133,6 +148,7 @@ def create_ii_df(payout_df, c_k, premium_kwargs):
             ydf = train_df.loc[train_df.TestYear == year,:]
             sim_preds = simulate_zone_payouts(ydf,payout_col='Payout',n_sim=2000, random_state=1)
             sim_preds = pd.melt(sim_preds,id_vars='Year',var_name='Zone',value_name='Payout')
+            sim_preds.loc[sim_preds.Payout > 1, 'Payout'] = 1
 
             for zone in df.Zone.unique():
                 zdf = ydf.loc[ydf.Zone == zone,:]
@@ -144,6 +160,9 @@ def create_ii_df(payout_df, c_k, premium_kwargs):
 
     else:
         for year in df.TestYear.unique():
+            if premium_kwargs.get('cap_shares') is not None:
+                cap_shares = load_required_capital_shares(year, c_k, w_0, alpha)
+                premium_kwargs['cap_shares'] = cap_shares
             ztrain = train_df.loc[(train_df.TestYear == year),:]
             premiums, cap_costs = calculate_mz_premiums(ztrain, c_k, **premium_kwargs)
             
@@ -157,6 +176,7 @@ def create_pi_df(payout_df, c_k, premium_kwargs):
     pi_df = payout_df.copy().drop(columns=['Premium'])
     pi_df['Payout'] = pi_df['Loss']
     test_df = pi_df.loc[pi_df.Set == 'Test',:].copy()
+    test_df['w'] = 1
 
     sim_preds = simulate_zone_payouts(test_df,payout_col='Payout',n_sim=2000, random_state=1)
     sim_preds = pd.melt(sim_preds,id_vars='Year',var_name='Zone',value_name='Payout')
@@ -196,7 +216,7 @@ def create_ii_og_df(payout_df, c_k, premium_kwargs):
     if premium_kwargs is None:
         for year in df.TestYear.unique():
             ydf = train_df.loc[train_df.TestYear == year,:]
-            sim_preds = simulate_zone_payouts(ydf,payout_col='Payout',n_sim=2000)
+            sim_preds = simulate_zone_payouts(ydf,payout_col='Payout',n_sim=2000, random_state=1)
             sim_preds = pd.melt(sim_preds,id_vars='Year',var_name='Zone',value_name='Payout')
 
             for zone in df.Zone.unique():
@@ -235,6 +255,14 @@ def performance_metrics(payout_df, c_k, w_0=0.1, alpha=1.5, premium_kwargs=None)
     rib_og = np.nan if max_delta_ce == 0 else delta_ce_og/max_delta_ce
     rib_diff = 100*(rib-rib_og)/rib_og
 
+    ii_df = add_utility_metrics(ii_df, w_0, alpha)
+    ii_df['UtilityDiff'] = ii_df['Utility'] - ii_df['NI_Utility']
+    ii_df['PosLoss'] = ii_df.Loss > 0
+    ii_df['UtilityGain'] = ii_df.UtilityDiff > 0
+    ii_df['WUtilityDiff'] = ii_df['Weight']*ii_df['UtilityDiff']
+    gdf = ii_df.groupby(['PosLoss','UtilityGain'])['WUtilityDiff'].sum()
+    utility_gain_shares = gdf/gdf.groupby('UtilityGain').sum()
+
     utility_ii = CRRA_utility(ii_df, w_0=w_0, alpha=alpha)
     utility_ii_og = CRRA_utility(ii_og_df, w_0=w_0, alpha=alpha)
     utility_ni = CRRA_utility(ni_df, w_0=w_0,alpha=alpha)
@@ -261,6 +289,7 @@ def performance_metrics(payout_df, c_k, w_0=0.1, alpha=1.5, premium_kwargs=None)
         'CE_II_OG': ce_ii_og,
         'CE_PI': ce_pi,
         'CapShare': cap_share,
+        'ValidUtilityGain': utility_gain_shares.get((True,True),0),
         # 'BetterOff': better_off,
         # 'MaxBetterOff': max_better_off,
         'Premium': ii_df['Premium'].mean(),
@@ -302,103 +331,90 @@ def calculate_sz_premium(payout_df, c_k, req_capital_df=None, subsidy=0):
         req_capital_df = payout_df.copy()
 
     payout_df = payout_df.copy()
-    payout_cvar = CVaR(req_capital_df,'Payout','Payout',0.01)
-    average_payout = req_capital_df.Payout.mean()
+    payout_cvar = CVaR(req_capital_df, loss_col='Payout', outcome_col='Payout', epsilon=0.01)
+    average_payout = req_capital_df['Payout'].mean()
     required_capital = payout_cvar-average_payout
     cost_of_capital = c_k*required_capital
     premium = payout_df.Payout.mean() + cost_of_capital
     return (1-subsidy)*premium, cost_of_capital
 
-def calculate_mz_premiums(df, c_k, zone_sizes, req_capital_df=None):
+def calculate_mz_premiums(df, c_k, zone_sizes, req_capital_df=None, cap_shares=None):
+    cap_df = req_capital_df if req_capital_df is not None else df
+    sim_preds = simulate_zone_payouts(cap_df, payout_col='Payout', n_sim=2000, random_state=1)
+    sim_preds = pd.melt(sim_preds, id_vars='Year', var_name='Zone', value_name='Payout')
+    sim_preds.loc[sim_preds.Payout > 1, 'Payout'] = 1
 
-    cap_df = (req_capital_df if req_capital_df is not None else df)
-        
-    sim_preds = simulate_zone_payouts(cap_df,payout_col='Payout',n_sim=2000, random_state=1)
-    sim_preds = pd.melt(sim_preds,id_vars='Year',var_name='Zone',value_name='Payout')
-    payouts = sim_preds.merge(zone_sizes,on='Zone')
-    payouts['TotalPayout'] = payouts['Payout']*payouts['Weight']
+    # Weight by zone size
+    payouts = sim_preds.merge(zone_sizes, on='Zone')
+    payouts['TotalPayout'] = payouts['Payout'] * payouts['Weight']
     annual_totals = payouts.groupby('Year')['TotalPayout'].sum().reset_index()
 
+    # Capital requirement
     payout_cvar = CVaR(annual_totals, 'TotalPayout', 'TotalPayout', 0.01)
-    average_payout = annual_totals['TotalPayout'].mean()
-    required_capital = payout_cvar - average_payout
-
-    # 5) total capital charge in dollars
+    avg_total_payout = np.average(annual_totals['TotalPayout'])
+    required_capital = payout_cvar - avg_total_payout
     C_tot = c_k * required_capital
 
     # 6) each zone’s average per‐unit payout
     avg_share = df.groupby('Zone')['Payout'].mean()
 
-    # 7) portfolio average dollar loss
+    # 7) portfolio average dollar payout
     #    = sum_z S_z * avg_share[z]
     L_avg = (zone_sizes * avg_share).sum()
 
 
     # 8) allocate capital per unit by zone’s loss‐share
     #    cost_per_unit[z] = C_tot * avg_share[z] / L_avg
-    cap_costs = (C_tot * avg_share) / L_avg
-    cap_costs.fillna(0,inplace=True)
+    if cap_shares is None:
+        cap_costs = (C_tot * avg_share) / L_avg
+        cap_costs.fillna(0,inplace=True)
+    
+    else:
+        cap_costs = (C_tot*cap_shares)/zone_sizes
+        cap_costs.fillna(0,inplace=True)
 
     # 9) build final premiums
-    premiums = {}
-    for z in zone_sizes.keys():
-        # zones with zero avg_share get zero total premium
-        if avg_share.get(z, 0.0) > 0:
-            premiums[z] = avg_share[z] + cap_costs[z]
-        else:
-            premiums[z] = 0.0
+    premiums = {
+        z: avg_share[z] + cap_costs[z] if avg_share[z] > 0 else 0.0
+        for z in zone_sizes.index
+    }
          
     return premiums, cap_costs
 
-def calculate_mz_premiums_old(df, c_k, zone_sizes):
-    # TODO: fix this, make it similar to the one in thai_mz_contract_design. We dont have
-    # a sim_df here, so consider making it using df. 
-    years = df.TestYear.unique()
-    df['WeightedPayout'] = df['Payout']*df['Weight']
-    total_payouts = []
-    for year in years: 
-        total_payout = df.loc[df.TestYear == year,'WeightedPayout'].sum()
-        total_payouts.append({'Year':year,'TotalPayout':total_payout})
+def CVaR(df, loss_col, outcome_col, epsilon=0.01, weight_col=None):
+    df = df.copy()
+    q = np.quantile(df[loss_col], 1 - epsilon)
+    tail_df = df[df[loss_col] >= q]
 
-    pdf = pd.DataFrame(total_payouts)
-
-    payout_cvar = CVaR(pdf, 'TotalPayout', 'TotalPayout', 0.01)
-    average_payout = pdf['TotalPayout'].mean()
-    required_capital = payout_cvar - average_payout
-
-    premiums = {}
-    for zone in df.Zone.unique():
-        premiums[zone] = df.loc[df.Zone == zone,'Payout'].mean() + c_k*required_capital/np.sum(zone_sizes)
-         
-    return premiums
-
-def CVaR(df,loss_col,outcome_col,epsilon=0.2,weight_col=None):
-    q = np.quantile(df[loss_col],1-epsilon)
     if weight_col is None:
-        cvar = df.loc[df[loss_col] >= q,outcome_col].mean()
+        return tail_df[outcome_col].mean()
     else:
-        cvar = df.loc[df[loss_col] >= q,outcome_col].sum()/df.loc[df[loss_col] >= q,weight_col].sum()
-    return cvar
+        return np.average(tail_df[outcome_col], weights=tail_df[weight_col])
 
 def debugging():
-    # TODO: re generate mz payouts, modify this so that it uses weighted utility
+
 
     w_0 = 0.1
     c_k = 0.02
     alpha = 1.5
-    df = load_payouts('VMX-M',c_k,w_0,alpha)
+    df = load_payouts('VMX',c_k,w_0,alpha)
+    df.loc[df.PredLoss < 0, 'PredLoss'] = 0
+    df['Payout'] = df['PredLoss']
+    df = df.loc[df.Set == 'Test',:]
     df = add_utility_metrics(df, w_0, alpha)
 
     df['UtilityDiff'] = df['Utility'] - df['NI_Utility']
     df['PosLoss'] = df.Loss > 0
     df['UtilityGain'] = df.UtilityDiff > 0
+    df['WUtilityDiff'] = df['Weight']*df['UtilityDiff']
 
-    df.groupby(['PosLoss','UtilityGain'])['UtilityDiff'].sum()
+    gdf = df.groupby(['PosLoss','UtilityGain'])['WUtilityDiff'].sum()
+    gdf/gdf.groupby('UtilityGain').sum()
 
 
 
 w_0 = 0.1
-method = 'VMX'
+method = 'VMX-M'
 alpha = 1.5
 c_k = 0.02
 
@@ -406,14 +422,11 @@ c_k = 0.02
 # fname = f"ck{c_k}_r{alpha}_w{w_0}".replace('.','')
 # df.to_latex(f"experiments/evaluation/Thailand/Test/{fname}_results.tex",index=False, float_format='%.3f')
 # for alpha in [1.1, 1.5, 2, 2.5, 3, 3.5]:
-    # print(f"Alpha: {alpha}")
-    # get_results('VMX',c_k,w_0,alpha)
-    # for c_k in [0.02]:
-    #     print(f"Alpha {alpha} C_k {c_k}")
-    #     create_table(c_k,w_0,alpha)
-    #     create_mz_table(c_k, w_0, alpha)
-        # fname = f"ck{c_k}_r{alpha}_w{w_0}".replace('.','')
-        # df.to_csv(f"experiments/evaluation/Thailand/Test/{fname}_results.csv",index=False, float_format='%.3f')
+#     for c_k in [0,0.02,0.04,0.05,0.06]:
+#         print(f"Alpha {alpha} C_k {c_k}")
+#         create_table(c_k,w_0,alpha)
+        # create_mz_table(c_k, w_0, alpha)
+
 
 
 create_table(c_k,w_0,alpha)

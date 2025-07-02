@@ -1,0 +1,210 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{ynt/global//global/global}
+    \entry{chantarat2013designing}{article}{}
+      \name{author}{4}{}{%
+        {{uniquename=0,uniquepart=base,hash=292239e6b081da51f6e4a1fc8f5b27fb}{%
+           family={Chantarat},
+           familyi={C\bibinitperiod},
+           given={Sommarat},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=a23eea872819f39c759087d09440458f}{%
+           family={Mude},
+           familyi={M\bibinitperiod},
+           given={Andrew\bibnamedelima G},
+           giveni={A\bibinitperiod\bibinitdelim G\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=09f0c6940cb6971e7a5f0b4fa591055a}{%
+           family={Barrett},
+           familyi={B\bibinitperiod},
+           given={Christopher\bibnamedelima B},
+           giveni={C\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=ff0ece1c5271addab59e185670250716}{%
+           family={Carter},
+           familyi={C\bibinitperiod},
+           given={Michael\bibnamedelima R},
+           giveni={M\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley Online Library}%
+      }
+      \strng{namehash}{603501074d77412b9565c935a4ff4a4c}
+      \strng{fullhash}{eaca3c28d1ea9aa8595ecda58acf9ed0}
+      \strng{bibnamehash}{603501074d77412b9565c935a4ff4a4c}
+      \strng{authorbibnamehash}{603501074d77412b9565c935a4ff4a4c}
+      \strng{authornamehash}{603501074d77412b9565c935a4ff4a4c}
+      \strng{authorfullhash}{eaca3c28d1ea9aa8595ecda58acf9ed0}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Risk and Insurance}
+      \field{number}{1}
+      \field{title}{Designing index-based livestock insurance for managing asset risk in northern Kenya}
+      \field{volume}{80}
+      \field{year}{2013}
+      \field{pages}{205\bibrangedash 237}
+      \range{pages}{33}
+    \endentry
+    \entry{mapfumo2017risk}{book}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,uniquepart=base,hash=c3c75e3e9b93f181d86a11c84beb09d3}{%
+           family={Mapfumo},
+           familyi={M\bibinitperiod},
+           given={Shadreck},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=97d584bee487daf46a4776a0edec4ddc}{%
+           family={Groenendaal},
+           familyi={G\bibinitperiod},
+           given={Huybert},
+           giveni={H\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=84c211c7f85e5b5d7b0ea8de1f7321dc}{%
+           family={Dugger},
+           familyi={D\bibinitperiod},
+           given={Chloe},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {World Bank Publications}%
+      }
+      \strng{namehash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{fullhash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{bibnamehash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{authorbibnamehash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{authornamehash}{ead503babda8eb93ba07b590a1032e5a}
+      \strng{authorfullhash}{ead503babda8eb93ba07b590a1032e5a}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Risk modeling for appraising named peril index insurance products: A Guide for practitioners}
+      \field{year}{2017}
+    \endentry
+    \entry{kenduiywo2021evaluating}{article}{}
+      \name{author}{4}{}{%
+        {{uniquename=0,uniquepart=base,hash=750072fab46ed4160a0d368e2d4b1039}{%
+           family={Kenduiywo},
+           familyi={K\bibinitperiod},
+           given={Benson\bibnamedelima K},
+           giveni={B\bibinitperiod\bibinitdelim K\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=ff0ece1c5271addab59e185670250716}{%
+           family={Carter},
+           familyi={C\bibinitperiod},
+           given={Michael\bibnamedelima R},
+           giveni={M\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=887a5a89b0d67de63a4a8f2c4bb7e1c6}{%
+           family={Ghosh},
+           familyi={G\bibinitperiod},
+           given={Aniruddha},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=5943b8adf8e45d04f2e102d4a67a5bb1}{%
+           family={Hijmans},
+           familyi={H\bibinitperiod},
+           given={Robert\bibnamedelima J},
+           giveni={R\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Public Library of Science San Francisco, CA USA}%
+      }
+      \strng{namehash}{1b9abefd7b535329791bc9eb1cfaeb0c}
+      \strng{fullhash}{13472348a6a56f87d375e4e7ac5dc631}
+      \strng{bibnamehash}{1b9abefd7b535329791bc9eb1cfaeb0c}
+      \strng{authorbibnamehash}{1b9abefd7b535329791bc9eb1cfaeb0c}
+      \strng{authornamehash}{1b9abefd7b535329791bc9eb1cfaeb0c}
+      \strng{authorfullhash}{13472348a6a56f87d375e4e7ac5dc631}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{PLoS One}
+      \field{number}{10}
+      \field{title}{Evaluating the quality of remote sensing products for agricultural index insurance}
+      \field{volume}{16}
+      \field{year}{2021}
+      \field{pages}{e0258215}
+      \range{pages}{-1}
+    \endentry
+    \entry{chen2023managing}{article}{}
+      \name{author}{4}{}{%
+        {{uniquename=0,uniquepart=base,hash=1c188b70e6b80d2d08dac214b2b05ec6}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Zhanhui},
+           giveni={Z\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=b1f5d85067635d59dd4bd60235b83b7d}{%
+           family={Lu},
+           familyi={L\bibinitperiod},
+           given={Yang},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=35e877ff3b96a8ea9fbd91ef61f31bf4}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Jinggong},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=c76d670b7057db762ed34e95c41f30ec}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Wenjun},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {INFORMS}%
+      }
+      \strng{namehash}{5715b76a76808ea761f29267135a416b}
+      \strng{fullhash}{032b992670bde1d9824ef9b26c8be763}
+      \strng{bibnamehash}{5715b76a76808ea761f29267135a416b}
+      \strng{authorbibnamehash}{5715b76a76808ea761f29267135a416b}
+      \strng{authornamehash}{5715b76a76808ea761f29267135a416b}
+      \strng{authorfullhash}{032b992670bde1d9824ef9b26c8be763}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Management Science}
+      \field{title}{Managing weather risk with a neural network-based index insurance}
+      \field{year}{2023}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

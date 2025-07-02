@@ -12,6 +12,7 @@ import itertools
 from sklearn.model_selection import train_test_split
 from tqdm import tqdm
 from thai_synthetic_data import simulate_single_zone_payouts
+from thai_mz_contract_design import create_training_sample
 
 from dotenv import load_dotenv, find_dotenv
 dotenv_path = find_dotenv()
@@ -31,11 +32,15 @@ MODELS_DIR = os.path.join(PREDICTIONS_DIR, 'model-preds')
 ZONES = ['C1','C2','C3','N1','N2','N3','NE1','NE2','NE3','S1','S2']
 TEST_YEARS = np.arange(2015, 2023)
 
+# TODO: Need to make sure that I take care of negative PredLoss here and everywhere (eval, mz contracts etc.)
+
 ##### Data Loading #####
 def load_model_predictions(model_name, zone, test_year):
     pred_dir = os.path.join(PREDICTIONS_DIR,'model-preds',model_name)
     pred_file = os.path.join(pred_dir,f"{zone}_{test_year}_preds.csv")
     pdf = pd.read_csv(pred_file)
+    pdf.loc[pdf.PredLoss < 0,'PredLoss'] = 0
+    pdf.loc[pdf.PredLoss > 1,'PredLoss'] = 1
     return pdf
 
 def load_loss_data(zone):
@@ -44,12 +49,7 @@ def load_loss_data(zone):
     df = df.loc[df.Zone == zone,:]
     return df.set_index('ObsID')
 
-def stratified_loss_sample(
-    df: pd.DataFrame,
-    n_samples: int,
-    loss_col: str = 'Loss',
-    random_state: int = None
-) -> pd.DataFrame:
+def stratified_loss_sample(df, n_samples,loss_col='Loss',random_state=None):
     """
     Stratified sampling of df into zero-loss and positive-loss strata, returning sample weights.
 
@@ -235,68 +235,9 @@ def optimization_program(simulated_preds: np.ndarray, sample_df: pd.DataFrame, p
     objective = cp.Maximize(cp.sum(obj_terms))
 
     prob = cp.Problem(objective, constraints)
-    prob.solve(max_iter=1000)
+    obj = prob.solve(max_iter=1000)
 
-    return a.value[0], b.value[0]
-
-def optimization_program_old(pred_y,train_y,params):
-    # params: epsilon, pi_max, pi_min, beta_z, eps_p, c_k, K_z
-    # max_premium, max_payouts
-    eps_p = params['epsilon_p']
-    zone_sizes = params['S']
-    c_k = params['c_k']
-    max_premium = params['premium_ub']
-    max_payout = 1
-    market_loading = params['market_loading']
-    w_0 = params['w_0']
-    risk_coef = params['risk_coef']
-
-    if pred_y.ndim == 1:
-        pred_y = pred_y[:,np.newaxis]
-        train_y = train_y[:,np.newaxis]
-
-    n_samples = train_y.shape[0]
-    n_zones = train_y.shape[1]
-    S = np.tile(zone_sizes,(n_samples,1))
-    p = np.ones(n_samples)/n_samples
-
-    # contract vars
-    a = cp.Variable(n_zones)
-    b = cp.Variable(n_zones)
-    pi = cp.Variable(n_zones)
-
-    # cvar vars
-    t_k = cp.Variable()
-    gamma_p = cp.Variable(n_samples)
-
-    # approximation vars
-    alpha = cp.Variable((n_samples,n_zones))
-    omega = cp.Variable((n_samples,n_zones))
-
-    K = cp.Variable()
-
-    constraints = []
-
-    # Portfolio CVaR constraint: CVaR(\sum_z I_z(\theta_z)) <= K^P + \sum_z E[I_z(\theta_Z)]
-    constraints.append(t_k + (1/eps_p)*(p @ gamma_p) <= K + (1/n_samples)*cp.sum(cp.multiply(S,omega))) # 5
-    constraints.append(gamma_p >= cp.sum(cp.multiply(S,alpha),axis=1) - t_k) # 6
-    constraints.append(gamma_p >= 0) # 7
-    constraints.append(omega <= cp.multiply(pred_y, a.T) - b.T) # 8
-    constraints.append(omega <= max_payout) # 9 
-    constraints.append(alpha >= cp.multiply(pred_y, a.T) - b.T) # 10
-    constraints.append(alpha >= 0) # 11
-
-    # premium definition and constraints
-    constraints.append(pi == (1/n_samples)*cp.sum(alpha,axis=0) + (1/np.sum(zone_sizes)*c_k*K))
-    constraints.append(max_premium >= market_loading*pi)
-    constraints.append(b >= 0)
-
-    objective = cp.Maximize((1/n_samples)*cp.sum((1/(1-risk_coef))*(w_0 + 1 - train_y + omega - market_loading*pi.T)**(1-risk_coef)))
-    problem = cp.Problem(objective,constraints)
-    
-    problem.solve()
-    
-    return (a.value, b.value)
+    return a.value[0], b.value[0], obj
 
 def chantarat_optimization(pred_y, eval_y):
     pred_losses = pred_y
@@ -320,29 +261,27 @@ def add_opt_payouts(odf, a, b):
     odf['Payout'] = np.maximum(0, odf['Payout'])
     return odf 
 
-def calculate_premium(payout_df, c_k, market_loading): 
-    payout_cvar = CVaR(payout_df,'Payout','Payout',0.01)
-    average_payout = payout_df['Payout'].mean()
-    required_capital = payout_cvar-average_payout
-    premium = average_payout + c_k*required_capital
-    return market_loading*premium, required_capital
-
 def calculate_sz_premium(payout_df, c_k, req_capital_df=None, subsidy=0): 
     if req_capital_df is None:
         req_capital_df = payout_df.copy()
 
     payout_df = payout_df.copy()
-    payout_cvar = CVaR(req_capital_df,'Payout','Payout',0.01)
-    average_payout = req_capital_df.Payout.mean()
+    payout_cvar = CVaR(req_capital_df, loss_col='Payout', outcome_col='Payout', epsilon=0.01)
+    average_payout = req_capital_df['Payout'].mean()
     required_capital = payout_cvar-average_payout
     cost_of_capital = c_k*required_capital
     premium = payout_df.Payout.mean() + cost_of_capital
     return (1-subsidy)*premium, cost_of_capital
 
-def CVaR(df,loss_col,outcome_col,epsilon=0.2):
-    q = np.quantile(df[loss_col],1-epsilon)
-    cvar = df.loc[df[loss_col] >= q,outcome_col].mean()
-    return cvar
+def CVaR(df, loss_col, outcome_col, epsilon=0.01, weight_col=None):
+    df = df.copy()
+    q = np.quantile(df[loss_col], 1 - epsilon)
+    tail_df = df[df[loss_col] >= q]
+
+    if weight_col is None:
+        return tail_df[outcome_col].mean()
+    else:
+        return np.average(tail_df[outcome_col], weights=tail_df[weight_col])
 
 ##### Cross-Validation #####
 def design_contracts(method, params):
@@ -354,6 +293,8 @@ def design_contracts(method, params):
 def design_VMX_contracts(params):
     zone, test_year = params['zone'], params['test_year']
     model_name, eval_set = params['model_name'], params['eval_set']
+    n_train = params['n_train']
+    n_sim = 2000
 
     # Load all predictions
     model_preds = load_model_predictions(model_name, zone, test_year)
@@ -369,17 +310,22 @@ def design_VMX_contracts(params):
         train_df = model_preds.loc[model_preds.Set == 'Val',:]
         train_df, test_df = train_test_split(train_df, test_size=0.5, random_state=2,stratify=train_df['Loss'] > 0)
 
-    sample_df = stratified_loss_sample(train_df, len(train_df))
-    sim_preds = simulate_single_zone_payouts(train_df, zone, n_sim=2000)
+    # n_train = np.maximum(n_train, train_df.shape[0])
+    sample_df = create_training_sample(train_df, n_train)
+    # print(f"Zone: {zone} Year: {test_year} Train_df {train_df.shape[0]} Sample_df {sample_df.shape[0]}")
+    # sample_df = stratified_loss_sample(train_df, n_train, random_state=42)
+    # sample_df = train_df.copy()
+    # sample_df['w'] = 1
+    sim_preds = simulate_single_zone_payouts(train_df, zone, n_sim=n_sim)
     sim_matrix = sim_preds['PredLoss'].to_numpy().reshape(-1,1)
 
     # Design contracts
-    a, b = optimization_program(sim_matrix, sample_df, params)
+    a, b, obj = optimization_program(sim_matrix, sample_df, params)
     opt_train_payouts = add_opt_payouts(train_df, a, b)
     sim_train_payouts = add_opt_payouts(sim_preds,a,b)
     opt_test_payouts = add_opt_payouts(test_df, a, b)
 
-    opt_test_premium, test_required_capital = calculate_sz_premium(opt_test_payouts,params['c_k'], sim_train_payouts)
+    # opt_test_premium, test_required_capital = calculate_sz_premium(opt_test_payouts,params['c_k'], sim_train_payouts)
     opt_train_premium, train_required_capital = calculate_sz_premium(opt_train_payouts,params['c_k'], sim_train_payouts)
 
     opt_eval_df = create_eval_df(opt_test_payouts, opt_train_premium, params['w_0'], params['risk_coef'])
@@ -391,10 +337,27 @@ def design_VMX_contracts(params):
         opt_train_df['Set'] = 'Train'
         opt_eval_df = pd.concat([opt_train_df,opt_eval_df],ignore_index=True)
         opt_eval_df['Zone'] = zone
-        payout_dir = os.path.join(RESULTS_DIR, eval_set, 'payouts', f"VMX ck{params['c_k']} w{params['w_0']} r{params['risk_coef']}".replace('.',''))
-        Path(payout_dir).mkdir(exist_ok=True,parents=True)
-        eval_df_filename = os.path.join(payout_dir, f"{zone}_{test_year}.csv")
-        opt_eval_df.to_csv(eval_df_filename,index=False,float_format = '%.3f')
+        if params['Debug']:
+            # print(f"Sample before saving: {sample_df.shape[0]}")
+            results = {'a': a, 'b': b, 'obj': obj, 'n_train': sample_df.shape[0], 'n_sim': n_sim, 
+                       'train_size': train_df.shape[0], 'loss_events': len(train_df.loc[train_df.Loss > 0,:]),
+                       'test_year': test_year}
+            results = {key: np.round(value,2) for key, value in results.items()}
+            results['Zone'] = zone
+            mdf = pd.DataFrame([results])
+            results_file = os.path.join(RESULTS_DIR, 'Stability',f"{params['Debug_name']}_results_{n_train}.csv")
+            if os.path.isfile(results_file):
+                rdf = pd.read_csv(results_file)
+            else: 
+                rdf = pd.DataFrame()
+            rdf = pd.concat([rdf,mdf],ignore_index=True)
+            rdf.to_csv(results_file,float_format = '%.3f',index=False)
+
+        else:
+            payout_dir = os.path.join(RESULTS_DIR, eval_set, 'payouts', f"VMX ck{params['c_k']} w{params['w_0']} r{params['risk_coef']}".replace('.',''))
+            Path(payout_dir).mkdir(exist_ok=True,parents=True)
+            eval_df_filename = os.path.join(payout_dir, f"{zone}_{test_year}.csv")
+            opt_eval_df.to_csv(eval_df_filename,index=False,float_format = '%.3f')
     
     else:
         results = performance_metrics(opt_eval_df, params['w_0'])
@@ -554,16 +517,6 @@ def create_eval_name(cd_method, model_name, params):
     eval_name = f"{cd_method}_{model_name}_ck{params['c_k']}_w{params['w_0']}_r{params['risk_coef']}"
     return eval_name.replace('.','')
 
-def get_eval_name(state, length, market_loading):
-    length = str(length)
-    pred_dir = os.path.join(RESULTS_DIR,state,'Test')
-    results_fname = os.path.join(pred_dir,f"results_{length}.csv")
-    rdf = pd.read_csv(results_fname)
-    rdf = rdf.loc[(rdf['Market Loading'] == market_loading) & (rdf['Method'] == 'Our Method'),:]
-    idx = rdf['Utility'].idxmax()
-    best_model = rdf.loc[idx, 'Eval Name']
-    return best_model
-
 def get_results():
     lengths = [i*10 for i in range(3,10)]
     rdfs = []
@@ -594,6 +547,25 @@ def generate_payouts(c_k, w_0, alpha, method):
 
     for params in tqdm(param_dicts):
         design_contracts(method, params)
+
+def stability_analysis(c_k, w_0, alpha, train_size):
+    method = 'VMX'
+    zones = ['N2','N3','NE1','NE2','NE3']
+    test_years = np.arange(2015,2023)
+    param_dicts = []
+    for zone in zones:
+        zone_model = get_best_model(zone, c_k, w_0, alpha, method)
+        for year in test_years:
+            param_dict = create_param_dict(zone_model, zone, year, 'Test', w_0, alpha, c_k)
+            param_dict['Debug'] = True
+            param_dict['Debug_name'] = 'solver'
+            param_dict['n_train'] = train_size
+            param_dicts.append(param_dict)
+
+    for i in range(30):
+        for params in tqdm(param_dicts):
+            design_contracts(method, params)
+
 
 def get_best_model(zone, c_k, w_0, alpha, method='VMX'):
     res_dir = os.path.join(RESULTS_DIR,'Val','full-results')
@@ -666,22 +638,6 @@ def concatenate_results():
         zone_files = [os.path.join(res_dir,f) for f in rfiles if '_'.join(f.split('_')[:-1]) in zrdf.Eval_Zone.values]
         [Path(f).unlink() for f in zone_files]
 
-def create_baseline_results():
-    res_dir = os.path.join(RESULTS_DIR,'Val','full-results')
-    rfiles = [f for f in os.listdir(res_dir) if '.csv' in f]
-    dfs = []
-    for f in rfiles:
-        fpath = os.path.join(res_dir,f)
-        df = pd.read_csv(fpath)
-        dfs.append(df)
-
-    df = pd.concat(dfs, ignore_index=True)
-    cols = ['DeltaCE','MaxDeltaCE', 'RIB','BetterOff','MaxBetterOff','Premium','Cost_II', 'Cost_PI','w_0','c_k','EvalName','Zone']
-    indices = df.groupby(['Zone','c_k','w_0'])['DeltaCE'].idxmax()
-    rdf = df.loc[indices, cols]
-    outpath = os.path.join(RESULTS_DIR,'baseline_results.csv')
-    rdf.to_csv(outpath,index=False, float_format='%.3f')
-
 def summarize_results(df, cols, groupby):
     df[cols] = df[cols].to_numpy()*df['Size'].to_numpy()[:,np.newaxis]
     rdf = df.groupby(groupby)[cols + ['Size']].sum().reset_index()
@@ -733,41 +689,10 @@ def check_existing_evaluations(zone, method):
 
     return set(current_combos)
 
-def create_model_param_dicts(model_name, test_years, eval_set='Val'):
-    zones = ['C1','C2','C3','N1','N2','N3','NE1','NE2','NE3','S1','S2']
-    base_dict = {'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 0.5, 'premium_ub':0.25,  
-            'risk_coef': 1.5, 'S': 1, 'market_loading': 1, 'model_name': model_name, 'eval_set': eval_set}
-    param_dicts = []
-    for zone, test_year in itertools.product(zones, test_years):
-        ndict = copy.deepcopy(base_dict)
-        ndict['zone'] = zone
-        ndict['test_year'] = test_year
-        param_dicts.append(ndict)
-
-def create_param_dicts(test_years, eval_set='Test'):
-    results_fname = os.path.join(PREDICTIONS_DIR,f"baseline_results.csv")
-    rdf = pd.read_csv(results_fname)
-    models = rdf.ModelName.unique()
-    regions = ['C1','C2','C3','N1','N2','N3','NE1','NE2','NE3','S1','S2']
-    # regions = ['NE1','NE2','NE3']
-    base_dict = {'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 0.5, 'premium_ub':0.25,  
-            'risk_coef': 1.5, 'S': 1, 'market_loading': 1}
-    param_dicts = []
-    for model in models:
-        for region in regions:
-            for year in test_years:
-                ndict = copy.deepcopy(base_dict)
-                ndict['model_name'] = model
-                ndict['zone'] = region
-                ndict['test_year'] = year
-                ndict['eval_set'] = eval_set
-                param_dicts.append(ndict)
-    return param_dicts
-
 def create_param_dict(model, zone, test_year, eval_set, w_0=0.1, alpha=3, c_k=0):
     params = {'epsilon_p': 0.01, 'c_k': c_k, 'subsidy': 0, 'w_0': w_0, 'premium_ub':0.25,  
             'risk_coef': alpha, 'S': [1], 'market_loading': 1, 'zone': zone, 'eval_set': eval_set,
-            'test_year': test_year, 'model_name': model}
+            'test_year': test_year, 'model_name': model, 'Debug': False, 'n_train': 1500}
     return params
 
 
@@ -775,25 +700,44 @@ w_0 = 0.1
 c_k = 0.02
 alpha = 1.5
 zones = ['N2','N3','NE1','NE2','NE3']
-generate_payouts(c_k, w_0, alpha, 'Chantarat')
+# generate_payouts(c_k, w_0, alpha, 'Chantarat')
 generate_payouts(c_k, w_0, alpha, 'VMX')
 # for alpha in [1.1,1.5,2,2.5,3,3.5]:
-    # for zone in zones:
-    #     run_model_selection_CV(zone, 'VMX', w_0, alpha, c_k)
-    #     run_model_selection_CV(zone, 'Chantarat', w_0, alpha, c_k)
+#     for zone in zones:
+#         run_model_selection_CV(zone, 'VMX', w_0, alpha, c_k)
+#         run_model_selection_CV(zone, 'Chantarat', w_0, alpha, c_k)
 
-    # concatenate_results()
-    # generate_payouts(c_k, w_0, alpha, 'Chantarat')
-    # generate_payouts(c_k, w_0, alpha, 'VMX')
-# create_baseline_results()
- 
+#     concatenate_results()
+#     generate_payouts(c_k, w_0, alpha, 'Chantarat')
+#     generate_payouts(c_k, w_0, alpha, 'VMX')
+# for train_size in np.arange(1500,4500,500):
+#     stability_analysis(c_k, w_0, alpha, train_size)
+#     df = pd.read_csv(f"experiments/evaluation/Thailand/Stability/solver_results_{train_size}.csv")
+#     summary = (
+#         df
+#         .groupby(['Zone','test_year'])
+#         .agg(
+#             a_mean=('a','mean'),
+#             a_std =('a','std'),
+#             b_mean=('b','mean'),
+#             b_std =('b','std'),
+#             N=('train_size','mean'),
+#             L=('loss_events','mean'),
+#             N_sample=('n_train','mean')
+#         )
+#         .assign(
+#             a_cv=lambda d: d.a_std/d.a_mean.abs(),
+#             b_cv=lambda d: d.b_std/d.b_mean.abs()
+#         )
+#         .reset_index()
+#     )
+#     sumsum = summary.groupby('Zone')[['a_cv','N','L','N_sample']].mean()
+#     sumsum.to_csv(f"experiments/evaluation/Thailand/Stability/{train_size}_results.csv")
+# print(summary)
+# print(summary.groupby('Zone')[['a_cv','N','L','N_sample']].mean())
 
 
-# ok, this is how it will be conceptually organized. This file will be for contract design and cross validation. 
-# there will be a separate file that will handle the evaluation on the test set. The current way of organizing the c_k's 
-# seems to be ok, the full results are all put into a single file. 
-
-# 1. Need to write a function that will select the best models for each zone for each c_k and then generate payouts for the
-# test set from these models. 
-# 2. I need to implement the evaluation file
-# 3. I need to implement the chantarat contract design thing too. 
+# I will be focused on figuring out if it's worth it to change this file to calculate the proper CE so that I can just
+# go ahead and save the contract parameters and the CE without having to save all of the payouts. I guess running it ten 
+# times and taking the average parameter values could help with stability. Not straightforward right now because I use the 
+# multi zone copula approach to generate the synthetic data to calculate sz premiums. 
