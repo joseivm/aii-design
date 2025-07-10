@@ -103,7 +103,7 @@ sorting=ynt
     \begin{itemize}
         \setlength\itemsep{1em}
         \item Index insurance uses a signal, $\theta$, to predict agricultural loss, $\hat{\ell}(\theta)$
-        \item Contract form: $I(\theta) = \min \left \{ \max \left \{a\hat{\ell}(\theta) - b,0 \right \}, 1 \right \}$, $a,b$ are the contract parameters.
+        \item Contract form: $I(\hat{\ell}(\theta)) = \min \left \{ \max \left \{a\hat{\ell}(\theta) - b,0 \right \}, 1 \right \}$, $a,b$ are the contract parameters.
         % \item Expected cost for insurer: $C(I(\theta)) = \mathbb{E}[I(\theta)] + c_{\kappa} K(I(\theta))$, where $c_{\kappa}$ is the cost of capital, and $K$ is required capital.
         % \item $K(I(\theta)) = CVaR_{1-\epsilon_P}\left ( I(\theta) \right ) - \mathbb{E}[I(\theta)]$.
     \end{itemize}
@@ -210,7 +210,7 @@ sorting=ynt
 
 \begin{frame}{Idealized Model}
 \begin{align}
-    \max_{a,b,\pi, K}  & \quad \mathbb{E} \left [ U\left ( w_0 - \ell - \pi + I(\theta) \right ) \right ] \label{cons-objective}\\
+    \max_{a,b,\pi, K}  & \quad \mathbb{E} \left [ U\left ( w_0 + 1 - \ell - \pi + I(\theta) \right ) \right ] \label{cons-objective}\\
     \text{s.t.} & \quad I(\theta) =  \min \left \{\max \left \{0,a\hat{\ell}(\theta) + b \right \}, 1 \right \}\label{cons-contract}\\
     & \quad \pi = \mathbb{E}\left [ I(\theta) \right ] + c_{\kappa} \left[ {\sf CVaR}_{1-\epsilon_K}\left ( I(\theta)\right )  - \mathbb{E}[I(\theta)]  \right] \\
     % & \quad \underline{f} \leq \mathbb{P}\left ( I(\theta) > 0 \right ) \leq \overline{f} \label{cons-frequency}\\
@@ -221,7 +221,7 @@ sorting=ynt
 
 \begin{frame}{Convex Relaxation}
     \begin{align}
-        \max_{a,b,K,\pi} &\quad \mathbb{E} \left [  U\left(w_0 - \ell - \pi  +  \underline{I(\theta)} \right) \right ]\label{eq-06}\\
+        \max_{a,b,K,\pi} &\quad \mathbb{E} \left [  U\left(w_0 + 1 - \ell - \pi  +  \underline{I(\theta)} \right) \right ]\label{eq-06}\\
         \text{s.t.} & \quad \overline{I(\theta)} = \max \left \{0,a\hat{\ell}(\theta) + b \right \} \nonumber\\
         & \quad \underline{I(\theta)} = \min \left \{a\hat{\ell}(\theta)+b,1 \right \} \nonumber\\
         & \quad \pi = \left (1-c_{\kappa} \right ) \mathbb{E} \left [ \overline{I(\theta)} \right ] + c_{\kappa} {\sf CVaR}_{1-\epsilon_K} \left( \overline{I(\theta)} \right) \label{eq-41}\\
@@ -243,9 +243,10 @@ sorting=ynt
 
 \begin{frame}{Multiple Zone Model}
     \begin{align}
-        \max_{a,b,K,\pi} &\quad \mathbb{E}\left [ \sum_z U\left ( w_{0,z} -\ell_z^j -\pi_z + I_z(\theta^j_z) \right ) \right ]\label{eq-33}\\
-        \text{s.t.} &\quad \pi_z  = \mathbb{E}\left [ \overline{I_z(\theta_z)} \right ] + \frac{c_{\kappa}}{\sum_z s_z}  K\\
+        \max_{a,b,K,\pi} &\quad \mathbb{E}\left [ \sum_z s_z U\left ( w_{0,z} + 1 -\ell_z^j -\pi_z + I_z(\theta^j_z) \right ) \right ]\label{eq-33}\\
+        \text{s.t.} &\quad \pi_z  = \mathbb{E}\left [ \overline{I_z(\theta_z)} \right ] + \frac{c_{\kappa}}{s_z}  K_z\\
         &\quad K = {\sf CVaR}_{1-\epsilon_K} \left ( \sum_z s_z\overline{I_z(\theta_z)} \right ) - \mathbb{E}\left [ \sum_{z} s_{z}\underline{I_{z}(\theta_{z'})} \right ] \label{eq-32}\\
+        &\quad K = \sum_z K_z\\
         % & \quad a_z\hat{\ell_{z}^{\underline{f}}} \leq b_z \leq a_z\hat{\ell_{z}^{\overline{f}}}\\
         &\quad \overline{I_z(\theta_z)} = \max \left \{0,a_z\hat{\ell_z}(\theta_z) + b_z \right \} \nonumber\\
         &\quad\underline{I_z(\theta_z)} = \min \left \{a_z\hat{\ell_z}(\theta_z)+b_z,1 \right \} \nonumber\\
@@ -337,13 +338,11 @@ sorting=ynt
     Here, the contract design and pricing for each zone happens independently of all other zones. 
     \begin{table}[]
         \centering
-        \small
-        \caption{Single Zone Results}
-        \begin{tabular}{llllll}
-        \textbf{Method} & \textbf{RIB}  & \textbf{Premium} & \textbf{Cost II} & \textbf{Cost PI} & \textbf{CapShare} \\
-        VMX       & 0.874   & 0.022 & 0.028 & 0.030 & 0.125 \\
-        Chantarat & -0.249  & 0.005 & 0.003 & 0.030 & 0.227 \\
-        Chen      & -8.797  & 0.096 & 0.061 & 0.030 & 0.257
+        \begin{tabular}{lllll}
+        \textbf{Method} & \textbf{RIB} & \textbf{Premium} & \textbf{Cost} & \textbf{Cost PI} \\ \hline
+        VMX             & 0.679        & 0.014            & 0.017         & 0.027            \\
+        Chantarat       & -0.244       & 0.004            & 0.002         & 0.027            \\
+        Chen            & -2.676       & 0.073            & 0.062         & 0.027           
         \end{tabular}
         \end{table}
     
@@ -352,13 +351,14 @@ sorting=ynt
 \begin{frame}{Single Zone Results Key Points}
     \begin{itemize}
         \setlength\itemsep{2em}
-        \item Our method achieves $67\%$ of the utility gains of perfect insurance. 
-        \item Has a lower percentage of the premium cost going to required capital. 
+        \item Our method achieves $68\%$ of the utility gains of perfect insurance. 
+        \item Has a much lower premium and cost than Chen's method. 
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Note on the value of $c_{\kappa}$}
     \begin{itemize}
+        \setlength\itemsep{2em}
         \item Potential value for farmers is highly dependent on $c_{\kappa}$ and risk aversion, $\alpha$
         \item For the most commonly used value of $\alpha$, farmers could only benefit from perfect insurane if $c_{\kappa}=0.02$.
         \item As risk aversion increases, the gains from perfect insurance increase. 
@@ -375,10 +375,58 @@ sorting=ynt
 
 
 \begin{frame}{Multi zone results}
-    \begin{itemize} 
-        \item Multi zone model performs worse than just optimizing contract for each zone independently :(
+    \begin{table}[]
+        \centering
+        \begin{tabular}{lllll}
+        \textbf{Method} & \textbf{RIB} & \textbf{Premium} & \textbf{Cost} & \textbf{Cost PI} \\ \hline
+        VMX-M           & 0.592        & 0.035            & 0.036         & 0.027            \\
+        VMX             & 0.524        & 0.014            & 0.017         & 0.027            \\
+        Chantarat       & -0.163       & 0.004            & 0.002         & 0.027            \\
+        Chen            & -1.909       & 0.074            & 0.062         & 0.027           
+        \end{tabular}
+        \end{table}
+    
+\end{frame}
+
+\begin{frame}{Insurance Behavior}
+    \begin{itemize}
+        \setlength\itemsep{2em}
+        \item Payout Precision: share of all payouts that are "valid". $P = \frac{\sum_{i: \hat{y_i} > 0} w_i \hat{y_i} \min \{\ell_i, \hat{y_i}\}}{\sum_{i: \hat{y_i} > 0} w_i \hat{y_i}}$
+        \item Loss Recall: ratio of valid payouts to loss. $R =  \frac{\sum_{i: \hat{y_i} > 0} w_i \hat{y_i} \min\{\ell_i, \hat{y_i}\}}{\sum_{i: \hat{y_i} > 0} w_i \ell_i}$
     \end{itemize}
     
+\end{frame}
+
+\begin{frame}{Insurance Behavior contd.}
+    \begin{itemize}
+        \item Utility gains relative to no insurance can happen when there is loss (insurance working properly) or when there is no loss (because the insurance incorrectly issued a payout).
+        \item Similarly, utility losses relative to no insurance can happen when there is no loss (due to farmers having to pay a premium) or when there is loss (because the insurance did not issue a payout).
+        \item Pct Valid Utility Gains: share of utility gains that happen when there is loss.
+        \item Pct Bad Utility Loss: share of utility losses that happen when there is loss. 
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Insurance Behavior Results}
+    \begin{table}[]
+        \centering
+        \small
+        \begin{tabular}{llllll}
+        Method    & RIB    & Payout Precision & Loss Recall & Valid Gain & Bad Loss \\ \hline
+        VMX-M     & 0.592  & 0.184            & 0.211       & 0.390          & 0.334        \\
+        VMX       & 0.524  & 0.207            & 0.128       & 0.379          & 0.431        \\
+        Chantarat & -0.163 & 0.338            & 0.021       & 0.594          & 0.465        \\
+        Chen      & -1.909 & 0.173            & 0.298       & 0.329          & 0.440       
+        \end{tabular}
+        \end{table}
+\end{frame}
+
+\begin{frame}{Summary of results}
+    \begin{itemize}
+        \item Our method leads to larger utility gains.
+        \item Has more efficient behavior. 
+        \item Lower cost.
+    \end{itemize}
 \end{frame}
 
 \section{US Midwest Evaluation}

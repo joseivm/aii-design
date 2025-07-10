@@ -44,6 +44,7 @@ def load_payouts(method, c_k, w_0, alpha):
         pdf['PredLoss'] = pdf['Payout']
         pdf['Premium'] = pdf.Premium.apply(lambda x: re.sub('[^0-9.]','',x))
         pdf['Premium'] = pdf.Premium.astype('float64')
+        pdf = pdf.round(3)
 
     pdf.loc[pdf.PredLoss < 0, 'PredLoss'] = 0
     pdf.loc[pdf.PredLoss > 1, 'PredLoss'] = 1
@@ -71,8 +72,8 @@ def load_loss_data():
 
 ##### Evaluation #####
 def create_table(c_k, w_0, alpha):
-    metrics = ['Method','RIB','RIB_OG','ValidUtilityGain','DeltaCE','MaxDeltaCE','Premium','Cost_II','Cost_PI','CapShare']
-    methods = ['VMX','RawPreds','Chantarat','Chen']
+    metrics = ['Method','RIB','PayoutPrecision','LossRecall','LossUtilityGain','LossUtilityLoss','DeltaCE','MaxDeltaCE','Premium','Premium_PI','Cost_II','Cost_PI','CapShare']
+    methods = ['VMX','Chantarat','Chen']
     rdfs = []
     for method in methods:
         rdf = get_results(method, c_k, w_0, alpha)
@@ -85,8 +86,8 @@ def create_table(c_k, w_0, alpha):
     # return df[metrics]
 
 def create_mz_table(c_k, w_0, alpha):
-    metrics = ['Method','RIB','RIB_OG','ValidUtilityGain','DeltaCE','MaxDeltaCE','Premium','Cost_II','Cost_PI','CapShare']
-    methods = ['VMX-M','VMX','RawPreds','Chantarat','Chen']
+    metrics = ['Method','RIB','PayoutPrecision','LossRecall','LossUtilityGain','LossUtilityLoss','DeltaCE','MaxDeltaCE','Premium','Premium_PI','Cost_II','Cost_PI','CapShare']
+    methods = ['VMX-M','VMX','Chantarat','Chen']
     rdfs = []
     for method in methods:
         rdf = get_mz_results(method, c_k, w_0, alpha)
@@ -239,6 +240,8 @@ def create_ii_og_df(payout_df, c_k, premium_kwargs):
 
 def performance_metrics(payout_df, c_k, w_0=0.1, alpha=1.5, premium_kwargs=None):
     ii_df = create_ii_df(payout_df, c_k, premium_kwargs)
+    if premium_kwargs is not None:
+        premium_kwargs['cap_shares'] = None
     ni_df = create_ni_df(payout_df)
     pi_df = create_pi_df(payout_df, c_k, premium_kwargs)
     ii_og_df = create_ii_og_df(payout_df, c_k, premium_kwargs)
@@ -247,7 +250,7 @@ def performance_metrics(payout_df, c_k, w_0=0.1, alpha=1.5, premium_kwargs=None)
     ce_ii_og = certainty_equivalent(ii_og_df, w_0=w_0, alpha=alpha)
     ce_ni = certainty_equivalent(ni_df, w_0=w_0, alpha=alpha)
     ce_pi = certainty_equivalent(pi_df, w_0=w_0, alpha=alpha)
-    
+
     delta_ce = 100*(ce_ii - ce_ni)/ce_ni
     delta_ce_og = 100*(ce_ii_og - ce_ni)/ce_ni
     max_delta_ce = 100*(ce_pi - ce_ni)/ce_ni
@@ -263,6 +266,11 @@ def performance_metrics(payout_df, c_k, w_0=0.1, alpha=1.5, premium_kwargs=None)
     gdf = ii_df.groupby(['PosLoss','UtilityGain'])['WUtilityDiff'].sum()
     utility_gain_shares = gdf/gdf.groupby('UtilityGain').sum()
 
+    ii_df['ValidPayout'] = np.minimum(ii_df['Loss'], ii_df['Payout'])
+    ii_df['WValidPayout'] = ii_df['Weight']*ii_df['ValidPayout']
+    ii_df['WPayout'] = ii_df['Weight']*ii_df['Payout']
+    ii_df['WLoss'] = ii_df['Weight']*ii_df['Loss']
+
     utility_ii = CRRA_utility(ii_df, w_0=w_0, alpha=alpha)
     utility_ii_og = CRRA_utility(ii_og_df, w_0=w_0, alpha=alpha)
     utility_ni = CRRA_utility(ni_df, w_0=w_0,alpha=alpha)
@@ -275,6 +283,9 @@ def performance_metrics(payout_df, c_k, w_0=0.1, alpha=1.5, premium_kwargs=None)
     metrics_dict = {
         'DeltaU': 100*(utility_ii - utility_ni)/np.abs(utility_ni),
         'MaxDeltaU': 100*(utility_pi - utility_ni)/np.abs(utility_ni),
+        'PayoutPrecision': ii_df['WValidPayout'].sum()/ii_df['WPayout'].sum(),
+        'LossRecall': ii_df['WValidPayout'].sum()/ii_df['WLoss'].sum(),
+        'AveragePayout': ii_df['Payout'].mean(),
         'U_II': utility_ii,
         'U_NI': utility_ni,
         'U_II_OG': utility_ii_og,
@@ -289,10 +300,13 @@ def performance_metrics(payout_df, c_k, w_0=0.1, alpha=1.5, premium_kwargs=None)
         'CE_II_OG': ce_ii_og,
         'CE_PI': ce_pi,
         'CapShare': cap_share,
-        'ValidUtilityGain': utility_gain_shares.get((True,True),0),
+        'CapShare_PI': (pi_df.loc[pi_df.Premium > 0,'CapCost']/pi_df.loc[pi_df.Premium > 0,'Premium']).mean(),
+        'LossUtilityGain': utility_gain_shares.get((True,True),0),
+        'LossUtilityLoss': utility_gain_shares.get((True,False),0),
         # 'BetterOff': better_off,
         # 'MaxBetterOff': max_better_off,
-        'Premium': ii_df['Premium'].mean(),
+        'Premium': ii_df['Premium'].mean(), # should this be weighted?
+        'Premium_PI': pi_df['Premium'].mean(),
         'Cost_II': ii_df['Payout'].mean(),
         'Cost_PI': pi_df['Loss'].mean(),
         'Size' : len(ii_df),

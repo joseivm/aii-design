@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  1 JUL 2025 11:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  10 JUL 2025 11:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1027,7 +1027,7 @@ Package pdftex.def Info: ../../../output/figures/Our Method Flowchart.png  used 
 <thai_summary_stats.png, id=351, 1106.1325pt x 660.4675pt>
 File: thai_summary_stats.png Graphic file (type png)
 <use thai_summary_stats.png>
-Package pdftex.def Info: thai_summary_stats.png  used on input line 294.
+Package pdftex.def Info: thai_summary_stats.png  used on input line 295.
 (pdftex.def)             Requested size: 342.2953pt x 204.38pt.
  [21
 
@@ -1035,7 +1035,7 @@ Package pdftex.def Info: thai_summary_stats.png  used on input line 294.
 <disaster_map.png, id=359, 506.89375pt x 488.82625pt>
 File: disaster_map.png Graphic file (type png)
 <use disaster_map.png>
-Package pdftex.def Info: disaster_map.png  used on input line 301.
+Package pdftex.def Info: disaster_map.png  used on input line 302.
 (pdftex.def)             Requested size: 205.37926pt x 198.05559pt.
  [22
 
@@ -1065,7 +1065,7 @@ Overfull \vbox (1.48013pt too high) detected at line 374
 
  <../../../output/figures/Feedback/MaxDeltaCE.png>] [30
 
-] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.toc) [31
+] [31
 
 ] [32
 
@@ -1073,7 +1073,7 @@ Overfull \vbox (1.48013pt too high) detected at line 374
 
 ] [34
 
-] [35
+] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.toc) [35
 
 ] [36
 
@@ -1083,73 +1083,81 @@ Overfull \vbox (1.48013pt too high) detected at line 374
 
 ] [39
 
-]
-<../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png, id=488, 463.2507pt x 361.35pt>
-File: ../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png Graphic file (type png)
-<use ../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png>
-Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png  used on input line 524.
-(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
- [40
+] [40
 
- <../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png>]
-<../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png, id=496, 463.2507pt x 361.35pt>
-File: ../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png Graphic file (type png)
-<use ../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png>
-Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png  used on input line 530.
-(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
- [41
+] [41
 
- <../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png>] [42
+] [42
 
 ] [43
 
-] [44
+]
+<../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png, id=514, 463.2507pt x 361.35pt>
+File: ../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png Graphic file (type png)
+<use ../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png>
+Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png  used on input line 572.
+(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
+ [44
 
-] [45
+ <../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png>]
+<../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png, id=522, 463.2507pt x 361.35pt>
+File: ../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png Graphic file (type png)
+<use ../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png>
+Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png  used on input line 578.
+(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
+ [45
 
-] [46
+ <../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png>] [46
 
 ] [47
 
 ] [48
 
+] [49
+
+] [50
+
+] [51
+
+] [52
+
 ]
-<../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png, id=547, 463.2507pt x 361.35pt>
+<../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png, id=574, 463.2507pt x 361.35pt>
 File: ../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png Graphic file (type png)
 <use ../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png>
-Package pdftex.def Info: ../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png  used on input line 600.
+Package pdftex.def Info: ../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png  used on input line 648.
 (pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
- [49
+ [53
 
  <../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png>]
-<../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png, id=557, 463.2507pt x 361.35pt>
+<../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png, id=582, 463.2507pt x 361.35pt>
 File: ../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png Graphic file (type png)
 <use ../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png>
-Package pdftex.def Info: ../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png  used on input line 607.
+Package pdftex.def Info: ../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png  used on input line 655.
 (pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
- [50
+ [54
 
  <../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png>]
-<../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png, id=565, 463.2507pt x 361.35pt>
+<../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png, id=590, 463.2507pt x 361.35pt>
 File: ../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png Graphic file (type png)
 <use ../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png>
-Package pdftex.def Info: ../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png  used on input line 614.
+Package pdftex.def Info: ../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png  used on input line 662.
 (pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
- [51
+ [55
 
  <../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png>]
-<../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png, id=573, 463.2507pt x 361.35pt>
+<../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png, id=599, 463.2507pt x 361.35pt>
 File: ../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png Graphic file (type png)
 <use ../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png>
-Package pdftex.def Info: ../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png  used on input line 621.
+Package pdftex.def Info: ../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png  used on input line 669.
 (pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
- [52
+ [56
 
- <../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png>] [53
+ <../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png>] [57
 
- </usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamericonarticle.pdf>] [54
+ </usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamericonarticle.pdf>] [58
 
-] [55
+] [59
 
 ]
 \tf@nav=\write8
@@ -1161,30 +1169,30 @@ Package pdftex.def Info: ../../../output/figures/Chen Premium/Indiana_Utility_Le
 \tf@snm=\write10
 \openout10 = `presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 684.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 684.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 732.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 732.
  (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 684.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 684.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 732.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 732.
 Package rerunfilecheck Info: File `presentation.out' has not changed.
-(rerunfilecheck)             Checksum: 6B2BC782561CB79CA5D84A775A11D904;1597.
+(rerunfilecheck)             Checksum: C2D76444400A3EF89DB117ABD0A6C5D7;1597.
 Package logreq Info: Writing requests to 'presentation.run.xml'.
 \openout1 = `presentation.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 25147 strings out of 492649
- 482699 string characters out of 6129622
- 893351 words of memory out of 5000000
- 28393 multiletter control sequences out of 15000+600000
+ 25161 strings out of 492649
+ 482818 string characters out of 6129622
+ 894351 words of memory out of 5000000
+ 28399 multiletter control sequences out of 15000+600000
  16778 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,16n,63p,899b,1272s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.pdf" (55 pages, 730714 bytes).
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on "/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.pdf" (59 pages, 743426 bytes).
 PDF statistics:
- 700 PDF objects out of 1000 (max. 8388607)
- 580 compressed objects within 6 object streams
- 150 named destinations out of 1000 (max. 500000)
+ 731 PDF objects out of 1000 (max. 8388607)
+ 605 compressed objects within 7 object streams
+ 158 named destinations out of 1000 (max. 500000)
  356 words of extra memory for PDF output out of 10000 (max. 10000000)
 
