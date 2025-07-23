@@ -6,8 +6,13 @@
 \graphicspath{{../../../output/figures/Presentation/}}
 \usepackage{wrapfig}
 \usepackage{subcaption}
-\usepackage{booktabs,bbm}
+\usepackage{booktabs}
 \usepackage[space]{grffile}
+\usepackage{amsmath,amssymb,bbm}
+\def\Min{\mathop{\rm Min}}
+\def\Max{\mathop{\rm Max}}
+\def\bbe{{\Bbb{E}}}
+\def\bbe{{\Bbb{E}}}
 % \usepackage[square,numbers]{natbib}
 %\bibliographystyle{unsrtnat}
 
@@ -46,6 +51,14 @@ sorting=ynt
 \beamertemplatenavigationsymbolsempty
 \frame{\titlepage}
 \section{Introduction}
+\begin{frame}{Quick Updates}
+    \begin{itemize}
+        \setlength\itemsep{1em}
+        \item I ran the analysis with the Thai data and got positive results for both the single zone and multi zone case.
+        \item I added a proof that the multi-zone problem is a relaxation of the single zone problem. 
+        \item I talked to XY, Rad, and a potential 4th committee member. 
+    \end{itemize}
+\end{frame}
 
 % \subsection*{The Problem of Agricultural Risk}
 % \begin{frame}{The Problem of Agricultural Risk}
@@ -237,21 +250,84 @@ sorting=ynt
         K &= \textsf{CVaR}_{1-\epsilon} \left ( \sum_z s_z I_z(\hat{\ell_z}) \right ) - \mathbb{E}\left [\sum_z s_z I_z(\hat{\ell_z}) \right ]
     \end{align*}
 
-    The first term will be affected by the correlation of losses across zones, so the optimal contracts will vary depending on this correlation. 
+    The first term will be affected by the correlation of losses across zones, so the optimal contracts will vary depending on this correlation. There are also additional decision variables $k_z$. 
     
 \end{frame}
 
 \begin{frame}{Multiple Zone Model}
     \begin{align}
-        \max_{a,b,K,\pi} &\quad \mathbb{E}\left [ \sum_z s_z U\left ( w_{0,z} + 1 -\ell_z^j -\pi_z + I_z(\theta^j_z) \right ) \right ]\label{eq-33}\\
-        \text{s.t.} &\quad \pi_z  = \mathbb{E}\left [ \overline{I_z(\theta_z)} \right ] + \frac{c_{\kappa}}{s_z}  K_z\\
-        &\quad K = {\sf CVaR}_{1-\epsilon_K} \left ( \sum_z s_z\overline{I_z(\theta_z)} \right ) - \mathbb{E}\left [ \sum_{z} s_{z}\underline{I_{z}(\theta_{z'})} \right ] \label{eq-32}\\
-        &\quad K = \sum_z K_z\\
+        \max_{a,b,K,\pi} &\quad \mathbb{E}\left [ \sum_z s_z U\left ( w_{0,z} + 1 -\ell_z^j -\pi_z + I_z(\theta^j_z) \right ) \right ]\nonumber\\
+        \text{s.t.} &\quad \pi_z  = \mathbb{E}\left [ \overline{I_z(\theta_z)} \right ] + \frac{c_{\kappa}}{s_z}  k_z\\
+        &\quad K = {\sf CVaR}_{1-\epsilon_K} \left ( \sum_z s_z\overline{I_z(\theta_z)} \right ) - \mathbb{E}\left [ \sum_{z} s_{z}\underline{I_{z}(\theta_{z'})} \right ]\\
+        &\quad K = \sum_z k_z\\
+        &\quad\pi_z \leq \overline{\pi_z}\\
         % & \quad a_z\hat{\ell_{z}^{\underline{f}}} \leq b_z \leq a_z\hat{\ell_{z}^{\overline{f}}}\\
         &\quad \overline{I_z(\theta_z)} = \max \left \{0,a_z\hat{\ell_z}(\theta_z) + b_z \right \} \nonumber\\
-        &\quad\underline{I_z(\theta_z)} = \min \left \{a_z\hat{\ell_z}(\theta_z)+b_z,1 \right \} \nonumber\\
-        &\quad\pi_z \leq \overline{\pi_z} \nonumber.
+        &\quad\underline{I_z(\theta_z)} = \min \left \{a_z\hat{\ell_z}(\theta_z)+b_z,1 \right \} \nonumber
       \end{align}
+\end{frame}
+
+\subsection{Single-zone vs Multi-zone}
+\begin{frame}{Single-zone vs Multi-zone}
+  \begin{itemize}
+    \setlength\itemsep{2em}
+    \item $P1(z)$ - optimization program that designs contract for zone $z$ independently of other zones. 
+    \item $P2$ - multi-zone optimization program. 
+    \item Let $P1(z)^*$ be the optimal value of $P1$ on zone $z$ and let $P2^*$ be the optimal value of $P2$. We want to compare $\sum_z P1(z)^*$ and $P2$.
+    \item We will show that $P2$ is a relaxation of running $P1$ for all zones and taking the sum. I.e. $P2^* \geq \sum_z P1(z)^*$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{SZ vs MZ: Constructing a solution}
+    \begin{itemize}
+        \setlength\itemsep{2em}
+        \item Let $\mathbf{a^{SZ}} = (a^{SZ}_1,...,a^{SZ}_Z)$ and $\mathbf{b^{SZ}} = (b^{SZ}_1,...,b^{SZ}_Z)$ be the optimal values of $a,b$ obtained from running $P1(z)$ for every zone, and let $ {\pmb \pi^{SZ}} = (\pi^{SZ}_1,...,\pi^{SZ}_Z)$ and $\mathbf{K^{SZ}} = (K^{SZ}_1,...,K^{SZ}_Z)$ be the corresponding values of $\pi$ and $K$ implied by $a$ and $b$ in each case.
+        \item We denote our proposed solution for $P2$ with the superscript $MZ$.
+        \item We set $\mathbf{a^{MZ}} = \mathbf{a^{SZ}}$ and $\mathbf{b^{MZ}} = \mathbf{b^{SZ}}$ and $\overline{K^{SZ}} = \sum_z s_z K^{SZ}_z$.
+        \item Let $K^{MZ}$ be the value of $K$ in $P2$ implied by our proposed $\mathbf{a^{MZ}}$ and $\mathbf{b^{MZ}}$. Define $\Delta K = \overline{K^{SZ}} - K^{MZ}$. Set $k_z^{MZ} = s_z K^{SZ}_z - \frac{\Delta K}{|Z|}$.
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{SZ vs MZ: Feasiblity}
+  
+   Constraints (7) and (8) hold automatically. Want to check $\sum_z k_z = K^{MZ}$.
+
+    \begin{align*}
+    \sum_z k^{MZ}_z &= \sum_z (s_z K^{SZ}_z - \frac{\Delta K}{|Z|} )\\
+    &= \sum_z s_z K^{SZ}_z - (\overline{K^{SZ}} - K^{MZ}) \\
+    &= K^{MZ}
+    \end{align*}
+
+    
+\end{frame}
+
+\begin{frame}{SZ vs MZ: Feasiblity}
+    Need to verify $\pi_z \leq \overline{\pi_z}$ for all $z$. 
+    \begin{align*}
+    \pi^{SZ}_z &= \bbe \left [ I_z(\hat{\ell_z}) \right ] + c_{\kappa} K^{SZ}_z\\
+    &= \bbe \left [ I_z(\hat{\ell_z}) \right ] + \frac{c_{k}}{s_z}s_z K^{SZ}_z \\
+    \pi^{MZ}_z &= \bbe \left [ I_z(\hat{\ell_z}) \right ] +  \frac{c_{\kappa}}{s_z} k^{MZ}_z\\
+    &= \bbe \left [ I_z(\hat{\ell_z}) \right ] +  \frac{c_{\kappa}}{s_z} (s_z K^{SZ}_z - \frac{\Delta K}{|Z|})
+\end{align*}
+
+Constraint will be satisfied if $\Delta K \geq 0$ 
+\end{frame}
+
+\begin{frame}{$\Delta K \geq 0$}
+    \begin{align*}
+        \Delta K &= \overline{K^{SZ}} - K^{MZ}\\
+        \overline{K^{SZ}} &= \sum_z s_z K^{SZ}_z \\
+        &= \sum_z s_z \left [ {\sf CVaR}(I_z(\hat{\ell_z}) ) - \bbe \left [ I_z(\hat{\ell_z})  \right ] \right ] \\
+        &= \sum_z {\sf CVaR}(s_z I_z(\hat{\ell_z}) ) - \bbe \left [ \sum_z s_z I_z(\hat{\ell_z})  \right ] \\
+        &\geq {\sf CVaR} \left (\sum_z s_z I_z(\hat{\ell_z}) \right ) - \bbe \left [ \sum_z s_z I_z(\hat{\ell_z})  \right ] \\
+        &= K^{MZ}
+    \end{align*}
+\end{frame}
+
+\begin{frame}{SZ vs MZ Conclusion}
+    $\ell_z, \hat{\ell_z}, I_z(\hat{\ell_z})$ and $w_0$ are the same in both objectives. The only difference between the objectives of $P2$ and $P1$ is $\pi^{MZ}$ and $\pi^{SZ}$. Since $u()$ is monotonically increasing, we have that $P2 \geq \sum_z P1(z)$
+    
 \end{frame}
 
 \section{Evaluation: Thai Data}
@@ -324,18 +400,30 @@ sorting=ynt
 
 \subsection{Framework}
 \begin{frame}{Perfromance Metrics}
-    We focus on the Relative Insurance Benefit (RIB) (\cite{kenduiywo2021evaluating}) as a performance metric. It measures the share of all possible welfare gains that are recovered by our insurance. \\
+    \begin{itemize}
+        \item We focus on the Relative Insurance Benefit (RIB) as our main metric. 
+        \item Used in index insurance studies (\cite{kenduiywo2021evaluating}; \cite{estefania2024breaking})
+        \item Compares a proposed insurance contract to perfect insurance. It measures the welfare gains from perfect insurance that the proposed contract recovers. 
+        \item Interpretation: if RIB of an insruance $J$ is $50\%$, we can think of it as meaning that it is $50\%$ as good as perfect insurance. In other words, it yields haf as many welfare gains as perfect insurance. 
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{RIB Definition}
+    Let $w^J_i$ be the wealth of farmer $i$ under insurance contract $J$. We denote perfect insurance with $PI$ and no insurance with $NI$
     \begin{itemize}
         \setlength\itemsep{1em}
-        \item Relative Insurance Benefit (RIB): $\frac{CE^J - CE^{NI}}{CE^{PI}-CE^{NI}}$
-        \item Certainty equivalent (CE): $u^{-1}(\mathbb{E}[u(w^I)])$
+        \item CE(J): $u^{-1}(\mathbb{E}[u(w^J)])$ 
+        \item $\Delta CE(J): = CE(J) - CE(NI)$
+        \item RIB(J): $\frac{\Delta CE(J)}{\Delta CE(PI)}$
         \item Utility: $u(w) = \frac{1}{1-\alpha} w^{\frac{1}{1-\alpha}}$
     \end{itemize}
+    
 \end{frame}
 
 \subsection{Single Zone Results}
-\begin{frame}{Results for $c_k=0.02, \alpha=1.5$ }
-    Here, the contract design and pricing for each zone happens independently of all other zones. 
+\begin{frame}{Single Zone Results}
+    Here, the contract design and pricing for each zone happens independently of all other zones. Premium pricing is also independent: $\pi_z = \bbe [I_z(\theta_z)]+c_k K_z$, with $K_z = {\sf CVaR}_{1-\epsilon_K}\left ( I_z(\theta_z)\right )  - \mathbb{E}[I_z(\theta_z)] $
     \begin{table}[]
         \centering
         \begin{tabular}{lllll}
@@ -373,6 +461,10 @@ sorting=ynt
     
 \end{frame}
 
+\begin{frame}{MZ vs SZ Case}
+    In MZ case premium is based on portfolio required capital: $K = {\sf CVaR}_{1-\epsilon_K} \left ( \sum_z s_z\overline{I_z(\theta_z)} \right ) - \mathbb{E}\left [ \sum_{z} s_{z}\underline{I_{z}(\theta_{z'})} \right ]$. 
+    
+\end{frame}
 
 \begin{frame}{Multi zone results}
     \begin{table}[]
@@ -397,15 +489,29 @@ sorting=ynt
     
 \end{frame}
 
-\begin{frame}{Insurance Behavior contd.}
-    \begin{itemize}
-        \item Utility gains relative to no insurance can happen when there is loss (insurance working properly) or when there is no loss (because the insurance incorrectly issued a payout).
-        \item Similarly, utility losses relative to no insurance can happen when there is no loss (due to farmers having to pay a premium) or when there is loss (because the insurance did not issue a payout).
-        \item Pct Valid Utility Gains: share of utility gains that happen when there is loss.
-        \item Pct Bad Utility Loss: share of utility losses that happen when there is loss. 
-    \end{itemize}
-    
+\begin{frame}{Valid Gains and Bad Losses}
+    \begin{table}[]
+        \centering
+        \begin{tabular}{lll}
+                                     & Utility Gain           & Utility Loss           \\ \cline{2-3} 
+        \multicolumn{1}{l|}{Loss}    & \multicolumn{1}{l|}{A} & \multicolumn{1}{l|}{B} \\ \cline{2-3} 
+        \multicolumn{1}{l|}{No Loss} & \multicolumn{1}{l|}{C} & \multicolumn{1}{l|}{D} \\ \cline{2-3} 
+        \end{tabular}
+        \end{table}
+
+        A: utility gain during loss $\rightarrow$ "valid gain"\\
+        B: utility loss during loss $\rightarrow$ "bad loss"
 \end{frame}
+
+% \begin{frame}{Insurance Behavior contd.}
+%     \begin{itemize}
+%         \item Utility gains relative to no insurance can happen when there is loss (insurance working properly) or when there is no loss (because the insurance incorrectly issued a payout).
+%         \item Similarly, utility losses relative to no insurance can happen when there is no loss (due to farmers having to pay a premium) or when there is loss (because the insurance did not issue a payout).
+%         \item Pct Valid Utility Gains: share of utility gains that happen when there is loss.
+%         \item Pct Bad Utility Loss: share of utility losses that happen when there is loss. 
+%     \end{itemize}
+    
+% \end{frame}
 
 \begin{frame}{Insurance Behavior Results}
     \begin{table}[]
@@ -429,89 +535,89 @@ sorting=ynt
     \end{itemize}
 \end{frame}
 
-\section{US Midwest Evaluation}
-\begin{frame}[noframenumbering, plain]
-    \frametitle{Content}
-    \tableofcontents[currentsection]
-  \end{frame}
-\subsection{Data}
-\begin{frame}{Data}
-    Used two main data sources
-    \begin{itemize}
-        \setlength\itemsep{2em}
-        \item Illinois annual corn yield data from the National Agricultural Statistics Service (NASS). Data is available at the county level from 1925-2022. 84 counties. 
-        \item Weather data from the PRISM climate group. Has monthly data on several weather variables (temperature, precipitation, etc). Available 1895-present.
-    \end{itemize}
-\end{frame}
-
-\subsection{Procedure}
-\begin{frame}{Evaluation Procedure}
-    \begin{itemize}
-        \setlength\itemsep{2em}
-        \item We use a 70/15/15 train/val/test split. Data is kept in chronological order. Training data has older years and test data has the newest years. 
-        \item We modified Chen's method to use the same definition of the premium as our method. 
-        \item We use the training and validation data to design the contracts using both methods, apply the contracts to farmers in the test set, and compute performance metrics. 
-        \item We used a data shortening exercise to evaluate how the performance of both methods changed as more data became available. 
-    \end{itemize}
-\end{frame}
-
-
-\subsection{Illinois Results}
-\begin{frame}{Overview}
-    \begin{itemize}
-        \setlength\itemsep{2em}
-        \item Our method performs similarly or outperforms the Chen model when there is less than 50 years of data available.  
-        \item In terms of farmer utility, our method tends to work better with realistic data lengths. Most satellite data starts at 1980 at the earliest. 
-        \item When using data from other states, our method consistently outperforms Chen's method, but is not always better than no insurance, at least at the full premium price. This might not be a huge problem, since agricultural insurance tends to be heavily subsidized, both in rich and poor countries. In the US, it averaged $62\%$ of premiums in 2022. 
-    \end{itemize}
-\end{frame}
-
-% \begin{frame}{Illinois: Utility}
-%     \begin{figure}
-%         % \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation 2/Illinois_Utility_Length_ml1.png}
-%         \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation/Illinois_Average_Utility_CI.png}
-%     \end{figure}
+% \section{US Midwest Evaluation}
+% \begin{frame}[noframenumbering, plain]
+%     \frametitle{Content}
+%     \tableofcontents[currentsection]
+%   \end{frame}
+% \subsection{Data}
+% \begin{frame}{Data}
+%     Used two main data sources
+%     \begin{itemize}
+%         \setlength\itemsep{2em}
+%         \item Illinois annual corn yield data from the National Agricultural Statistics Service (NASS). Data is available at the county level from 1925-2022. 84 counties. 
+%         \item Weather data from the PRISM climate group. Has monthly data on several weather variables (temperature, precipitation, etc). Available 1895-present.
+%     \end{itemize}
 % \end{frame}
 
-\begin{frame}{Illinois Short Data (Less than 40 years)}
-    \begin{table}
-        \centering
-        \begin{tabular}{lrrr}
-            \toprule
-            Method & DeltaCE & Premium & Required Capital \\
-            \midrule
-            Chantarat & 4.13 & 113.96 & 158.73 \\
-            Chen uc & 4.87 & 60.69 & 134.35 \\
-            Our Method & 5.31 & 62.49 & 97.91 \\
-            \bottomrule
-            \end{tabular}
-    \end{table}
+% \subsection{Procedure}
+% \begin{frame}{Evaluation Procedure}
+%     \begin{itemize}
+%         \setlength\itemsep{2em}
+%         \item We use a 70/15/15 train/val/test split. Data is kept in chronological order. Training data has older years and test data has the newest years. 
+%         \item We modified Chen's method to use the same definition of the premium as our method. 
+%         \item We use the training and validation data to design the contracts using both methods, apply the contracts to farmers in the test set, and compute performance metrics. 
+%         \item We used a data shortening exercise to evaluate how the performance of both methods changed as more data became available. 
+%     \end{itemize}
+% \end{frame}
+
+
+% \subsection{Illinois Results}
+% \begin{frame}{Overview}
+%     \begin{itemize}
+%         \setlength\itemsep{2em}
+%         \item Our method performs similarly or outperforms the Chen model when there is less than 50 years of data available.  
+%         \item In terms of farmer utility, our method tends to work better with realistic data lengths. Most satellite data starts at 1980 at the earliest. 
+%         \item When using data from other states, our method consistently outperforms Chen's method, but is not always better than no insurance, at least at the full premium price. This might not be a huge problem, since agricultural insurance tends to be heavily subsidized, both in rich and poor countries. In the US, it averaged $62\%$ of premiums in 2022. 
+%     \end{itemize}
+% \end{frame}
+
+% % \begin{frame}{Illinois: Utility}
+% %     \begin{figure}
+% %         % \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation 2/Illinois_Utility_Length_ml1.png}
+% %         \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation/Illinois_Average_Utility_CI.png}
+% %     \end{figure}
+% % \end{frame}
+
+% \begin{frame}{Illinois Short Data (Less than 40 years)}
+%     \begin{table}
+%         \centering
+%         \begin{tabular}{lrrr}
+%             \toprule
+%             Method & DeltaCE & Premium & Required Capital \\
+%             \midrule
+%             Chantarat & 4.13 & 113.96 & 158.73 \\
+%             Chen uc & 4.87 & 60.69 & 134.35 \\
+%             Our Method & 5.31 & 62.49 & 97.91 \\
+%             \bottomrule
+%             \end{tabular}
+%     \end{table}
     
         
-\end{frame}
-
-\begin{frame}{Illinois Long Data (More than 40 years)}
-    \begin{table}
-        \centering
-        \begin{tabular}{lrrr}
-            \toprule
-            Method & DeltaCE & Premium & Required Capital \\
-            \midrule
-            Chantarat & 2.05 & 105.53 & 135.72 \\
-            Chen uc & 4.82 & 50.06 & 115.02 \\
-            Our Method & 3.82 & 41.75 & 67.80 \\
-            \bottomrule
-            \end{tabular}
-    \end{table}
-    
-\end{frame}
-
-% \begin{frame}{Illinois: Insurer Cost}
-%     \begin{figure}
-%         \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation/Illinois_Cost_Length_ml1.png}
-
-%     \end{figure}
 % \end{frame}
+
+% \begin{frame}{Illinois Long Data (More than 40 years)}
+%     \begin{table}
+%         \centering
+%         \begin{tabular}{lrrr}
+%             \toprule
+%             Method & DeltaCE & Premium & Required Capital \\
+%             \midrule
+%             Chantarat & 2.05 & 105.53 & 135.72 \\
+%             Chen uc & 4.82 & 50.06 & 115.02 \\
+%             Our Method & 3.82 & 41.75 & 67.80 \\
+%             \bottomrule
+%             \end{tabular}
+%     \end{table}
+    
+% \end{frame}
+
+% % \begin{frame}{Illinois: Insurer Cost}
+% %     \begin{figure}
+% %         \includegraphics[width=0.75\textwidth]{../../../output/figures/Evaluation/Illinois_Cost_Length_ml1.png}
+
+% %     \end{figure}
+% % \end{frame}
 
 
 
@@ -523,150 +629,150 @@ sorting=ynt
 %   \end{frame}
 
 
-\subsection{Multi zone Results}
-\begin{frame}{Overview}
-    \begin{itemize}
-        \item Our multiple zone model adjusts contracts based on the correlation between the insured zones. In this case, it leads to contracts that pay out more frequently, but at a lower rate. This reduces the tail risk for the insurer and reduces the amount of capital needed. 
-        \item It outperforms Chen's model and the no insurance case consistently, and has lower costs and required capital than the Chen model. 
-        \item We also wanted to compare it to using our single zone model. In the following figures, Our Method: SZ refers to using our single zone method to design the contract of each state individually, but then calculating the premium as if it was a part of the portfolio. 
-    \end{itemize}
-\end{frame}
+% \subsection{Multi zone Results}
+% \begin{frame}{Overview}
+%     \begin{itemize}
+%         \item Our multiple zone model adjusts contracts based on the correlation between the insured zones. In this case, it leads to contracts that pay out more frequently, but at a lower rate. This reduces the tail risk for the insurer and reduces the amount of capital needed. 
+%         \item It outperforms Chen's model and the no insurance case consistently, and has lower costs and required capital than the Chen model. 
+%         \item We also wanted to compare it to using our single zone model. In the following figures, Our Method: SZ refers to using our single zone method to design the contract of each state individually, but then calculating the premium as if it was a part of the portfolio. 
+%     \end{itemize}
+% \end{frame}
 
-\begin{frame}{Midwest Short Data Results}
-    \begin{table}
-        \centering
-        \begin{tabular}{lrrr}
-            \toprule
-            Method & DeltaU & Insurer Cost & Required Capital \\
-            \midrule
-            Chantarat & 5.90 & 397,474.47 & 17720.74 \\
-            Chen uc & -8.92 & 159,928.89 & 19865.41 \\
-            Our Method & 4.18 & 150,414.21 & 9982.12 \\
-            \bottomrule
-            \end{tabular}
-    \end{table}
+% \begin{frame}{Midwest Short Data Results}
+%     \begin{table}
+%         \centering
+%         \begin{tabular}{lrrr}
+%             \toprule
+%             Method & DeltaU & Insurer Cost & Required Capital \\
+%             \midrule
+%             Chantarat & 5.90 & 397,474.47 & 17720.74 \\
+%             Chen uc & -8.92 & 159,928.89 & 19865.41 \\
+%             Our Method & 4.18 & 150,414.21 & 9982.12 \\
+%             \bottomrule
+%             \end{tabular}
+%     \end{table}
     
         
-\end{frame}
+% \end{frame}
 
-\begin{frame}{Midwest Long Data Results}
-    \begin{table}
-        \centering
-        \begin{tabular}{lrrr}
-            \toprule
-            Method & DeltaU & Insurer Cost & Required Capital \\
-            \midrule
-            Chantarat & 2.40 & 389,678.99 & 16874.15 \\
-            Chen uc & 0.21 & 141651.90 & 12142.11 \\
-            Our Method & 2.50 & 99,769.84 & 5559.64 \\
-            \bottomrule
-            \end{tabular}
-    \end{table}
+% \begin{frame}{Midwest Long Data Results}
+%     \begin{table}
+%         \centering
+%         \begin{tabular}{lrrr}
+%             \toprule
+%             Method & DeltaU & Insurer Cost & Required Capital \\
+%             \midrule
+%             Chantarat & 2.40 & 389,678.99 & 16874.15 \\
+%             Chen uc & 0.21 & 141651.90 & 12142.11 \\
+%             Our Method & 2.50 & 99,769.84 & 5559.64 \\
+%             \bottomrule
+%             \end{tabular}
+%     \end{table}
     
-\end{frame}
+% \end{frame}
 
-\begin{frame}{Midwest: Overall Utility}
-    \begin{figure}
-        \includegraphics[width=0.75\textwidth]{../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png}
-    \end{figure}
-\end{frame}
+% \begin{frame}{Midwest: Overall Utility}
+%     \begin{figure}
+%         \includegraphics[width=0.75\textwidth]{../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png}
+%     \end{figure}
+% \end{frame}
 
-\begin{frame}{Midwest: Insurer Cost}
-    \begin{figure}
-        \includegraphics[width=0.75\textwidth]{../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png}
-    \end{figure}
-\end{frame}
+% \begin{frame}{Midwest: Insurer Cost}
+%     \begin{figure}
+%         \includegraphics[width=0.75\textwidth]{../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png}
+%     \end{figure}
+% \end{frame}
 
 
-\section*{Moving Forward}
-\begin{frame}{Things I was thinking about adding}
-    \begin{itemize}
-        \item Deep dive as to why my method does better, and when it does better?
-        \item Run the same evaluation but with shuffled data instead of having it orderd. 
-       \item I wanted to do more of a deep dive on the benefits of taking a portfolio approach, but not sure how beyond just looking at capital requirements. Maybe using an expected return and variance approach?
-        \item A robustness check on the stability of the solutions at different dataset lengths.
-    \end{itemize}
+% \section*{Moving Forward}
+% \begin{frame}{Things I was thinking about adding}
+%     \begin{itemize}
+%         \item Deep dive as to why my method does better, and when it does better?
+%         \item Run the same evaluation but with shuffled data instead of having it orderd. 
+%        \item I wanted to do more of a deep dive on the benefits of taking a portfolio approach, but not sure how beyond just looking at capital requirements. Maybe using an expected return and variance approach?
+%         \item A robustness check on the stability of the solutions at different dataset lengths.
+%     \end{itemize}
     
-\end{frame}
+% \end{frame}
 
-\begin{frame}{Questions}
-    \begin{itemize}
-        \item What else should I report?
-        \item How can I strengthen this evaluation?
-       \item Any robustness checks I should add?
-        \item I feel like I should do a deep dive as to why the method does
-    \end{itemize}
+% \begin{frame}{Questions}
+%     \begin{itemize}
+%         \item What else should I report?
+%         \item How can I strengthen this evaluation?
+%        \item Any robustness checks I should add?
+%         \item I feel like I should do a deep dive as to why the method does
+%     \end{itemize}
     
-\end{frame}
+% \end{frame}
 
-\begin{frame}{Thai Data}
-    \begin{itemize}
-        \item Plot-level losses caused by natural disasters between 2015-2022. 
-        \item I can access the raw data, and they can send me aggregate versions as well. There are around 7000 counties in Thailand, and around 80,000 villages, the data can be aggregated at both of those levels. 
-    \end{itemize}
+% \begin{frame}{Thai Data}
+%     \begin{itemize}
+%         \item Plot-level losses caused by natural disasters between 2015-2022. 
+%         \item I can access the raw data, and they can send me aggregate versions as well. There are around 7000 counties in Thailand, and around 80,000 villages, the data can be aggregated at both of those levels. 
+%     \end{itemize}
     
-\end{frame}
+% \end{frame}
 
-\section*{Implementation Details}
-\begin{frame}{Loss Definition}
-    From what I can tell from the replication files, they seem to define loss in every year as: 
-    \begin{align*}
-        \ell_{st} &= R^*_s - R_{st}
-    \end{align*}
+% \section*{Implementation Details}
+% \begin{frame}{Loss Definition}
+%     From what I can tell from the replication files, they seem to define loss in every year as: 
+%     \begin{align*}
+%         \ell_{st} &= R^*_s - R_{st}
+%     \end{align*}
 
-    where $R^*_s$ is the maximum revenue observed in state $s$ across all time periods, and $R_{st}$ is the revenue in state $s$ at time $t$. 
-\end{frame}
+%     where $R^*_s$ is the maximum revenue observed in state $s$ across all time periods, and $R_{st}$ is the revenue in state $s$ at time $t$. 
+% \end{frame}
 
-\begin{frame}{Initial wealth}
-    According to the paper, they set $w_0 = 389$. However, in the replication files, they set it to be $w_0 = 813 - 504 + 389$. According to the comments, $504$ is the fixed cost of operating a farm, and there are no comments regarding the $813$, I'm assuming it corresponds to $R^*$. 
-\end{frame}
+% \begin{frame}{Initial wealth}
+%     According to the paper, they set $w_0 = 389$. However, in the replication files, they set it to be $w_0 = 813 - 504 + 389$. According to the comments, $504$ is the fixed cost of operating a farm, and there are no comments regarding the $813$, I'm assuming it corresponds to $R^*$. 
+% \end{frame}
 
-\begin{frame}{Detrending}
-    \begin{itemize}
-        \item According to the paper, they detrend the county level yield data using a 2nd order polynomial fit with a ``robust'' regression method, but they don't specify what they use, and it's not in the replication files. They also don't specify if they remove the trend using additive or multiplicative decomposition model. Using an additive decomposition model yielded the most similar losses to what they provide in the replication files. 
-        \item There are a couple of papers showing that using locally weighted regression to detrend works better. 
-    \end{itemize}
+% \begin{frame}{Detrending}
+%     \begin{itemize}
+%         \item According to the paper, they detrend the county level yield data using a 2nd order polynomial fit with a ``robust'' regression method, but they don't specify what they use, and it's not in the replication files. They also don't specify if they remove the trend using additive or multiplicative decomposition model. Using an additive decomposition model yielded the most similar losses to what they provide in the replication files. 
+%         \item There are a couple of papers showing that using locally weighted regression to detrend works better. 
+%     \end{itemize}
     
-\end{frame}
+% \end{frame}
 
-\section*{Questions}
-\begin{frame}{Questions}
-    \begin{itemize}
-        \item Would it make sense to define loss as deviation from historical average? Allowing it to be positive in some years? In other words, we would first adjust all of the yield data to 2020 levels and then calculate the historical average. The loss in each year would be the deviation from this historical average. 
-        \item Should I simply follow their lead on detrending? Or should I try to improve on it?
-        \item Do you think it's necessary to show results with both definitions of the premium?
-        \item Do you think subsidy vs lump sum results would be interesting?
-    \end{itemize}
-\end{frame}
+% \section*{Questions}
+% \begin{frame}{Questions}
+%     \begin{itemize}
+%         \item Would it make sense to define loss as deviation from historical average? Allowing it to be positive in some years? In other words, we would first adjust all of the yield data to 2020 levels and then calculate the historical average. The loss in each year would be the deviation from this historical average. 
+%         \item Should I simply follow their lead on detrending? Or should I try to improve on it?
+%         \item Do you think it's necessary to show results with both definitions of the premium?
+%         \item Do you think subsidy vs lump sum results would be interesting?
+%     \end{itemize}
+% \end{frame}
 
-\section*{Chen Premium Results}
-\subsection*{Illinois Results}
-\begin{frame}{Their Defn of Premium: Illinois Utility}
-    \begin{figure}
-        \includegraphics[width=0.75\textwidth]{../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png}
-    \end{figure}
-\end{frame}
+% \section*{Chen Premium Results}
+% \subsection*{Illinois Results}
+% \begin{frame}{Their Defn of Premium: Illinois Utility}
+%     \begin{figure}
+%         \includegraphics[width=0.75\textwidth]{../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png}
+%     \end{figure}
+% \end{frame}
 
-\subsection*{Iowa Results}
-\begin{frame}{Their Defn of Premium: Iowa Utility}
-    \begin{figure}
-        \includegraphics[width=0.75\textwidth]{../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png}
-    \end{figure}
-\end{frame}
+% \subsection*{Iowa Results}
+% \begin{frame}{Their Defn of Premium: Iowa Utility}
+%     \begin{figure}
+%         \includegraphics[width=0.75\textwidth]{../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png}
+%     \end{figure}
+% \end{frame}
 
-\subsection*{Missouri Results}
-\begin{frame}{Their Defn of Premium: Missouri Utility}
-    \begin{figure}
-        \includegraphics[width=0.75\textwidth]{../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png}
-    \end{figure}
-\end{frame}
+% \subsection*{Missouri Results}
+% \begin{frame}{Their Defn of Premium: Missouri Utility}
+%     \begin{figure}
+%         \includegraphics[width=0.75\textwidth]{../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png}
+%     \end{figure}
+% \end{frame}
 
-\subsection*{Indiana Results}
-\begin{frame}{Their Defn of Premium: Indiana Utility}
-    \begin{figure}
-        \includegraphics[width=0.75\textwidth]{../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png}
-    \end{figure}
-\end{frame}
+% \subsection*{Indiana Results}
+% \begin{frame}{Their Defn of Premium: Indiana Utility}
+%     \begin{figure}
+%         \includegraphics[width=0.75\textwidth]{../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png}
+%     \end{figure}
+% \end{frame}
 
 
 

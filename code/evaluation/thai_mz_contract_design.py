@@ -440,8 +440,8 @@ def testing():
     params = create_param_dict(ZONES,0.13,2017,alpha=1.5)
 
 
-# TODO: Add the if name == 'main' thing
-c_k = 0.02
-w_0 = 0.1
-alpha = 1.5
-generate_payouts(c_k, w_0, alpha)
+if __name__ == "__main__":
+    c_k = 0.02
+    w_0 = 0.1
+    alpha = 1.5
+    generate_payouts(c_k, w_0, alpha)

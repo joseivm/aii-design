@@ -204,6 +204,52 @@
       \field{title}{Managing weather risk with a neural network-based index insurance}
       \field{year}{2023}
     \endentry
+    \entry{estefania2024breaking}{report}{}
+      \name{author}{4}{}{%
+        {{uniquename=0,uniquepart=base,hash=a99676710918a223a288a183ba528145}{%
+           family={Estefania-Salazar},
+           familyi={E\bibinithyphendelim S\bibinitperiod},
+           given={Enrique},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=8c731328aeaa5ec4ac855f9dbb658e41}{%
+           family={Carter},
+           familyi={C\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=97124721ce9db19db6e15e8ab4d25cf4}{%
+           family={Iglesias},
+           familyi={I\bibinitperiod},
+           given={Eva},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=5f25a4f0c678c706422a27b6aab2b900}{%
+           family={Escribano},
+           familyi={E\bibinitperiod},
+           given={{Á}lvaro},
+           giveni={Á\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{institution}{1}{%
+        {National Bureau of Economic Research}%
+      }
+      \strng{namehash}{604f52e4e33a15b6843cfe66d3e3991c}
+      \strng{fullhash}{889147584a4c4697bb3496db89db591c}
+      \strng{bibnamehash}{604f52e4e33a15b6843cfe66d3e3991c}
+      \strng{authorbibnamehash}{604f52e4e33a15b6843cfe66d3e3991c}
+      \strng{authornamehash}{604f52e4e33a15b6843cfe66d3e3991c}
+      \strng{authorfullhash}{889147584a4c4697bb3496db89db591c}
+      \field{sortinit}{2}
+      \field{sortinithash}{cbff857e587bcb4635511624d773949e}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Breaking Boundaries: Lower Tail Dependence Can Triple the Economic Value of Index Insurance for Rural Households}
+      \field{type}{techreport}
+      \field{year}{2024}
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

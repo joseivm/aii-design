@@ -236,10 +236,10 @@ INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/caption/caption3.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/caption/caption3.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/booktabs/booktabs.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/booktabs/booktabs.sty
-INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/bbm-macros/bbm.sty
-INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/bbm-macros/bbm.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/grffile.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/grffile.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/bbm-macros/bbm.sty
+INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/bbm-macros/bbm.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamerthemeBoadilla.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamerthemeBoadilla.sty
 INPUT /usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamercolorthemerose.sty
@@ -373,21 +373,15 @@ INPUT ../../../output/figures/Our Method Flowchart.png
 INPUT ../../../output/figures/Our Method Flowchart.png
 INPUT ../../../output/figures/Our Method Flowchart.png
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssi10.tfm
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.toc
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.toc
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/thai_summary_stats.png
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/thai_summary_stats.png
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/thai_summary_stats.png
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/thai_summary_stats.png
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/disaster_map.png
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/disaster_map.png
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/disaster_map.png
-INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/disaster_map.png
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm
@@ -397,36 +391,21 @@ INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi12.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi10.tfm
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
-INPUT ../../../output/figures/Feedback/MaxDeltaCE.png
-INPUT ../../../output/figures/Feedback/MaxDeltaCE.png
-INPUT ../../../output/figures/Feedback/MaxDeltaCE.png
-INPUT ../../../output/figures/Feedback/MaxDeltaCE.png
 INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.toc
 INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.toc
-INPUT ../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png
-INPUT ../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png
-INPUT ../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png
-INPUT ../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png
-INPUT ../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png
-INPUT ../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png
-INPUT ../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png
-INPUT ../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png
-INPUT ../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png
-INPUT ../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png
-INPUT ../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png
-INPUT ../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png
-INPUT ../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png
-INPUT ../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png
-INPUT ../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png
-INPUT ../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png
-INPUT ../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png
-INPUT ../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png
-INPUT ../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png
-INPUT ../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png
-INPUT ../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png
-INPUT ../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png
-INPUT ../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png
-INPUT ../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/thai_summary_stats.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/thai_summary_stats.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/thai_summary_stats.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/thai_summary_stats.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/disaster_map.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/disaster_map.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/disaster_map.png
+INPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/disaster_map.png
+INPUT ../../../output/figures/Feedback/MaxDeltaCE.png
+INPUT ../../../output/figures/Feedback/MaxDeltaCE.png
+INPUT ../../../output/figures/Feedback/MaxDeltaCE.png
+INPUT ../../../output/figures/Feedback/MaxDeltaCE.png
+INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
 OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.nav
 OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.toc
 OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.snm
@@ -438,7 +417,6 @@ OUTPUT /Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback 
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
-INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
 INPUT /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb

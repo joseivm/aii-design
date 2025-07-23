@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  10 JUL 2025 11:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  21 JUL 2025 15:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -560,18 +560,18 @@ Package: booktabs 2016/04/27 v1.618033 publication quality tables
 \@thisruleclass=\count161
 \@lastruleclass=\count162
 \@thisrulewidth=\dimen267
-) (/usr/local/texlive/2018/texmf-dist/tex/latex/bbm-macros/bbm.sty
-Package: bbm 1999/03/15 V 1.2 provides fonts for set symbols - TH
-LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
-(Font)                  U/bbm/m/n --> U/bbm/bx/n on input line 33.
-LaTeX Font Info:    Overwriting math alphabet `\mathbbmss' in version `bold'
-(Font)                  U/bbmss/m/n --> U/bbmss/bx/n on input line 35.
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/grffile.sty
 Package: grffile 2017/06/30 v1.18 Extended file name support for graphics (HO)
 Package grffile Info: Option `multidot' is set to `true'.
 Package grffile Info: Option `extendedchars' is set to `false'.
 Package grffile Info: Option `space' is set to `true'.
 Package grffile Info: \Gin@ii of package `graphicx' fixed on input line 494.
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/bbm-macros/bbm.sty
+Package: bbm 1999/03/15 V 1.2 provides fonts for set symbols - TH
+LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
+(Font)                  U/bbm/m/n --> U/bbm/bx/n on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathbbmss' in version `bold'
+(Font)                  U/bbmss/m/n --> U/bbmss/bx/n on input line 35.
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamerthemeBoadilla.sty (/usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamercolorthemerose.sty) (/usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamerinnerthemerounded.sty) (/usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamercolorthemedolphin.sty) (/usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamerouterthemeinfolines.sty)) (/usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamercolorthemebeaver.sty) (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/biblatex.sty
 Package: biblatex 2018/03/04 v3.11 programmable bibliographies (PK/MW)
  (/usr/local/texlive/2018/texmf-dist/tex/latex/logreq/logreq.sty
@@ -795,20 +795,20 @@ File: english.lbx 2018/03/04 v3.11 biblatex localization (PK/MW)
  (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.aux)
 \openout1 = `presentation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 45.
-LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -870,7 +870,7 @@ Package grfext Info: Graphics extension search list:
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 )) ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box55
-Package hyperref Info: Link coloring OFF on input line 45.
+Package hyperref Info: Link coloring OFF on input line 50.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
  (/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -878,62 +878,62 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count358
 )
-LaTeX Info: Redefining \ref on input line 45.
-LaTeX Info: Redefining \pageref on input line 45.
-LaTeX Info: Redefining \nameref on input line 45.
+LaTeX Info: Redefining \ref on input line 50.
+LaTeX Info: Redefining \pageref on input line 50.
+LaTeX Info: Redefining \nameref on input line 50.
  (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.out) (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.out)
 \@outlinefile=\write7
 \openout7 = `presentation.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 45.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 50.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 45.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 50.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 45.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 45.
+(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 50.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 50.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 45.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 50.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 45.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 45.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 50.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 50.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 45.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 50.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 45.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 45.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 50.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 50.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 45.
+(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 50.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 45.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 45.
+(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 50.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 50.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 45.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 50.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 45.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 50.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 45.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 50.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 45.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 50.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmr/bx/n on input line 45.
+(Font)                  OT1/cmss/bx/n --> OT1/cmr/bx/n on input line 50.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/bx/n on input line 45.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/bx/n on input line 50.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 45.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 50.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 45.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 50.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/bx/n on input line 45.
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 45.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/bx/n on input line 50.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 50.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
-(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 45.
+(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 50.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/bx/it --> OT1/mathkerncmss/m/sl on input line 45.
+(Font)                  OT1/cmss/bx/it --> OT1/mathkerncmss/m/sl on input line 50.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on input line 45.
+(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on input line 50.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
 Dictionary: translator-basic-dictionary, Language: English 
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/translator/translator-bibliography-dictionary-English.dict
@@ -957,55 +957,55 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'presentation.bbl' found.
  (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.bbl)
-Package biblatex Info: Reference section=0 on input line 45.
-Package biblatex Info: Reference segment=0 on input line 45.
+Package biblatex Info: Reference section=0 on input line 50.
+Package biblatex Info: Reference segment=0 on input line 50.
  (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.nav) [1
 
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2
 
 ] [3
 
-] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.toc) [4
+] [4
+
+] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.toc) [5
 
 ]
-LaTeX Font Info:    Try loading font information for U+msa on input line 110.
+LaTeX Font Info:    Try loading font information for U+msa on input line 123.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 110.
+LaTeX Font Info:    Try loading font information for U+msb on input line 123.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input line 110.
+LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input line 123.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/mathkerncmss.
-) [5
+) [6
 
 ]
-<../../../output/figures/Presentation/sample_insurance_contract.png, id=206, 709.65125pt x 497.86pt>
+<../../../output/figures/Presentation/sample_insurance_contract.png, id=155, 709.65125pt x 497.86pt>
 File: ../../../output/figures/Presentation/sample_insurance_contract.png Graphic file (type png)
 <use ../../../output/figures/Presentation/sample_insurance_contract.png>
-Package pdftex.def Info: ../../../output/figures/Presentation/sample_insurance_contract.png  used on input line 116.
+Package pdftex.def Info: ../../../output/figures/Presentation/sample_insurance_contract.png  used on input line 129.
 (pdftex.def)             Requested size: 308.06367pt x 216.12674pt.
- [6
+ [7
 
- <../../../output/figures/Presentation/sample_insurance_contract.png>] [7
+ <../../../output/figures/Presentation/sample_insurance_contract.png>] [8
 
-] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.toc) [8
+] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.toc) [9
 
-] [9
+] [10
 
 ]
-<../../../output/figures/Our Method Flowchart.png, id=253, 915.42pt x 508.90125pt>
+<../../../output/figures/Our Method Flowchart.png, id=199, 915.42pt x 508.90125pt>
 File: ../../../output/figures/Our Method Flowchart.png Graphic file (type png)
 <use ../../../output/figures/Our Method Flowchart.png>
-Package pdftex.def Info: ../../../output/figures/Our Method Flowchart.png  used on input line 171.
+Package pdftex.def Info: ../../../output/figures/Our Method Flowchart.png  used on input line 184.
 (pdftex.def)             Requested size: 342.2953pt x 190.28616pt.
- [10
+ [11
 
- <../../../output/figures/Our Method Flowchart.png>] [11
-
-] [12
+ <../../../output/figures/Our Method Flowchart.png>] [12
 
 ] [13
 
@@ -1015,7 +1015,7 @@ Package pdftex.def Info: ../../../output/figures/Our Method Flowchart.png  used 
 
 ] [16
 
-] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.toc) [17
+] [17
 
 ] [18
 
@@ -1024,24 +1024,16 @@ Package pdftex.def Info: ../../../output/figures/Our Method Flowchart.png  used 
 ] [20
 
 ]
-<thai_summary_stats.png, id=351, 1106.1325pt x 660.4675pt>
-File: thai_summary_stats.png Graphic file (type png)
-<use thai_summary_stats.png>
-Package pdftex.def Info: thai_summary_stats.png  used on input line 295.
-(pdftex.def)             Requested size: 342.2953pt x 204.38pt.
- [21
 
- </Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/thai_summary_stats.png>]
-<disaster_map.png, id=359, 506.89375pt x 488.82625pt>
-File: disaster_map.png Graphic file (type png)
-<use disaster_map.png>
-Package pdftex.def Info: disaster_map.png  used on input line 302.
-(pdftex.def)             Requested size: 205.37926pt x 198.05559pt.
- [22
+Package amsfonts Warning: Obsolete command \Bbb; \mathbb should be used instead on input line 315.
 
- </Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/disaster_map.png>] [23
+[21
 
-] [24
+] [22
+
+] [23
+
+] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.toc) [24
 
 ] [25
 
@@ -1049,21 +1041,23 @@ Package pdftex.def Info: disaster_map.png  used on input line 302.
 
 ] [27
 
-] [28
-
 ]
-<../../../output/figures/Feedback/MaxDeltaCE.png, id=406, 462.528pt x 346.896pt>
-File: ../../../output/figures/Feedback/MaxDeltaCE.png Graphic file (type png)
-<use ../../../output/figures/Feedback/MaxDeltaCE.png>
-Package pdftex.def Info: ../../../output/figures/Feedback/MaxDeltaCE.png  used on input line 374.
-(pdftex.def)             Requested size: 256.72147pt x 192.55072pt.
+<thai_summary_stats.png, id=328, 1106.1325pt x 660.4675pt>
+File: thai_summary_stats.png Graphic file (type png)
+<use thai_summary_stats.png>
+Package pdftex.def Info: thai_summary_stats.png  used on input line 371.
+(pdftex.def)             Requested size: 342.2953pt x 204.38pt.
+ [28
 
-Overfull \vbox (1.48013pt too high) detected at line 374
- []
+ </Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/thai_summary_stats.png>]
+<disaster_map.png, id=336, 506.89375pt x 488.82625pt>
+File: disaster_map.png Graphic file (type png)
+<use disaster_map.png>
+Package pdftex.def Info: disaster_map.png  used on input line 378.
+(pdftex.def)             Requested size: 205.37926pt x 198.05559pt.
+ [29
 
-[29
-
- <../../../output/figures/Feedback/MaxDeltaCE.png>] [30
+ </Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/disaster_map.png>] [30
 
 ] [31
 
@@ -1073,13 +1067,23 @@ Overfull \vbox (1.48013pt too high) detected at line 374
 
 ] [34
 
-] (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.toc) [35
+] [35
 
 ] [36
 
-] [37
+]
+<../../../output/figures/Feedback/MaxDeltaCE.png, id=389, 462.528pt x 346.896pt>
+File: ../../../output/figures/Feedback/MaxDeltaCE.png Graphic file (type png)
+<use ../../../output/figures/Feedback/MaxDeltaCE.png>
+Package pdftex.def Info: ../../../output/figures/Feedback/MaxDeltaCE.png  used on input line 462.
+(pdftex.def)             Requested size: 256.72147pt x 192.55072pt.
 
-] [38
+Overfull \vbox (1.48013pt too high) detected at line 462
+ []
+
+[37
+
+ <../../../output/figures/Feedback/MaxDeltaCE.png>] [38
 
 ] [39
 
@@ -1091,73 +1095,11 @@ Overfull \vbox (1.48013pt too high) detected at line 374
 
 ] [43
 
-]
-<../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png, id=514, 463.2507pt x 361.35pt>
-File: ../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png Graphic file (type png)
-<use ../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png>
-Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png  used on input line 572.
-(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
- [44
+] [44
 
- <../../../output/figures/Midwest Evaluation/Midwest_Overall Utility_Length.png>]
-<../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png, id=522, 463.2507pt x 361.35pt>
-File: ../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png Graphic file (type png)
-<use ../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png>
-Package pdftex.def Info: ../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png  used on input line 578.
-(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
- [45
+ </usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamericonarticle.pdf>] [45
 
- <../../../output/figures/Midwest Evaluation/Midwest_Insurer Cost_Length.png>] [46
-
-] [47
-
-] [48
-
-] [49
-
-] [50
-
-] [51
-
-] [52
-
-]
-<../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png, id=574, 463.2507pt x 361.35pt>
-File: ../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png Graphic file (type png)
-<use ../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png>
-Package pdftex.def Info: ../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png  used on input line 648.
-(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
- [53
-
- <../../../output/figures/Chen Premium/Illinois_Utility_Length_ml1241.png>]
-<../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png, id=582, 463.2507pt x 361.35pt>
-File: ../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png Graphic file (type png)
-<use ../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png>
-Package pdftex.def Info: ../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png  used on input line 655.
-(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
- [54
-
- <../../../output/figures/Chen Premium/Iowa_Utility_Length_ml1241.png>]
-<../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png, id=590, 463.2507pt x 361.35pt>
-File: ../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png Graphic file (type png)
-<use ../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png>
-Package pdftex.def Info: ../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png  used on input line 662.
-(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
- [55
-
- <../../../output/figures/Chen Premium/Missouri_Utility_Length_ml1241.png>]
-<../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png, id=599, 463.2507pt x 361.35pt>
-File: ../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png Graphic file (type png)
-<use ../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png>
-Package pdftex.def Info: ../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png  used on input line 669.
-(pdftex.def)             Requested size: 256.72147pt x 200.2594pt.
- [56
-
- <../../../output/figures/Chen Premium/Indiana_Utility_Length_ml1241.png>] [57
-
- </usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamericonarticle.pdf>] [58
-
-] [59
+] [46
 
 ]
 \tf@nav=\write8
@@ -1169,30 +1111,30 @@ Package pdftex.def Info: ../../../output/figures/Chen Premium/Indiana_Utility_Le
 \tf@snm=\write10
 \openout10 = `presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 732.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 732.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 838.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 838.
  (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 732.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 732.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 838.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 838.
 Package rerunfilecheck Info: File `presentation.out' has not changed.
-(rerunfilecheck)             Checksum: C2D76444400A3EF89DB117ABD0A6C5D7;1597.
+(rerunfilecheck)             Checksum: 88C87E6BC0358F383981A740E0B6D747;893.
 Package logreq Info: Writing requests to 'presentation.run.xml'.
 \openout1 = `presentation.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 25161 strings out of 492649
- 482818 string characters out of 6129622
- 894351 words of memory out of 5000000
- 28399 multiletter control sequences out of 15000+600000
- 16778 words of font info for 61 fonts, out of 8000000 for 9000
+ 25041 strings out of 492649
+ 479926 string characters out of 6129622
+ 892400 words of memory out of 5000000
+ 28320 multiletter control sequences out of 15000+600000
+ 18248 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,16n,63p,899b,1272s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.pdf" (59 pages, 743426 bytes).
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on "/Users/joseivelarde/Projects/aii-design/documents/Presentations/Feedback Presentation 2025/presentation.pdf" (46 pages, 625038 bytes).
 PDF statistics:
- 731 PDF objects out of 1000 (max. 8388607)
- 605 compressed objects within 7 object streams
- 158 named destinations out of 1000 (max. 500000)
- 356 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 549 PDF objects out of 1000 (max. 8388607)
+ 451 compressed objects within 5 object streams
+ 119 named destinations out of 1000 (max. 500000)
+ 230 words of extra memory for PDF output out of 10000 (max. 10000000)
 
