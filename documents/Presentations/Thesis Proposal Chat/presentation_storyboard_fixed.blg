@@ -1,0 +1,17 @@
+[0] Config.pm:302> INFO - This is Biber 2.11
+[0] Config.pm:305> INFO - Logfile is 'presentation_storyboard_fixed.blg'
+[51] biber-darwin:313> INFO - === Fri Sep 12, 2025, 10:02:02
+[80] Biber.pm:371> INFO - Reading 'presentation_storyboard_fixed.bcf'
+[168] Biber.pm:857> INFO - Found 22 citekeys in bib section 0
+[182] Biber.pm:3976> INFO - Processing section 0
+[196] Biber.pm:4136> INFO - Looking for bibtex format file '../../main.bib' for section 0
+[199] bibtex.pm:1500> INFO - LaTeX decoding ...
+[262] bibtex.pm:1316> INFO - Found BibTeX data source '../../main.bib'
+[265] Utils.pm:193> WARN - Duplicate entry key: 'kielholz2000cost' in file '../../main.bib', skipping ...
+[474] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[474] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[474] Biber.pm:3804> INFO - Sorting list 'ynt/global//global/global' of type 'entry' with template 'ynt' and locale 'en-US'
+[474] Biber.pm:3810> INFO - No sort tailoring available for locale 'en-US'
+[499] bbl.pm:617> INFO - Writing 'presentation_storyboard_fixed.bbl' with encoding 'UTF-8'
+[526] bbl.pm:720> INFO - Output to presentation_storyboard_fixed.bbl
+[526] Biber.pm:110> INFO - WARNINGS: 1

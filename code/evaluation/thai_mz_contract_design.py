@@ -441,7 +441,7 @@ def testing():
 
 
 if __name__ == "__main__":
-    c_k = 0.02
+    c_k = 0.04
     w_0 = 0.1
     alpha = 1.5
     generate_payouts(c_k, w_0, alpha)

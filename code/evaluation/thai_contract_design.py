@@ -241,7 +241,7 @@ def optimization_program(simulated_preds: np.ndarray, sample_df: pd.DataFrame, p
 
 def chantarat_optimization(pred_y, eval_y):
     pred_losses = pred_y
-    strike_vals = np.arange(0,0.35,0.05)
+    strike_vals = np.arange(0,0.35,0.01)
     strike_performance = {}
 
     for  strike_val in strike_vals:
@@ -310,12 +310,7 @@ def design_VMX_contracts(params):
         train_df = model_preds.loc[model_preds.Set == 'Val',:]
         train_df, test_df = train_test_split(train_df, test_size=0.5, random_state=2,stratify=train_df['Loss'] > 0)
 
-    # n_train = np.maximum(n_train, train_df.shape[0])
     sample_df = create_training_sample(train_df, n_train)
-    # print(f"Zone: {zone} Year: {test_year} Train_df {train_df.shape[0]} Sample_df {sample_df.shape[0]}")
-    # sample_df = stratified_loss_sample(train_df, n_train, random_state=42)
-    # sample_df = train_df.copy()
-    # sample_df['w'] = 1
     sim_preds = simulate_single_zone_payouts(train_df, zone, n_sim=n_sim)
     sim_matrix = sim_preds['PredLoss'].to_numpy().reshape(-1,1)
 
@@ -358,6 +353,19 @@ def design_VMX_contracts(params):
             Path(payout_dir).mkdir(exist_ok=True,parents=True)
             eval_df_filename = os.path.join(payout_dir, f"{zone}_{test_year}.csv")
             opt_eval_df.to_csv(eval_df_filename,index=False,float_format = '%.3f')
+
+            contract_params = {'Zone': zone, 'TestYear': test_year, 'a': np.round(a,2), 'b': np.round(b,2)}
+            zdf = pd.DataFrame([contract_params])
+            params_file = os.path.join(payout_dir,f"contract_params_{test_year}.csv")
+            if os.path.isfile(params_file):
+                pdf = pd.read_csv(params_file)
+            else:
+                pdf = pd.DataFrame()
+
+            pdf = pd.concat([pdf,zdf],ignore_index=True)
+            pdf.to_csv(params_file,float_format = '%.3f',index=False)
+            
+
     
     else:
         results = performance_metrics(opt_eval_df, params['w_0'])
@@ -423,6 +431,17 @@ def design_chantarat_contracts(params):
         Path(payout_dir).mkdir(exist_ok=True,parents=True)
         eval_df_filename = os.path.join(payout_dir, f"{zone}_{test_year}.csv")
         opt_eval_df.to_csv(eval_df_filename,index=False,float_format = '%.3f')
+
+        contract_params = {'Zone': zone, 'TestYear': test_year, 'a': 1, 'b': np.round(b,2)}
+        zdf = pd.DataFrame([contract_params])
+        params_file = os.path.join(payout_dir,f"contract_params_{test_year}.csv")
+        if os.path.isfile(params_file):
+            pdf = pd.read_csv(params_file)
+        else:
+            pdf = pd.DataFrame()
+
+        pdf = pd.concat([pdf,zdf],ignore_index=True)
+        pdf.to_csv(params_file,float_format = '%.3f',index=False)
     
     else:
         results = performance_metrics(opt_eval_df, params['w_0'])
@@ -634,7 +653,6 @@ def concatenate_results():
         zrdf.to_csv(outpath, index=False, float_format='%.3f')
         zrdf['Eval_Zone'] = zrdf['EvalName'] + '_' + zrdf['Zone']
 
-        # TODO: edit to conform to c_k change
         zone_files = [os.path.join(res_dir,f) for f in rfiles if '_'.join(f.split('_')[:-1]) in zrdf.Eval_Zone.values]
         [Path(f).unlink() for f in zone_files]
 
@@ -700,8 +718,13 @@ w_0 = 0.1
 c_k = 0.02
 alpha = 1.5
 zones = ['N2','N3','NE1','NE2','NE3']
-# generate_payouts(c_k, w_0, alpha, 'Chantarat')
-generate_payouts(c_k, w_0, alpha, 'VMX')
+for zone in zones:
+    run_model_selection_CV(zone, 'Chantarat',w_0,alpha,c_k)
+
+concatenate_results()
+
+generate_payouts(c_k, w_0, alpha, 'Chantarat')
+# generate_payouts(c_k, w_0, alpha, 'VMX')
 # for alpha in [1.1,1.5,2,2.5,3,3.5]:
 #     for zone in zones:
 #         run_model_selection_CV(zone, 'VMX', w_0, alpha, c_k)
