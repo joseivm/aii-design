@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  12 SEP 2025 10:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  15 SEP 2025 13:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -708,7 +708,17 @@ File: pgflibraryplotmarks.code.tex 2015/08/03 v3.0.1a (rcs-revision 1.14)
 \pgf@intersect@solutions=\count184
 )) (/usr/local/texlive/2018/texmf-dist/tex/generic/pgfplots/pgfcontrib/tikzlibrarydecorations.softclip.code.tex (/usr/local/texlive/2018/texmf-dist/tex/generic/pgfplots/pgfcontrib/pgflibraryfillbetween.code.tex (/usr/local/texlive/2018/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfsupp_pgflibraryintersections.code.tex
 \pgf@intersect@solutions=\count185
-)))) (/usr/local/texlive/2018/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.decorations.softclip.code.tex)) (/usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamerthemeBoadilla.sty (/usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamercolorthemerose.sty) (/usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamerinnerthemerounded.sty) (/usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamercolorthemedolphin.sty) (/usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamerouterthemeinfolines.sty)) (/usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamercolorthemebeaver.sty) (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/biblatex.sty
+)))) (/usr/local/texlive/2018/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.decorations.softclip.code.tex)) (/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarycalc.code.tex
+File: tikzlibrarycalc.code.tex 2013/07/15 v3.0.1a (rcs-revision 1.9)
+) (/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2015/05/13 v3.0.1a (rcs-revision 1.13)
+\pgfarrowinset=\dimen302
+\pgfarrowlength=\dimen303
+\pgfarrowwidth=\dimen304
+\pgfarrowlinewidth=\dimen305
+) (/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2008/10/06 v3.0.1a (rcs-revision 1.7)
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamerthemeBoadilla.sty (/usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamercolorthemerose.sty) (/usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamerinnerthemerounded.sty) (/usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamercolorthemedolphin.sty) (/usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamerouterthemeinfolines.sty)) (/usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamercolorthemebeaver.sty) (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/biblatex.sty
 Package: biblatex 2018/03/04 v3.11 programmable bibliographies (PK/MW)
  (/usr/local/texlive/2018/texmf-dist/tex/latex/logreq/logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
@@ -920,9 +930,7 @@ Package biblatex Info: Trying to load configuration file...
 Package biblatex Info: ... file 'biblatex.cfg' found.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/biblatex/biblatex.cfg
 File: biblatex.cfg 
-)) (/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarycalc.code.tex
-File: tikzlibrarycalc.code.tex 2013/07/15 v3.0.1a (rcs-revision 1.9)
-) (/usr/local/texlive/2018/texmf-dist/tex/latex/ms/ragged2e.sty
+)) (/usr/local/texlive/2018/texmf-dist/tex/latex/ms/ragged2e.sty
 Package: ragged2e 2009/05/21 v2.1 ragged2e Package (MS)
  (/usr/local/texlive/2018/texmf-dist/tex/latex/ms/everysel.sty
 Package: everysel 2011/10/28 v1.2 EverySelectfont Package (MS)
@@ -945,24 +953,24 @@ Package: everysel 2011/10/28 v1.2 EverySelectfont Package (MS)
 Package: tabularx 2016/02/03 v2.11b `tabularx' package (DPC)
  (/usr/local/texlive/2018/texmf-dist/tex/latex/tools/array.sty
 Package: array 2018/04/07 v2.4g Tabular extension package (FMi)
-\col@sep=\dimen302
+\col@sep=\dimen306
 \ar@mcellbox=\box60
-\extrarowheight=\dimen303
+\extrarowheight=\dimen307
 \NC@list=\toks52
 \extratabsurround=\skip97
 \backup@length=\skip98
 \ar@cellbox=\box61
 )
-\TX@col@width=\dimen304
-\TX@old@table=\dimen305
-\TX@old@col=\dimen306
-\TX@target=\dimen307
-\TX@delta=\dimen308
+\TX@col@width=\dimen308
+\TX@old@table=\dimen309
+\TX@old@col=\dimen310
+\TX@target=\dimen311
+\TX@delta=\dimen312
 \TX@cols=\count373
 \TX@ftn=\toks53
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/makecell/makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
-\rotheadsize=\dimen309
+\rotheadsize=\dimen313
 \c@nlinenum=\count374
 \TeXr@lab=\toks54
 )
@@ -973,23 +981,30 @@ File: english.lbx 2018/03/04 v3.11 biblatex localization (PK/MW)
 )
 \@quotelevel=\count375
 \@quotereset=\count376
- (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Thesis Proposal Chat/presentation_storyboard_fixed.aux)
+ (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Thesis Proposal Chat/presentation_storyboard_fixed.aux
+
+LaTeX Warning: Label `cons-objective' multiply defined.
+
+
+LaTeX Warning: Label `cons-contract' multiply defined.
+
+)
 \openout1 = `presentation_storyboard_fixed.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1028,13 +1043,13 @@ LaTeX Font Info:    ... okay on input line 121.
 (/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count377
-\scratchdimen=\dimen310
+\scratchdimen=\dimen314
 \scratchbox=\box62
 \nofMPsegments=\count378
 \nofMParguments=\count379
 \everyMPshowfont=\toks55
 \MPscratchCnt=\count380
-\MPscratchDim=\dimen311
+\MPscratchDim=\dimen315
 \MPnumerator=\count381
 \makeMPintoPDFobject=\count382
 \everyMPtoPDFconversion=\toks56
@@ -1051,7 +1066,7 @@ Package grfext Info: Graphics extension search list:
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 )) ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box63
-Package hyperref Info: Link coloring OFF on input line 121.
+Package hyperref Info: Link coloring OFF on input line 123.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
  (/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -1059,62 +1074,62 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count383
 )
-LaTeX Info: Redefining \ref on input line 121.
-LaTeX Info: Redefining \pageref on input line 121.
-LaTeX Info: Redefining \nameref on input line 121.
+LaTeX Info: Redefining \ref on input line 123.
+LaTeX Info: Redefining \pageref on input line 123.
+LaTeX Info: Redefining \nameref on input line 123.
  (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Thesis Proposal Chat/presentation_storyboard_fixed.out) (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Thesis Proposal Chat/presentation_storyboard_fixed.out)
 \@outlinefile=\write7
 \openout7 = `presentation_storyboard_fixed.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 121.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 123.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 121.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 123.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 121.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 121.
+(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 123.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 121.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 121.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 121.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 123.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 121.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 121.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 121.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 123.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 121.
+(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 121.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 121.
+(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 123.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 121.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 121.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 123.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 121.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 123.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 121.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmr/bx/n on input line 121.
+(Font)                  OT1/cmss/bx/n --> OT1/cmr/bx/n on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/bx/n on input line 121.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/bx/n on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 121.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 121.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 123.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/bx/n on input line 121.
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 121.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/bx/n on input line 123.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 123.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
-(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 121.
+(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 123.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/bx/it --> OT1/mathkerncmss/m/sl on input line 121.
+(Font)                  OT1/cmss/bx/it --> OT1/mathkerncmss/m/sl on input line 123.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on input line 121.
+(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on input line 123.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
 Dictionary: translator-basic-dictionary, Language: English 
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/translator/translator-bibliography-dictionary-English.dict
@@ -1141,22 +1156,22 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'presentation_storyboard_fixed.bbl' found.
 (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Thesis Proposal Chat/presentation_storyboard_fixed.bbl)
-Package biblatex Info: Reference section=0 on input line 121.
-Package biblatex Info: Reference segment=0 on input line 121.
+Package biblatex Info: Reference section=0 on input line 123.
+Package biblatex Info: Reference segment=0 on input line 123.
  ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 121.
+LaTeX Info: Redefining \selectfont on input line 123.
  (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Thesis Proposal Chat/presentation_storyboard_fixed.nav) [1
 
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for U+msa on input line 148.
+LaTeX Font Info:    Try loading font information for U+msa on input line 150.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 148.
+LaTeX Font Info:    Try loading font information for U+msb on input line 150.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input line 148.
+LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input line 150.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/mathkerncmss.
 ) [2
@@ -1186,7 +1201,12 @@ File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/mat
 ] [14
 
 ]
-Overfull \hbox (11.20216pt too wide) in paragraph at lines 409--409
+Overfull \hbox (7.08684pt too wide) in paragraph at lines 474--474
+|[][] 
+ []
+
+
+Overfull \hbox (11.20216pt too wide) in paragraph at lines 474--474
 \OT1/mathkerncmss/m/sl/9 c[]  []$|  
  []
 
@@ -1195,7 +1215,7 @@ Overfull \hbox (11.20216pt too wide) in paragraph at lines 409--409
 ] [16
 
 ]
-Package pgfplots info on input line 543: fill between: activating layered graphics
+Package pgfplots info on input line 577: fill between: activating layered graphics
 \pgf@layerbox@axis background=\box64
 \pgf@layerboxsaved@axis background=\box65
 \pgf@layerbox@axis grid=\box66
@@ -1212,14 +1232,21 @@ Package pgfplots info on input line 543: fill between: activating layered graphi
 \pgf@layerboxsaved@axis descriptions=\box77
 \pgf@layerbox@axis foreground=\box78
 \pgf@layerboxsaved@axis foreground=\box79
-Package pgfplots info on input line 543: Setting layers 'axis background,axis grid,axis ticks,axis lines,axis tick labels,pre main,main,axis descriptions,axis foreground'...
+Package pgfplots info on input line 577: Setting layers 'axis background,axis grid,axis ticks,axis lines,axis tick labels,pre main,main,axis descriptions,axis foreground'...
 
-Overfull \vbox (45.0094pt too high) detected at line 543
+Overfull \vbox (45.0094pt too high) detected at line 577
  []
 
 [17
 
-] [18
+]
+Package pgfplots info on input line 660: fill between: activating layered graphics
+Package pgfplots info on input line 660: Setting layers 'axis background,axis grid,axis ticks,axis lines,axis tick labels,pre main,main,axis descriptions,axis foreground'...
+
+Overfull \vbox (45.0094pt too high) detected at line 660
+ []
+
+[18
 
 ] [19
 
@@ -1229,7 +1256,15 @@ Overfull \vbox (45.0094pt too high) detected at line 543
 
 ] [22
 
-] [23
+]pdfTeX warning (ext4): destination with the same identifier (name{cons-objective}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.742   \end{frame}
+                   pdfTeX warning (ext4): destination with the same identifier (name{cons-contract}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.742   \end{frame}
+                    [23
 
 ] [24
 
@@ -1245,15 +1280,9 @@ Overfull \vbox (45.0094pt too high) detected at line 543
 
 ] [30
 
-]
-<disaster_map.png, id=340, 506.89375pt x 488.82625pt>
-File: disaster_map.png Graphic file (type png)
-<use disaster_map.png>
-Package pdftex.def Info: disaster_map.png  used on input line 696.
-(pdftex.def)             Requested size: 205.37926pt x 198.05559pt.
- [31
+] [31
 
- </Users/joseivelarde/Projects/aii-design/documents/Presentations/Thesis Proposal Chat/disaster_map.png>] [32
+] [32
 
 ] [33
 
@@ -1261,114 +1290,133 @@ Package pdftex.def Info: disaster_map.png  used on input line 696.
 
 ] [35
 
-] [36
-
-] [37
-
 ]
-<../../../output/figures/Proposal/sz_kde_plot.png, id=393, 578.16pt x 361.35pt>
-File: ../../../output/figures/Proposal/sz_kde_plot.png Graphic file (type png)
-<use ../../../output/figures/Proposal/sz_kde_plot.png>
-Package pdftex.def Info: ../../../output/figures/Proposal/sz_kde_plot.png  used on input line 787.
-(pdftex.def)             Requested size: 342.2953pt x 213.93349pt.
- [38
+<disaster_map.png, id=372, 506.89375pt x 488.82625pt>
+File: disaster_map.png Graphic file (type png)
+<use disaster_map.png>
+Package pdftex.def Info: disaster_map.png  used on input line 888.
+(pdftex.def)             Requested size: 205.37926pt x 198.05559pt.
+ [36
 
- <../../../output/figures/Proposal/sz_kde_plot.png>]
-<../../../output/figures/Proposal/sz_quantile_function.png, id=401, 578.16pt x 361.35pt>
-File: ../../../output/figures/Proposal/sz_quantile_function.png Graphic file (type png)
-<use ../../../output/figures/Proposal/sz_quantile_function.png>
-Package pdftex.def Info: ../../../output/figures/Proposal/sz_quantile_function.png  used on input line 793.
-(pdftex.def)             Requested size: 342.2953pt x 213.93349pt.
- [39
+ </Users/joseivelarde/Projects/aii-design/documents/Presentations/Thesis Proposal Chat/disaster_map.png>] [37
 
- <../../../output/figures/Proposal/sz_quantile_function.png>]
+] [38
 
-LaTeX Font Warning: Font shape `OT1/cmss/bx/it' undefined
-(Font)              using `OT1/cmss/bx/n' instead on input line 855.
+] [39
 
-[40
+] [40
 
-]
-Overfull \hbox (2.98845pt too wide) detected at line 919
-[] \OT1/cmss/m/n/8 = [] \OT1/mathkerncmss/m/sl/8 s[] [] []I[]\OML/cmm/m/it/8 ; [][];  [][]\OT1/cmss/m/n/8 (\OT1/mathkerncmss/m/sl/8 I[]\OML/cmm/m/it/8 ; \OMS/cmsy/m/n/8 ^^A\OT1/cmss/m/n/8 )[]
- []
-
-[41
+] [41
 
 ] [42
 
 ] [43
 
 ]
+<../../../output/figures/Proposal/sz_kde_plot.png, id=431, 578.16pt x 361.35pt>
+File: ../../../output/figures/Proposal/sz_kde_plot.png Graphic file (type png)
+<use ../../../output/figures/Proposal/sz_kde_plot.png>
+Package pdftex.def Info: ../../../output/figures/Proposal/sz_kde_plot.png  used on input line 1019.
+(pdftex.def)             Requested size: 342.2953pt x 213.93349pt.
+ [44
 
-LaTeX Warning: Reference `eq:budget' on page 44 undefined on input line 984.
+ <../../../output/figures/Proposal/sz_kde_plot.png>]
+<../../../output/figures/Proposal/sz_quantile_function.png, id=439, 578.16pt x 361.35pt>
+File: ../../../output/figures/Proposal/sz_quantile_function.png Graphic file (type png)
+<use ../../../output/figures/Proposal/sz_quantile_function.png>
+Package pdftex.def Info: ../../../output/figures/Proposal/sz_quantile_function.png  used on input line 1025.
+(pdftex.def)             Requested size: 342.2953pt x 213.93349pt.
+ [45
 
+ <../../../output/figures/Proposal/sz_quantile_function.png>] [46
 
-Overfull \vbox (150.03036pt too high) detected at line 984
- []
+] [47
 
-[44
-
-] [45
-
-] [46
-
-]
-<../../../output/figures/Proposal/sz_vs_mz_contracts_sns.png, id=463, 1040.688pt x 722.7pt>
-File: ../../../output/figures/Proposal/sz_vs_mz_contracts_sns.png Graphic file (type png)
-<use ../../../output/figures/Proposal/sz_vs_mz_contracts_sns.png>
-Package pdftex.def Info: ../../../output/figures/Proposal/sz_vs_mz_contracts_sns.png  used on input line 1049.
-(pdftex.def)             Requested size: 342.2953pt x 237.70877pt.
-
-Overfull \vbox (8.63818pt too high) detected at line 1049
- []
-
-[47
-
- <../../../output/figures/Proposal/sz_vs_mz_contracts_sns.png>]
-<../../../output/figures/Proposal/capital_allocation.png, id=471, 597.6729pt x 419.8887pt>
-File: ../../../output/figures/Proposal/capital_allocation.png Graphic file (type png)
-<use ../../../output/figures/Proposal/capital_allocation.png>
-Package pdftex.def Info: ../../../output/figures/Proposal/capital_allocation.png  used on input line 1063.
-(pdftex.def)             Requested size: 342.2953pt x 240.47949pt.
-
-Overfull \vbox (23.4089pt too high) detected at line 1063
- []
-
-[48
-
- <../../../output/figures/Proposal/capital_allocation.png>] [49
+] [48
 
 ]
-Overfull \hbox (10.31047pt too wide) in paragraph at lines 1115--1115
-[][]  
+
+LaTeX Warning: Reference `eq:budget' on page 49 undefined on input line 1220.
+
+
+Overfull \vbox (150.03036pt too high) detected at line 1220
  []
 
-[50
+[49
+
+] [50
 
 ] [51
 
-] [52
-
-] [53
-
 ]
-Overfull \vbox (8.68597pt too high) detected at line 1246
+<../../../output/figures/Proposal/sz_vs_mz_contracts_sns.png, id=494, 1040.688pt x 722.7pt>
+File: ../../../output/figures/Proposal/sz_vs_mz_contracts_sns.png Graphic file (type png)
+<use ../../../output/figures/Proposal/sz_vs_mz_contracts_sns.png>
+Package pdftex.def Info: ../../../output/figures/Proposal/sz_vs_mz_contracts_sns.png  used on input line 1285.
+(pdftex.def)             Requested size: 342.2953pt x 237.70877pt.
+
+Overfull \vbox (8.63818pt too high) detected at line 1285
+ []
+
+[52
+
+ <../../../output/figures/Proposal/sz_vs_mz_contracts_sns.png>]
+<../../../output/figures/Proposal/capital_allocation.png, id=502, 597.6729pt x 419.8887pt>
+File: ../../../output/figures/Proposal/capital_allocation.png Graphic file (type png)
+<use ../../../output/figures/Proposal/capital_allocation.png>
+Package pdftex.def Info: ../../../output/figures/Proposal/capital_allocation.png  used on input line 1299.
+(pdftex.def)             Requested size: 342.2953pt x 240.47949pt.
+
+Overfull \vbox (23.4089pt too high) detected at line 1299
+ []
+
+[53
+
+ <../../../output/figures/Proposal/capital_allocation.png>]
+Overfull \hbox (10.31047pt too wide) in paragraph at lines 1329--1329
+[][]  
  []
 
 [54
 
 ] [55
 
+] [56
+
+] [57
+
 ]
-Overfull \vbox (686.09236pt too high) detected at line 1279
+
+LaTeX Font Warning: Font shape `OT1/cmss/bx/it' undefined
+(Font)              using `OT1/cmss/bx/n' instead on input line 1464.
+
+[58
+
+]
+Overfull \vbox (0.24925pt too high) detected at line 1481
  []
 
-[56
+[59
 
- </usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamericonarticle.pdf>] [57
+]
+Overfull \vbox (686.09236pt too high) detected at line 1506
+ []
 
-] [58
+[60
+
+ </usr/local/texlive/2018/texmf-dist/tex/latex/beamer/beamericonarticle.pdf>] [61
+
+] [62
+
+]
+Overfull \vbox (80.82765pt too high) detected at line 1566
+ []
+
+[63
+
+] [64
+
+] [65
 
 ]
 \tf@nav=\write8
@@ -1380,13 +1428,13 @@ Overfull \vbox (686.09236pt too high) detected at line 1279
 \tf@snm=\write10
 \openout10 = `presentation_storyboard_fixed.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1314.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1314.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1601.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1601.
  (/Users/joseivelarde/Projects/aii-design/documents/Presentations/Thesis Proposal Chat/presentation_storyboard_fixed.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1314.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1314.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1601.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1601.
 Package rerunfilecheck Info: File `presentation_storyboard_fixed.out' has not changed.
-(rerunfilecheck)             Checksum: C0DA56B813DD36D69F8A0D43D86CF266;757.
+(rerunfilecheck)             Checksum: 1F5B9AB67A6CB2719D2F3BD3BAE417FB;756.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -1394,25 +1442,28 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package logreq Info: Writing requests to 'presentation_storyboard_fixed.run.xml'.
 \openout1 = `presentation_storyboard_fixed.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 39878 strings out of 492649
- 929323 string characters out of 6129622
- 1435204 words of memory out of 5000000
- 42849 multiletter control sequences out of 15000+600000
+ 40338 strings out of 492649
+ 941037 string characters out of 6129622
+ 1447535 words of memory out of 5000000
+ 43290 multiletter control sequences out of 15000+600000
  28657 words of font info for 101 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  73i,20n,127p,1241b,2078s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{eq:budget} has been referenced but does not exist, replaced by a fixed one
 
-</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "/Users/joseivelarde/Projects/aii-design/documents/Presentations/Thesis Proposal Chat/presentation_storyboard_fixed.pdf" (58 pages, 807334 bytes).
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on "/Users/joseivelarde/Projects/aii-design/documents/Presentations/Thesis Proposal Chat/presentation_storyboard_fixed.pdf" (65 pages, 819420 bytes).
 PDF statistics:
- 682 PDF objects out of 1000 (max. 8388607)
- 560 compressed objects within 6 object streams
- 161 named destinations out of 1000 (max. 500000)
+ 731 PDF objects out of 1000 (max. 8388607)
+ 601 compressed objects within 7 object streams
+ 173 named destinations out of 1000 (max. 500000)
  200 words of extra memory for PDF output out of 10000 (max. 10000000)
 

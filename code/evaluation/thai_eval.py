@@ -382,7 +382,7 @@ def performance_metrics_by_zone(payout_df, c_k, w_0=0.1, alpha=1.5, premium_kwar
     rdf = pd.DataFrame(results_data)
     return rdf
 
-def performance_metrics_by_zone(payout_df, c_k, w_0=0.1, alpha=1.5, premium_kwargs=None):
+def performance_metrics_by_year(payout_df, c_k, w_0=0.1, alpha=1.5, premium_kwargs=None):
     overall_ii_df = create_ii_df(payout_df, c_k, premium_kwargs)
     if premium_kwargs is not None:
         premium_kwargs['cap_shares'] = None
@@ -995,7 +995,7 @@ def quantile_function_plot(df):
 # Part 1: Performance breakdown by zone
 
 w_0 = 0.1
-method = 'VMX-M'
+method = 'VMX'
 alpha = 1.5
 c_k = 0.02
 
@@ -1010,5 +1010,5 @@ c_k = 0.02
 
 
 
-# create_table(c_k,w_0,alpha)
-create_mz_table(c_k, w_0, alpha)
+create_table(c_k,w_0,alpha)
+# create_mz_table(c_k, w_0, alpha)

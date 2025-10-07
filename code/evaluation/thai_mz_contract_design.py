@@ -77,7 +77,7 @@ def create_multi_zone_data_old(zones, test_year, params, stratify=True, q=10, sa
     train_dfs = {}
     for zone in zones: 
         zdf = load_zone_preds(zone, c_k, w_0, alpha)
-        zdf = zdf.loc[(zdf.TestYear != test_year) & (zdf.Set == 'Test'),:]
+        zdf = zdf.loc[(zdf.TestYear != test_year) & (zdf.Set == 'Val'),:]
         # zdf = zdf.merge(ldf[['Idx','WeightSum']],on='Idx')
         # zdf['WeightedLoss'] = zdf['Loss']*zdf['WeightSum']
         # zdf['WeightedPredLoss'] = zdf['PredLoss']*zdf['WeightSum']
@@ -441,7 +441,7 @@ def testing():
 
 
 if __name__ == "__main__":
-    c_k = 0.04
+    c_k = 0.02
     w_0 = 0.1
     alpha = 1.5
     generate_payouts(c_k, w_0, alpha)

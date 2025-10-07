@@ -1,5 +1,7 @@
 import pandas as pd
 import os
+import sys
+sys.path.insert(0,'/Users/joseivelarde/Projects/aii-design/code/evaluation')
 import numpy as np
 import time
 import cvxpy as cp
@@ -7,6 +9,7 @@ import random, string
 from pathlib import Path
 import math
 from sklearn.linear_model import LinearRegression
+from thai_synthetic_data import simulate_single_zone_payouts
 
 from dotenv import load_dotenv, find_dotenv
 dotenv_path = find_dotenv()
@@ -28,16 +31,9 @@ def load_model_predictions(state, length, model_name):
     pred_dir = os.path.join(PREDICTIONS_DIR,state,f"predictions {length}")
     pred_file = os.path.join(pred_dir,f"{model_name}_preds.csv")
     pdf = pd.read_csv(pred_file)
+    pdf['Zone'] = state
+    pdf['w'] = 1
     return pdf
-
-# def load_chen_payouts(state, length, params):
-#     length = str(length)
-#     market_loading,c_k = params['market_loading'], params['c_k']
-#     lr, constrained = params['lr'], params['constrained']
-#     payout_dir = os.path.join(EVAL_DIR,state, 'Chen Payouts')
-#     pred_name = f"NN Payouts {state} L{length} ml{market_loading} ck{c_k} lr{lr}".replace('.','')
-#     pred_file = os.path.join(payout_dir,f"{pred_name} {constrained}.csv")
-#     return pd.read_csv(pred_file)
 
 def load_chen_payouts(state, length, market_loading):
     length = str(length)
@@ -65,7 +61,137 @@ def load_payouts(state, length, model_name):
     return pdf
 
 ##### Contract Design #####
-def optimization_program(pred_y,train_y,params):
+def optimization_program(simulated_preds: np.ndarray, sample_df: pd.DataFrame, params: dict):
+    
+    """
+    simulated_preds:   (n_sim x Z) array of simulated predicted zone-loss shares for premium & CVaR
+    sample_df: DataFrame with columns ['Zone','Loss','w'], stratified sample for objective
+    params:   {
+        'epsilon_p', 'premium_ub', 'market_loading',
+        'w_0', 'risk_coef', 'c_k', 'S'  # zone_sizes as list/array length Z
+    }
+    """
+    # Unpack params
+    eps_p          = params['epsilon_p']
+    max_premium    = params['premium_ub']
+    market_loading = params['market_loading']
+    w_0            = params['w_0']
+    rho            = params['risk_coef']
+    c_k            = params['c_k']
+    zone_sizes     = np.array(params['S'])
+    sumS           = zone_sizes.sum()
+    max_payout     = params['P']
+
+    # Zones and shapes
+    zones       = sorted(sample_df['Zone'].unique())
+    Z           = len(zones)
+    n_sim, Z2   = simulated_preds.shape
+    assert Z2 == Z, "pred_y must have same #zones as sample_df"
+
+    # ----------------------------------------------------------------------------
+    # 1) SIMULATED DATA BLOCK (premium & CVaR)
+    # ----------------------------------------------------------------------------
+    # Decision vars
+    a         = cp.Variable(Z)            # slope per zone
+    b         = cp.Variable(Z)            # intercept per zone
+    a_row = cp.reshape(a, (1, Z))
+    b_row = cp.reshape(b, (1, Z))
+
+    pi        = cp.Variable(Z)            # premium per zone
+    t_k       = cp.Variable()             # CVaR auxiliary
+    gamma     = cp.Variable(n_sim)        # CVaR auxiliary per sim
+    alpha_sim = cp.Variable((n_sim, Z))   # spliced lower payouts per sim
+    omega_sim = cp.Variable((n_sim, Z))   # spliced upper payouts per sim
+    K         = cp.Variable()             # required capital
+
+    # Exposures
+    S_sim = np.tile(zone_sizes, (n_sim,1))   # (n_sim x Z)
+    p_sim = np.ones(n_sim)/n_sim
+
+    constraints = []
+
+    # CVaR constraint: t + 1/eps_p * E[gamma] <= K + E[zone_size*omega]
+    constraints += [
+        t_k + (1/eps_p)*(p_sim @ gamma)
+          <= K + (1/n_sim)*cp.sum(cp.multiply(S_sim, omega_sim))
+    ]
+    # gamma ≥ portfolio loss – t_k
+    constraints += [
+        gamma >= cp.sum(cp.multiply(S_sim, alpha_sim), axis=1) - t_k,
+        gamma >= 0
+    ]
+
+    # spliced definitions on simulated pred_y
+    constraints += [
+        omega_sim <= cp.multiply(simulated_preds, a_row) - b_row,
+        omega_sim <= max_payout,
+        alpha_sim >= cp.multiply(simulated_preds, a_row) - b_row,
+        alpha_sim >= 0
+    ]
+
+    # premium definition & caps
+    constraints += [
+        pi == (1/n_sim)*cp.sum(alpha_sim, axis=0)
+              + (c_k/sumS)*K,
+        max_premium >= market_loading*pi,
+        b >= 0
+    ]
+
+    # ----------------------------------------------------------------------------
+    # 2) OBJECTIVE BLOCK (sample_df with CARA utility)
+    # ----------------------------------------------------------------------------
+    # We’ll build one alpha_obj[z], omega_obj[z] per zone
+    alpha_obj = {}
+    omega_obj = {}
+
+    # Prepare per-zone sample arrays
+    zone_to_pred_y = {z: grp['PredLoss'].to_numpy()
+                      for z, grp in sample_df.groupby('Zone')}
+    zone_to_y = {z: grp['Loss'].to_numpy()
+                 for z, grp in sample_df.groupby('Zone')}
+    zone_to_w = {z: grp['w'].to_numpy()
+                 for z, grp in sample_df.groupby('Zone')}
+
+    obj_terms = []
+    for iz, z in enumerate(zones):
+        pred_y_z = zone_to_pred_y[z]
+        y_z = zone_to_y[z]   # shape (n_z,)
+        w_z = zone_to_w[z]   # shape (n_z,)
+        n_z = len(y_z)
+
+        # per-zone decision vars
+        alpha_obj[z] = cp.Variable(n_z)
+        omega_obj[z] = cp.Variable(n_z)
+
+        # spliced constraints on actual data
+        constraints += [
+            omega_obj[z] <= a[iz] * pred_y_z - b[iz],
+            omega_obj[z] <= max_payout,
+            alpha_obj[z] >= a[iz] * pred_y_z - b[iz],
+            alpha_obj[z] >= 0
+        ]
+
+        # CARA payoff: w0 + 1 - loss + payout - loading * pi_z
+        payoff_z = w_0 + 1 - y_z + omega_obj[z] - market_loading*pi[iz]
+        # util_z   = (1/(1-rho)) * cp.power(payoff_z, 1-rho)
+        util_z = -(1/rho)*cp.exp(-rho*payoff_z)
+
+        # weighted & size‐weighted zone contribution
+        sum_wz    = w_z.sum()
+        zone_term = zone_sizes[iz] * (w_z @ util_z) / sum_wz
+        obj_terms.append(zone_term)
+
+    # ----------------------------------------------------------------------------
+    # 3) OBJECTIVE & SOLVE
+    # ----------------------------------------------------------------------------
+    objective = cp.Maximize(cp.sum(obj_terms))
+
+    prob = cp.Problem(objective, constraints)
+    obj = prob.solve(max_iter=1000)
+
+    return a.value[0], b.value[0]
+
+def optimization_program_old(pred_y,train_y,params):
     # params: epsilon, pi_max, pi_min, beta_z, eps_p, c_k, K_z
     # max_premium, max_payouts
     eps_p = params['epsilon_p']
@@ -147,6 +273,18 @@ def calculate_premium(payout_df, c_k, market_loading):
     premium = average_payout + c_k*required_capital
     return market_loading*premium, required_capital
 
+def calculate_sz_premium(payout_df, c_k, req_capital_df=None, market_loading=1): 
+    if req_capital_df is None:
+        req_capital_df = payout_df.copy()
+
+    payout_df = payout_df.copy()
+    payout_cvar = CVaR(req_capital_df, loss_col='Payout', outcome_col='Payout', epsilon=0.01)
+    average_payout = req_capital_df['Payout'].mean()
+    required_capital = payout_cvar-average_payout
+    cost_of_capital = c_k*required_capital
+    premium = payout_df.Payout.mean() + cost_of_capital
+    return (market_loading)*premium, cost_of_capital
+
 def CVaR(df,loss_col,outcome_col,epsilon=0.2):
     q = np.quantile(df[loss_col],1-epsilon)
     cvar = df.loc[df[loss_col] >= q,outcome_col].mean()
@@ -172,36 +310,39 @@ def chantarat_optimization(pred_y, train_y, eval_y):
 ##### Eval #####
 def run_eval(state, length, params, model_name, eval_set='Test'):
     length = str(length)
+    n_sim = 2000
     # Load all predictions
     model_preds = load_model_predictions(state, length, model_name)
 
     # Get training preds
     train_df = model_preds.loc[model_preds.Set == 'Train',:]
-    train_y = train_df['Loss'].to_numpy()
-    train_preds = train_df['PredLoss'].to_numpy()
+
+    sim_preds = simulate_single_zone_payouts(train_df, state, n_sim=n_sim)
+    sim_matrix = sim_preds['PredLoss'].to_numpy().reshape(-1,1)
 
     # Get testing preds
     test_df = model_preds.loc[model_preds.Set == eval_set,:]
 
     # Design contracts
-    params['P'] = np.round(train_y.max(),0)
+    params['P'] = np.round(train_df['Loss'].max(),0)
     start = time.time()
-    a, b = optimization_program(train_preds, train_y, params)
+    a, b = optimization_program(sim_matrix, train_df, params)
     end = time.time()
     print(f"Runtime: {(end-start)/60}")
-    max_payouts = params['P']
-    opt_train_payouts = add_opt_payouts(train_df, a, b, max_payouts)
+    max_payout = params['P']
+    opt_train_payouts = add_opt_payouts(train_df, a, b, max_payout)
+    sim_train_payouts = add_opt_payouts(sim_preds, a, b, max_payout)
 
-    opt_premium, required_capital = calculate_premium(opt_train_payouts,params['c_k'],params['market_loading'])
+    opt_premium, required_capital = calculate_sz_premium(opt_train_payouts,params['c_k'],sim_train_payouts)
 
-    opt_test_payouts = add_opt_payouts(test_df, a, b, max_payouts)
+    opt_test_payouts = add_opt_payouts(test_df, a, b, max_payout)
     opt_eval_df = create_eval_df(opt_test_payouts, opt_premium, params)
     opt_train_df = create_eval_df(opt_train_payouts, opt_premium, params)
     
     results = calculate_performance_metrics(opt_eval_df, params)
     eval_name = create_eval_name(model_name, params)
     results['Eval Name'] = eval_name
-    results['Method'] = 'Our Method'
+    results['Method'] = 'VMX'
     results['Required Capital'] = required_capital
     results['a'] = np.round(a[0],2)
     results['b'] = np.round(b[0],2)
@@ -335,7 +476,7 @@ def calculate_performance_metrics(payout_df, params):
 
 def save_results(metrics_dict, results_dir, length):
     mdf = pd.DataFrame([metrics_dict])
-    results_file = os.path.join(results_dir, f"results_{length}_2.csv")
+    results_file = os.path.join(results_dir, f"results_{length}_new.csv")
     if os.path.isfile(results_file):
         rdf = pd.read_csv(results_file)
     else: 
@@ -348,7 +489,7 @@ def create_eval_name(model_name, params):
     model_id = ''.join(random.choices(string.ascii_letters + string.digits,k=3))
     return eval_name + model_id
 
-def get_best_model(state, length, market_loading, method='Our Method'):
+def get_best_model(state, length, market_loading, method='VMX'):
     length = str(length)
     pred_dir = os.path.join(EVAL_DIR,state,'Val')
     results_fname = os.path.join(pred_dir,f"results_{length}_2.csv")
@@ -365,7 +506,7 @@ def get_eval_name(state, length, market_loading):
     pred_dir = os.path.join(EVAL_DIR,state,'Test')
     results_fname = os.path.join(pred_dir,f"results_{length}.csv")
     rdf = pd.read_csv(results_fname)
-    rdf = rdf.loc[(rdf['Market Loading'] == market_loading) & (rdf['Method'] == 'Our Method'),:]
+    rdf = rdf.loc[(rdf['Market Loading'] == market_loading) & (rdf['Method'] == 'VMX'),:]
     idx = rdf['Utility'].idxmax()
     best_model = rdf.loc[idx, 'Eval Name']
     return best_model
@@ -440,7 +581,7 @@ for length in lengths:
     # premium_ub = 200
     premium_ub = get_premium(state,1,length)+1
     params = {'epsilon_p':0.01,'c_k':0.13,'subsidy':0,'w_0':state_init_w_0[state],
-                'premium_ub':premium_ub,'risk_coef':0.008,'S':1, 'market_loading':1}
+                'premium_ub':premium_ub,'risk_coef':0.008,'S':[1], 'market_loading':1}
     # choose_best_model(state, length, params)
     model_name = get_best_model(state, length, 1)
     run_eval(state, length, params, model_name)

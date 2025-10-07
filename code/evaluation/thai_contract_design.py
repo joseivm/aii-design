@@ -585,7 +585,6 @@ def stability_analysis(c_k, w_0, alpha, train_size):
         for params in tqdm(param_dicts):
             design_contracts(method, params)
 
-
 def get_best_model(zone, c_k, w_0, alpha, method='VMX'):
     res_dir = os.path.join(RESULTS_DIR,'Val','full-results')
     results_fname = os.path.join(res_dir,f"{zone}.csv")
