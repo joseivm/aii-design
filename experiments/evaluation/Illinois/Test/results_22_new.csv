@@ -1,0 +1,3 @@
+Utility,CEW,Premium,Insurer Cost,Eval Name,Method,Required Capital,a,b,Market Loading,Params
+-2.041,514.342,138.262,169014.084,chen_Ridge_9nU_ub200_REz,VMX,14.421,0.530,0.040,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 576.0}"
+-2.514,488.315,86.632,73499.020,,Chen uc,11.465,,,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 576.0, 'constrained': 'uc'}"

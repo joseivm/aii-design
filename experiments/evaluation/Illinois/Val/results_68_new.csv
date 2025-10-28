@@ -1,0 +1,5 @@
+Utility,CEW,Premium,Insurer Cost,Eval Name,Method,Required Capital,a,b,Market Loading,Params
+-1.762,532.708,63.288,79836.509,chen_Ridge_7Uu_ub200_KgA,VMX,6.280,0.260,0.010,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 534.0}"
+-1.785,531.103,124.266,156934.041,chen_SVR_ZeY_ub200_N8m,VMX,6.232,0.560,0.020,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 534.0}"
+-1.880,524.656,117.628,138700.251,chen_Random Forest_hu9_ub200_p33,VMX,13.011,0.490,0.110,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 534.0}"
+-1.830,527.980,81.911,97472.121,chen_Gradient Boosting_I21_ub200_Ktw,VMX,9.493,0.340,0.010,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 534.0}"

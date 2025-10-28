@@ -20,8 +20,8 @@ PROJECT_DIR = os.environ.get("PROJECT_DIR")
 
 # Output files/dirs
 EXPERIMENTS_DIR = os.path.join(PROJECT_DIR,'experiments')
-EVAL_DIR = os.path.join(EXPERIMENTS_DIR,'evaluation')
-PREDICTIONS_DIR = os.path.join(EXPERIMENTS_DIR,'prediction')
+EVAL_DIR = os.path.join(EXPERIMENTS_DIR,'evaluation-scrambled')
+PREDICTIONS_DIR = os.path.join(EXPERIMENTS_DIR,'prediction-scrambled')
 
 # What am I going to do?
 # TODO: add years to payout data, make sure it also includes the training data. 
@@ -46,12 +46,15 @@ def load_chen_payouts(state, length, market_loading):
 
     market_loading,c_k = params['market_loading'], params['c_k']
     lr, constrained = params['lr'], params['constrained']
-    payout_dir = os.path.join(EVAL_DIR,state, 'Chen Payouts 2')
+    payout_dir = os.path.join(EVAL_DIR,state, 'Chen Payouts')
     pred_name = [fname for fname in os.listdir(payout_dir) if f"L{length} ml{market_loading}".replace('.','') in fname][0]
     # pred_name = f"NN Payouts {state} L{length} ml{market_loading} ck{c_k} lr{lr}".replace('.','')
     # pred_file = os.path.join(payout_dir,f"{pred_name} {constrained}.csv")
     pred_file = os.path.join(payout_dir,pred_name)
-    return pd.read_csv(pred_file)
+    # print(pred_file)
+    pdf = pd.read_csv(pred_file)
+    pdf['Zone'] = state
+    return pdf
 
 def load_payouts(state, length, model_name):
     length = str(length)
@@ -59,6 +62,21 @@ def load_payouts(state, length, model_name):
     pred_file = os.path.join(payout_dir,f"{model_name}.csv")
     pdf = pd.read_csv(pred_file)
     return pdf
+
+def load_payouts_full(state, length):
+    length = str(length)
+    payout_dir = os.path.join(EVAL_DIR,state,'Test',f"payouts {length}")
+    pred_file = [f for f in os.listdir(payout_dir) if '.csv' in f][0]
+    fpath = os.path.join(payout_dir,pred_file)
+    return pd.read_csv(fpath)
+
+def debugging():
+    state = 'Illinois'
+    cols = ['Loss','PredLoss','Payout','Premium']
+    for length in lengths:
+        print(f"Length: {length}")
+        df = load_payouts_full(state, length)
+        print(df[cols].mean())
 
 ##### Contract Design #####
 def optimization_program(simulated_preds: np.ndarray, sample_df: pd.DataFrame, params: dict):
@@ -187,7 +205,7 @@ def optimization_program(simulated_preds: np.ndarray, sample_df: pd.DataFrame, p
     objective = cp.Maximize(cp.sum(obj_terms))
 
     prob = cp.Problem(objective, constraints)
-    obj = prob.solve(max_iter=1000)
+    obj = prob.solve(max_iter=2000)
 
     return a.value[0], b.value[0]
 
@@ -344,8 +362,8 @@ def run_eval(state, length, params, model_name, eval_set='Test'):
     results['Eval Name'] = eval_name
     results['Method'] = 'VMX'
     results['Required Capital'] = required_capital
-    results['a'] = np.round(a[0],2)
-    results['b'] = np.round(b[0],2)
+    results['a'] = np.round(a,2)
+    results['b'] = np.round(b,2)
     results['Market Loading'] = params['market_loading']
     results['Params'] = str(params)
 
@@ -369,7 +387,10 @@ def run_chen_eval(state, length,params):
 
     chen_test_payouts = chen_payouts.loc[chen_payouts.Set == 'Test', :]
 
-    chen_premium, req_capital = calculate_premium(chen_train_payouts, params['c_k'],params['market_loading'])
+    sim_payouts = simulate_single_zone_payouts(chen_train_payouts, state, payout_col='Payout',n_sim=2000)
+
+
+    chen_premium, req_capital = calculate_sz_premium(chen_train_payouts,params['c_k'], req_capital_df=sim_payouts)
     chen_eval_df = create_eval_df(chen_test_payouts, chen_premium, params)
 
     chen_metrics = calculate_performance_metrics(chen_eval_df, params)
@@ -469,7 +490,7 @@ def calculate_performance_metrics(payout_df, params):
     return {
         'Utility': average_utility,
         'CEW': CEW,
-        'Insurer Risk': insurer_risk,
+        # 'Insurer Risk': insurer_risk,
         'Premium': pdf['Premium'].mean(),
         'Insurer Cost': pdf['Payout'].sum()
     }
@@ -492,7 +513,7 @@ def create_eval_name(model_name, params):
 def get_best_model(state, length, market_loading, method='VMX'):
     length = str(length)
     pred_dir = os.path.join(EVAL_DIR,state,'Val')
-    results_fname = os.path.join(pred_dir,f"results_{length}_2.csv")
+    results_fname = os.path.join(pred_dir,f"results_{length}_new.csv")
     rdf = pd.read_csv(results_fname)
     rdf = rdf.loc[rdf['Market Loading'] == market_loading,:]
     rdf = rdf.loc[rdf['Method'] == method,:]
@@ -539,14 +560,15 @@ def choose_best_model(state, length, params):
     pred_dir = os.path.join(PREDICTIONS_DIR,state)
     results_fname = os.path.join(pred_dir,f"results_{length}.csv")
     rdf = pd.read_csv(results_fname)
-    bad_model_dict = {str(i*10):[] for i in range(2,9)}
+    bad_model_dict = {str(i):[] for i in range(21,80)}
     bad_model_dict['83'] = []
     # bad_models = []
     for model_name in rdf['Model Name'].unique():
         print(model_name)
         bad_models = bad_model_dict[length]
         model_prefix = '_'.join(model_name.split('_')[:2])
-        if model_prefix not in bad_models and 'chen' in model_prefix: 
+        if model_prefix not in bad_models:
+        # if model_prefix not in bad_models and 'chen' in model_prefix: 
             try:
                 run_eval(state, length, params, model_name, 'Val')
             except cp.error.SolverError:
@@ -568,8 +590,8 @@ def choose_best_model_chantarat(state, length, params):
 
 # Main Script
 state = 'Illinois'
-# lengths = [i*10 for i in range(3,9)] 
-lengths = [40]
+lengths = [i for i in range(21,80) if i %10 != 0] 
+# lengths = [20,80]
 state_init_w_0 = {'Illinois':913-504+388.6, 'Indiana':818-504+388.6, 'Iowa':879-504+388.6,
                   'Missouri':873-504+388.6}
 # We got these by calculating maximum revenue across all time for each state, it's the maximum
@@ -579,20 +601,24 @@ for length in lengths:
     print(length)
     ##### Our definition of the premium #####
     # premium_ub = 200
-    premium_ub = get_premium(state,1,length)+1
+    # premium_ub = get_premium(state,1,length)+1
     params = {'epsilon_p':0.01,'c_k':0.13,'subsidy':0,'w_0':state_init_w_0[state],
-                'premium_ub':premium_ub,'risk_coef':0.008,'S':[1], 'market_loading':1}
-    # choose_best_model(state, length, params)
+                'premium_ub':100,'risk_coef':0.008,'S':[1], 'market_loading':1}
+    choose_best_model(state, length, params)
     model_name = get_best_model(state, length, 1)
-    run_eval(state, length, params, model_name)
-    # choose_best_model_chantarat(state,length,params)
-    # model_name = get_best_model(state, length, 1, method='Chantarat')
-    # run_chantarat_eval(state, length,params,model_name)
+    try:
+        run_eval(state, length, params, model_name)
+        # choose_best_model_chantarat(state,length,params)
+        # model_name = get_best_model(state, length, 1, method='Chantarat')
+        # run_chantarat_eval(state, length,params,model_name)
 
 
+        params['constrained'] = 'uc'
+        run_chen_eval(state, length ,params)
 
-    # params['constrained'] = 'uc'
-    # run_chen_eval(state, length ,params)
+    except cp.error.SolverError:
+        print(f"Length: {length} failed to run")
+        pass
 
     ##### Their definition of the premium #####
     # premium_ub = get_premium(1.241,length)

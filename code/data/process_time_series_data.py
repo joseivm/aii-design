@@ -10,6 +10,7 @@ from sktime.transformations.panel.rocket import MiniRocketMultivariate
 from sktime.transformations.panel.catch22 import Catch22
 import time
 from pathlib import Path
+from progressbar import progressbar
 
 from dotenv import load_dotenv, find_dotenv
 dotenv_path = find_dotenv()
@@ -22,10 +23,11 @@ PRISM_DATA_DIR = os.path.join(RAW_DATA_DIR,'PRISM')
 NASS_DATA_DIR = os.path.join(RAW_DATA_DIR,'NASS')
 
 # Output files/dirs
-TRANSFORMS_DIR = os.path.join(PROJECT_DIR,'data','time-series-transforms')
+TRANSFORMS_DIR = os.path.join(PROJECT_DIR,'data','time-series-transforms-scrambled')
 
 ##### Data Loading ##### 
 def load_yield_data(state):
+    state_codes = {'Illinois':'17','Indiana':'18','Iowa':'19','Missouri':'29'}
     filename = f"{state} yields.csv"
     filepath = os.path.join(NASS_DATA_DIR,filename)
     df = pd.read_csv(filepath)
@@ -39,7 +41,12 @@ def load_yield_data(state):
     df['County ANSI'] = df['County ANSI'].apply(lambda x: '0'+x if len(x) == 2 else x)
     df['County ANSI'] = df['County ANSI'].apply(lambda x: '00'+x if len(x) == 1 else x)
 
-    df['CountyCode'] = '17' + df['County ANSI']
+    df['CountyCode'] = state_codes[state] + df['County ANSI']
+    scrambled_years = df.Year.unique()
+    rng = np.random.default_rng(42)
+    rng.shuffle(scrambled_years)
+    year_mapping = {old_year: new_year for old_year, new_year in zip(df.Year.unique(),scrambled_years)}
+    df['ScrambleYear'] = df.Year.map(year_mapping)
     return df
 
 def load_prism_data():
@@ -68,6 +75,7 @@ def load_prism_data():
 
     pdf = reduce(lambda x,y: pd.merge(x,y, on=['CountyCode','Year']),weather_dfs)
     pdf['CountyYear'] = pdf['CountyCode'] + '-' + pdf.Year.astype(str)
+    pdf.drop(columns=['CountyCode','Year'],inplace=True)
     return pdf
 
 def add_detrended_values(df):
@@ -135,14 +143,18 @@ def add_detrended_values_old(df,random_state=50):
     return df.drop(columns=['1','t','t^2'])
 
 ##### Transformations #####
-def save_transformed_data(state, transformer, trf_name, length):
+def save_transformed_data(state, transformer, trf_name, length, year_col='Year'):
     # Load data
-    ldf = create_loss_data(state,length)
+    ldf = create_loss_data(state,length, year_col)
     pdf = load_prism_data()
-    pdf = pdf.loc[pdf.CountyYear.isin(ldf.index),:]
+
+    if year_col == 'ScrambleYear':
+        pdf = pdf.merge(ldf[['CountyYear','ScrambleYear']],on='CountyYear')
+        pdf['CountyScrambleYear'] = pdf['CountyYear'].str.slice(0,5) + '-' + pdf.ScrambleYear.astype(str)
+    pdf = pdf.loc[pdf[f"County{year_col}"].isin(ldf.index),:]
 
     # turn it into a ts tensor
-    ts_data, obs_idx = create_raw_ts_tensors(pdf)
+    ts_data, obs_idx = create_raw_ts_tensors(pdf, year_col)
 
     # split into train/val/test (this includes the standardizing)
     train_cutoff = get_train_cutoff(ldf)
@@ -180,19 +192,19 @@ def save_transformed_data(state, transformer, trf_name, length):
 
     # save
     save(X_train_ts, y_train, X_val_ts, y_val, X_test_ts, y_test, trf_name, state,length)
-    save_dir = os.path.join(TRANSFORMS_DIR,state, trf_name)
     
-def save_chen_data(state,length):
-    ldf = create_loss_data(state,length)
+def save_chen_data(state,length, year_col='Year'):
+    ldf= create_loss_data(state,length, year_col)
     pdf = load_prism_data()
 
-    df = ldf.merge(pdf,on=['CountyCode','Year'])
+    df = ldf.merge(pdf,on='CountyYear')
+    # why am i sorting??
     df = df.sort_values('CountyYear')
     feats = [col for col in df.columns if re.search('[0-9]',col)]
-    train_cutoff = get_train_cutoff(ldf)
-    train_data = df.loc[df.Year <= train_cutoff,:]
-    val_data = df.loc[(df.Year > train_cutoff) & (df.Year <= 2007),:]
-    test_data = df.loc[df.Year > 2007,:]
+    train_cutoff = get_train_cutoff(ldf, year_col)
+    train_data = df.loc[df[year_col] <= train_cutoff,:]
+    val_data = df.loc[(df[year_col] > train_cutoff) & (df[year_col] <= 2007),:]
+    test_data = df.loc[df[year_col] > 2007,:]
 
     scaler = StandardScaler()
     X_train, y_train = train_data.loc[:,feats], train_data['TSLoss']
@@ -227,7 +239,7 @@ def debug():
             avg = test_data['TSLoss'].mean()
             print(f"{state} Length: {length} Loss: {avg}")
 
-def create_loss_data(state, length):
+def create_loss_data(state, length, year_col='Year'):
     df = load_yield_data(state)
     df = add_detrended_values(df)
     df['Huber Bushel Loss'] = df['Huber Value'].max() - df['Huber Value']
@@ -236,25 +248,26 @@ def create_loss_data(state, length):
     df['HuberLoss'] = df['Huber Bushel Loss']*3.5
     df['RANSACLoss'] = df['RANSAC Bushel Loss']*3.5
     df['TSLoss'] = df['TS Bushel Loss']*3.5
-    df = get_relevant_years(df,length)
+    df = get_relevant_years(df,length,year_col)
     df['CountyYear'] = df['CountyCode'] + '-' + df['Year'].astype(str)
-    df.set_index('CountyYear',inplace=True)
+    df['CountyScrambleYear'] = df['CountyCode'] + '-' + df['ScrambleYear'].astype(str)
+    df.set_index(f"County{year_col}",inplace=True)
     return df.loc[df.TSLoss.notna(),:]
 
-def get_relevant_years(df, length):
+def get_relevant_years(df, length, year_col='Year'):
     if length is not None:
         cutoff_year = 2007-length + 1
-        df = df.loc[df.Year >= cutoff_year,:]
+        df = df.loc[df[year_col] >= cutoff_year,:]
 
     # making sure they have enough obs for length 20 case
-    county_obs = df.loc[(df.Year >= 1988)&(df.Year <= 2007),:].groupby('County').size().reset_index(name='N')
+    county_obs = df.loc[(df[year_col] >= 1988)&(df[year_col] <= 2007),:].groupby('County').size().reset_index(name='N')
     full_data_counties = county_obs.loc[county_obs['N'] >= 2*20/3,'County'] 
 
     df = df.loc[df.County.isin(full_data_counties),:]
     return df
 
-def get_train_cutoff(ldf):
-    min_year = int(ldf.Year.min())
+def get_train_cutoff(ldf, year_col='Year'):
+    min_year = int(ldf[year_col].min())
     max_year = 2007
     years = np.array([i for i in range(min_year,max_year+1)])
     train, val = train_test_split(years,train_size=0.80,shuffle=False)
@@ -300,7 +313,7 @@ def save(X_train, y_train, X_val, y_val, X_test, y_test, trf_name, state, length
 
 def save_dates(train_years, val_years, test_years, state, length):
     length = str(length)
-    save_dir = os.path.join(TRANSFORMS_DIR,state)
+    save_dir = os.path.join(TRANSFORMS_DIR,state,'years')
     train_yrs_fname = f"train_years_L{length}.npy"
     train_yrs_full_path = os.path.join(save_dir, train_yrs_fname)
 
@@ -323,14 +336,14 @@ def scale_data(X_train, X_val, X_test, transformer=QuantileTransformer):
 
     return X_train, X_val, X_test
 
-def create_raw_ts_tensors(pdf):
+def create_raw_ts_tensors(pdf,year_col='Year'):
     # This will just take the ts data and return it in tensor format along with it's indices
-    obs_order = pdf['CountyYear'].sort_values()
+    obs_order = pdf[f"County{year_col}"].sort_values()
     weather_vars = ['ppt','tmin','tmax','tdmean','vpdmin','vpdmax']
     weather_dfs = []
     for var in weather_vars:
-        cols = ['CountyYear'] + [col for col in pdf.columns if var in col]
-        tdf = pdf.loc[:,cols].set_index('CountyYear').sort_index().to_numpy()
+        cols = [f"County{year_col}"] + [col for col in pdf.columns if var in col]
+        tdf = pdf.loc[:,cols].set_index(f"County{year_col}").sort_index().to_numpy()
         weather_dfs.append(tdf)
     
     ts_data = np.stack(weather_dfs,axis=1)
@@ -338,19 +351,20 @@ def create_raw_ts_tensors(pdf):
 
 
 # states = ['Iowa','Indiana','Missouri','Illinois']
-states = ['Indiana']
-# state = 'Missouri'
-# lengths = [i*10 for i in range(2,9)] + [83]
-lengths = [80]
+# states = ['Indiana']
+state = 'Illinois'
+lengths = [i for i in range(20,80)]
+# lengths = [i for i in lengths if i % 10 != 0]
 # save_transformed_data(state,None,'raw')
-for state in states:
-    for length in lengths:
-        print(length)
-        save_chen_data(state,length)
-        # transformer_dict = {'catch22':Catch22}
-        # for name, transformer in transformer_dict.items():
-        #     start = time.time()
-        #     save_transformed_data(state,transformer,name,length)
-        #     end = time.time()
-        #     total = (end-start)/60
-        #     print(f"{name}: {total} mins")
+
+for length in progressbar(lengths):
+    # print(length)
+    # save_chen_data(state,length,'ScrambleYear')
+    save_transformed_data(state, Catch22, 'catch22', length,'ScrambleYear')
+    # transformer_dict = {'catch22':Catch22}
+    # for name, transformer in transformer_dict.items():
+    #     start = time.time()
+    #     save_transformed_data(state,transformer,name,length)
+    #     end = time.time()
+    #     total = (end-start)/60
+    #     print(f"{name}: {total} mins")

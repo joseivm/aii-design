@@ -11,6 +11,8 @@ import random
 import string
 from joblib import dump, load
 from pathlib import Path
+import itertools
+from progressbar import progressbar
 
 
 from dotenv import load_dotenv, find_dotenv
@@ -19,11 +21,24 @@ load_dotenv(dotenv_path)
 PROJECT_DIR = os.environ.get("PROJECT_DIR")
 
 # Input files/dirs
-TRANSFORMS_DIR = os.path.join(PROJECT_DIR,'data','time-series-transforms')
+TRANSFORMS_DIR = os.path.join(PROJECT_DIR,'data','time-series-transforms-scrambled')
 
 # Output files/dirs
-RESULTS_DIR = os.path.join(PROJECT_DIR,'experiments','prediction')
+RESULTS_DIR = os.path.join(PROJECT_DIR,'experiments','prediction-scrambled')
 MODELS_DIR = os.path.join(PROJECT_DIR,'models')
+
+def debugging():
+    state = 'Illinois'
+    transform = 'catch22'
+    lengths = [i for i in range(20,80)]
+    lengths = [i for i in lengths if i % 10 != 0]
+    for length in lengths:
+        X_train, y_train, X_val, y_val, X_test, y_test = load_data(state, transform, length)
+        cols = np.array([i for i in np.arange(X_train.shape[1])])
+        bad_val_cols = cols[np.isnan(X_val).any(axis=0)]
+        bad_cols = cols[np.isnan(X_test).any(axis=0)]
+        print(f"Length: {length} Bad val cols: {bad_val_cols}")
+        print(f"Bad test cols: {bad_cols}")
 
 def load_data(state, transform,length):
     length = str(length)
@@ -53,7 +68,7 @@ def load_data(state, transform,length):
     y_val = np.load(y_val_full_path)
     y_test = np.load(y_test_full_path)
 
-    cols = ~np.isnan(X_train).any(axis=0)
+    cols = (~np.isnan(X_train).any(axis=0))&(~np.isnan(X_val).any(axis=0))&(~np.isnan(X_test).any(axis=0))
     # X_train = np.concatenate((X_train, X_val))
     # y_train = np.concatenate((y_train, y_val))
 
@@ -86,7 +101,7 @@ def train_model(state, transform, algorithm, algorithm_name, alg_args=None, leng
     results['Time'] = np.round(runtime,2)
     results['Model Name'] = model_name
     results['Algorithm Args'] = str(alg_args)
-    print(results)
+    # print(results)
     outdir = os.path.join(RESULTS_DIR,state)
     Path(outdir).mkdir(exist_ok=True)
     save_results(results,outdir,length)
@@ -148,24 +163,32 @@ def create_model_name(transform, algorithm):
     return model_name + model_id
 
 # lengths = [i*10 for i in range(2,9)] + [83]
-lengths = [20,30]
+# lengths = [20,30]
 # states = ['Iowa','Missouri','Indiana']
-states = ['Iowa']
-transforms = ['chen','catch22']
+# states = ['Iowa']
+lengths = [i for i in range(20,80)]
+lengths = [i for i in lengths if i % 10 != 0]
+state = 'Illinois'
+transforms = ['catch22']
 algorithms = {'Ridge': (Ridge,None), 'Lasso': (Lasso,None), 'SVR': (SVR,None), 
               'Random Forest': (RandomForestRegressor,{'n_estimators':250}),
               'Gradient Boosting':(GradientBoostingRegressor,{'n_estimators':250})}
 
 # train_model('Iowa','rocket',GradientBoostingRegressor,'Gradient Boosting',{'n_estimators':250},83)
-
+iter_list = [i for i in itertools.product(lengths, transforms, algorithms.keys())]
 start = time.time()
-for state in states:
-    for length in lengths:
-        for transform in transforms:
-            print(f"###### {state} ### {length} ### {transform}#####")
-            for name, (algorithm,alg_args) in algorithms.items():
-                if not (name == 'Random Forest' and transform == 'rocket'):
-                    train_model(state, transform, algorithm, name, alg_args, length)
+for length, transform, alg_name in progressbar(iter_list):
+    algorithm, alg_args = algorithms[alg_name]
+    train_model(state, transform, algorithm, alg_name, alg_args, length)
+
+
+
+# for length in lengths:
+#     for transform in transforms:
+#         print(f"###### {state} ### {length} ### {transform}#####")
+#         for name, (algorithm,alg_args) in algorithms.items():
+#             if not (name == 'Random Forest' and transform == 'rocket'):
+#                 train_model(state, transform, algorithm, name, alg_args, length)
 end = time.time()
 runtime = (end-start)/60
 print(f"Runtime: {runtime}")

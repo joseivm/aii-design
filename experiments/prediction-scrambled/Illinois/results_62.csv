@@ -1,0 +1,11 @@
+Loss Recall,Payout Precision,Average Cost,Cost Per Coverage,MSE,Algorithm,Transform,Time,Model Name,Algorithm Args
+0.850,0.895,217.332,255.715,7093.097,Ridge,chen,0.000,chen_Ridge_A60,
+0.883,0.899,221.923,251.435,5295.469,Lasso,chen,0.000,chen_Lasso_n5p,
+0.885,0.912,216.100,244.219,4803.995,SVR,chen,0.130,chen_SVR_mbc,
+0.897,0.901,223.023,248.705,4541.793,Random Forest,chen,1.010,chen_Random Forest_KPw,{'n_estimators': 250}
+0.895,0.901,224.195,250.369,4516.318,Gradient Boosting,chen,0.220,chen_Gradient Boosting_aaD,{'n_estimators': 250}
+0.883,0.883,218.523,247.569,5965.211,Ridge,catch22,0.000,catch22_Ridge_Mvj,
+0.891,0.890,218.177,244.828,5265.473,Lasso,catch22,0.000,catch22_Lasso_6Rl,
+0.887,0.897,213.300,240.385,5314.840,SVR,catch22,0.180,catch22_SVR_L8w,
+0.903,0.891,221.281,245.040,4573.246,Random Forest,catch22,1.280,catch22_Random Forest_oWF,{'n_estimators': 250}
+0.904,0.889,223.509,247.124,4676.695,Gradient Boosting,catch22,0.350,catch22_Gradient Boosting_ym6,{'n_estimators': 250}

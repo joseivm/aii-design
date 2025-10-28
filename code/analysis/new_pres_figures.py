@@ -148,11 +148,13 @@ def get_payouts(state, length, market_loading):
     return df
 
 def get_results(state):
-    lengths = [i*10 for i in range(2,9)]
     rdfs = []
-    for length in lengths:
-        fname = os.path.join(EVAL_DIR,state,'Test',f"results_{length}_2.csv")
-        rdf = pd.read_csv(fname)
+    result_dir = os.path.join(EVAL_DIR,state,'Test')
+    fnames = [f for f in os.listdir(result_dir) if '_new.csv' in f]
+    for fname in fnames:
+        length = fname.split('_')[1]
+        fpath = os.path.join(result_dir,fname)
+        rdf = pd.read_csv(fpath)
         rdf['Length'] = length
         rdfs.append(rdf)
 
