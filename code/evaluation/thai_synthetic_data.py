@@ -73,7 +73,7 @@ def create_param_dict(zones, c_k, test_year, w_0=0.1, alpha=2):
 
 
 ##### Copula things ##### 
-def fit_spliced_severity(ldf: pd.DataFrame,
+def fit_spliced_severity_old(ldf: pd.DataFrame,
                          tail_q: float = 0.95,
                          loss_col: str = 'PredLoss') -> dict:
     """
@@ -108,6 +108,39 @@ def fit_spliced_severity(ldf: pd.DataFrame,
                 'gpd_c': c,
                 'gpd_s': s
             }
+    return sev_params
+
+def fit_spliced_severity(ldf: pd.DataFrame,
+                         tail_q: float = 0.95,
+                         loss_col: str = 'PredLoss') -> dict:
+    sev_params = {}
+    for zone, grp in ldf.groupby('Zone'):
+        data = grp[loss_col].to_numpy()
+        u = np.quantile(data, tail_q)
+        body = np.sort(data[data <= u])
+        tail = data[data > u]
+
+        if len(data) == 0 or np.allclose(data, 0):
+            # degenerate: pure empirical zeros
+            sev_params[zone] = dict(u=u, body=np.sort(data), p_body=1.0, gpd_c=0.0, gpd_s=1.0)
+            continue
+
+        # If no tail or tiny tail, fall back to pure empirical
+        if len(tail) < 10:
+            sev_params[zone] = dict(u=u, body=np.sort(data), p_body=1.0, gpd_c=0.0, gpd_s=1.0)
+            continue
+
+        # Fit on exceedances (more stable)
+        ex = tail - u
+        c, loc, s = genpareto.fit(ex, floc=0.0)
+
+        # If c < 0, enforce endpoint >= tail.max()
+        if c < 0:
+            endpoint = u - s / c  # finite upper bound
+            if endpoint < tail.max():
+                # inflate s minimally so the endpoint covers the observed max
+                s = (u - (tail.max() + 1e-9)) * c  # c<0 ⇒ s increases
+        sev_params[zone] = dict(u=u, body=body, p_body=len(body)/len(data), gpd_c=c, gpd_s=s)
     return sev_params
 
 def nearest_positive_definite(A: np.ndarray) -> np.ndarray:
@@ -281,8 +314,7 @@ def simulate_single_zone_payouts(
     # body draws
     mask_body = U < p_body
     if n_body > 0:
-        idx = np.floor((U[mask_body] / p_body) * n_body).astype(int)
-        idx = np.clip(idx, 0, n_body - 1)
+        idx = np.floor((U[mask_body] / p_body) * (n_body - 1)).astype(int)
         payouts[mask_body] = body[idx]
     else:
         # no body: all mass in tail, set to threshold
@@ -291,7 +323,7 @@ def simulate_single_zone_payouts(
     mask_tail = ~mask_body
     if mask_tail.any() and p_body < 1.0:
         gq = (U[mask_tail] - p_body) / (1 - p_body)
-        payouts[mask_tail] = genpareto.ppf(gq, c=c, loc=u_thr, scale=s)
+        payouts[mask_tail] = u_thr + genpareto.ppf(gq, c=c, loc=0.0, scale=s)
 
     # 4) Build result
     sim_df = pd.DataFrame({

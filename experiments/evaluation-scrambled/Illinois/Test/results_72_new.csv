@@ -1,5 +1,0 @@
-Utility,CEW,Premium,Insurer Cost,Eval Name,Method,Required Capital,a,b,Market Loading,Params
--2.653,481.600,39.865,51077.972,catch22_Gradient Boosting_YGL_ub40_9ay,VMX,5.763,0.320,33.740,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 40, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 511.0}"
--2.277,500.696,62.664,87412.680,,Chen uc,6.164,,,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 40, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 511.0, 'constrained': 'uc'}"
--2.652,481.640,89.197,117200.826,catch22_Gradient Boosting_YGL_ub100_CPR,VMX,9.250,0.490,23.480,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 511.0}"
--2.276,500.714,62.646,87412.680,,Chen uc,6.146,,,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 511.0, 'constrained': 'uc'}"

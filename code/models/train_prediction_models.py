@@ -21,10 +21,10 @@ load_dotenv(dotenv_path)
 PROJECT_DIR = os.environ.get("PROJECT_DIR")
 
 # Input files/dirs
-TRANSFORMS_DIR = os.path.join(PROJECT_DIR,'data','time-series-transforms-scrambled')
+TRANSFORMS_DIR = os.path.join(PROJECT_DIR,'data','time-series-transforms')
 
 # Output files/dirs
-RESULTS_DIR = os.path.join(PROJECT_DIR,'experiments','prediction-scrambled')
+RESULTS_DIR = os.path.join(PROJECT_DIR,'experiments','prediction')
 MODELS_DIR = os.path.join(PROJECT_DIR,'models')
 
 def debugging():
@@ -166,10 +166,11 @@ def create_model_name(transform, algorithm):
 # lengths = [20,30]
 # states = ['Iowa','Missouri','Indiana']
 # states = ['Iowa']
-lengths = [i for i in range(20,80)]
-lengths = [i for i in lengths if i % 10 != 0]
+lengths = [i for i in range(20,81)]
+# lengths = [20]
+# lengths = [i for i in lengths if i % 10 != 0]
 state = 'Illinois'
-transforms = ['catch22']
+transforms = ['chen','catch22']
 algorithms = {'Ridge': (Ridge,None), 'Lasso': (Lasso,None), 'SVR': (SVR,None), 
               'Random Forest': (RandomForestRegressor,{'n_estimators':250}),
               'Gradient Boosting':(GradientBoostingRegressor,{'n_estimators':250})}

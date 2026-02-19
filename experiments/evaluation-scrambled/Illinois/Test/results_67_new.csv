@@ -1,3 +1,0 @@
-Utility,CEW,Premium,Insurer Cost,Eval Name,Method,Required Capital,a,b,Market Loading,Params
--2.618,483.234,37.759,52903.367,catch22_SVR_C9K_ub40_tyQ,VMX,3.133,0.460,62.830,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 40, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 511.0}"
--2.271,500.997,63.738,89312.678,,Chen uc,6.124,,,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 40, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 511.0, 'constrained': 'uc'}"

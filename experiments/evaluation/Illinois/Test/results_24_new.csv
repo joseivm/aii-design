@@ -1,3 +1,3 @@
-Utility,CEW,Premium,Insurer Cost,Eval Name,Method,Required Capital,a,b,Market Loading,Params
--2.051,513.741,107.909,130795.878,chen_Ridge_ERq_ub200_GAL,VMX,13.395,0.410,0.020,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 576.0}"
--2.362,496.091,90.513,76370.937,,Chen uc,12.173,,,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 576.0, 'constrained': 'uc'}"
+Utility,CEW,PredLoss,Loss,Premium,Insurer Cost,Eval Name,Method,Required Capital,a,b,Market Loading,Params
+-1.998,517.011,244.294,234.114,89.386,82.101,chen_Ridge_hDe_ub200_iEw,VMX,0.159,0.480,34.910,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 576.0}"
+-2.360,496.231,58.298,234.114,90.373,58.298,,Chen uc,0.133,,,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 576.0, 'constrained': 'uc'}"

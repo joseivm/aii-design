@@ -1,5 +1,0 @@
-Utility,CEW,Premium,Insurer Cost,Eval Name,Method,Required Capital,a,b,Market Loading,Params
--2.609,483.671,39.356,53426.029,chen_Gradient Boosting_JpE_ub40_jZ0,VMX,6.388,0.270,24.250,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 40, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 538.0}"
--2.334,497.569,63.307,86137.114,,Chen uc,7.441,,,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 40, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 538.0, 'constrained': 'uc'}"
--2.565,485.771,97.196,134180.569,chen_Gradient Boosting_JpE_ub100_Eq1,VMX,9.381,0.410,0.120,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 538.0}"
--2.336,497.496,63.380,86137.114,,Chen uc,7.513,,,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 538.0, 'constrained': 'uc'}"

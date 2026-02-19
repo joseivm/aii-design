@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 % \usepackage[english]{babel}
 \usepackage{hyperref}
+\usepackage{soul}
 \usepackage{graphicx}
 \graphicspath{{../../../output/figures/Presentation/}}
 \usepackage{wrapfig}
@@ -45,7 +46,7 @@ sorting=ynt
 ]{biblatex}
 \addbibresource{../../main.bib}
 
-\title[Agricultural Index Insurance]{Measuring and Managing Risk at Scale: Index Insurance and Aflatoxin Early-Warning}
+\title[Agricultural Index Insurance]{Portfolio-Priced Index Insurance: Design and Performance}
 \author[José Velarde Morales]{José I. Velarde Morales}
 \institute[Chicago Booth]
 {
@@ -116,8 +117,8 @@ sorting=ynt
   \end{frame}
 }
 
-\newcommand{\ribChMZ}{-0.163}
-\newcommand{\ribNNMZ}{-1.909}
+\newcommand{\ribChMZ}{-0.222}
+\newcommand{\ribNNMZ}{-1.964}
 % ==== END: Inserted helper packages & macros (flow slides) ====
 
 \begin{document}
@@ -134,16 +135,17 @@ sorting=ynt
   \begin{columns}[T,onlytextwidth]
     \column{0.48\textwidth}
     \begin{enumerate}
-      \item Motivation \& Context
-      \item Questions \& Contributions
-      \item Methods Overview
+      \item Agriculture \& Insurance
+      \item Objective \& Contributions
+      \item Current Methods
       \item Our Method
     \end{enumerate}
     \column{0.48\textwidth}
     \begin{enumerate}\setcounter{enumi}{4}
-      \item Prediction Overview
+      % \item Prediction Overview
       \item Evaluation Plan \& Metrics
       \item Results (SZ $\rightarrow$ MZ)
+      \item Midwest Evaluation
       \item Implications \& Takeaways
     \end{enumerate}
   \end{columns}
@@ -265,7 +267,7 @@ sorting=ynt
 \begin{frame}{II is typically subsidized, often bundled with credit, delivered via PPPs}
     \begin{itemize}
         \setlength\itemsep{1em}
-        \item Index insurance is a named-peril insurance and it is often tied to access to credit.
+        \item Index insurance is generally a named-peril insurance and it is often tied to access to credit.
         \item Offered at different levels (micro level, meso level, and macro level)
         \item Often based on public-private partnerships. Research institutions usually design the product, and insurance companies (or governments) price/sell it. 
     \end{itemize}
@@ -275,7 +277,7 @@ sorting=ynt
 
 
     % --- Research Questions & Contributions ---
-\section{Question and Contributions}
+\section{Objective and Contributions}
 \sectionframe{8}{2}{Questions and Contributions}
 \begin{frame}{What we ask and what we contribute}
 \begin{columns}[T,onlytextwidth]
@@ -298,6 +300,29 @@ sorting=ynt
   \end{itemize}
 \end{columns}
 \end{frame}
+
+\begin{frame}{Project objective and contributions}
+
+  \textbf{Project objective}
+  \begin{itemize}\itemsep3pt
+      \item Develop a method to design simple (piecewise-linear) index insurance contracts
+            that maximize farmer welfare under \textbf{risk-adjusted pricing}.
+      % \item Align contract \emph{design} with how insurers actually \emph{price risk at scale}
+      %       (portfolio-based capital requirements).
+  \end{itemize}
+  
+  \medskip
+  
+  \textbf{Contributions}
+  \begin{itemize}\itemsep3pt
+      \item A \textbf{utility-maximizing} program with premiums that incorporate the cost of capital.
+      \item A \textbf{multi-zone} program to simultaneously design contracts for multiple zones and a simple proof that it improves over independent zone design.
+      \item An empirical evaluation using a novel dataset of Thai rice farmers and an additional evaluation using
+            long-run U.S.\ Midwest corn data.
+  \end{itemize}
+  
+  \end{frame}
+  
 
 
 \subsection{Literature Review}
@@ -447,7 +472,7 @@ sorting=ynt
     
     \begin{tabularx}{\linewidth}{Z{0.22\linewidth} Y Y Y}
     \toprule
-     & \makecell[l]{Chantarat (Baseline)} & \makecell[l]{Chen (NN)} & \makecell[l]{Ours (VMX)} \\
+     & \makecell[l]{Chantarat (Baseline)} & \makecell[c]{Chen (NN)} & \makecell[l]{Ours (VMX)} \\
     \midrule
     Objective
     & Maximize correlation of payouts with losses
@@ -473,26 +498,6 @@ sorting=ynt
     \end{tabularx}
     \end{frame}
 
-
-% \begin{frame}{Method comparison: other features}
-%     \begin{table}
-%         \centering
-%     \begin{tabular}{c|c|c|c|}  
-%         \multicolumn{1}{c|}{} & Baseline & Chen & VMX  \\
-%         \hline
-%         Simple contracts & \cmark & \xmark & \cmark \\
-%         \hline
-%         Price constraints & \xmark & \cmark & \cmark \\
-%         \hline
-%         Payout frequency constraints & \xmark & \xmark & \cmark \\
-%         \hline
-%         Different premiums defn's & \xmark & \cmark & \cmark \\
-%         \hline
-%         Multi-zone contract design & \xmark & \xmark & \cmark \\
-%         \hline
-%     \end{tabular}
-% \end{table}
-% \end{frame}
 
 
 
@@ -659,20 +664,20 @@ sorting=ynt
       
       \end{frame}
 
-\begin{frame}{Premium Principles}
-    A premium principle is a functional that maps an insurance contract to a price (premium). There are several premium principles that are common in the actuarial literature, and our method is compatible with most of them:
-    \begin{table}[h!]
-        \centering
-        \begin{tabular}{ll}
-        Description & Definition \\ \hline
-        Expected value       & $(1+\alpha)\mathbb{E}[I]$           \\
-        Standard deviation   & $\mathbb{E}[I] + \alpha \sigma(I)$       \\
-        Variance             & $\mathbb{E}[I] + \alpha \sigma^2(I)$      \\
-        Exponential          & $\frac{1}{\alpha} \log \mathbb{E}[e^{\alpha I}]$    \\
-        Dutch                &  $\mathbb{E}[I] + \beta \mathbb{E}[(I-\alpha \mathbb{E}[I])_+]$                   \\ \hline
-        \end{tabular}
-        \end{table}
-\end{frame}
+% \begin{frame}{Premium Principles}
+%     A premium principle is a functional that maps an insurance contract to a price (premium). There are several premium principles that are common in the actuarial literature, and our method is compatible with most of them:
+%     \begin{table}[h!]
+%         \centering
+%         \begin{tabular}{ll}
+%         Description & Definition \\ \hline
+%         Expected value       & $(1+\alpha)\mathbb{E}[I]$           \\
+%         Standard deviation   & $\mathbb{E}[I] + \alpha \sigma(I)$       \\
+%         Variance             & $\mathbb{E}[I] + \alpha \sigma^2(I)$      \\
+%         Exponential          & $\frac{1}{\alpha} \log \mathbb{E}[e^{\alpha I}]$    \\
+%         Dutch                &  $\mathbb{E}[I] + \beta \mathbb{E}[(I-\alpha \mathbb{E}[I])_+]$                   \\ \hline
+%         \end{tabular}
+%         \end{table}
+% \end{frame}
 
 \begin{frame}{Pricing and Design}
   \begin{itemize}
@@ -683,7 +688,7 @@ sorting=ynt
     \begin{align*}
       \pi_z = \mathbb{E}[I_z]+ c_k \frac{\beta_z}{s_z} \left ( \mathrm{CVaR}_{1-\epsilon}\left (\sum_z s_z I_z\right )\;-\;\mathbb{E}\left [\sum_z s_z I_z \right ] \right )
     \end{align*}
-    \item However, since contracts are designed on zone at a time, portfolio risk isn't observed and a single-zone variant of the premium is used:
+    \item However, since contracts are designed one zone at a time, portfolio risk isn't observed and a single-zone variant of the premium is used:
     \begin{align*}
       \pi_z = \mathbb{E}[I_z]+ c_k \left ( \mathrm{CVaR}_{1-\epsilon}(I_z)\;-\;\mathbb{E}[I_z] \right )
     \end{align*}
@@ -856,22 +861,22 @@ sorting=ynt
   {\scriptsize Source: disaster loss reports (Thailand) combined with gridded climate datasets.}
   \end{frame}
 
-\begin{frame}{Thai Data: Administrative Data Sources}
-    \begin{itemize}
-        \setlength\itemsep{2em}
-        \item \textbf{Thailand Department of Agricultural Extension (DOAE)}: This dataset contains detailed information on the planting activities of over 3.1 million Thai farmers. Information includes plant date, plot size, rice variety, etc
-        \item \textbf{Thai Government Disaster Relief Data}: This data is from the current national disaster relief program. It contains information about the disaster type, losses, and disaster date.  
-    \end{itemize}
-\end{frame}
+% \begin{frame}{Thai Data: Administrative Data Sources}
+%     \begin{itemize}
+%         \setlength\itemsep{2em}
+%         \item \textbf{Thailand Department of Agricultural Extension (DOAE)}: This dataset contains detailed information on the planting activities of over 3.1 million Thai farmers. Information includes plant date, plot size, rice variety, etc
+%         \item \textbf{Thai Government Disaster Relief Data}: This data is from the current national disaster relief program. It contains information about the disaster type, losses, and disaster date.  
+%     \end{itemize}
+% \end{frame}
 
-\begin{frame}{Remote Sensing Data Sources}
-    \begin{itemize}
-        \setlength\itemsep{2em}
-        \item \textbf{Climate Hazards Center InfraRed Precipitation with Station data (CHIRPS)}: daily rainfall data 1981-present
-        \item \textbf{MOD21A1 Land Surface Temperature}: daily temperature data, available 2000-present 
-        \item \textbf{FLDAS Famine Early Warning Systems Network}: monthly evapotranspiration data, available 1992-present
-    \end{itemize}
-\end{frame}
+% \begin{frame}{Remote Sensing Data Sources}
+%     \begin{itemize}
+%         \setlength\itemsep{2em}
+%         \item \textbf{Climate Hazards Center InfraRed Precipitation with Station data (CHIRPS)}: daily rainfall data 1981-present
+%         \item \textbf{MOD21A1 Land Surface Temperature}: daily temperature data, available 2000-present 
+%         \item \textbf{FLDAS Famine Early Warning Systems Network}: monthly evapotranspiration data, available 1992-present
+%     \end{itemize}
+% \end{frame}
 
 % \begin{frame}{Data Summary Statistics}
 %     \begin{figure}[h]
@@ -898,52 +903,52 @@ sorting=ynt
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Evaluation Details}
-    \begin{itemize}
-        \item We use the training data and the same method to compute the premium for all methods.
-        \item We modify Chen's method to use the same premium definition as ours. 
-        \item We use simulated data to estimate the $\textsf{CVaR}$ when calculating the premium. 
-        \item We use a CRRA utility function with $\alpha=1.5$ (\cite{flatnes2018improving}; \cite{estefania2024breaking}; \cite{jensen2019does})
-    \end{itemize}
+% \begin{frame}{Evaluation Details}
+%     \begin{itemize}
+%         \item We use the training data and the same method to compute the premium for all methods.
+%         \item We modify Chen's method to use the same premium definition as ours. 
+%         \item We use simulated data to estimate the $\textsf{CVaR}$ when calculating the premium. 
+%         \item We use a CRRA utility function with $\alpha=1.5$ (\cite{flatnes2018improving}; \cite{estefania2024breaking}; \cite{jensen2019does})
+%     \end{itemize}
     
-\end{frame}
+% \end{frame}
 
 
 
-\begin{frame}{Evaluation pipeline (LOYO)}
-  \centering
-  \resizebox{\linewidth}{!}{
-  \begin{tikzpicture}[font=\small]
-    \tikzset{
-      box/.style={draw,rounded corners,minimum height=9mm,text width=3.2cm,align=center},
-      arrow/.style={-Latex,thick}
-    }
-    % row 1
-    \node[box]                        (split)  {Split by Year\\(leave-one-year-out)};
-    \node[box, right=9mm of split]    (train)  {Train: Fit predictor\\on training years};
-    \node[box, right=9mm of train]    (design) {Design: Optimize contract\\on validation set};
-    % row 2
-    \node[box, below=9mm of train]    (price)  {Price: Set premiums using\\training set};
-    \node[box, right=9mm of price]    (test)   {Test: Evaluate welfare on held-out year};
-    \node[box, right=9mm of test]     (agg)    {Aggregate across folds};
+% \begin{frame}{Evaluation pipeline (LOYO)}
+%   \centering
+%   \resizebox{\linewidth}{!}{
+%   \begin{tikzpicture}[font=\small]
+%     \tikzset{
+%       box/.style={draw,rounded corners,minimum height=9mm,text width=3.2cm,align=center},
+%       arrow/.style={-Latex,thick}
+%     }
+%     % row 1
+%     \node[box]                        (split)  {Split by Year\\(leave-one-year-out)};
+%     \node[box, right=9mm of split]    (train)  {Train: Fit predictor\\on training years};
+%     \node[box, right=9mm of train]    (design) {Design: Optimize contract\\on validation set};
+%     % row 2
+%     \node[box, below=9mm of train]    (price)  {Price: Set premiums using\\training set};
+%     \node[box, right=9mm of price]    (test)   {Test: Evaluate welfare on held-out year};
+%     \node[box, right=9mm of test]     (agg)    {Aggregate across folds};
   
-    % flow arrows
-    \draw[arrow] (split) -- (train);
-    \draw[arrow] (train) -- (design);
-    \draw[arrow] (design) -- (price);
-    \draw[arrow] (price) -- (test);
-    \draw[arrow] (test)  -- (agg);
+%     % flow arrows
+%     \draw[arrow] (split) -- (train);
+%     \draw[arrow] (train) -- (design);
+%     \draw[arrow] (design) -- (price);
+%     \draw[arrow] (price) -- (test);
+%     \draw[arrow] (test)  -- (agg);
   
-    % annotations
-    \node[align=center] at ($(train.north)!0.5!(design.north)+(0,8mm)$)
-      {No leakage:\\ Test year excluded from fit/design/price};
-    \node[align=center] at ($(price.south)+(0,-6mm)$)
-      {Premiums priced on\\training-only distribution};
-    \node[align=left]   at ($(test.east)+(8mm,-16mm)$)
-      {Repeat for each\\held-out year};
-  \end{tikzpicture}
-  }
-  \end{frame}
+%     % annotations
+%     \node[align=center] at ($(train.north)!0.5!(design.north)+(0,8mm)$)
+%       {No leakage:\\ Test year excluded from fit/design/price};
+%     \node[align=center] at ($(price.south)+(0,-6mm)$)
+%       {Premiums priced on\\training-only distribution};
+%     \node[align=left]   at ($(test.east)+(8mm,-16mm)$)
+%       {Repeat for each\\held-out year};
+%   \end{tikzpicture}
+%   }
+%   \end{frame}
 
 \subsection{Framework}
 \begin{frame}{Relative Insurance Benefit (RIB)}
@@ -959,17 +964,17 @@ sorting=ynt
     
 \end{frame}
 
-\begin{frame}{Relative Insurance Benefit (RIB)}
-    Let $w^J_i$ be the wealth of farmer $i$ under insurance contract $J$. We denote perfect insurance with $PI$ and no insurance with $NI$
-    \vspace{4mm}
-    \begin{align*}
-         CE(J):& \quad u^{-1}(\mathbb{E}[u(w^J)]) \\
-         \Delta CE(J):&\quad = CE(J) - CE(NI) \\
-         RIB(J):& \quad \frac{\Delta CE(J)}{\Delta CE(PI)} \\
-         \text{Utility}:& \quad u(w) = \frac{w^{1-\alpha}}{1-\alpha} 
-    \end{align*}
+% \begin{frame}{Relative Insurance Benefit (RIB)}
+%     Let $w^J_i$ be the wealth of farmer $i$ under insurance contract $J$. We denote perfect insurance with $PI$ and no insurance with $NI$
+%     \vspace{4mm}
+%     \begin{align*}
+%          CE(J):& \quad u^{-1}(\mathbb{E}[u(w^J)]) \\
+%          \Delta CE(J):&\quad = CE(J) - CE(NI) \\
+%          RIB(J):& \quad \frac{\Delta CE(J)}{\Delta CE(PI)} \\
+%          \text{Utility}:& \quad u(w) = \frac{w^{1-\alpha}}{1-\alpha} 
+%     \end{align*}
     
-\end{frame}
+% \end{frame}
 
 % \begin{frame}{Single Zone Evaluation Procedure}
 %     \begin{itemize}
@@ -1205,64 +1210,279 @@ sorting=ynt
     &\quad \underline{I_z(\theta_z)} \;=\; \min\!\left\{a_z\,\hat{\ell}_z(\theta_z)-b_z,\,1 \right\}.
     \end{align}
     
-    \vspace{0.4em}
-    \begin{block}{\scriptsize What’s \alert{new} in MZ vs.\ SZ?}
-    \scriptsize
-    \begin{itemize}
-      \item \alert{Joint objective \& decisions:} choose $\{a_z,b_z\}$ \emph{jointly} to maximize \eqref{eq:obj}; welfare sums across zones (no separability).
-      \item \alert{Portfolio risk:} capital charge in \eqref{eq:portfolio} uses \emph{portfolio} ${\sf CVaR}$ of $\sum_z s_z \overline{I_z}$ (subadditivity rewards diversification).
-      \item \alert{Capital allocation:} introduce $K$ and per-zone $k_z$ with budget \eqref{eq:budget}; pricing \eqref{eq:pricing} uses $\frac{k_z}{s_z}$.
-      \item \textbf{Unchanged:} per-zone price cap and the piecewise-linear contract class (last line).
-    \end{itemize}
-    \end{block}
     
     {\scriptsize \emph{SZ reference (per zone, no coupling):} $\ \pi_z=\mathbb{E}[\overline{I_z}] + c_\kappa\!\big({\sf CVaR}_{1-\epsilon}(\overline{I_z})-\mathbb{E}[\overline{I_z}]\big)$; no $K$ or $k_z$, zones solved independently.}
     \end{frame}
 
+    \begin{frame}[plain]
+      \centering
+      \vspace{2cm}
+      
+      {\Large \textbf{Some Theory}}
+      
+      \vspace{0.6cm}
+      {\large But first, a fun fact: all chili peppers in the world originate in Mexico}
+      
+      \end{frame}
 
-        \begin{frame}{Why MZ $\ge$ SZ sketch}
-            \small
-            \textbf{Intuition.} Single-zone (SZ) design prices capital \emph{per zone}, ignoring diversification.
-            With a coherent risk measure (CVaR), capital is \emph{subadditive}, so SZ \emph{overestimates} required capital
-            $\Rightarrow$ it solves a \emph{more constrained} problem than MZ.
+    \begin{frame}{Why multi-zone (MZ) weakly dominates single-zone (SZ)}
+      \small
+      
+      \begin{block}{Proposition}
+      If required capital is based on a \textbf{coherent risk measure} (e.g.\ CVaR),
+      then designing contracts jointly across zones weakly dominates designing each zone independently.
+      \[
+      \boxed{\; W^{\text{MZ}} \;\ge\; W^{\text{SZ}} \;}
+      \]
+      \end{block}
+      
+      \medskip
+      
+      \textbf{Key idea.}
+      \begin{itemize}\itemsep1.5pt
+          \item SZ overestimates cost of capital because it assumes perfect correlation.
+          \item Coherent risk measures are \textbf{subadditive}: $R \left ( \sum_z s_z I_z \right ) \leq \sum_z R\left ( s_z I_z \right )$
+      \end{itemize}
+      
+      \medskip
+      
+      \textbf{Proof sketch.}
+      \begin{itemize}\itemsep1.5pt
+          \item Take the SZ-optimal contracts $\{I_z^{\text{SZ}}\}$.
+          \item Under MZ, the same payouts require weakly less capital.
+          \item Reallocate capital savings to weakly reduce premiums wo changing payouts.
+      \end{itemize}
+
+    \boxed{\text{Payouts stay the same, premiums weakly fall $\Rightarrow$ welfare weakly increases.}}
+      
+      \end{frame}
+
+    \begin{frame}{KKT analysis: setup}
+      \small
+
+      \textbf{What the KKT conditions tell us}
+      \begin{itemize}\itemsep2pt
+          \item How prediction quality affects optimal slopes $a_z$.
+          \item How portfolio co-movement enters marginal capital costs.
+          \item How capital allocation is used.
+      \end{itemize}
+
+      \medskip
+
+      \textbf{Simplified multi-zone problem}
+      \begin{itemize}\itemsep2pt
+          \item Contracts: $I_z = a_z \hat{\ell}_z$.
+          \item Portfolio payout: $X = \sum_z s_z I_z$.
+          \item Required capital: $K = R(X)$ for a coherent risk measure $R(\cdot)$.
+          \item Premiums: $\pi_z = \mathbb{E}[I_z] + \frac{c_\kappa}{s_z} k_z$, \quad $\sum_z k_z = K$.
+      \end{itemize}
+      
+      
+      \end{frame}
+
+      \begin{frame}{KKT takeaways: what shapes optimal contracts}
+        \small
+        
+        \textbf{1. Tail prediction quality matters more.}
+        \begin{itemize}\itemsep2pt
+            \item Slopes increase when predicted losses align with high marginal-utility (loss) states.
+            \item Among similarly accurate indices, those better at predicting large losses get steeper contracts.
+        \end{itemize}
+        
+        \medskip
+        
+        \textbf{2. Portfolio co-movement penalty.}
+        \begin{itemize}\itemsep2pt
+            % \item Capital is priced on the portfolio, not zone-by-zone.
+            \item Zones that co-move strongly with portfolio tail risk receive flatter contracts.
+            % \item Diversifying zones receive steeper contracts.
+        \end{itemize}
+        
+        \medskip
+        
+        \textbf{3. Capital allocation as an extra lever.}
+        \begin{itemize}\itemsep2pt
+            \item Capital allocation equalizes marginal utility across zones.
+            \item If a zone hits its price cap, KKT conditions force its capital allocation to zero.
+            % \item Allocation helps reassign risk-bearing capacity where it generates the most welfare.
+        \end{itemize}
+        
+        % \medskip
+        
+        % \textbf{4. Binding premium caps shut down capital charges.}
+        % \begin{itemize}\itemsep2pt
+        %     \item If a zone hits its price cap, KKT conditions force its capital allocation to zero.
+        % \end{itemize}
+        
+        % \medskip
+        % \textbf{Bottom line.}
+        % Multi-zone optimization reallocates capital toward zones and states where insurance delivers the greatest welfare per unit of portfolio risk.
+        \end{frame}
+        
+      
+
+    % \begin{frame}{KKT insights I: what determines optimal slopes $a_z$}
+    %   \small
+      
+    %   \textbf{Setup (simplified for insight).}
+    %   \[
+    %   I_z = a_z \hat{\ell}_z, \qquad 
+    %   \pi_z = \mathbb{E}[I_z] + \frac{c_\kappa}{s_z}k_z, \qquad 
+    %   K = R\!\left(\sum_z s_z I_z\right)
+    %   \]
+      
+    %   \medskip
+      
+    %   \textbf{FOC for $a_z$ (schematic):}
+    %   \[
+    %   \underbrace{\mathbb{E}\!\left[u'(w_z)\big(\hat{\ell}_z-\mathbb{E}[\hat{\ell}_z]\big)\right]}_{\text{welfare gain}}
+    %   \;=\;
+    %   \underbrace{c_\kappa\,\mathbb{E}[u'(w_z)]\,\mathbb{E}[\gamma\,\hat{\ell}_z]}_{\text{marginal capital cost}}
+    %   \]
+      
+    %   \medskip
+      
+    %   \textbf{Two forces shaping $a_z$:}
+    %   \begin{itemize}\itemsep2pt
+    %       \item \textbf{Basis pull (prediction quality).}  
+    %       Slopes increase when predicted losses align with high marginal-utility (loss) states.
+          
+    %       \item \textbf{Portfolio co-movement.}  
+    %       If zone $z$ co-moves strongly with the portfolio tail, increasing $a_z$ is expensive \(\Rightarrow\) flatter slope.
+          
+    %       % \item \textbf{Diversification reward.}  
+    %       % Zones that reduce portfolio tail risk receive steeper slopes.
+    %   \end{itemize}
+      
+    %   \medskip
+    %   \textbf{Interpretation.}  
+    %   Optimal contracts trade off \emph{predictive power at the tails} against \emph{global portfolio risk}.
+    %   \end{frame}
+
+    %   \begin{frame}{KKT insights II: capital allocation and premium caps}
+    %     \small
+        
+    %     \textbf{FOC for capital shares $k_z$:}
+    %     \[
+    %     \frac{\partial \mathcal{L}}{\partial k_z}
+    %     = -\lambda_z\frac{c_\kappa}{s_z} + \psi = 0,
+    %     \qquad
+    %     \lambda_z(\pi_z-\bar{\pi}_z)=0
+    %     \]
+        
+    %     \medskip
+        
+    %     \textbf{Two regimes:}
+        
+    %     \medskip
+    %     \textbf{1. No premium caps bind ($\lambda_z=0$ for all $z$).}
+    %     \begin{itemize}\itemsep2pt
+    %         \item The FOC implies \(\psi=0\).
+    %         % \item \textbf{Total capital $K$ matters, but its allocation $\{k_z\}$ does not.}
+    %         \item Capital allocation acts only to equalize marginal utility across zones.
+    %     \end{itemize}
+        
+    %     \medskip
+    %     \textbf{2. Premium cap binds in zone $z$ ($\pi_z=\bar{\pi}_z$).}
+    %     \begin{itemize}\itemsep2pt
+    %         \item Complementary slackness implies \(\lambda_z>0\).
+    %         \item The KKT conditions force:
+    %         \[
+    %         k_z = 0
+    %         \]
+    %         \item Interpretation: the zone cannot bear a risk load — only the mean premium is active.
+    %     \end{itemize}
+        
+    %     \medskip
+    %     \textbf{Implication.}  
+    %     Affordability constraints directly distort contract slopes and eliminate capital charges where caps bind.
+    %     \end{frame}
+        
+      
             
-            \medskip
-            % \textbf{Proof sketch (3 steps)}
-            \begin{enumerate}\itemsep2pt
-              \item \textbf{Solve SZ.} Obtain SZ-optimal contracts $\{a_z^{\mathrm{SZ}},b_z^{\mathrm{SZ}}\}$ with payouts $I_z^{\mathrm{SZ}}$ and premiums $\pi_z^{\mathrm{SZ}}$
 
-              \item \textbf{Augment to an MZ-feasible solution.} Keep the same contracts (so payouts are unchanged) and compute portfolio capital
-              \[
-              K^{\mathrm{MZ}} \;=\; \mathrm{CVaR}_{1-\varepsilon}\!\Big(\sum\nolimits_z s_z I_z^{\mathrm{SZ}}\Big)
-                    - \mathbb{E}\!\Big[\sum\nolimits_z s_z I_z^{\mathrm{SZ}}\Big]
-               \ \le\  K^{\mathrm{SZ}} \quad\text{(subadditivity)}.
-              \]
-              Pick capital shares $\{k_z^{\mathrm{MZ}}\}$ so price caps remain satisfied.
-              $\pi_z^{\mathrm{MZ}} \leq \pi_z^{\mathrm{SZ}}$ due to lower $K$.
 
-              \item \textbf{Objective improves.} Payouts are identical and premiums are (weakly) lower,
-              so welfare (expected utility) is weakly higher under this MZ-feasible solution.
-            \end{enumerate}
+
+        % \begin{frame}{Why MZ $\ge$ SZ sketch}
+        %     \small
+        %     \textbf{Intuition.} Single-zone (SZ) design prices capital \emph{per zone}, ignoring diversification.
+        %     With a coherent risk measure (CVaR), capital is \emph{subadditive}, so SZ \emph{overestimates} required capital
+        %     $\Rightarrow$ it solves a \emph{more constrained} problem than MZ.
             
-            \medskip
-            \textbf{Conclusion.}\quad
-            \(
-            \boxed{\,P_2^{\star}\ \ge\ \sum\nolimits_z P_1(z)^{\star}\,}
-            \)
-            \quad{\scriptsize(equality only under comonotonic losses).}
+        %     \medskip
+        %     % \textbf{Proof sketch (3 steps)}
+        %     \begin{enumerate}\itemsep2pt
+        %       \item \textbf{Solve SZ.} Obtain SZ-optimal contracts $\{a_z^{\mathrm{SZ}},b_z^{\mathrm{SZ}}\}$ with payouts $I_z^{\mathrm{SZ}}$ and premiums $\pi_z^{\mathrm{SZ}}$
+
+        %       \item \textbf{Augment to an MZ-feasible solution.} Keep the same contracts (so payouts are unchanged) and compute portfolio capital
+        %       \[
+        %       K^{\mathrm{MZ}} \;=\; \mathrm{CVaR}_{1-\varepsilon}\!\Big(\sum\nolimits_z s_z I_z^{\mathrm{SZ}}\Big)
+        %             - \mathbb{E}\!\Big[\sum\nolimits_z s_z I_z^{\mathrm{SZ}}\Big]
+        %        \ \le\  K^{\mathrm{SZ}} \quad\text{(subadditivity)}.
+        %       \]
+        %       Pick capital shares $\{k_z^{\mathrm{MZ}}\}$ so price caps remain satisfied.
+        %       $\pi_z^{\mathrm{MZ}} \leq \pi_z^{\mathrm{SZ}}$ due to lower $K$.
+
+        %       \item \textbf{Objective improves.} Payouts are identical and premiums are (weakly) lower,
+        %       so welfare (expected utility) is weakly higher under this MZ-feasible solution.
+        %     \end{enumerate}
             
-            % -------- Optional tiny visual (requires tikz/pgfplots if you want it) --------
-            % \vspace{0.2em}
-            % \begin{tikzpicture}[baseline]
-            %   \draw[fill=gray!20,draw=black] (0,0) rectangle (1.6,0.9);
-            %   \node[below] at (0.8,0) {\scriptsize $\sum_z \mathrm{CVaR}_{1-\varepsilon}(s_z I_z)$};
-            %   \draw[fill=gray!20,draw=black] (2.1,0) rectangle (3.7,0.6);
-            %   \node[below] at (2.9,0) {\scriptsize $\mathrm{CVaR}_{1-\varepsilon}(\sum_z s_z I_z)$};
-            %   \draw[->] (1.7,0.7) -- (2.05,0.7); \node at (1.9,0.85) {\scriptsize subadditivity};
-            % \end{tikzpicture}
-            \end{frame}
+        %     \medskip
+        %     \textbf{Conclusion.}\quad
+        %     \(
+        %     \boxed{\,P_2^{\star}\ \ge\ \sum\nolimits_z P_1(z)^{\star}\,}
+        %     \)
+        %     \quad{\scriptsize(equality only under comonotonic losses).}
+            
+        %     \end{frame}
+
+            % \begin{frame}{Why multi-zone (MZ) weakly dominates single-zone (SZ)}
+            %   \small
+              
+            %   \textbf{Result (Section 6.4).}  
+            %   When required capital is based on a \textbf{coherent risk measure} (e.g.\ CVaR),
+            %   the multi-zone program weakly dominates designing each zone independently.
+              
+            %   \medskip
+              
+            %   \textbf{Key idea.}
+            %   \begin{itemize}\itemsep2pt
+            %       \item SZ overestimates cost of capital because it implicitly assumes perfect correlation.
+            %       \item Coherent risk measures are \textbf{subadditive}: $R \left ( \sum_z s_z I_z \right ) \leq \sum_z R\left ( s_z I_z \right )$
+            %       % \[
+            %       % R\!\left(\sum_z s_z I_z\right) \;\le\; \sum_z s_z R(I_z).
+            %       % \]
+            %   \end{itemize}
+              
+            %   \medskip
+              
+            %   \textbf{Proof sketch (intuition).}
+            %   \begin{itemize}\itemsep2pt
+            %       \item Take the SZ-optimal contracts $\{I_z^{SZ}\}$.
+            %       \item Under MZ, the \emph{same contracts} require weakly less total capital.
+            %       \item The capital savings can be redistributed across zones,
+            %             weakly lowering premiums without changing payouts.
+            %   \end{itemize}
+              
+            %   \medskip
+              
+            %   \textbf{Implication.}
+            %   \begin{itemize}\itemsep2pt
+            %       \item Payouts stay the same, premiums weakly fall $\Rightarrow$ welfare weakly increases.
+            %       % \item MZ expands the feasible set relative to SZ.
+            %   \end{itemize}
+              
+            %   % \medskip
+              
+            %   % \textbf{Conclusion.}
+            %   % \[
+            %   % \boxed{\text{MZ achieves weakly higher welfare than SZ.}}
+            %   % \]
+            %   \end{frame}
+              
 
 
+                
 
 
 \begin{frame}{MZ: joint design raises RIB\; \ribSZshort\; $\rightarrow$\; \ribMZ\; at realistic premiums}
@@ -1312,8 +1532,8 @@ sorting=ynt
    & \textbf{Payout} ($I>0$) & \textbf{No payout} ($I=0$) \\
   \midrule
   \textbf{Loss occurs} &
-  \textcolor{green!50!black}{\textbf{Gain} — \alert{Good gain}:} loss is covered by payout; typically $\Delta U \ge 0$. &
-  \textcolor{red!70!black}{\textbf{Loss} — \alert{Bad loss}:} loss with no payout and premium; $\Delta U < 0$. \\
+  \textcolor{green!50!black}{\textbf{Gain} — \alert{Intended gain}:} loss is covered by payout; typically $\Delta U \ge 0$. &
+  \textcolor{red!70!black}{\textbf{Loss} — \alert{Unintended loss}:} loss with no payout and premium; $\Delta U < 0$. \\
   \addlinespace[2pt]
   \textbf{No loss}  &
   \textcolor{green!50!black}{\textbf{Gain:}} payout despite no loss; $\Delta U > 0$. &
@@ -1323,118 +1543,209 @@ sorting=ynt
   
   \medskip
   {\scriptsize
-  \textbf{Terminology:} We call the first type of utility \emph{gain} a \alert{good gain} (loss with payout).
-  We call the second type of utility \emph{loss} a \alert{bad loss} (loss without payout, plus premium).
+  \textbf{Terminology:} We call the first type of utility \emph{gain} an \alert{intenended gain} (loss with payout).
+  We call the second type of utility \emph{loss} an \alert{unintended loss} (loss without payout, plus premium).
   }
   \end{frame}
 
 
-\begin{frame}{Good gains and bad losses: welfare-focused view}
-\small
-% \setlength{\abovedisplayskip}{3pt}
-% \setlength{\belowdisplayskip}{3pt}
-\setlength{\columnsep}{12pt} % ensure space between columns
+% \begin{frame}{Intended gains and uninteded losses: welfare-focused view}
+% \small
+% % \setlength{\abovedisplayskip}{3pt}
+% % \setlength{\belowdisplayskip}{3pt}
+% \setlength{\columnsep}{12pt} % ensure space between columns
 
-Let $\Delta u_i \equiv u(w_i^{\text{ins}})-u(w_i^{0})$.
-\vspace{1em}
-\begin{columns}[T,onlytextwidth]
+% Let $\Delta u_i \equiv u(w_i^{\text{ins}})-u(w_i^{0})$.
+% \vspace{1em}
+% \begin{columns}[T,onlytextwidth]
 
-% --- LEFT (no block: avoids extra padding) ---
-\begin{column}{0.50\linewidth}
-\raggedright
-\textbf{Metrics we report}\\[2pt]
-\[
-\textbf{Good Gain}
-= \frac{\sum_{i:L_i>0} w_i\,(\Delta u_i)_{+}}
-       {\sum_{i: \Delta u_i > 0} w_i\,(\Delta u_i)_{+}}
-\]
+% % --- LEFT (no block: avoids extra padding) ---
+% \begin{column}{0.50\linewidth}
+% \raggedright
+% \textbf{Metrics we report}\\[2pt]
+% \[
+% \textbf{Intended gain share (IGS)}
+% = \frac{\sum_{i:L_i>0} w_i\,(\Delta u_i)_{+}}
+%        {\sum_{i: \Delta u_i > 0} w_i\,(\Delta u_i)_{+}}
+% \]
 
-{\footnotesize \textit{share of utility gains that occur when there is a loss}}
-\[
-\textbf{Bad Loss}
-= \frac{\sum_{i:\Delta u_i < 0 \land L_i > 0} w_i\,(\Delta u_i)_{+}}
-       {\sum_{i:\Delta u_i < 0} w_i\,(\Delta u_i)_{+}}
-\]
-{\footnotesize \textit{share of utility losses that occur when there is a loss}} \\
-{\scriptsize $(x)_+=\max\{x,0\}$}
-\end{column}
+% {\footnotesize \textit{share of utility gains that occur when there is a loss}}
+% \[
+% \textbf{Uninteded loss share (ULS)}
+% = \frac{\sum_{i:\Delta u_i < 0 \land L_i > 0} w_i\,(\Delta u_i)_{+}}
+%        {\sum_{i:\Delta u_i < 0} w_i\,(\Delta u_i)_{+}}
+% \]
+% {\footnotesize \textit{share of utility losses that occur when there is a loss}} \\
+% {\scriptsize $(x)_+=\max\{x,0\}$}
+% \end{column}
 
-% --- RIGHT (slightly narrower; keep block styling) ---
-\begin{column}{0.46\linewidth}
-\raggedright
-\begin{block}{Interpretation}
-\begin{itemize}\itemsep=2pt \setlength{\parskip}{0pt}\setlength{\parsep}{0pt}
-\item \textbf{Higher} Good Gain $\Rightarrow$ insurance is behaving as intended.
-\item \textbf{Lower} Bad Loss $\Rightarrow$ less basis risk.
-%   \item Complements $P$/$R$: looking at overall welfare
-\end{itemize}
-\end{block}
-\end{column}
+% % --- RIGHT (slightly narrower; keep block styling) ---
+% \begin{column}{0.3\linewidth}
+% \raggedright
+% \begin{block}{Interpretation}
+% \begin{itemize}\itemsep=2pt \setlength{\parskip}{0pt}\setlength{\parsep}{0pt}
+% \item \textbf{Higher} IGS $\Rightarrow$ insurance is behaving as intended.
+% \item \textbf{Lower} ULS $\Rightarrow$ less basis risk.
+% %   \item Complements $P$/$R$: looking at overall welfare
+% \end{itemize}
+% \end{block}
+% \end{column}
 
-\end{columns}
-\end{frame}
-
-\begin{frame}{Insurance behavior: payout precision and loss recall}
-    \small
-    \begin{block}{Definitions (normalized per plot $i$ with weights $w_i$)}
-    Let $I_i$ be the (normalized) payout and $L_i$ the realized loss.
-    \[
-    \textbf{Payout Precision } P
-    = \frac{\sum_i w_i \min\{I_i,\,L_i\}}{\sum_i w_i I_i}
-    \quad\textit{(share of payouts that were valid)}
-    \]
-    \[
-    \textbf{Loss Recall } R
-    = \frac{\sum_i w_i \min\{I_i,\,L_i\}}{\sum_i w_i L_i}
-    \quad\textit{(share of loss dollars that were covered)}
-    \]
-    \end{block}
-    
-    \begin{itemize}
-      \item $P$ penalizes over-payment; $R$ penalizes under-payment when $L_i\!>\!0$.
-      \item Multi-zone (portfolio) design boosts $R$ by using diversification and capital allocation to make larger payouts.
-    \end{itemize}
-    \end{frame}
-
-    
-
-% \begin{frame}{Good Gains and Bad Losses}
-%     \begin{table}[]
-%         \centering
-%         \begin{tabular}{lll}
-%                                      & Utility Gain           & Utility Loss           \\ \cline{2-3} 
-%         \multicolumn{1}{l|}{Loss}    & \multicolumn{1}{l|}{\cmark} & \multicolumn{1}{l|}{-} \\ \cline{2-3} 
-%         \multicolumn{1}{l|}{No Loss} & \multicolumn{1}{l|}{-} & \multicolumn{1}{l|}{\xmark} \\ \cline{2-3} 
-%         \end{tabular}
-%         \end{table}
-
-%         \cmark: utility gain during loss $\rightarrow$ "good gain"\\
-%         \xmark: utility loss during loss $\rightarrow$ "bad loss"
+% \end{columns}
 % \end{frame}
 
-\begin{frame}{Insurance behavior results (VMX-M vs VMX and baselines)}
-    \small
-    \setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{1.15}
-    \begin{tabularx}{\linewidth}{l *{5}{>{\centering\arraybackslash}X}}
-    \toprule
-    Method & RIB & Payout Precision & Loss Recall & Good Gain & Bad Loss \\
-    \midrule
-    VMX-M  & \textbf{0.597} & \textbf{0.184} & \textbf{0.211} & \textbf{0.390} & \textbf{0.334} \\
-    VMX    & 0.524 & 0.175 & 0.120 & 0.335 & 0.372 \\
-    Chantarat & -0.222 & 0.328 & 0.010 & 0.616 & 0.514 \\
-    Chen      & -1.924 & 0.173 & 0.298 & 0.327 & 0.440 \\
-    \midrule
-    \multicolumn{1}{r}{\emph{$\Delta$ VMX-M $-$ VMX}} &
-    \emph{+0.075} & \emph{+0.009} & \emph{+0.091} & \emph{+0.055} & \emph{$-$0.038} \\
-    \bottomrule
-    \end{tabularx}
+\begin{frame}{Intended gains and unintended losses: a welfare view}
+  \small
+  
+  \begin{columns}[T,onlytextwidth]
+  \setlength{\columnsep}{14pt}
+  
+  % -------- LEFT COLUMN --------
+  \begin{column}{0.52\linewidth}
+  \raggedright
+  
+  
+  \textbf{Metrics we report}
+  \medskip
+
+  \begin{itemize}\itemsep4pt
+      \item \textbf{Intended Gain Share (IGS):}  
+      Share of total utility gains that occur \emph{when a loss is realized}.
+      
+      \item \textbf{Unintended Loss Share (ULS):}  
+      Share of total utility losses that occur \emph{when a loss is realized}.
+  \end{itemize}
+  
+  \end{column}
+  
+  % -------- RIGHT COLUMN --------
+  \begin{column}{0.44\linewidth}
+  \raggedright
+  
+  \begin{block}{Interpretation}
+  \begin{itemize}\itemsep4pt
+      \item \textbf{Higher Intended Gain Share} $\Rightarrow$ insurance pays primarily in loss states.
+      \item \textbf{Lower Uninteded Loss Share} $\Rightarrow$ fewer welfare losses from basis risk.
+  \end{itemize}
+  \end{block}
+  
+  \end{column}
+  \end{columns}
+  
+  \end{frame}
+  
+
+% \begin{frame}{Intended gains and uninteded losses: welfare-focused view}
+%   \small
+%   % \setlength{\abovedisplayskip}{3pt}
+%   % \setlength{\belowdisplayskip}{3pt}
+%   \setlength{\columnsep}{12pt} % ensure space between columns
+  
+%   Let $\Delta u_i \equiv u(w_i^{\text{ins}})-u(w_i^{0})$.
+%   \vspace{1em}
+%   \begin{columns}[T,onlytextwidth]
+  
+%   % --- LEFT (no block: avoids extra padding) ---
+%   \begin{column}{0.50\linewidth}
+%   \raggedright
+%   \textbf{Metrics we report}\\[2pt]
+%   \textbf{Intended gain share (IGS):} share of utility gains that occur when there is a loss
+  
+%   % {\footnotesize \textit{share of utility gains that occur when there is a loss}}
+%   % \[
+%   \textbf{Uninteded loss share (ULS):} share of utility losses that occur when there is a loss
+
+%   % \]
+%   % {\footnotesize \textit{share of utility losses that occur when there is a loss}} \\
+%   % {\scriptsize $(x)_+=\max\{x,0\}$}
+%   \end{column}
+  
+%   % --- RIGHT (slightly narrower; keep block styling) ---
+%   \begin{column}{0.46\linewidth}
+%   \raggedright
+%   \begin{block}{Interpretation}
+%   \begin{itemize}\itemsep=2pt \setlength{\parskip}{0pt}\setlength{\parsep}{0pt}
+%   \item \textbf{Higher} IGS $\Rightarrow$ insurance is behaving as intended.
+%   \item \textbf{Lower} ULS $\Rightarrow$ less basis risk.
+%   %   \item Complements $P$/$R$: looking at overall welfare
+%   \end{itemize}
+%   \end{block}
+%   \end{column}
+  
+%   \end{columns}
+%   \end{frame}
+
+% \begin{frame}{Insurance behavior: payout precision and loss recall}
+%     \small
+%     \begin{block}{Definitions (normalized per plot $i$ with weights $w_i$)}
+%     Let $I_i$ be the (normalized) payout and $L_i$ the realized loss.
+%     \[
+%     \textbf{Payout Precision } P
+%     = \frac{\sum_i w_i \min\{I_i,\,L_i\}}{\sum_i w_i I_i}
+%     \quad\textit{(share of payouts that were valid)}
+%     \]
+%     \[
+%     \textbf{Loss Recall } R
+%     = \frac{\sum_i w_i \min\{I_i,\,L_i\}}{\sum_i w_i L_i}
+%     \quad\textit{(share of loss dollars that were covered)}
+%     \]
+%     \end{block}
     
-    \medskip
-    \begin{itemize}
-      \item \textbf{Multi-zone (VMX-M)} raises welfare (\(+0.075\) RIB) by \emph{covering more true losses} (Recall \(+0.091\)) and \emph{reducing under-protected loss states} (Bad Loss \(\downarrow 0.038\)).
-      \item Chantarat’s high “precision” reflects very few payouts overall (low recall); VMX-M improves balance.
-    \end{itemize}
-    \end{frame}
+%     \begin{itemize}
+%       \item $P$ penalizes over-payment; $R$ penalizes under-payment when $L_i\!>\!0$.
+%       \item Multi-zone (portfolio) design boosts $R$ by using diversification and capital allocation to make larger payouts.
+%     \end{itemize}
+%     \end{frame}
+
+    
+
+    \begin{frame}{Insurance behavior results (VMX-M vs VMX and baselines)}
+      \small
+      \setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{1.15}
+      \begin{tabularx}{\linewidth}{l *{5}{>{\centering\arraybackslash}X}}
+      \toprule
+      Method & RIB & Intended Gain Share & Uninteded Loss Share \\
+      \midrule
+      VMX-M  & \textbf{0.597} & \textbf{0.390} & \textbf{0.334} \\
+      VMX    & 0.524 &  0.335 & 0.372 \\
+      Chantarat & -0.222  & 0.616 & 0.514 \\
+      Chen      & -1.924 &  0.327 & 0.440 \\
+      \midrule
+      \multicolumn{1}{r}{\emph{$\Delta$ VMX-M $-$ VMX}} &
+      \emph{+0.075} &  \emph{+0.055} & \emph{$-$0.038} \\
+      \bottomrule
+      \end{tabularx}
+      
+      \medskip
+      \begin{itemize}
+        \item \textbf{Multi-zone (VMX-M)} raises welfare (\(+0.075\) RIB) by \emph{covering more true losses} (IGS \(+0.055\)) and \emph{reducing under-protected loss states} (ULS \(\downarrow 0.038\)).
+        \item Chantarat’s high IGS reflects very few payouts overall (low RIB); VMX-M improves balance.
+      \end{itemize}
+      \end{frame}
+
+% \begin{frame}{Insurance behavior results (VMX-M vs VMX and baselines)}
+%     \small
+%     \setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{1.15}
+%     \begin{tabularx}{\linewidth}{l *{5}{>{\centering\arraybackslash}X}}
+%     \toprule
+%     Method & RIB & Payout Precision & Loss Recall & IGS & ULS \\
+%     \midrule
+%     VMX-M  & \textbf{0.597} & \textbf{0.184} & \textbf{0.211} & \textbf{0.390} & \textbf{0.334} \\
+%     VMX    & 0.524 & 0.175 & 0.120 & 0.335 & 0.372 \\
+%     Chantarat & -0.222 & 0.328 & 0.010 & 0.616 & 0.514 \\
+%     Chen      & -1.924 & 0.173 & 0.298 & 0.327 & 0.440 \\
+%     \midrule
+%     \multicolumn{1}{r}{\emph{$\Delta$ VMX-M $-$ VMX}} &
+%     \emph{+0.075} & \emph{+0.009} & \emph{+0.091} & \emph{+0.055} & \emph{$-$0.038} \\
+%     \bottomrule
+%     \end{tabularx}
+    
+%     \medskip
+%     \begin{itemize}
+%       \item \textbf{Multi-zone (VMX-M)} raises welfare (\(+0.075\) RIB) by \emph{covering more true losses} (Recall \(+0.091\)) and \emph{reducing under-protected loss states} (Bad Loss \(\downarrow 0.038\)).
+%       \item Chantarat’s high “precision” reflects very few payouts overall (low recall); VMX-M improves balance.
+%     \end{itemize}
+%     \end{frame}
 
 % \begin{frame}{Summary of results (policy-facing)}
 %     \begin{itemize}
@@ -1459,11 +1770,113 @@ Let $\Delta u_i \equiv u(w_i^{\text{ins}})-u(w_i^{0})$.
               \item \textbf{Capital reallocation:} with a portfolio risk load, capital shifts toward zones with highest utility gain per unit of portfolio risk.
             \end{itemize}
             \end{block}
-        
-        
+   
         \end{frame}
 
-\begin{frame}{Takeaways and Next steps}
+\section{Data Scarce vs Data Rich Setting: US Midwest Agricultural Losses}
+\begin{frame}[plain]
+  \centering
+  \vspace{2cm}
+  
+  {\Large \textbf{Next: U.S.\ Midwest Corn}}
+  
+  \vspace{0.6cm}
+  {\large Short, noisy data \;\(\rightarrow\)\; Long, higher-quality data}
+  
+  \end{frame}
+  
+
+  \begin{frame}{Why analyze U.S.\ Midwest corn?}
+    \small
+    
+    \textbf{Motivation.}  
+  The Thailand setting provides only 8 years of loss data, typical of many LMIC index insurance programs.  
+  To understand how contract design behaves in richer-data environments, we evaluate the method on a 
+  long-run, higher-quality benchmark: corn in Illinois.
+    
+    \medskip
+    
+    \textbf{Why look at the U.S.\ Midwest now?}
+    \begin{itemize}\itemsep2pt
+        \item Illinois corn provides a \textbf{long-run dataset} (90+ years).
+        \item Allows us to vary the training window (20–80 years) and study how  
+              \textbf{prediction quality and sample size shape contract performance}.
+        \item Illinois has only one “zone,” so we compare  
+        \textbf{our single-zone method} vs.\ \textbf{Chen’s neural-network-based method} to highlight  
+        the tradeoff between \emph{simplicity} and \emph{model complexity}.
+    \end{itemize}
+    
+    \medskip
+    
+    {\scriptsize This benchmark helps interpret the results in Thailand: when data is long, complex methods can catch up; when data is short, simple optimized contracts dominate.}
+    
+    \end{frame}
+    
+
+\begin{frame}{Data}
+  Used two main data sources
+  \begin{itemize}
+      \setlength\itemsep{2em}
+      \item Illinois annual corn yield data from the National Agricultural Statistics Service (NASS). Data is available at the county level from 1925-2022. 84 counties. 
+      \item Weather data from the PRISM climate group. Has monthly data on several weather variables (temperature, precipitation, etc). Available 1895-present.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Data Shortening}
+  \begin{itemize}
+    \setlength\itemsep{2em}
+    \item We fix the test set to be data from 2007-2022
+    \item We gradually increase the size of the training set from 20 years (2006-1986) to 80 years (2006-1926) to see how the performance of both methods evolves as more data becomes available. 
+\end{itemize}
+  
+\end{frame}
+
+\begin{frame}{Data Shortening Results}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{../../../output/figures/Proposal/utility_vs_length_train_slowopt_e200.png}
+\end{figure}
+  
+\end{frame}
+
+\begin{frame}{Why the drop in performance?}
+  \begin{figure}
+    \includegraphics[width=0.8\textwidth]{../../../output/figures/Proposal/performance_vs_length.png}
+\end{figure}
+Type of error changes from overprediction to underprediction. Data is also less representative. 
+\end{frame}
+
+\begin{frame}{What the Midwest experiment reveals}
+  \small
+  
+  \textbf{1. Simpler models can be more affected by nonstationarity.}  
+  \begin{itemize}\itemsep1.5pt
+      \item Adding early decades makes the training data \emph{less representative} of recent losses.
+      \item Flexible models (Chen’s NN) absorb long, nonstationary histories better.
+  \end{itemize}
+  
+  \medskip
+  
+  \textbf{2. Simpler models outperform complex models when data is scarce}  
+  \begin{itemize}\itemsep1.5pt
+      \item With short, noisy datasets (Thailand-like), simple optimized contracts are \textbf{more robust}.  
+      \item NN models overfit small samples; performance only improves with 50+ years of data.
+  \end{itemize}
+  
+  \medskip
+  
+  \textbf{3. Implication for LMIC index insurance.}  
+  \begin{itemize}\itemsep1.5pt
+    \item Many LMIC programs resemble Thailand: \textbf{short data, noisy signals, few years}.  
+    \item The Midwest benchmark shows that in such environments,  
+          \textbf{simple, interpretable, optimized contracts dominate},  
+          and more complex models only add value when large historical datasets exist.
+  \end{itemize}
+  
+  \end{frame}
+
+  
+
+\begin{frame}{Takeaways}
   \begin{block}{Three takeaways}
     \begin{enumerate}\itemsep1pt
       \item Index insurance \textbf{can be effectively optimized} while keeping contracts \textbf{simple}.
@@ -1471,13 +1884,13 @@ Let $\Delta u_i \equiv u(w_i^{\text{ins}})-u(w_i^{0})$.
       \item In noisy, short datasets typical of many developing countries, \textbf{simple} piecewise-linear contracts \textbf{outperform more complex} ones (Less is more \cite{xie2024vc}).
     \end{enumerate}
     \end{block}
-    \begin{block}{Next Steps}
-    \begin{enumerate}
-      \item Extend MZ dominance proof to general contract class and more general premium principle.
-      \item Run simulation study to understand how performance gap is affected by correlation of losses amongst zones. 
-      \item Do an analysis of FOC conditions to understand how correlation and prediction quality affect optimal parameter values. 
-    \end{enumerate}
-  \end{block}
+  %   \begin{block}{Next Steps}
+  %   \begin{enumerate}
+  %     \item Extend MZ dominance proof to general contract class and more general premium principle.
+  %     \item Run simulation study to understand how performance gap is affected by correlation of losses amongst zones. 
+  %     \item Do an analysis of FOC conditions to understand how correlation and prediction quality affect optimal parameter values. 
+  %   \end{enumerate}
+  % \end{block}
     \end{frame}
 
 
@@ -1496,10 +1909,68 @@ Let $\Delta u_i \equiv u(w_i^{\text{ins}})-u(w_i^{0})$.
 %     \end{itemize}
     
 % \end{frame}
+% In preamble:
+
+% A helper macro for uniform headshots:
+\newcommand{\headshot}[2][]{%
+  \includegraphics[width=0.52\linewidth,clip,trim=0 0 0 0,#1]{#2}%
+}
+
+\begin{frame}{Acknowledgements}
+\centering
+
+\begin{columns}[T,totalwidth=\textwidth]
+  \begin{column}{0.49\textwidth}
+    \centering
+    \headshot[trim=0 10 0 0]{Acknowledgements/Linwei.jpg}\\[-2pt]
+    \textbf{Prof.\ Linwei Xin}\\
+    {\footnotesize Advisor / Chair}
+  \end{column}
+  \begin{column}{0.49\textwidth}
+    \centering
+    \headshot[trim=20 10 20 10]{Acknowledgements/Rad.jpeg}\\[-2pt]
+    \textbf{Prof.\ Rad Niazadeh}\\
+  \end{column}
+\end{columns}
+
+\vspace{0.8em}
+
+\begin{columns}[T,totalwidth=\textwidth]
+  \begin{column}{0.49\textwidth}
+    \centering
+    \headshot[trim=0 10 0 0]{Acknowledgements/XY.jpg}\\[-2pt]
+    \textbf{Prof.\ XY Han}\\
+  \end{column}
+  \begin{column}{0.49\textwidth}
+    \centering
+    \headshot[trim=0 10 0 0]{Acknowledgements/Josh.png}\\[-2pt]
+    \textbf{Dr.\ Joshua Deutschmann}\\
+  \end{column}
+\end{columns}
+
+\end{frame}
 
 
+\begin{frame}{Acknowledgements: BoT Research Team}
+  \includegraphics[width=\textwidth]{Acknowledgements/PIER.jpeg}
+\end{frame}
 
+\begin{frame}{Friends}
+  \includegraphics[width=0.7\textwidth]{Acknowledgements/Friends.JPG}
+\end{frame}
 
+\begin{frame}{Family}
+  \includegraphics[width=\textwidth]{Acknowledgements/Family.jpeg}
+\end{frame}
+
+\begin{frame}[plain]
+  \centering
+  \vspace{2cm}
+  
+  {\Large \textbf{Thank you!}}
+  
+  
+  \end{frame}
 
 \begin{frame}[noframenumbering, plain]{References}
 \printbibliography

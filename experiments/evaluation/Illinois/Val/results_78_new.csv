@@ -1,5 +1,6 @@
-Utility,CEW,Premium,Insurer Cost,Eval Name,Method,Required Capital,a,b,Market Loading,Params
--1.709,536.550,70.616,99620.014,chen_Ridge_O1z_ub200_Lck,VMX,6.486,0.300,0.010,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 534.0}"
--1.737,534.514,139.454,199071.003,chen_SVR_UUb_ub200_jwU,VMX,6.718,0.620,0.010,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 534.0}"
--1.834,527.707,122.655,163352.179,chen_Random Forest_iCo_ub200_94O,VMX,12.781,0.510,0.040,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 534.0}"
--1.772,532.038,83.751,112665.004,chen_Gradient Boosting_rw0_ub200_XOr,VMX,8.964,0.340,0.010,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 534.0}"
+Utility,CEW,PredLoss,Loss,Premium,Insurer Cost,Eval Name,Method,Required Capital,a,b,Market Loading,Params
+-1.737,534.507,212.289,225.889,137.344,130.352,chen_SVR_LoI_ub200_ivW,VMX,0.048,0.610,0.020,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 534.0}"
+-1.842,527.155,215.269,225.889,128.266,113.552,chen_Random Forest_ipp_ub200_T6F,VMX,0.107,0.530,0.060,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 534.0}"
+-1.788,530.926,209.521,225.889,111.224,105.897,catch22_SVR_yo3_ub200_Qwm,VMX,0.031,0.510,0.100,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 534.0}"
+-1.877,524.798,216.441,225.889,124.896,111.022,catch22_Random Forest_77o_ub200_76s,VMX,0.107,0.510,0.050,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 534.0}"
+-1.807,529.582,217.999,225.889,82.502,73.969,catch22_Gradient Boosting_2l4_ub200_5ej,VMX,0.106,0.340,0.010,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 200, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 534.0}"

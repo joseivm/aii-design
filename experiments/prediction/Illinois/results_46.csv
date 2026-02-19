@@ -1,6 +1,11 @@
 Loss Recall,Payout Precision,Average Cost,Cost Per Coverage,MSE,Algorithm,Transform,Time,Model Name,Algorithm Args
-0.878,0.864,227.548,259.052,6229.366,Ridge,chen,0.000,chen_Ridge_qtF,
-0.901,0.872,224.989,249.659,5672.979,Lasso,chen,0.000,chen_Lasso_PVU,
-0.897,0.885,214.268,238.977,5765.045,SVR,chen,0.090,chen_SVR_ulr,
-0.907,0.888,220.381,242.944,4640.544,Random Forest,chen,0.830,chen_Random Forest_AFl,{'n_estimators': 250}
-0.918,0.884,226.259,246.495,4045.915,Gradient Boosting,chen,0.190,chen_Gradient Boosting_Ghp,{'n_estimators': 250}
+0.878,0.864,227.548,259.052,6229.366,Ridge,chen,0.000,chen_Ridge_fXd,
+0.901,0.872,224.989,249.659,5672.979,Lasso,chen,0.000,chen_Lasso_Mbo,
+0.897,0.885,214.268,238.977,5765.045,SVR,chen,0.080,chen_SVR_vy1,
+0.907,0.889,220.139,242.616,4619.773,Random Forest,chen,0.760,chen_Random Forest_JCL,{'n_estimators': 250}
+0.918,0.884,226.232,246.443,4018.768,Gradient Boosting,chen,0.170,chen_Gradient Boosting_WnV,{'n_estimators': 250}
+0.901,0.845,233.803,259.362,7856.506,Ridge,catch22,0.000,catch22_Ridge_xTN,
+0.900,0.863,225.567,250.609,6666.904,Lasso,catch22,0.000,catch22_Lasso_MiW,
+0.873,0.879,208.238,238.605,7703.342,SVR,catch22,0.090,catch22_SVR_QyS,
+0.902,0.870,223.338,247.588,6519.760,Random Forest,catch22,0.760,catch22_Random Forest_zZ8,{'n_estimators': 250}
+0.910,0.862,228.764,251.410,6286.240,Gradient Boosting,catch22,0.280,catch22_Gradient Boosting_u8i,{'n_estimators': 250}

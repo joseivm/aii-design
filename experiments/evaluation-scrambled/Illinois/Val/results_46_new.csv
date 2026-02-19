@@ -1,7 +1,0 @@
-Utility,CEW,Premium,Insurer Cost,Eval Name,Method,Required Capital,a,b,Market Loading,Params
--1.439,558.030,98.241,87304.333,chen_SVR_77y_ub100_pEz,VMX,7.432,0.810,78.900,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 538.0}"
--1.472,555.232,99.666,87211.064,chen_Random Forest_Igw_ub100_MnM,VMX,11.484,0.490,16.250,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 538.0}"
--1.418,559.905,99.713,89879.313,chen_Gradient Boosting_XDH_ub100_AmW,VMX,10.728,0.460,8.310,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 538.0}"
--1.551,548.717,49.372,78505.999,catch22_Ridge_m6E_ub100_3Tu,VMX,3.455,0.220,0.010,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 511.0}"
--1.600,544.759,100.011,146869.003,catch22_Random Forest_8su_ub100_vVP,VMX,11.458,0.540,24.550,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 511.0}"
--1.559,548.064,100.697,153942.531,catch22_Gradient Boosting_niZ_ub100_UCT,VMX,11.018,0.530,20.510,1,"{'epsilon_p': 0.01, 'c_k': 0.13, 'subsidy': 0, 'w_0': 797.6, 'premium_ub': 100, 'risk_coef': 0.008, 'S': [1], 'market_loading': 1, 'P': 511.0}"

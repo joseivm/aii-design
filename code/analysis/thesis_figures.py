@@ -9,13 +9,14 @@ dotenv_path = find_dotenv()
 load_dotenv(dotenv_path)
 PROJECT_DIR = os.environ.get("PROJECT_DIR")
 
-
+scrambled = False
+suffix = '-scrambled' if scrambled else ''
 # Input files/dirs
 
 # Output files/dirs
 EXPERIMENTS_DIR = os.path.join(PROJECT_DIR,'experiments')
-EVAL_DIR = os.path.join(EXPERIMENTS_DIR,'evaluation-scrambled')
-PRED_DIR = os.path.join(EXPERIMENTS_DIR,'prediction-scrambled')
+EVAL_DIR = os.path.join(EXPERIMENTS_DIR,f"evaluation{suffix}")
+PRED_DIR = os.path.join(EXPERIMENTS_DIR,f"prediction{suffix}")
 FIGURES_DIR = os.path.join(PROJECT_DIR,'output','figures','Proposal')
 
 ##### Data Loading #####
@@ -51,7 +52,8 @@ def get_pred_results(state):
 
 def utility_vs_length_quadratic(length=20):
     rdf = get_results('Illinois')
-    rdf = rdf.loc[rdf.Length > length,:]
+    # rdf = rdf.loc[rdf.Length > length,:]
+    # rdf = rdf.loc[rdf.Length != 24,:]
     plt.figure()
     ax = sns.lmplot(
         data=rdf,
@@ -66,7 +68,7 @@ def utility_vs_length_quadratic(length=20):
         line_kws={"lw": 2.5},
         order=2                # 👈 Quadratic regression
     )
-    sns.move_legend(ax,'lower right',bbox_to_anchor=(1,0.05))
+    sns.move_legend(ax,'upper right')
     plt.title("Utility vs. Data Length by Method (Quadratic Fit)", fontsize=14, pad=15)
     plt.xlabel("Training Data Length")
     plt.ylabel("Expected Utility")
@@ -99,7 +101,7 @@ def performance_vs_length():
     rdf = get_pred_results('Illinois')
 
     # Compute averages by Length
-    metrics = ["Loss Recall", "Payout Precision", "MSE"]
+    metrics = ["Loss Recall", "Payout Precision",'MSE']
     rdf_avg = rdf.groupby("Length")[metrics].mean().reset_index()
 
     # Normalize each metric (0–1 range)
